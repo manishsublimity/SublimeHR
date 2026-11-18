@@ -1617,8 +1617,8 @@ html.no-js .rv { opacity: 1; transform: none; }
 /* ===== v3.10 — simple CTA (text left, buttons right), visible alt arrow ===== */
 .cta { grid-template-columns: 1fr auto; padding: clamp(32px,5vw,56px) clamp(32px,5vw,64px); }
 .cta .hero__cta { justify-content: flex-end; margin-top: 0; flex-wrap: nowrap; }
-.cta .btn.alt .bub { background: var(--paper); color: var(--blue); }
-.cta .btn.alt:hover .bub { background: var(--paper); color: var(--ink); }
+.cta .btn.alt .bub { background: #fff; color: var(--blue); }
+.cta .btn.alt:hover .bub { background: #fff; color: #13203A; }
 @media (max-width: 860px) { .cta { grid-template-columns: 1fr; } .cta .hero__cta { justify-content: flex-start; flex-wrap: wrap; } }
 
 /* ===== v3.11 — compact footer word ===== */
@@ -1697,3 +1697,7 @@ html[data-theme="dark"] .hero::after { background: linear-gradient(180deg, rgba(
 html[data-theme="dark"] .scene::before { background: rgba(255,255,255,.05); }
 html[data-theme="dark"] .idcard__clip::after { background: var(--line-2); }
 @media (max-width: 1080px) { .theme-tg { margin-left: auto; } }
+/* dark: keep on-colour (banner) buttons and toggle knobs as in light */
+html[data-theme="dark"] .cta .btn:not(.alt) { --fg: #13203A; --bubble: #E4EFFC; }
+html[data-theme="dark"] .cta .btn:not(.alt) .bub { color: #2F72B8; }
+html[data-theme="dark"] .switch input + span::after, html[data-theme="dark"] .ba2__body li .tg::after { background: #fff; }
