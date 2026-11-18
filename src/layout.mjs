@@ -47,6 +47,7 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
+<script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(full)}</title>
 <meta name="description" content="${esc(description)}">
@@ -89,7 +90,7 @@ function header(active) {
 <div class="bar-progress" aria-hidden="true"></div>
 <header class="header" id="header">
   <div class="container header__in">
-    <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34"><span>Sublime<span class="hr">HR</span></span></a>
+    <a class="brand" href="/" aria-label="SublimeHR home"><span class="lgo" role="img" aria-label="SublimeHR logo"><img class="lp l" src="/assets/img/logo-parts/l.png" alt="" width="717" height="639"><img class="lp r" src="/assets/img/logo-parts/r.png" alt="" width="717" height="639"><span class="lp sg"><img class="lp s" src="/assets/img/logo-parts/s.png" alt="" width="717" height="639"><img class="lp arm" src="/assets/img/logo-parts/arm.png" alt="" width="717" height="639"></span><img class="lp dot" src="/assets/img/logo-parts/dot.png" alt="" width="717" height="639"></span><span>Sublime<span class="hr">HR</span></span></a>
     <nav class="menu" aria-label="Primary">
       <div class="m-item">
         <a class="menu-link" href="/features/"${cur("features")}>Product ${icon("chevron", "chev")}</a>
@@ -111,6 +112,7 @@ function header(active) {
         </div>
       </div>
     </nav>
+    <button class="theme-tg" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Toggle dark theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     <div class="header__cta">
       <a class="btn alt sm no-bub" href="/get-pricing/">Get pricing</a>
       <a class="btn sm" href="/book-demo/">Book a demo <span class="bub">${icon("arrow")}</span></a>
@@ -119,9 +121,10 @@ function header(active) {
   </div>
 </header>
 <nav class="drawer" id="drawer" aria-label="Mobile">
-  <details><summary>Product ${icon("chevron")}</summary><div class="sub"><a href="/features/"><strong>All features</strong></a>${modules.map((m) => `<a href="/software/${m.slug}/">${m.name}</a>`).join("")}</div></details>
+  <details><summary>Product ${icon("chevron")}</summary><div class="sub">${modules.map((m) => `<a href="/software/${m.slug}/"><span class="ico sm">${icon(m.icon)}</span><span>${m.name}</span></a>`).join("")}</div></details>
   <a class="d" href="/industries/">Industries</a><a class="d" href="/pricing/">Pricing</a><a class="d" href="/integrations/">Integrations</a><a class="d" href="/custom-development/">Custom development</a><a class="d" href="/about/">About</a><a class="d" href="/faq/">FAQ</a><a class="d" href="/contact/">Contact</a>
-  <div class="cta"><a class="btn block" href="/book-demo/">Book a demo <span class="bub">${icon("arrow")}</span></a><a class="btn alt block no-bub" href="/get-pricing/">Get pricing</a></div>
+  <button class="d theme-row" type="button" data-theme-toggle aria-label="Switch to dark theme"><span>Dark mode</span><span class="sw" aria-hidden="true"><i></i></span></button>
+  <div class="drawer__cta"><a class="btn alt no-bub" href="/get-pricing/">Get pricing</a><a class="btn" href="/book-demo/">Book a demo <span class="bub">${icon("arrow")}</span></a></div>
 </nav>`;
 }
 

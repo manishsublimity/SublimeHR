@@ -43,6 +43,7 @@
     burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     drawer.classList.toggle("open", open);
     document.body.classList.toggle("locked", open);
+    document.documentElement.classList.toggle("locked", open);
     $(".i-open", burger).hidden = open; $(".i-close", burger).hidden = !open;
   }
   if (burger) {
@@ -159,6 +160,12 @@
             if (v <= 540) setStatus("mint", "On time ✓");
             else if (v <= 555) setStatus("butter", "In grace period ✓");
             else setStatus("peach", "Late " + (v - 540) + " min · flagged");
+            var td = $(".clk__week li.today", w);
+            if (td) {
+              $("span", td).textContent = cur();
+              $("small", td).textContent = v <= 540 ? "On time" : v <= 555 ? "Grace" : "Late";
+              td.className = "today " + (v <= 555 ? "ok" : "late");
+            }
           } else setStatus("mint", "Clocked in ✓");
           row = document.createElement("li");
           row.innerHTML = "<b></b><span></span><i class='open'>On shift</i>";
@@ -669,6 +676,28 @@
       if (last) { last.classList.add("leave"); setTimeout(function () { last.remove(); }, 450); }
     }, 2800);
   });
+
+  /* ---------- Light / dark theme toggle (header + mobile menu) ---------- */
+  (function () {
+    var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]'), tgs = $$("[data-theme-toggle]");
+    function sync() {
+      var dark = root.getAttribute("data-theme") === "dark";
+      tgs.forEach(function (b) {
+        b.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+        b.setAttribute("aria-pressed", dark ? "true" : "false");
+      });
+      if (meta) meta.setAttribute("content", dark ? "#0A1527" : "#FFFFFF");
+    }
+    sync();
+    tgs.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var dark = root.getAttribute("data-theme") !== "dark";
+        if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
+        try { localStorage.setItem("shr-theme", dark ? "dark" : "light"); } catch (e) {}
+        sync();
+      });
+    });
+  })();
 
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
