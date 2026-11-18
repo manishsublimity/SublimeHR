@@ -90,7 +90,7 @@ function header(active) {
 <div class="bar-progress" aria-hidden="true"></div>
 <header class="header" id="header">
   <div class="container header__in">
-    <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34"><span>Sublime<span class="hr">HR</span></span></a>
+    <a class="brand" href="/" aria-label="SublimeHR home"><span class="lgo" role="img" aria-label="SublimeHR logo"><img class="lp l" src="/assets/img/logo-parts/l.png" alt="" width="717" height="639"><img class="lp r" src="/assets/img/logo-parts/r.png" alt="" width="717" height="639"><img class="lp s" src="/assets/img/logo-parts/s.png" alt="" width="717" height="639"><img class="lp arm" src="/assets/img/logo-parts/arm.png" alt="" width="717" height="639"><img class="lp dot" src="/assets/img/logo-parts/dot.png" alt="" width="717" height="639"></span><span>Sublime<span class="hr">HR</span></span></a>
     <nav class="menu" aria-label="Primary">
       <div class="m-item">
         <a class="menu-link" href="/features/"${cur("features")}>Product ${icon("chevron", "chev")}</a>

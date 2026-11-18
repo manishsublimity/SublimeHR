@@ -1761,3 +1761,66 @@ html[data-theme="dark"] .drawer .theme-row .sw i { transform: translateX(20px); 
 .clk__week li.today.late small { background: var(--coral); color: #fff; }
 .clk__week li small { white-space: nowrap; padding: 1px 5px; font-size: 9.5px; }
 .clk__week ul { gap: 5px; }
+
+/* ===== v3.16 — animated header logo (same artwork, split into 5 layers) ===== */
+.lgo { position: relative; display: inline-block; flex: none; width: 46px; aspect-ratio: 717 / 639; }
+.lgo .lp { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; will-change: transform, opacity; animation: 12s cubic-bezier(.45,.05,.3,1) infinite both; }
+.lgo .l   { transform-origin: 24% 36%;   animation-name: lgL; }
+.lgo .r   { transform-origin: 75% 64%;   animation-name: lgR; }
+.lgo .s   { transform-origin: 49% 50%;   animation-name: lgS; }
+.lgo .arm { transform-origin: 74.5% 31%; animation-name: lgArm; }
+.lgo .dot { transform-origin: 68% 12%;   animation-name: lgDot; }
+@keyframes lgL {
+  0%   { transform: translateX(-70%) rotate(-30deg); opacity: 0; }
+  10%  { transform: translateX(6%) rotate(4deg); opacity: 1; }
+  14%, 50% { transform: none; opacity: 1; }
+  56%  { transform: translateX(-9%); }
+  62%, 86% { transform: none; opacity: 1; }
+  93%, 100% { transform: translateX(-70%) rotate(-30deg); opacity: 0; }
+}
+@keyframes lgR {
+  0%, 2% { transform: translateX(70%) rotate(30deg); opacity: 0; }
+  12%  { transform: translateX(-6%) rotate(-4deg); opacity: 1; }
+  16%, 50% { transform: none; opacity: 1; }
+  56%  { transform: translateX(9%); }
+  62%, 86% { transform: none; opacity: 1; }
+  93%, 100% { transform: translateX(70%) rotate(30deg); opacity: 0; }
+}
+@keyframes lgS {
+  0%, 3% { transform: scale(.2) rotate(-120deg); opacity: 0; }
+  13%  { transform: scale(1.1) rotate(6deg); opacity: 1; }
+  18%, 68% { transform: none; opacity: 1; }
+  72%  { transform: rotate(-7deg) scale(1.03); }
+  76%  { transform: rotate(6deg); }
+  80%, 86% { transform: none; opacity: 1; }
+  95%, 100% { transform: scale(.2) rotate(120deg); opacity: 0; }
+}
+@keyframes lgArm {
+  0%, 14% { transform: rotate(-70deg) scale(.6); opacity: 0; }
+  22%  { transform: rotate(10deg); opacity: 1; }
+  27%  { transform: none; }
+  32%  { transform: rotate(-16deg); }
+  36%  { transform: rotate(7deg); }
+  40%  { transform: rotate(-13deg); }
+  44%  { transform: rotate(4deg); }
+  48%, 72% { transform: none; opacity: 1; }
+  76%  { transform: rotate(-10deg); }
+  80%, 85% { transform: none; opacity: 1; }
+  90%, 100% { transform: rotate(-70deg) scale(.6); opacity: 0; }
+}
+@keyframes lgDot {
+  0%, 12% { transform: translateY(-60%); opacity: 0; }
+  19%  { transform: translateY(0) scale(1.15, .8); opacity: 1; }
+  22%  { transform: translateY(-16%) scale(.95, 1.08); }
+  25%, 33% { transform: none; }
+  36%  { transform: translateY(-10%); }
+  39%, 50% { transform: none; }
+  54%  { transform: translateY(-36%) scale(.95, 1.08); }
+  58%  { transform: translateY(0) scale(1.15, .82); }
+  61%  { transform: translateY(-18%); }
+  64%  { transform: translateY(0) scale(1.08, .9); }
+  67%, 86% { transform: none; opacity: 1; }
+  92%, 100% { transform: translateY(-60%); opacity: 0; }
+}
+.brand:hover .lgo .lp { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .lgo .lp { animation: none; } }
