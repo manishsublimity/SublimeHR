@@ -1701,3 +1701,6 @@ html[data-theme="dark"] .idcard__clip::after { background: var(--line-2); }
 html[data-theme="dark"] .cta .btn:not(.alt) { --fg: #13203A; --bubble: #E4EFFC; }
 html[data-theme="dark"] .cta .btn:not(.alt) .bub { color: #2F72B8; }
 html[data-theme="dark"] .switch input + span::after, html[data-theme="dark"] .ba2__body li .tg::after { background: #fff; }
+html[data-theme="dark"] .cta .btn:not(.alt)::after { background: #FFF2C9; }
+html[data-theme="dark"] .cta .btn:not(.alt):hover { color: #13203A; }
+html[data-theme="dark"] .cta .btn:not(.alt):hover .bub { background: rgba(255,255,255,.6); color: #2F72B8; }
