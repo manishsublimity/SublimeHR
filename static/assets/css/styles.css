@@ -1824,3 +1824,24 @@ html[data-theme="dark"] .drawer .theme-row .sw i { transform: translateX(20px); 
 }
 .brand:hover .lgo .lp { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .lgo .lp { animation: none; } }
+
+/* v3.17 — logo: hand travels with the S (no cut corner), feathered joint, smoother wave */
+.lgo .sg { transform-origin: 49% 50%; animation-name: lgS; }
+.lgo .sg .lp { animation: none; }
+.lgo .sg .s { transform: none; }
+.lgo .sg .arm { transform-origin: 74.5% 31%; animation: lgWave 12s cubic-bezier(.45,.05,.3,1) infinite both;
+  -webkit-mask-image: linear-gradient(90deg, transparent 72.6%, #000 75.6%); mask-image: linear-gradient(90deg, transparent 72.6%, #000 75.6%); }
+@keyframes lgWave {
+  0%, 20% { transform: rotate(-24deg); }
+  26% { transform: rotate(5deg); }
+  30% { transform: none; }
+  34% { transform: rotate(-12deg); }
+  38% { transform: rotate(5deg); }
+  42% { transform: rotate(-10deg); }
+  46% { transform: rotate(3deg); }
+  50%, 72% { transform: none; }
+  76% { transform: rotate(-9deg); }
+  80%, 100% { transform: none; }
+}
+.brand:hover .lgo .sg .arm { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .lgo .sg, .lgo .sg .arm { animation: none; } }
