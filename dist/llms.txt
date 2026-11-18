@@ -1,0 +1,95 @@
+# SublimeHR
+
+> SublimeHR is a cloud-based HR & workforce management platform that unifies attendance, leave, payroll, shift scheduling and employee self-service — with 70+ feature areas, 13 built-in reports and English & Arabic support.
+
+SublimeHR is a multi-tenant, cloud-based HRMS with separate Admin/HR and Employee Self-Service panels, a native mobile app, role-based permissions, and English & Arabic (RTL) support. Website: https://sublimehr.com. Phone/WhatsApp: +91-7976117684.
+
+## Modules
+- [Employee Management](https://sublimehr.com/software/employee-management/): Centralize every employee record — from onboarding through separation — with deep profiles, documents, letters and a full employment timeline.
+- [Attendance Management](https://sublimehr.com/software/attendance-management/): Capture attendance from biometric devices, web punch with camera + GPS, and mobile beacons — then automate exceptions and approvals end-to-end.
+- [Leave Management](https://sublimehr.com/software/leave-management/): Design any leave policy — accruals, holidays, weekends, tolerance — and let the rules engine handle balances and approvals for you.
+- [Payroll](https://sublimehr.com/software/payroll/): Run payroll from a single dashboard with configurable heads, allowances, deductions and attendance-linked calculations — plus a branded payslip designer.
+- [Reports & Analytics](https://sublimehr.com/software/reports-analytics/): 13 pre-built HR reports, customizable dashboards and audit-ready timesheets that surface answers in seconds, not weeks.
+- [Employee Self Service](https://sublimehr.com/software/employee-self-service/): A self-service portal where employees punch in, apply for leave, download payslips and raise regularization requests — from any device.
+- [Mobile Workforce](https://sublimehr.com/software/mobile-workforce/): A native mobile app with beacon-based punch, remote-work requests, mobile approvals and full permission control from the web admin.
+- [Security & Access Control](https://sublimehr.com/software/security-access/): Role-based access, feature-level permissions, MFA, tenant isolation and full audit trails — configured in minutes, not months.
+- [Shift Scheduling](https://sublimehr.com/software/shift-scheduling/): Assign shifts, publish monthly rosters and let attendance rules flow straight into payroll — for every shop, plant, ward or store.
+- [Visitor Management](https://sublimehr.com/software/visitor-management/): Register, track and report on every visitor entering your premises, with digital logs your security and audit teams can actually use.
+
+## Pricing
+- Starter: $4 per user / month — For small teams getting HR right from day one.
+- Professional: $8 per user / month — For growing companies that need automation and analytics.
+- Enterprise: Custom tailored to you — For large teams with unique workflows and integrations.
+
+## Industries
+- Manufacturing: Shift-based operations, thousands of shop-floor workers, biometric complexity, and strict compliance rules.
+- Healthcare: 24/7 rotating shifts, credential compliance, and rapid onboarding of nurses, doctors, and support staff.
+- IT & Software: Distributed teams, hybrid work, region-specific leave policies, and rapid hiring cycles.
+- Schools & Education: Academic-calendar-driven leave, staff credentials, and multi-campus HR administration.
+- Hotels & Hospitality: Seasonal hiring, split shifts, tip and allowance management, and multi-property operations.
+- Retail: High attrition, part-time staff, and store-level attendance tracking with tight labor cost controls.
+- Logistics: Field workforce across geographies, GPS-verified attendance, and multi-hub operations.
+- Professional Services: Client-driven schedules, timesheet accuracy, and utilization reporting for billable staff.
+- Construction: Site-based workforce, safety compliance, and multi-project attendance tracking.
+
+## Key pages
+- [Features](https://sublimehr.com/features/)
+- [Pricing](https://sublimehr.com/pricing/)
+- [Integrations](https://sublimehr.com/integrations/)
+- [Custom Development](https://sublimehr.com/custom-development/)
+- [FAQ](https://sublimehr.com/faq/)
+- [Book a demo](https://sublimehr.com/book-demo/)
+- [Get pricing](https://sublimehr.com/get-pricing/)
+- [Contact](https://sublimehr.com/contact/)
+
+## FAQ
+- **What is SublimeHR?** SublimeHR is a cloud-based HR and workforce management platform. It brings employee records, attendance, leave, shift scheduling, payroll, reports and employee self-service into one system, with separate Admin and Employee panels and a native mobile app.
+- **Who is SublimeHR built for?** Growing businesses and enterprises across manufacturing, healthcare, IT, education, hospitality, retail, logistics, professional services and construction — anywhere you manage office, remote, hybrid, shift-based or field teams.
+- **How quickly can we go live?** Most customers go live in days, not months. Our team handles setup and data migration, then trains your admins and employees.
+- **Do you offer a free trial or demo?** Yes. You can start a free trial on the Starter plan or book a personalized 30-minute demo with our team. No credit card is required.
+- **Is training included?** Yes. Every plan includes onboarding training. Enterprise plans include dedicated success managers and role-based training programs.
+- **Which biometric devices are supported?** SublimeHR integrates with fingerprint, RFID card and facial-recognition attendance devices. Share your device make and model and we'll confirm compatibility.
+- **Can employees punch in from mobile?** Yes. Employees can punch in from the web or mobile app with camera and GPS verification, and beacon-based authorization for on-site validation.
+- **How are attendance exceptions handled?** Missing or mismatched clock-in/out pairs are flagged automatically. Employees raise regularization requests and managers approve them through a punch approval workflow.
+- **Can I define different attendance types?** Yes. Attendance types are fully configurable, along with late-coming and missed clock-in tolerance rules.
+- **Do you support round-off rules?** Yes. Rounding rules for clock-in/out times are fully configurable to match your policy.
+- **Can I configure our custom leave policies?** Yes. Accruals, attendance-based accrual, per-employee overrides, tolerance and weekend policies are all configurable without code.
+- **Can HR apply leave on behalf of employees?** Yes. HR can apply leave on behalf of any employee, with the same approval and balance checks.
+- **How do multi-level approvals work?** You define the approval chain and requests route automatically from one approver to the next, with notifications at every step.
+- **Can we view team-wide leave calendars?** Yes. Holiday and leave calendars show who is away across teams so you can prevent understaffing.
+- **Do you handle regional holiday lists?** Yes. Configure branch-level holiday lists and policies to match local statutory requirements.
+- **Is payroll integrated with attendance?** Yes. Attendance, leave, late-coming and penalties flow directly into payroll calculations, so there is no re-keying.
+- **Can I customize salary structures?** Yes. Configure payroll heads, custom allowances and deductions, and design your own salary slip template.
+- **Do employees get self-service payslips?** Yes. Employees download monthly payslips as PDFs from the portal or mobile app.
+- **Can I run daily salary reports?** Yes. The Daily Salary Report gives finance a day-by-day breakdown of payroll cost.
+- **Can we handle advance salary requests?** Yes. Employees can request advances, managers can approve, and repayments schedule automatically.
+- **What reports come out of the box?** 13 built-in report types: Event Sheet, Timesheet, Attendance, Attendance Comparison, Exception, Punch Approval, Who Is Here, Daily Clock In/Out, Penalty, Daily Salary, Visitor Timesheet, Biometrics/Registration and Late Coming.
+- **Can I customize dashboards?** Yes. The admin dashboard is built from widgets you can arrange, and Enterprise customers can get role-specific custom dashboards.
+- **Can data be exported?** Yes. Report data can be exported for spreadsheets, finance and audit tools.
+- **Is there an audit trail?** Yes. Critical modules — including policy and status changes — keep a full audit trail.
+- **Can department heads see their own analytics?** Yes. Role-based access ensures every leader sees exactly the data they need — and nothing more.
+- **Is my data secure?** Yes. SublimeHR runs on secure cloud infrastructure with MFA, role-based access control, tenant isolation and audit trails.
+- **Do you support multi-factor authentication?** Yes. MFA / OTP authentication is supported, and login can use email, username or employee code.
+- **How are permissions managed?** Roles carry View / Add / Edit / Delete rights per feature, with user-level permission overrides.
+- **Do you provide audit logs?** Yes. Changes to policies, statuses and other critical records are logged with who changed what and when.
+- **Is data isolated per company?** Yes. Multi-tenant architecture with subdomain isolation keeps each customer's data logically separated.
+- **Can SublimeHR be customized for our workflows?** Yes. Most needs are handled through configuration. For truly unique workflows, our team builds custom modules, approvals, payroll rules and integrations.
+- **How long does customization take?** It depends on scope. After discovery you receive a solution design with a timeline and fixed pricing, and you see sprint demos every two weeks.
+- **Do we retain ownership of custom work?** Ownership terms are agreed in your custom development contract — discuss your requirements with our solutions team.
+- **Do you build integrations?** Yes. We connect legacy ERPs, accounting systems, LMS and internal tools to any REST-based system.
+- **How do we start a custom project?** Use the Custom Development request form or book a consultation with our solutions team.
+- **How is SublimeHR priced?** Per active user per month: Starter is $4, Professional is $8, and Enterprise is custom-priced. You pay only for active employees.
+- **Are there setup fees?** Standard plans include free onboarding and data migration. Enterprise projects with custom development are quoted separately.
+- **Can I change plans later?** Yes. You can upgrade or change plans as your team grows.
+- **Do you offer annual discounts?** Yes. Talk to our sales team about annual billing options.
+- **Is there a minimum contract length?** Monthly plans are month-to-month. Annual plans run for 12 months with auto-renewal.
+- **Do you assist with data migration?** Yes. White-glove data migration from spreadsheets or your existing HR system is included in onboarding.
+- **Do you provide dedicated support?** Professional plans include priority support. Enterprise plans include a dedicated success manager.
+- **What are your support hours?** Starter and Professional customers get support during business hours. Enterprise customers get 24/7 premium support.
+- **Is documentation available?** Yes. Every implementation comes with documentation and training material for admins and employees.
+- **Do you offer admin training?** Yes. Every implementation includes admin and end-user training. Additional workshops are available on demand.
+- **Is there a mobile app?** Yes. A native mobile app covers punch-in, leave, approvals, WFH requests and admin access, with permissions controlled from the web admin.
+- **Which systems can SublimeHR integrate with?** Google Workspace, Microsoft 365, Slack, Microsoft Teams, Zoom, biometric devices, QuickBooks, Tally, SAP, Oracle, Okta / SAML SSO, and any system via REST API.
+- **Do you support SSO?** Yes. SSO / SAML authentication is available on the Enterprise plan.
+- **Is there an API?** Yes. A documented REST API is available for custom integrations.
+- **Does the mobile app support offline mode?** The mobile app queues punches when offline and syncs automatically once the device reconnects.

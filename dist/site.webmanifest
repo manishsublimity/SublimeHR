@@ -1,0 +1,15 @@
+{
+  "name": "SublimeHR",
+  "short_name": "SublimeHR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#2F72B8",
+  "icons": [
+    {
+      "src": "/assets/img/sublimehr-logo.png",
+      "sizes": "717x639",
+      "type": "image/png"
+    }
+  ]
+}
