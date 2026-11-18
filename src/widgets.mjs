@@ -18,7 +18,8 @@ export function clockW({ slider = false } = {}) {
   <div class="w__body clk">
     <div class="clk__time num" data-time>09:02</div>
     <div class="clk__date" data-date>Shift 09:00 – 18:00 · 15 min grace</div>
-    ${slider ? `<div class="mt2" style="max-width:320px;margin-inline:auto;text-align:left">${range("arr", "Your arrival time", 510, 600, 1, 542, "time")}</div>` : ""}
+    ${slider ? `<div class="clk__sim">${range("arr", "Your arrival time", 510, 600, 1, 542, "time")}</div>
+    <div class="clk__week"><p class="clk__wh"><span>This week</span><span class="chip mint">3 on time · 1 late</span></p><ul><li class="ok"><b>Mon</b><span class="num">08:58</span><small>On time</small></li><li class="ok"><b>Tue</b><span class="num">09:12</span><small>Grace</small></li><li class="ok"><b>Wed</b><span class="num">08:55</span><small>On time</small></li><li class="late"><b>Thu</b><span class="num">09:21</span><small>Late</small></li><li class="today"><b>Fri</b><span class="num">--:--</span><small>Today</small></li></ul></div>` : ""}
     <button class="clk__btn" type="button" data-punch aria-label="Clock in">
       <svg class="ringsvg" viewBox="0 0 176 176" aria-hidden="true"><circle cx="88" cy="88" r="85"/></svg>
       <span class="inner">${icon("fingerprint")}<span data-label>Clock in</span></span>

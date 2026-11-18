@@ -160,6 +160,12 @@
             if (v <= 540) setStatus("mint", "On time ✓");
             else if (v <= 555) setStatus("butter", "In grace period ✓");
             else setStatus("peach", "Late " + (v - 540) + " min · flagged");
+            var td = $(".clk__week li.today", w);
+            if (td) {
+              $("span", td).textContent = cur();
+              $("small", td).textContent = v <= 540 ? "On time" : v <= 555 ? "Grace" : "Late";
+              td.className = "today " + (v <= 555 ? "ok" : "late");
+            }
           } else setStatus("mint", "Clocked in ✓");
           row = document.createElement("li");
           row.innerHTML = "<b></b><span></span><i class='open'>On shift</i>";
