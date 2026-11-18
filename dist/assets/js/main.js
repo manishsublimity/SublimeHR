@@ -670,5 +670,23 @@
     }, 2800);
   });
 
+  /* ---------- Light / dark theme toggle ---------- */
+  $$("[data-theme-toggle]").forEach(function (b) {
+    var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]');
+    function sync() {
+      var dark = root.getAttribute("data-theme") === "dark";
+      b.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+      b.setAttribute("aria-pressed", dark ? "true" : "false");
+      if (meta) meta.setAttribute("content", dark ? "#0A1527" : "#FFFFFF");
+    }
+    sync();
+    b.addEventListener("click", function () {
+      var dark = root.getAttribute("data-theme") !== "dark";
+      if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
+      try { localStorage.setItem("shr-theme", dark ? "dark" : "light"); } catch (e) {}
+      sync();
+    });
+  });
+
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
