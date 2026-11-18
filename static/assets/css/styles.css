@@ -1730,3 +1730,4 @@ html[data-theme="dark"] .drawer .theme-row .sw i { transform: translateX(20px); 
 @media (max-width: 340px) { .drawer__cta { grid-template-columns: 1fr; } }
 .drawer button.theme-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; color: var(--ink); font-weight: 600; font-size: 1.05rem; cursor: pointer; text-align: left; }
 .drawer { bottom: auto; height: calc(100vh - var(--header)); height: calc(100dvh - var(--header)); }
+@media (max-width: 1080px) { .header__in { gap: 10px; } .header__in .burger { margin-left: 0; } }
