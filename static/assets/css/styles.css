@@ -1704,3 +1704,29 @@ html[data-theme="dark"] .switch input + span::after, html[data-theme="dark"] .ba
 html[data-theme="dark"] .cta .btn:not(.alt)::after { background: #FFF2C9; }
 html[data-theme="dark"] .cta .btn:not(.alt):hover { color: #13203A; }
 html[data-theme="dark"] .cta .btn:not(.alt):hover .bub { background: rgba(255,255,255,.6); color: #2F72B8; }
+
+/* ===== v3.14 — mobile menu: scroll lock, theme switch, 2-up buttons, product list ===== */
+html.locked { overflow: hidden; scrollbar-gutter: stable; } html.locked body { overflow: visible; }
+.drawer { overscroll-behavior: contain; padding-bottom: calc(var(--s10) + env(safe-area-inset-bottom)); }
+.drawer .sub { grid-template-columns: 1fr; gap: 2px; padding: 6px 0 14px; }
+.drawer .sub a { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 14px; background: none; font-weight: 600; transition: background var(--t2); }
+.drawer .sub a:hover, .drawer .sub a:active { background: var(--cream); }
+.drawer .sub a .ico.sm { width: 34px; height: 34px; flex: none; border-radius: 10px; display: grid; place-items: center; background: var(--sky); color: var(--blue); }
+.drawer .sub a .ico.sm svg { width: 17px; height: 17px; }
+.drawer .sub a.all { margin-bottom: 6px; background: var(--cream); }
+.drawer .sub a.all > svg { width: 16px; height: 16px; margin-left: auto; color: var(--blue); }
+.drawer .theme-row { width: 100%; background: none; border: 0; border-bottom: var(--border); font: inherit; }
+.drawer .theme-row .sw { position: relative; width: 46px; height: 26px; border-radius: 99px; background: var(--line-2); transition: background var(--t2); }
+.drawer .theme-row .sw i { position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform var(--t2) var(--spring); }
+html[data-theme="dark"] .drawer .theme-row .sw { background: var(--blue); }
+html[data-theme="dark"] .drawer .theme-row .sw i { transform: translateX(20px); }
+.drawer .cta { grid-template-columns: 1fr 1fr; gap: 10px; }
+.drawer .cta .btn { width: 100%; justify-content: center; padding: 0 16px; }
+.drawer .cta .btn .bub { width: 30px; height: 30px; margin-right: -10px; }
+@media (max-width: 340px) { .drawer .cta { grid-template-columns: 1fr; } }
+.drawer__cta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: var(--s6); }
+.drawer__cta .btn { width: 100%; justify-content: center; padding: 0 14px; }
+.drawer__cta .btn .bub { width: 30px; height: 30px; margin-right: -8px; }
+@media (max-width: 340px) { .drawer__cta { grid-template-columns: 1fr; } }
+.drawer button.theme-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; color: var(--ink); font-weight: 600; font-size: 1.05rem; cursor: pointer; text-align: left; }
+.drawer { bottom: auto; height: calc(100vh - var(--header)); height: calc(100dvh - var(--header)); }

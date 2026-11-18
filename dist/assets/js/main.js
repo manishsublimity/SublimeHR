@@ -43,6 +43,7 @@
     burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     drawer.classList.toggle("open", open);
     document.body.classList.toggle("locked", open);
+    document.documentElement.classList.toggle("locked", open);
     $(".i-open", burger).hidden = open; $(".i-close", burger).hidden = !open;
   }
   if (burger) {
@@ -670,23 +671,27 @@
     }, 2800);
   });
 
-  /* ---------- Light / dark theme toggle ---------- */
-  $$("[data-theme-toggle]").forEach(function (b) {
-    var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]');
+  /* ---------- Light / dark theme toggle (header + mobile menu) ---------- */
+  (function () {
+    var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]'), tgs = $$("[data-theme-toggle]");
     function sync() {
       var dark = root.getAttribute("data-theme") === "dark";
-      b.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
-      b.setAttribute("aria-pressed", dark ? "true" : "false");
+      tgs.forEach(function (b) {
+        b.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+        b.setAttribute("aria-pressed", dark ? "true" : "false");
+      });
       if (meta) meta.setAttribute("content", dark ? "#0A1527" : "#FFFFFF");
     }
     sync();
-    b.addEventListener("click", function () {
-      var dark = root.getAttribute("data-theme") !== "dark";
-      if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
-      try { localStorage.setItem("shr-theme", dark ? "dark" : "light"); } catch (e) {}
-      sync();
+    tgs.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var dark = root.getAttribute("data-theme") !== "dark";
+        if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
+        try { localStorage.setItem("shr-theme", dark ? "dark" : "light"); } catch (e) {}
+        sync();
+      });
     });
-  });
+  })();
 
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

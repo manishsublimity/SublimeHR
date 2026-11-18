@@ -121,9 +121,10 @@ function header(active) {
   </div>
 </header>
 <nav class="drawer" id="drawer" aria-label="Mobile">
-  <details><summary>Product ${icon("chevron")}</summary><div class="sub"><a href="/features/"><strong>All features</strong></a>${modules.map((m) => `<a href="/software/${m.slug}/">${m.name}</a>`).join("")}</div></details>
+  <details><summary>Product ${icon("chevron")}</summary><div class="sub"><a class="all" href="/features/"><span class="ico sm">${icon("layers")}</span><strong>All features</strong>${icon("arrow")}</a>${modules.map((m) => `<a href="/software/${m.slug}/"><span class="ico sm">${icon(m.icon)}</span><span>${m.name}</span></a>`).join("")}</div></details>
   <a class="d" href="/industries/">Industries</a><a class="d" href="/pricing/">Pricing</a><a class="d" href="/integrations/">Integrations</a><a class="d" href="/custom-development/">Custom development</a><a class="d" href="/about/">About</a><a class="d" href="/faq/">FAQ</a><a class="d" href="/contact/">Contact</a>
-  <div class="cta"><a class="btn block" href="/book-demo/">Book a demo <span class="bub">${icon("arrow")}</span></a><a class="btn alt block no-bub" href="/get-pricing/">Get pricing</a></div>
+  <button class="d theme-row" type="button" data-theme-toggle aria-label="Switch to dark theme"><span>Dark mode</span><span class="sw" aria-hidden="true"><i></i></span></button>
+  <div class="drawer__cta"><a class="btn alt no-bub" href="/get-pricing/">Get pricing</a><a class="btn" href="/book-demo/">Book a demo <span class="bub">${icon("arrow")}</span></a></div>
 </nav>`;
 }
 
