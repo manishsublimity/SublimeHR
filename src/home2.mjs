@@ -174,6 +174,45 @@ export function home2() {
     <a class="tc-btn" href="/software/shift-scheduling/"><span>Explore shift scheduling</span><i>${arrow}</i></a>
   </div>
 </section>
+
+<section class="pr" aria-labelledby="pr-h" data-payroll>
+  <div class="pr__copy">
+    <p class="tc-kick"><span class="box">04</span>Payroll</p>
+    <h2 class="lv__h" id="pr-h">Payslips that skip the envelope and land <span class="gone">on every phone<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span>.</h2>
+    <p class="tc-lead">Attendance and leave flow straight into pay, so the numbers are right before you press run. Payslips go out as private PDFs the moment payroll closes.</p>
+    <ul class="lv__pts">
+      <li>${icon("check")}<span>Overtime, deductions and leave balances calculated from real attendance</span></li>
+      <li>${icon("check")}<span>One run for every employee, with an audit trail on each change</span></li>
+      <li>${icon("check")}<span>Payslips delivered securely, in English or Arabic</span></li>
+    </ul>
+    <a class="tc-btn" href="/software/payroll/"><span>Explore payroll</span><i>${arrow}</i></a>
+  </div>
+
+  <div class="pr__stage" data-pr-stage>
+    <div class="env" aria-hidden="true"><span class="env__lbl">PAY ENVELOPE · MARCH</span></div>
+    <article class="pay" aria-label="Paper payslip for Ravi V., March">
+      <header><span>PAYSLIP</span><span>MARCH</span></header>
+      <div class="pay__who"><small>EMPLOYEE</small><span class="sig">Ravi V.</span></div>
+      <dl class="pay__rows">
+        <div><dt>Basic</dt><dd>4,800.00</dd></div>
+        <div><dt>Overtime · 6h</dt><dd>+ 540.00</dd></div>
+        <div><dt>Deductions</dt><dd>− 125.00</dd></div>
+      </dl>
+      <div class="pay__net"><small>NET PAY</small><b>5,215.00</b></div>
+      <span class="stamp pr__stamp" data-pr-stamp aria-hidden="true">PAID</span>
+      <div class="pay__perf" aria-hidden="true"><span>✂</span></div>
+    </article>
+
+    <div class="pr__phone" data-pr-phone aria-label="The same payslip in the SublimeHR app">
+      <div class="pr__top"><span class="pr__av">${icon("wallet")}</span><span><b>Payslip · March</b><small>Delivered 17:30 · opened</small></span></div>
+      <div class="pr__big"><small>NET PAY</small><b data-pr-count>0.00</b></div>
+      <div class="pr__bars" aria-hidden="true"><i style="--w:92%"></i><i style="--w:10%" class="o"></i><i style="--w:2.4%" class="d"></i></div>
+      <p class="pr__leg"><span class="b">Basic</span><span class="o">Overtime</span><span class="d">Deductions</span></p>
+      <div class="pr__btn">${icon("file")}<span>Download PDF</span></div>
+    </div>
+    <div class="pr__fall" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</section>
 </main>
 
 <a class="back" href="/">← Current home</a>

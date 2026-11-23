@@ -69,6 +69,30 @@
     st.addEventListener("click", function () { if (!done) go(); });
   })();
 
+  /* ---------- 04 · payroll: slip slides out, is stamped PAID, tears off, then lands on the phone as a live figure ---------- */
+  (function () {
+    var sec = $("[data-payroll]"), st = $("[data-pr-stage]"); if (!sec || !st) return;
+    var out = $("[data-pr-count]", st), done = false, TARGET = 5215;
+    function fmt(n) { return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function count() {
+      if (reduce) { out.textContent = fmt(TARGET); return; }
+      var t0 = performance.now(), D = 1300;
+      (function f(t) { var p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3); out.textContent = fmt(TARGET * e); if (p < 1) requestAnimationFrame(f); })(t0);
+    }
+    function go() {
+      if (done) return; done = true; sec.classList.add("in");
+      var d = reduce ? 0 : 1;
+      setTimeout(function () { st.classList.add("out"); }, 300 * d);
+      setTimeout(function () { st.classList.add("paid"); }, 1300 * d);
+      setTimeout(function () { st.classList.add("tear"); }, 2100 * d);
+      setTimeout(function () { st.classList.add("digital"); count(); }, 2800 * d);
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
+    } else go();
+    st.addEventListener("click", function () { if (!done) go(); });
+  })();
+
   /* ---------- the punch ---------- */
   var stage = $("[data-stage]"); if (!stage) return;
   var card = $("[data-card]", stage), inCell = $("[data-in]", stage), stamp = $("[data-stamp]", stage),
