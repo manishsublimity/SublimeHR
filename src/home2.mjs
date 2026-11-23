@@ -98,6 +98,39 @@ export function home2() {
 </section>
 
 <div class="tc-tear" aria-hidden="true"><span>✂</span><i></i><span class="txt">tear here · no more paper past this line</span><i></i></div>
+
+<section class="lv" aria-labelledby="lv-h" data-leave>
+  <div class="lv__copy">
+    <p class="tc-kick"><span class="box">02</span>Leave management</p>
+    <h2 class="lv__h" id="lv-h">Leave slips that approve <span class="gone">themselves<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span> into the system.</h2>
+    <p class="tc-lead">No carbon copies, no chasing signatures down the corridor. Employees request from their phone, managers approve in one tap, and the balance and calendar update on their own.</p>
+    <ul class="lv__pts">
+      <li>${icon("check")}<span>Balances calculated by policy, per leave type</span></li>
+      <li>${icon("check")}<span>Approval chain with reminders, never lost in a tray</span></li>
+      <li>${icon("check")}<span>Team calendar shows clashes before you approve</span></li>
+    </ul>
+    <a class="tc-btn" href="/software/leave-management/"><span>Explore leave management</span><i>${arrow}</i></a>
+  </div>
+
+  <div class="lv__stage" data-lv-stage>
+    <article class="slip" aria-label="Paper leave slip for Omar M.">
+      <header><span>LEAVE REQUEST</span><span>No. 0418</span></header>
+      <div class="slip__r"><small>EMPLOYEE</small><span class="sig">Omar M.</span></div>
+      <div class="slip__r"><small>TYPE</small><span class="sig">Annual leave</span></div>
+      <div class="slip__r two"><div><small>FROM</small><span class="sig">23 Apr</span></div><div><small>TO</small><span class="sig">24 Apr</span></div></div>
+      <div class="slip__r"><small>REASON</small><span class="sig">Family trip</span></div>
+      <div class="slip__sign"><small>MANAGER SIGNATURE</small><span class="sig faint">Priya S.</span></div>
+      <span class="stamp lv__stamp" data-lv-stamp aria-hidden="true">APPROVED</span>
+      <div class="slip__carbon" aria-hidden="true"><span>CARBON COPY · FILE</span></div>
+    </article>
+
+    <div class="lv__phone" data-lv-phone aria-label="The same approval in the SublimeHR app">
+      <div class="lv__note">${icon("check")}<span><b>Leave approved</b><small>Omar M. · Annual · 23–24 Apr · 2 days</small></span></div>
+      <div class="lv__bal"><small>ANNUAL BALANCE</small><div class="lv__bar"><i data-lv-bar></i></div><span><b data-lv-days>14</b> days left</span></div>
+      <div class="lv__cal" aria-hidden="true">${Array.from({ length: 14 }, (_, i) => `<i class="${i === 8 || i === 9 ? "on" : ""}"></i>`).join("")}</div>
+    </div>
+  </div>
+</section>
 </main>
 
 <a class="back" href="/">← Current home</a>

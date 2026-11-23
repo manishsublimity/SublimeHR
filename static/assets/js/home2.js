@@ -17,6 +17,26 @@
     syncTheme();
   }
 
+  /* ---------- 02 · leave: when scrolled into view the slip is stamped, then becomes the app ---------- */
+  (function () {
+    var sec = $("[data-leave]"), st = $("[data-lv-stage]"); if (!sec || !st) return;
+    var bar = $("[data-lv-bar]", st), days = $("[data-lv-days]", st), done = false;
+    function go() {
+      if (done) return; done = true; sec.classList.add("in");
+      var d = reduce ? 0 : 1;
+      setTimeout(function () { st.classList.add("stamped"); }, 500 * d);
+      setTimeout(function () {
+        st.classList.add("digital");
+        if (bar) bar.style.setProperty("--w", "70%");
+        if (days) { var n = 16, t = setInterval(function () { n--; days.textContent = n; if (n <= 14) clearInterval(t); }, reduce ? 1 : 420); }
+      }, 1700 * d);
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
+    } else go();
+    st.addEventListener("click", function () { if (!done) go(); });
+  })();
+
   /* ---------- the punch ---------- */
   var stage = $("[data-stage]"); if (!stage) return;
   var card = $("[data-card]", stage), inCell = $("[data-in]", stage), stamp = $("[data-stamp]", stage),
