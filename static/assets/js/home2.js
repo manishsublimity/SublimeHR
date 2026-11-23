@@ -93,6 +93,41 @@
     st.addEventListener("click", function () { if (!done) go(); });
   })();
 
+  /* ---------- 05 · visitors: logbook is crossed out, guest types in on the kiosk, badge prints and hangs ---------- */
+  (function () {
+    var sec = $("[data-visitors]"), st = $("[data-vs-stage]"); if (!sec || !st) return;
+    var typ = $("[data-vs-type]", st), done = false;
+    var now = new Date(), t = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+    Array.prototype.forEach.call(st.querySelectorAll("[data-vs-time],[data-vs-time2]"), function (e) { e.textContent = t; });
+    function type() {
+      var s = typ.getAttribute("data-text"), i = 0;
+      if (reduce) { typ.textContent = s; return; }
+      var iv = setInterval(function () { i++; typ.textContent = s.slice(0, i); if (i >= s.length) clearInterval(iv); }, 70);
+    }
+    function go() {
+      if (done) return; done = true; sec.classList.add("in");
+      var d = reduce ? 0 : 1;
+      setTimeout(function () { st.classList.add("struck"); }, 500 * d);
+      setTimeout(function () { st.classList.add("digital"); }, 1400 * d);
+      setTimeout(type, 2300 * d);
+      setTimeout(function () { st.classList.add("done"); }, 3500 * d);
+      setTimeout(function () { st.classList.add("printed"); }, 3900 * d);
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
+    } else go();
+    st.addEventListener("click", function () { if (!done) go(); });
+  })();
+
+  /* ---------- 06 · closing: the pile of blank forms falls away ---------- */
+  (function () {
+    var sec = $("[data-end]"); if (!sec) return;
+    function go() { sec.classList.add("in"); }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { setTimeout(go, reduce ? 0 : 700); o.disconnect(); } }, { threshold: 0.4 }).observe(sec);
+    } else go();
+  })();
+
   /* ---------- the punch ---------- */
   var stage = $("[data-stage]"); if (!stage) return;
   var card = $("[data-card]", stage), inCell = $("[data-in]", stage), stamp = $("[data-stamp]", stage),

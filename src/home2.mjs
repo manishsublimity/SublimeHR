@@ -213,7 +213,78 @@ export function home2() {
     <div class="pr__fall" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   </div>
 </section>
+
+<section class="vs" aria-labelledby="vs-h" data-visitors>
+  <div class="vs__stage" data-vs-stage>
+    <div class="logbook" aria-label="Paper visitor logbook">
+      <header><span>VISITOR LOG</span><span>RECEPTION</span></header>
+      <div class="logbook__cols" aria-hidden="true"><span>NAME</span><span>COMPANY</span><span>HOST</span><span>IN</span></div>
+      ${[["M. Haddad", "Alba Tech", "Priya", "09:05"], ["S. Iyer", "Northwind", "Omar", "10:20"], ["", "", "", ""]].map(([a, b, c, t], i) => `<div class="logbook__r${i === 2 ? " blank" : ""}"><span>${a}</span><span>${b}</span><span>${c}</span><span>${t}</span></div>`).join("")}
+      <span class="scrawl" aria-hidden="true">illegible…</span>
+      <span class="logbook__mark" data-vs-mark aria-hidden="true">${icon("close")}</span>
+    </div>
+
+    <div class="kiosk" data-vs-kiosk aria-label="The same visitor check-in on the SublimeHR kiosk">
+      <div class="kiosk__hd"><b>Welcome to Head Office</b><small>Tap to check in</small></div>
+      <div class="kiosk__f"><span class="kiosk__l">Name</span><span class="kiosk__v"><em data-vs-type data-text="John Carter"></em><i class="caret"></i></span></div>
+      <div class="kiosk__f"><span class="kiosk__l">Visiting</span><span class="kiosk__v host"><img src="${photo("1580489944761-15a19d654956", 28)}" alt="" width="28" height="28"><em>Priya S. · Finance</em></span></div>
+      <div class="kiosk__cam"><span class="kiosk__ph">${icon("camera")}</span><small>Photo captured</small></div>
+      <div class="kiosk__ok">${icon("check")}<span>Checked in <b data-vs-time>10:42</b></span></div>
+    </div>
+
+    <div class="badge-wrap" data-vs-badge>
+      <span class="lanyard" aria-hidden="true"></span>
+      <div class="vbadge" aria-label="Printed visitor badge for John Carter">
+        <span class="vbadge__hole" aria-hidden="true"></span>
+        <b class="vbadge__v">VISITOR</b>
+        <img src="${photo("1576558656222-ba66febe3dec", 90)}" alt="" width="90" height="90">
+        <span class="vbadge__n">John Carter</span>
+        <small>Host: Priya S.</small>
+        <small class="vbadge__t">Today · <span data-vs-time2>10:42</span></small>
+        <span class="vbadge__qr" aria-hidden="true">${Array.from({ length: 25 }, (_, i) => `<i${[0, 1, 3, 4, 5, 9, 10, 12, 14, 15, 19, 20, 21, 23, 24].includes(i) ? ' class="k"' : ""}></i>`).join("")}</span>
+      </div>
+    </div>
+
+    <div class="vs__ping" data-vs-ping>${icon("message")}<span><b>John is here</b><small>Priya notified instantly</small></span></div>
+  </div>
+
+  <div class="vs__copy">
+    <p class="tc-kick"><span class="box">05</span>Visitor management</p>
+    <h2 class="lv__h" id="vs-h">The logbook at reception becomes a <span class="gone">proper welcome<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span>.</h2>
+    <p class="tc-lead">Guests check in on a tablet, hosts are told the moment they arrive, and every visit leaves a clean record. No illegible handwriting, no lost badges.</p>
+    <ul class="lv__pts">
+      <li>${icon("check")}<span>Pre-register guests and send them a QR pass</span></li>
+      <li>${icon("check")}<span>Instant notification to the host on every arrival</span></li>
+      <li>${icon("check")}<span>Printed badges and a searchable visit history</span></li>
+    </ul>
+    <a class="tc-btn" href="/software/visitor-management/"><span>Explore visitor management</span><i>${arrow}</i></a>
+  </div>
+</section>
+
+<section class="end" aria-labelledby="end-h" data-end>
+  <div class="end__pile" aria-hidden="true">
+    ${["TIME CARD", "LEAVE REQUEST", "SHIFT ROTA", "PAYSLIP", "VISITOR LOG"].map((t, i) => `<div class="form f${i + 1}"><b>${t}</b><i></i><i></i><i></i><em>${i % 2 ? "Signature ______" : "Date ______"}</em></div>`).join("")}
+  </div>
+  <div class="end__in">
+    <p class="tc-kick"><span class="box">06</span>Form HR-01 · complete</p>
+    <h2 class="end__h" id="end-h">Never fill one <span class="gone">again.<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span></h2>
+    <p class="tc-lead">See attendance, leave, shifts, payroll and visitors working as one in a 30-minute walkthrough, built around your team.</p>
+    <div class="tc-cta">
+      <a class="tc-btn" href="/book-demo/"><span>Book a free demo</span><i>${arrow}</i></a>
+      <a class="tc-link" href="/pricing/">See pricing</a>
+    </div>
+  </div>
+</section>
 </main>
+
+<footer class="tc-foot">
+  <div class="tc-foot__in">
+    <a class="tc-brand" href="/"><img src="${site.logo}" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
+    <span class="tc-foot__links"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></span>
+    <a class="tc-foot__ph" href="${site.phoneHref}">${site.phone}</a>
+  </div>
+  <p class="tc-foot__sm">FORM HR-01 · FILED ELECTRONICALLY · © ${new Date().getFullYear()} SublimeHR</p>
+</footer>
 
 <a class="back" href="/">← Current home</a>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
