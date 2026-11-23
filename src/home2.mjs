@@ -131,6 +131,49 @@ export function home2() {
     </div>
   </div>
 </section>
+
+<section class="sh" aria-labelledby="sh-h" data-shifts>
+  <div class="sh__stage" data-sh-stage>
+    <article class="rota" aria-label="Paper shift rota on graph paper">
+      <header><span>SHIFT ROTA · WEEK 47</span><span class="pencil-note">swap?</span></header>
+      <div class="rota__grid" role="table" aria-label="Shifts by person and day">
+        <div class="rota__row head" role="row"><span></span>${["MON", "TUE", "WED", "THU", "FRI"].map((d) => `<b>${d}</b>`).join("")}</div>
+        ${[
+          ["Karan", ["M", "M", "E", "E", "—"]],
+          ["Ravi", ["E", "E", "M", "M", "N"]],
+          ["Sara", ["N", "—", "M", "E", "E"]]
+        ].map(([n, cells], r) => `<div class="rota__row" role="row"><span class="nm">${n}</span>${cells.map((c, i) => `<i class="c ${c === "M" ? "m" : c === "E" ? "e" : c === "N" ? "n" : "off"}"${r < 2 && i === 2 ? ` data-sw="${r}"` : ""}>${c}</i>`).join("")}</div>`).join("")}
+      </div>
+      <p class="rota__key"><span class="m">M</span> morning · <span class="e">E</span> evening · <span class="n">N</span> night</p>
+      <span class="scrib" aria-hidden="true"><svg viewBox="0 0 120 40"><path d="M4 30 C 20 4, 40 4, 56 20 S 90 36, 112 10"/><path d="M104 8 L113 10 L109 19"/></svg></span>
+      <span class="eraser" aria-hidden="true">erased &amp; rewritten</span>
+    </article>
+
+    <div class="sh__app" data-sh-app aria-label="The same swap in the SublimeHR scheduler">
+      <div class="sh__tb"><b>Shift schedule</b><span>Week 47</span></div>
+      <div class="sh__g">
+        ${[
+          ["Karan", ["M", "M", "E", "E", "—"]],
+          ["Ravi", ["E", "E", "M", "M", "N"]],
+          ["Sara", ["N", "—", "M", "E", "E"]]
+        ].map(([n, cells], r) => `<div class="sh__r"><span>${n}</span>${cells.map((c, i) => `<i class="c ${c === "M" ? "m" : c === "E" ? "e" : c === "N" ? "n" : "off"}"${r < 2 && i === 2 ? ` data-app-sw="${r}"` : ""}>${c}</i>`).join("")}</div>`).join("")}
+      </div>
+      <div class="sh__toast" data-sh-toast>${icon("repeat")}<span><b>Swap approved</b><small>Karan ⇄ Ravi · Wed · both notified</small></span></div>
+    </div>
+  </div>
+
+  <div class="sh__copy">
+    <p class="tc-kick"><span class="box">03</span>Shift scheduling</p>
+    <h2 class="lv__h" id="sh-h">Rotas rubbed out in pencil, <span class="gone">rebuilt<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span> in one drag.</h2>
+    <p class="tc-lead">Plan the week once. When someone swaps, the schedule, the attendance rules and everyone's phone update together. No more photographing the wall.</p>
+    <ul class="lv__pts">
+      <li>${icon("check")}<span>Drag and drop rotas with clash and overtime warnings</span></li>
+      <li>${icon("check")}<span>Swap requests approved in a tap, both people notified</span></li>
+      <li>${icon("check")}<span>Shifts feed attendance, so late and overtime are automatic</span></li>
+    </ul>
+    <a class="tc-btn" href="/software/shift-scheduling/"><span>Explore shift scheduling</span><i>${arrow}</i></a>
+  </div>
+</section>
 </main>
 
 <a class="back" href="/">← Current home</a>

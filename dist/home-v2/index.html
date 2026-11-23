@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/home2.css?v=mwtbh4on">
+<link rel="stylesheet" href="/assets/css/home2.css?v=mwtbigkb">
 </head>
 <body class="tc">
 
@@ -115,9 +115,44 @@
     </div>
   </div>
 </section>
+
+<section class="sh" aria-labelledby="sh-h" data-shifts>
+  <div class="sh__stage" data-sh-stage>
+    <article class="rota" aria-label="Paper shift rota on graph paper">
+      <header><span>SHIFT ROTA · WEEK 47</span><span class="pencil-note">swap?</span></header>
+      <div class="rota__grid" role="table" aria-label="Shifts by person and day">
+        <div class="rota__row head" role="row"><span></span><b>MON</b><b>TUE</b><b>WED</b><b>THU</b><b>FRI</b></div>
+        <div class="rota__row" role="row"><span class="nm">Karan</span><i class="c m">M</i><i class="c m">M</i><i class="c e" data-sw="0">E</i><i class="c e">E</i><i class="c off">—</i></div><div class="rota__row" role="row"><span class="nm">Ravi</span><i class="c e">E</i><i class="c e">E</i><i class="c m" data-sw="1">M</i><i class="c m">M</i><i class="c n">N</i></div><div class="rota__row" role="row"><span class="nm">Sara</span><i class="c n">N</i><i class="c off">—</i><i class="c m">M</i><i class="c e">E</i><i class="c e">E</i></div>
+      </div>
+      <p class="rota__key"><span class="m">M</span> morning · <span class="e">E</span> evening · <span class="n">N</span> night</p>
+      <span class="scrib" aria-hidden="true"><svg viewBox="0 0 120 40"><path d="M4 30 C 20 4, 40 4, 56 20 S 90 36, 112 10"/><path d="M104 8 L113 10 L109 19"/></svg></span>
+      <span class="eraser" aria-hidden="true">erased &amp; rewritten</span>
+    </article>
+
+    <div class="sh__app" data-sh-app aria-label="The same swap in the SublimeHR scheduler">
+      <div class="sh__tb"><b>Shift schedule</b><span>Week 47</span></div>
+      <div class="sh__g">
+        <div class="sh__r"><span>Karan</span><i class="c m">M</i><i class="c m">M</i><i class="c e" data-app-sw="0">E</i><i class="c e">E</i><i class="c off">—</i></div><div class="sh__r"><span>Ravi</span><i class="c e">E</i><i class="c e">E</i><i class="c m" data-app-sw="1">M</i><i class="c m">M</i><i class="c n">N</i></div><div class="sh__r"><span>Sara</span><i class="c n">N</i><i class="c off">—</i><i class="c m">M</i><i class="c e">E</i><i class="c e">E</i></div>
+      </div>
+      <div class="sh__toast" data-sh-toast><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg><span><b>Swap approved</b><small>Karan ⇄ Ravi · Wed · both notified</small></span></div>
+    </div>
+  </div>
+
+  <div class="sh__copy">
+    <p class="tc-kick"><span class="box">03</span>Shift scheduling</p>
+    <h2 class="lv__h" id="sh-h">Rotas rubbed out in pencil, <span class="gone">rebuilt<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span> in one drag.</h2>
+    <p class="tc-lead">Plan the week once. When someone swaps, the schedule, the attendance rules and everyone's phone update together. No more photographing the wall.</p>
+    <ul class="lv__pts">
+      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Drag and drop rotas with clash and overtime warnings</span></li>
+      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Swap requests approved in a tap, both people notified</span></li>
+      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Shifts feed attendance, so late and overtime are automatic</span></li>
+    </ul>
+    <a class="tc-btn" href="/software/shift-scheduling/"><span>Explore shift scheduling</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+  </div>
+</section>
 </main>
 
 <a class="back" href="/">← Current home</a>
-<script src="/assets/js/home2.js?v=mwtbh4on" defer></script>
+<script src="/assets/js/home2.js?v=mwtbigkb" defer></script>
 </body>
 </html>

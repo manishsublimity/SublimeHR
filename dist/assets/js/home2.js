@@ -37,6 +37,38 @@
     st.addEventListener("click", function () { if (!done) go(); });
   })();
 
+  /* ---------- 03 · shifts: pencil swap on the rota, then the live scheduler does the same swap ---------- */
+  (function () {
+    var sec = $("[data-shifts]"), st = $("[data-sh-stage]"); if (!sec || !st) return;
+    var paper = Array.prototype.slice.call(st.querySelectorAll(".rota [data-sw]")),
+        app = Array.prototype.slice.call(st.querySelectorAll(".sh__app [data-app-sw]")),
+        toast = $("[data-sh-toast]", st), done = false;
+    var cls = { M: "m", E: "e", N: "n" };
+    function setCell(el, v) { el.textContent = v; el.className = "c " + cls[v]; }
+    function go() {
+      if (done) return; done = true; sec.classList.add("in");
+      var d = reduce ? 0 : 1;
+      // the pencil scribble, then each cell is rubbed out and rewritten with the other person's shift
+      setTimeout(function () { st.classList.add("swap"); }, 400 * d);
+      setTimeout(function () {
+        paper.forEach(function (c, i) { c.setAttribute("data-new", paper[1 - i].textContent.trim()); c.classList.add("swapped"); });
+      }, 1100 * d);
+      setTimeout(function () { paper.forEach(function (c) { c.classList.add("rewritten"); }); }, 1700 * d);
+      // the product appears and performs the same swap
+      setTimeout(function () { st.classList.add("digital"); }, 2900 * d);
+      setTimeout(function () { app.forEach(function (c) { c.classList.add("lift"); }); }, 3900 * d);
+      setTimeout(function () {
+        var a = app[0].textContent.trim(), b = app[1].textContent.trim();
+        setCell(app[0], b); setCell(app[1], a);
+      }, 4500 * d);
+      setTimeout(function () { app.forEach(function (c) { c.classList.remove("lift"); }); if (toast) toast.classList.add("on"); }, 5000 * d);
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
+    } else go();
+    st.addEventListener("click", function () { if (!done) go(); });
+  })();
+
   /* ---------- the punch ---------- */
   var stage = $("[data-stage]"); if (!stage) return;
   var card = $("[data-card]", stage), inCell = $("[data-in]", stage), stamp = $("[data-stamp]", stage),
