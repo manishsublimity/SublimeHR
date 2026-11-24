@@ -500,7 +500,7 @@
   var vcur = document.createElement("div"); vcur.className = "vcur"; vcur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 2 3.5 6.5-2.5 1.2L10.5 14 6 18z" fill="#fff" stroke="#14213D" stroke-width="1.6" stroke-linejoin="round"/></svg>'; document.body.appendChild(vcur);
   function curTo(x, y) { vcur.style.setProperty("--cx", Math.round(x) + "px"); vcur.style.setProperty("--cy", Math.round(y) + "px"); }
   async function press(el) {
-    var g = gBot.getBoundingClientRect(); curTo(g.left + 6, g.top + 62); vcur.classList.add("on"); await wait(120); guide.classList.add("act");
+    var g = gBot.getBoundingClientRect(); vcur.style.transition = "none"; curTo(g.left + 6, g.top + 62); void vcur.offsetWidth; vcur.style.transition = ""; vcur.classList.add("on"); await wait(120); guide.classList.add("act");
     var r = el.getBoundingClientRect(); curTo(r.left + r.width / 2 - 6, r.top + r.height / 2 - 4); await wait(1000);
     ring(el); Snd.tick(); await wait(200); el.click(); await wait(350);
     g = gBot.getBoundingClientRect(); curTo(g.left + 6, g.top + 62); await wait(750); vcur.classList.remove("on"); guide.classList.remove("act");

@@ -506,6 +506,7 @@ export function home2() {
           <div class="mscan" data-mscan>${icon("fingerprint", "ic")}<i></i></div>
           <b data-mclock>Hold to clock in</b>
           <div class="mpun"><div><small>In</small><b data-mpin>--:--</b></div><div><small>Out</small><b>--:--</b></div><div><small>Hours</small><b>0.0</b></div></div>
+          <div class="mwk3"><small>This week</small><div><span><b>Mon</b>08:49<em class="ok">On time</em></span><span><b>Tue</b>09:07<em class="gr">Grace</em></span><span><b>Wed</b>08:52<em class="ok">On time</em></span></div></div>
         </div>
         <div class="mscr" data-ms="4">
           <h5>Apply leave</h5>
@@ -513,6 +514,8 @@ export function home2() {
           <div class="mcal" data-mcal2></div>
           <div class="msum"><span data-msum>Pick your dates</span><b>14 days left</b></div>
           <div class="mfld mfld--s"><small>Reason</small><span>Family trip</span></div>
+          <div class="mbal3"><span><b>14</b>Annual</span><span><b>6</b>Sick</span><span><b>2</b>Comp-off</span></div>
+          <div class="mappr"><i>PS</i><span><b>Priya Shah</b>Approves your request</span><em>Manager</em></div>
           <div class="mbtn" data-mbtn>Submit request</div>
         </div>
         <div class="mscr" data-ms="5">
@@ -535,6 +538,8 @@ export function home2() {
             <li><i style="--c:#7FB4FF">${icon("file", "ic")}</i><span><b>April payslip is ready</b>Tap to open</span><em>1h</em></li>
             <li><i style="--c:#FFB020">${icon("repeat", "ic")}</i><span><b>Shift swap accepted</b>Karan covers Thursday</span><em>3h</em></li>
             <li><i style="--c:#9B8CFF">${icon("shield", "ic")}</i><span><b>Policy updated</b>Remote work, version 2</span><em>1d</em></li>
+            <li><i style="--c:#45C4B0">${icon("clock", "ic")}</i><span><b>Overtime approved</b>2 hours on Tuesday</span><em>2d</em></li>
+            <li><i style="--c:#E86F9C">${icon("sparkles", "ic")}</i><span><b>Birthday today</b>Wish Nadia a good one</span><em>2d</em></li>
           </ul>
         </div>
         <div class="mtab" data-mtab aria-hidden="true"><span class="on">${icon("dashboard", "ic")}Home</span><span>${icon("clock", "ic")}Clock</span><span>${icon("calendar", "ic")}Leave</span><span>${icon("wallet", "ic")}Pay</span><span>${icon("alert", "ic")}Inbox</span></div>
@@ -715,7 +720,7 @@ export function home2() {
 <section class="why" aria-labelledby="h-why">
   <h2 id="h-why">Little things that make HR feel effortless.</h2>
   <div class="why__grid">
-    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p>${i === 0 ? '<ul class="wy__tags"><li>Office</li><li>Remote</li><li>Hybrid</li><li>Shift-based</li><li>Field teams</li></ul>' : ""}</div>`).join("")}
+    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p>${i === 5 ? '<a class="wy__cta" href="/custom-development/">See custom development</a>' : ""}${i === 0 ? '<ul class="wy__tags"><li>Office</li><li>Remote</li><li>Hybrid</li><li>Shift-based</li><li>Field teams</li></ul>' : ""}</div>`).join("")}
   </div>
 </section>
 
