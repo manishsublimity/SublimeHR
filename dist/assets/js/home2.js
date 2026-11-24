@@ -149,7 +149,7 @@
     } else if (k === 3) {
       var gross = 1900 + (i * 37) % 150; tween($('[data-p="gross"]'), gross); tween($('[data-p="net"]'), gross * .86); tween($('[data-p="ot"]'), 38 + (i * 7) % 30); tween($('[data-p="ded"]'), 120 + (i * 11) % 60);
       $$("[data-pbars] i").forEach(function (b, j) { b.style.setProperty("--h", Math.round([82, 64, 48, 30, 22][j] + (rnd(s + j) - .5) * 20) + "%"); });
-      var items = $$("[data-pck] li"); items.forEach(function (li) { li.classList.remove("on"); }); items.forEach(function (li, j) { setTimeout(function () { li.classList.add("on"); }, reduce ? 0 : 500 + j * 650); });
+      var items = $$("[data-pck] li"), ckn = $("[data-ckn]"), ckb = $("[data-ckb]"); function ckUp() { var n = items.filter(function (l) { return l.classList.contains("on"); }).length; ckn.textContent = n + " of 4"; ckb.style.width = n / 4 * 100 + "%"; } items.forEach(function (li) { li.classList.remove("on"); }); ckUp(); items.forEach(function (li, j) { setTimeout(function () { li.classList.add("on"); ckUp(); }, reduce ? 0 : 500 + j * 650); });
     } else if (k === 4) {
       tween($('[data-s="m"]'), 14 + i % 6); tween($('[data-s="e"]'), 11 + i % 4); tween($('[data-s="n"]'), 7 + i % 3); tween($('[data-s="sw"]'), 2 + i % 4);
       var dd = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], sq = ["M", "E", "N", "O"], h = '<div class="r"><span></span>' + dd.map(function (x) { return '<span class="hd">' + x + "</span>"; }).join("") + "</div>";

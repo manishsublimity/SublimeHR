@@ -431,7 +431,7 @@ export function home2() {
           </div>
           <div class="win__grid">
             <div class="chart"><small>Cost by team</small><div class="bars bars--h" data-pbars><i><em>Ops</em></i><i><em>Sales</em></i><i><em>Tech</em></i><i><em>HR</em></i><i><em>Fin</em></i></div></div>
-            <div class="plist"><small>Run checklist</small><ul class="ckl" data-pck><li><b>Attendance locked</b><span>All punches reviewed</span></li><li><b>Overtime approved</b><span>Managers signed off</span></li><li><b>Deductions checked</b><span>Tax and unpaid leave</span></li><li><b>Payslips released</b><span>Sent to every phone</span></li></ul></div>
+            <div class="plist"><small>Run checklist</small><div class="ckp"><i><u data-ckb></u></i><b data-ckn>0 of 4</b></div><ul class="ckl" data-pck><li><b>Attendance locked</b><span>All punches reviewed</span></li><li><b>Overtime approved</b><span>Managers signed off</span></li><li><b>Deductions checked</b><span>Tax and unpaid leave</span></li><li><b>Payslips released</b><span>Sent to every phone</span></li></ul></div>
           </div>
         </div>
         <div class="pane" data-pane="4" hidden>

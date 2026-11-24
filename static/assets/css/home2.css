@@ -1782,3 +1782,15 @@ body[data-ft="3"] .footer__contact a { background: rgba(255,255,255,.2); box-sha
 body[data-ft="3"] .footer__contact a i { background: #fff; } body[data-ft="3"] .footer__contact a i .ic { color: var(--world); }
 body[data-ft="3"] .footer__contact a small { color: color-mix(in srgb, var(--on) 80%, transparent); } body[data-ft="3"] .footer__contact a b { color: var(--on); }
 body[data-ft="3"] .footer__contact a:hover { background: rgba(255,255,255,.3); box-shadow: inset 0 0 0 2px rgba(255,255,255,.7), 0 14px 20px -14px rgba(0,0,0,.4); }
+
+/* run checklist as a small stepper: progress bar, numbered steps that turn into ticks, joined by a line */
+.ckp { display: flex; align-items: center; gap: 10px; margin: 8px 0 12px; } .ckp i { flex: 1; height: 6px; border-radius: 6px; background: color-mix(in srgb, var(--world) 16%, #fff); overflow: hidden; } .ckp u { display: block; height: 100%; width: 0; border-radius: 6px; background: #2BB673; transition: width .5s var(--ease); text-decoration: none; } .ckp b { font: 700 11.5px/1 var(--f-d); color: var(--ink); white-space: nowrap; }
+.ckl { position: relative; display: grid; gap: 0; margin-top: 0; counter-reset: ck; }
+.ckl li { position: relative; display: block; min-height: 46px; padding: 0 0 0 34px; border: 0; border-radius: 0; background: none; opacity: 1; counter-increment: ck; }
+.ckl li::before { display: block; content: counter(ck); position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 2px #C5CCD9; color: #8A93A6; font: 700 11px/22px var(--f-d); text-align: center; transition: background .3s, color .3s, box-shadow .3s, transform .4s var(--spring); }
+.ckl li::after { content: ""; position: absolute; left: 10px; top: 26px; bottom: 4px; width: 2px; border-radius: 2px; background: #D5DAE6; transition: background .4s; }
+.ckl li:last-child::after { display: none; }
+.ckl li.on::before { content: "\2713"; background: #2BB673; box-shadow: none; color: #fff; transform: scale(1.08); } .ckl li.on::after { background: #2BB673; }
+.ckl li b { padding-top: 1px; font-size: 12.5px; } .ckl li span { font-size: 11px; }
+.ckl li:not(.on) b, .ckl li:not(.on) span { opacity: .55; }
+.ckl li { min-height: 38px; padding-left: 30px; } .ckl li b { font-size: 12px; letter-spacing: -.01em; } .ckl li span { font-size: 10.5px; } .ckp { margin: 6px 0 10px; }
