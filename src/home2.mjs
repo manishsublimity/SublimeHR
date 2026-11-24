@@ -1,7 +1,8 @@
 // Home option B — "Living Office", second pass.
 // Professional on the surface, playful underneath: a living office, a real product dashboard, a day timeline,
 // try-it demos with optional sound, ten industries, and links into every module.
-import { site, modules } from "./data.mjs";
+import { site, modules, why, industries as siteInds } from "./data.mjs";
+import { homeFaqItems } from "./widgets.mjs";
 import { icon } from "./icons.mjs";
 
 const V = Date.now().toString(36);
@@ -221,40 +222,57 @@ export const industries = [
   }
 ];
 
-// seven people, same across every industry; only job, prop, hat and lines change
+// what each person is doing, per industry: [pose, held item, outfit]
+const acts = {
+  it: [["type", "laptop", "none"], ["hold", "tablet", "none"], ["think", "none", "none"], ["point", "none", "blazer"], ["hold", "folder", "none"], ["hold", "tablet", "none"], ["hold", "coffee", "none"]],
+  hospital: [["hold", "clipboard", "coat"], ["hold", "tablet", "coat"], ["hold", "coffee", "coat"], ["hips", "none", "coat"], ["point", "none", "blazer"], ["hold", "folder", "none"], ["type", "laptop", "none"]],
+  retail: [["hold", "bag", "apron"], ["point", "none", "blazer"], ["hold", "box", "vest"], ["hold", "bag", "none"], ["hold", "phone", "apron"], ["hold", "folder", "none"], ["type", "laptop", "none"]],
+  factory: [["hold", "wrench", "vest"], ["hips", "none", "vest"], ["hold", "clipboard", "vest"], ["hold", "wrench", "vest"], ["hold", "box", "vest"], ["hold", "folder", "none"], ["type", "laptop", "none"]],
+  school: [["point", "folder", "none"], ["hips", "none", "blazer"], ["type", "laptop", "none"], ["hold", "coffee", "vest"], ["think", "none", "none"], ["hold", "tablet", "coat"], ["type", "laptop", "none"]],
+  hotel: [["hold", "tablet", "blazer"], ["hips", "pan", "apron"], ["hold", "bag", "apron"], ["point", "bag", "blazer"], ["hold", "phone", "blazer"], ["hold", "folder", "none"], ["type", "laptop", "none"]],
+  construction: [["hold", "tablet", "vest"], ["point", "none", "vest"], ["hold", "clipboard", "vest"], ["hold", "coffee", "vest"], ["hold", "wrench", "vest"], ["hold", "folder", "none"], ["type", "laptop", "none"]],
+  logistics: [["hold", "phone", "vest"], ["type", "laptop", "none"], ["hold", "box", "vest"], ["point", "none", "vest"], ["hold", "box", "vest"], ["hold", "folder", "none"], ["type", "laptop", "none"]],
+  restaurant: [["hips", "pan", "apron"], ["hold", "tray", "apron"], ["hold", "pan", "apron"], ["hold", "tablet", "blazer"], ["hold", "coffee", "apron"], ["hold", "folder", "none"], ["type", "laptop", "none"]],
+  bank: [["point", "none", "blazer"], ["type", "laptop", "blazer"], ["hold", "folder", "blazer"], ["hold", "clipboard", "blazer"], ["hold", "phone", "blazer"], ["hold", "folder", "none"], ["type", "laptop", "none"]]
+};
+// our ten stories map onto the site's industry records so each one can recommend real modules
+const recMap = { it: "it-software", hospital: "healthcare", retail: "retail", factory: "manufacturing", school: "education", hotel: "hospitality", construction: "construction", logistics: "logistics", restaurant: "hospitality", bank: "professional-services" };
+const modBySlug = Object.fromEntries(modules.map((m) => [m.slug, m]));
+industries.forEach((d) => {
+  d.acts = acts[d.key];
+  const rec = siteInds.find((s) => s.id === recMap[d.key]);
+  d.rec = (rec ? rec.modules : []).map((s) => [modBySlug[s].name, `/software/${s}/`, modBySlug[s].icon]);
+});
+
+// seven people with different builds, outfits and habits; job, prop, hat, pose and lines change per industry
 const people = [
-  { n: "Aisha", skin: "#E8B48C", hair: "#2B1B17", style: "long", shirt: "#FF8A70", x: 40, y: 318, s: 1 },
-  { n: "Omar", skin: "#B97D52", hair: "#1C1410", style: "cap", shirt: "#FFD05A", x: 170, y: 96, s: .84 },
-  { n: "Sara", skin: "#F1CBA6", hair: "#6B3A22", style: "bun", shirt: "#9B8CFF", x: 230, y: 318, s: 1 },
-  { n: "Ravi", skin: "#9A6238", hair: "#120D0B", style: "curls", shirt: "#45C4B0", x: 470, y: 96, s: .84 },
-  { n: "Priya", skin: "#D49A6E", hair: "#1A1210", style: "hijab", hijab: "#F7F3FF", shirt: "#7FB4FF", x: 600, y: 318, s: 1 },
-  { n: "Karan", skin: "#8A5530", hair: "#17100C", style: "cap", shirt: "#FF9FC0", x: 320, y: 96, s: .84 },
-  { n: "Nadia", skin: "#F3D2B3", hair: "#B5651D", style: "long", shirt: "#B8E986", x: 420, y: 318, s: 1 }
+  { n: "Aisha", skin: "#E8B48C", hair: "#2B1B17", style: "long", shirt: "#FF8A70", pants: "#33415F", bw: 80, bh: 98, lean: -2, x: 40, y: 318, s: 1 },
+  { n: "Omar", skin: "#B97D52", hair: "#1C1410", style: "cap", shirt: "#FFD05A", pants: "#2F3B52", bw: 92, bh: 92, lean: 2, beard: 1, x: 170, y: 96, s: .84 },
+  { n: "Sara", skin: "#F1CBA6", hair: "#6B3A22", style: "bun", shirt: "#9B8CFF", pants: "#3C3A55", bw: 82, bh: 96, lean: -1, glasses: 1, x: 230, y: 318, s: 1 },
+  { n: "Ravi", skin: "#9A6238", hair: "#120D0B", style: "curls", shirt: "#45C4B0", pants: "#27324A", bw: 84, bh: 104, lean: 1.5, x: 470, y: 96, s: .84 },
+  { n: "Priya", skin: "#D49A6E", hair: "#1A1210", style: "hijab", hijab: "#F7F3FF", shirt: "#7FB4FF", pants: "#35405E", bw: 82, bh: 94, lean: -1.5, x: 600, y: 318, s: 1 },
+  { n: "Karan", skin: "#8A5530", hair: "#17100C", style: "cap", shirt: "#FF9FC0", pants: "#2B3350", bw: 90, bh: 94, lean: 2.5, glasses: 1, x: 320, y: 96, s: .84 },
+  { n: "Nadia", skin: "#F3D2B3", hair: "#B5651D", style: "long", shirt: "#B8E986", pants: "#3A4565", bw: 78, bh: 96, lean: -2.5, x: 420, y: 318, s: 1 }
 ];
 
-const who = (p, i, extra = "") => `<div class="ppl s-${p.style} ${extra}" data-hat="none" style="--skin:${p.skin};--hair:${p.hair};--shirt:${p.shirt};--hijab:${p.hijab || p.hair};--d:${(i * -0.7).toFixed(1)}s" data-i="${i}">
+const who = (p, i, extra = "") => `<div class="ppl s-${p.style}${p.glasses ? " has-gl" : ""}${p.beard ? " has-bd" : ""} ${extra}" data-hat="none" data-pose="rest" data-item="none" data-outfit="none" style="--skin:${p.skin};--hair:${p.hair};--shirt:${p.shirt};--hijab:${p.hijab || p.hair};--pants:${p.pants};--bw:${p.bw}px;--bh:${p.bh}px;--lean:${p.lean}deg;--d:${(i * -0.7).toFixed(1)}s" data-i="${i}">
   <div class="ppl__fig">
-    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i><i class="hat"></i></div>
-    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><i class="gl"></i><span class="ck l"></span><span class="ck r"></span><i class="bd"></i><span class="mo"></span></i><i class="hat"></i></div>
+    <div class="ppl__body"><i class="ofit"></i><span class="chest" data-prop></span><i class="item"></i></div>
+    <i class="arm l"><i class="fa"></i></i><i class="arm r"><i class="fa"></i></i>
     <div class="ppl__legs"><i></i><i></i></div>
   </div>
 </div>`;
 
 const iconSet = {};
 const need = (k) => (iconSet[k] = icon(k, "ic"));
-for (const ind of industries) { need(ind.icon); ind.props.forEach(need); ind.needs.forEach((n) => need(n[0])); }
-["check", "close", "camera", "pin", "shield", "calendar", "clock", "wallet", "repeat", "users", "chart", "file", "sparkles", "alert", "dollar", "layers", "dashboard"].forEach(need);
+for (const ind of industries) { need(ind.icon); ind.props.forEach(need); ind.needs.forEach((n) => need(n[0])); ind.rec.forEach((r) => need(r[2])); }
+["check", "close", "camera", "pin", "shield", "calendar", "clock", "wallet", "repeat", "users", "chart", "file", "sparkles", "alert", "dollar", "layers", "dashboard", "fingerprint", "lock", "send"].forEach(need);
 
-const roleViews = [
-  ["Employee", 0, "Clock in with a selfie. Ask for leave in two taps. See your balance. Open your payslip.", "/software/employee-self-service/"],
-  ["Manager", 3, "Approve in one tap. See who is in, late or away. Swap shifts without a phone call.", "/software/shift-scheduling/"],
-  ["HR", 4, "Every record in one place. A policy for each leave type. Reports ready for the audit.", "/software/employee-management/"],
-  ["Finance", 5, "Payroll built from real attendance. Allowances and deductions you can trace. Export in a click.", "/software/payroll/"]
-];
 const peeks = [
   ["What happens when someone works on a holiday?", "Comp-off lands in their balance on its own, with an expiry date. Nobody keeps a spreadsheet.", "+1 comp-off day", "sun"],
   ["Who covers when someone takes emergency leave?", "One tap raises the leave, alerts the manager and shows who is free to cover that shift.", "Cover found: Sara", "lilac"],
-  ["How do you stop one person punching in for another?", "Every clock-in takes a selfie and checks the GPS fence. The face and the place both have to match.", "Face match 98%", "mint"],
+  ["How do you stop one person punching in for another?", "Every clock-in takes a selfie or fingerprint and checks the GPS fence. The person and the place both have to match.", "Face match 98%", "mint"],
   ["Paid, unpaid or comp-off: which one is it?", "Each leave type follows its own policy for accrual, carry-forward and half-days. Balances stay right.", "Paid 12 / Unpaid 2 / Comp-off 1", "coral"],
   ["What if payroll was ready before the month ended?", "Attendance, leave and overtime flow in as they happen. Run it once and every phone gets a payslip.", "412 payslips sent", "ink"],
   ["Who is in the building right now?", "Staff and visitors, live. Badges print at the door and hosts get a ping the moment a guest arrives.", "In the building: 38", "white"]
@@ -267,8 +285,18 @@ const stops = [
   [75, "18:05", "Clock out", "Hours add up and nobody types anything."],
   [92, "Month end", "Payslip", "One run, and every phone has its payslip."]
 ];
-
+const steps = [["lock", "Sign in", "Email, username or employee code"], ["shield", "Verify OTP", "MFA keeps HR data safe"], ["dashboard", "Home", "Balances and shift at a glance"], ["fingerprint", "Clock in", "Fingerprint or selfie, plus GPS"], ["calendar", "Apply leave", "Pick dates, done"], ["file", "Payslip", "Download it any time"]];
+const roles = [
+  ["Employee", 0, "Clock in, request leave, open payslips"],
+  ["Manager", 3, "Approve in one tap, see who is in"],
+  ["HR", 4, "Every record, every policy, every report"],
+  ["Finance", 5, "Payroll from real attendance"]
+];
+const ticks = modules.map((m) => m.name);
+const ticks2 = ["Hire to retire", "Attendance to payroll", "Admin to self-service", "English and Arabic", "Mobile ready", "Role-based security", "13 reports", "70+ feature areas"];
+const tick = (arr, rev) => `<div class="ticker__row${rev ? " rev" : ""}">${[0, 1].map(() => `<span>${arr.map((t) => `<b>${t}</b>`).join("")}</span>`).join("")}</div>`;
 const chip = (d, i) => `<button class="chip" type="button" data-k="${d.key}" aria-pressed="${i === 0}">${icon(d.icon, "ic")}<span>${d.name}</span></button>`;
+const faq = homeFaqItems().map(([q, a]) => [q, a]);
 
 export function home2() {
   return `<!doctype html>
@@ -285,15 +313,13 @@ export function home2() {
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
 </head>
 <body class="lo" data-w="${industries[0].key}">
-<script type="application/json" id="lo-data">${JSON.stringify({ industries, people: people.map((p) => p.n), icons: iconSet }).replace(/</g, "\\u003c")}</script>
+<script type="application/json" id="lo-data">${JSON.stringify({ industries, people: people.map((p) => p.n), icons: iconSet, faq }).replace(/</g, "\\u003c")}</script>
 <div class="fx" aria-hidden="true" data-fx></div>
 
 <header class="nav" data-nav>
   <a class="nav__brand" href="/home-v2/"><img src="${site.logo}" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
   <nav class="nav__links" aria-label="Main"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></nav>
-  <button class="snd" type="button" data-sound aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a8 8 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg><span>Sound off</span></button>
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>
-  <div class="nudge" data-nudge hidden>Turn the sound on for the full demo.</div>
 </header>
 
 <main>
@@ -302,16 +328,18 @@ export function home2() {
     <div class="hero__copy">
       <h1 id="h1">Your people are alive. Your HR should be too.</h1>
       <p class="hero__lead" data-lead>${industries[0].lead}</p>
-      <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="/features/">Explore the features</a></div>
+      <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="#lab">Play with it live</a></div>
       <ul class="facts" aria-label="At a glance"><li><b>70+</b> feature areas</li><li><b>13</b> built-in reports</li><li><b>EN</b> and <b>AR</b>, right to left</li><li><b>Web</b>, iOS and Android</li></ul>
     </div>
     <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
-      <div class="stage__rug" aria-hidden="true"></div>
+      <div class="stage__floor" aria-hidden="true"></div>
       <div class="wall" aria-hidden="true">
         <svg class="clock" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46"/><line class="hh" x1="50" y1="50" x2="50" y2="28"/><line class="mh" x1="50" y1="50" x2="50" y2="17"/><line class="sh" x1="50" y1="56" x2="50" y2="12"/><circle class="pin" cx="50" cy="50" r="3"/></svg>
       </div>
       ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}<span class="tag"><b>${p.n}</b><em data-role></em></span></div>`).join("")}
-      <div class="subi" data-subi><div class="subi__say" data-subi-say></div><button class="subi__bot" type="button" aria-label="Say hello to Subi, the office helper"><i class="ant"></i><span class="scr"><b></b><b></b></span><i class="ar l"></i><i class="ar r"></i></button><i class="subi__sh"></i></div>
+      <div class="subi" data-subi><div class="subi__say" data-subi-say></div>
+        <button class="subi__bot" type="button" aria-label="Ask Subi, the office helper"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="s-body"><i class="s-core"></i></span><i class="s-ar l"></i><i class="s-ar r"></i><i class="s-jet"></i></button>
+        <span class="subi__lbl">Ask Subi</span><i class="subi__sh"></i></div>
       <div class="tally" aria-label="Today at a glance">
         <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
       </div>
@@ -322,6 +350,15 @@ export function home2() {
     <div class="chips" role="group" aria-labelledby="pick-lbl" data-chips>${industries.map(chip).join("")}</div>
   </div>
   <div class="pulse" aria-hidden="true"></div>
+</section>
+
+<div class="ticker" aria-hidden="true">${tick(ticks)}${tick(ticks2, true)}</div>
+
+<section class="stats" aria-label="SublimeHR in numbers">
+  <div><i>${icon("layers", "ic")}</i><b data-count="70" data-suf="+">70+</b><span>Feature areas</span><small>From hire to retire</small></div>
+  <div><i>${icon("chart", "ic")}</i><b data-count="13">13</b><span>Built-in reports</span><small>Audit-ready and exportable</small></div>
+  <div><i>${icon("users", "ic")}</i><b data-count="2">2</b><span>Panels</span><small>Admin, HR and employee</small></div>
+  <div><i>${icon("globe", "ic")}</i><b>EN + AR</b><span>Two languages</span><small>Left to right and right to left</small></div>
 </section>
 
 <section class="prod" aria-labelledby="h-prod" data-prod>
@@ -345,9 +382,9 @@ export function home2() {
         <div class="win__hi"><b>Good morning, HR team</b><span data-dash-date></span></div>
         <div class="tiles">
           <div class="tile"><small>Present today</small><b data-d="present">0</b><i class="up">+2.4%</i></div>
-          <div class="tile"><small>On leave</small><b data-d="leave">0</b><i>planned 7, urgent 2</i></div>
+          <div class="tile"><small>On leave</small><b data-d="leave">0</b><i>planned and urgent</i></div>
           <div class="tile"><small>Overtime hours</small><b data-d="ot">0</b><i class="up">awaiting 3</i></div>
-          <div class="tile"><small>Payroll ready</small><b data-d="pay">0</b><i>%</i></div>
+          <div class="tile"><small>Payroll ready</small><b data-d="pay">0</b><i>percent</i></div>
         </div>
         <div class="win__grid">
           <div class="chart"><small>Attendance this week</small><div class="bars" data-bars><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="bars__x"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div>
@@ -365,8 +402,9 @@ export function home2() {
     <p class="rhythm__lead" data-lead2>${industries[0].lead}</p>
     <p class="rhythm__sub">The usual headaches</p>
     <ul class="pains" data-pains></ul>
-    <p class="rhythm__hint">Touch any need around the character and listen to what it says.</p>
-    <a class="link link--ink" href="/industries/">Browse all industries</a>
+    <p class="rhythm__sub">Modules that fit</p>
+    <div class="rec" data-rec></div>
+    <p class="rhythm__hint">Touch a need around the character and listen to what it says.</p>
   </div>
   <div class="orbit" data-orbit>
     <div class="orbit__ring" aria-hidden="true"></div><div class="orbit__ring r2" aria-hidden="true"></div>
@@ -378,8 +416,31 @@ export function home2() {
   </div>
 </section>
 
+<section class="movie" aria-labelledby="h-movie" data-movie>
+  <div class="movie__head"><h2 id="h-movie">Twenty seconds on a phone.</h2><p>Sign in, clock in, ask for leave and open a payslip. This is the employee app, playing by itself. Tap any step to jump in.</p></div>
+  <div class="movie__grid">
+    <div class="movie__steps" role="tablist" aria-label="App walkthrough">
+      ${steps.map(([ic, t, s], i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-go="${i}"><i>${icon(ic, "ic")}</i><span><b>${t}</b><small>${s}</small></span><em></em></button>`).join("")}
+    </div>
+    <div class="movie__stage">
+      <div class="mphone" role="img" aria-label="Animated walkthrough of the SublimeHR mobile app"><div class="mscreen">
+        <span class="tapdot" data-tap></span>
+        <div class="msbar" aria-hidden="true"><span>9:41</span><i></i></div>
+        <div class="mscr on" data-ms="0"><img src="${site.logo}" alt="" width="46" height="41"><h5>Welcome back</h5><small>Sign in to SublimeHR</small><div class="mfld"><small>Employee code</small><span><em data-mtype></em><i class="caret"></i></span></div><div class="mbtn" data-mbtn>Continue</div></div>
+        <div class="mscr" data-ms="1"><h5>Enter OTP</h5><small>Sent to +91 •••• 7684</small><div class="motp" data-motp><span></span><span></span><span></span><span></span></div><div class="mbtn" data-mbtn>Verify</div></div>
+        <div class="mscr" data-ms="2"><div class="mhead"><img src="${site.logo}" alt="" width="18" height="16">SublimeHR<span>SN</span></div><small>Good morning</small><h5>Sara</h5><div class="mcard"><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office</span></div><div class="mtiles"><div><small>Leave balance</small><b>14</b></div><div><small>Present this month</small><b>21</b></div></div><div class="mbtn">Clock in</div></div>
+        <div class="mscr mscr--c" data-ms="3"><span class="mchip">${icon("pin", "ic")}Inside geofence</span><div class="mscan" data-mscan>${icon("fingerprint", "ic")}<i></i></div><b data-mclock>Hold to clock in</b></div>
+        <div class="mscr" data-ms="4"><h5>Apply leave</h5><div class="mpills"><span class="on">Annual</span><span>Sick</span><span>Comp-off</span></div><div class="mcal" data-mcal2></div><div class="mbtn" data-mbtn>Submit request</div></div>
+        <div class="mscr" data-ms="5"><h5>April payslip</h5><div class="mslip"><div><span>Basic</span><b>4,200</b></div><div><span>Allowance</span><b>1,050</b></div><div class="neg"><span>Deductions</span><b>- 310</b></div><div class="net"><span>Net pay</span><b>4,940</b></div></div><div class="mbtn">Download PDF</div></div>
+      </div></div>
+      <div class="movie__who"><div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div>${who(people[0], 0, "ppl--movie")}</div>
+    </div>
+  </div>
+  <div class="movie__bar" aria-hidden="true"><i data-mbar></i></div>
+</section>
+
 <section class="day" aria-labelledby="h-day" data-day>
-  <div class="day__head"><h2 id="h-day">One day, from clock-in to payslip.</h2><p>Scroll and follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets.</p></div>
+  <div class="day__head"><h2 id="h-day">One day, from clock-in to payslip.</h2><p>Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets.</p></div>
   <div class="day__track" data-track>
     <div class="day__line"><i data-prog></i></div>
     ${stops.map(([l, t, h, p], i) => `<div class="stp ${i % 2 ? "dn" : "up"}" style="--l:${l}%"><div class="stp__c"><small>${t}</small><b>${h}</b><span>${p}</span></div><i class="stp__d"></i></div>`).join("")}
@@ -387,56 +448,58 @@ export function home2() {
   </div>
 </section>
 
-<section class="play" aria-labelledby="h-play" data-play>
-  <div class="play__head"><h2 id="h-play">Try it. None of this is a screenshot.</h2><p>Punch a card, request leave, run payroll. The numbers are real arithmetic, and the characters react.</p></div>
-  <div class="play__tabs" role="tablist" aria-label="Demos">
-    <button role="tab" type="button" aria-selected="true" data-tab="0">Clock in</button>
-    <button role="tab" type="button" aria-selected="false" data-tab="1">Request leave</button>
-    <button role="tab" type="button" aria-selected="false" data-tab="2">Run payroll</button>
-  </div>
-  <div class="play__stage">
-    <div class="play__panel" data-panel="0">
-      <div class="phone">
-        <div class="phone__top"><span data-clock-now>09:00</span><i></i></div>
-        <p class="phone__hi">Good morning, Aisha</p>
-        <div class="punch" data-punch><span class="ring"></span><button class="punch__btn" type="button" data-punch-btn>Punch in</button></div>
-        <ul class="checks" data-checks><li data-c="0">${icon("camera", "ic")}<span>Selfie matched</span><i>${icon("check", "ic")}</i></li><li data-c="1">${icon("pin", "ic")}<span>GPS 12 m, inside Head Office</span><i>${icon("check", "ic")}</i></li><li data-c="2">${icon("clock", "ic")}<span data-status>Waiting</span><i>${icon("check", "ic")}</i></li></ul>
-      </div>
-      <div class="ctl"><label for="arr">When does Aisha arrive?</label><b data-arr-out>08:52</b><input id="arr" type="range" min="510" max="600" step="1" value="532" data-arr><p class="ctl__hint">Shift starts at 09:00. Grace until 09:15.</p></div>
-    </div>
-    <div class="play__panel" data-panel="1" hidden>
-      <div class="phone">
-        <div class="phone__top"><span>Leave</span><i></i></div>
-        <p class="phone__hi">Request leave</p>
-        <div class="types" role="radiogroup" aria-label="Leave type" data-types>
-          <button type="button" role="radio" aria-checked="true" data-type="paid">Paid</button><button type="button" role="radio" aria-checked="false" data-type="unpaid">Unpaid</button><button type="button" role="radio" aria-checked="false" data-type="comp">Comp-off</button><button type="button" role="radio" aria-checked="false" data-type="emergency">Emergency</button>
+<section class="lab" id="lab" aria-labelledby="h-lab" data-lab>
+  <div class="lab__head"><h2 id="h-lab">Don't take our word for it. Play with it.</h2><p>Six working mini versions of SublimeHR. Punch a clock, pick leave dates, move payroll sliders, rotate a roster. The numbers are real arithmetic.</p></div>
+  <div class="lab__grid">
+    <article class="lc lc--clock">
+      <header><i>${icon("fingerprint", "ic")}</i><div><h3>Clock in</h3><p>Fingerprint, selfie or GPS. Grace and late rules run themselves.</p></div></header>
+      <div class="modes" role="radiogroup" aria-label="Punch method"><button type="button" role="radio" aria-checked="true" data-mode="fp">Fingerprint</button><button type="button" role="radio" aria-checked="false" data-mode="selfie">Selfie</button><button type="button" role="radio" aria-checked="false" data-mode="gps">GPS only</button></div>
+      <div class="clk">
+        <button class="scanner" type="button" data-scan aria-label="Press to clock in"><span class="scanner__ic" data-scan-ic>${icon("fingerprint", "ic")}</span><i class="scanner__beam"></i><span class="scanner__lbl" data-scan-lbl>Press to clock in</span></button>
+        <div class="clk__r">
+          <ul class="checks" data-checks><li><span data-c0>Fingerprint matched</span><i>${icon("check", "ic")}</i></li><li><span>GPS 12 m, inside Head Office</span><i>${icon("check", "ic")}</i></li><li><span data-status>Waiting</span><i>${icon("check", "ic")}</i></li></ul>
+          <div class="arr"><label for="arr">Arrival</label><b data-arr-out>08:52</b><input id="arr" type="range" min="510" max="600" value="532" data-arr aria-label="Arrival time"></div>
+          <p class="note">Shift starts 09:00. Grace until 09:15.</p>
         </div>
-        <div class="step"><button type="button" data-dec aria-label="One day less">-</button><span><b data-days>2</b> days</span><button type="button" data-inc aria-label="One day more">+</button></div>
-        <div class="bal"><small data-bal-lbl>Paid leave balance</small><div class="bal__bar"><i data-bal-bar></i></div><span data-bal-txt>14 days left</span></div>
-        <button class="go" type="button" data-leave-go>Request leave</button>
-        <ol class="flow" data-flow><li>Request sent</li><li>Manager notified</li><li data-flow-last>Approved</li></ol>
       </div>
-      <div class="ctl"><p class="ctl__big">Four policies, one request.</p><p class="ctl__hint">Pick a type and a length. If the balance runs short, the request goes to HR instead of auto-approving.</p></div>
-    </div>
-    <div class="play__panel" data-panel="2" hidden>
-      <div class="phone phone--wide">
-        <div class="phone__top"><span>Payroll, March</span><i></i></div>
-        <div class="rows">
-          <div><span>Basic</span><b>4,800</b></div><div><span>Allowance</span><b>300</b></div>
-          <div><span>Overtime <em data-ot-h>6</em> h</span><b class="plus" data-ot-v>+ 0</b></div><div><span>Unpaid leave <em data-ul-d>1</em> d</span><b class="minus" data-ul-v>- 0</b></div>
-        </div>
-        <div class="net"><small>Net pay</small><b data-net>0</b></div>
-        <div class="split" aria-hidden="true"><i data-s1></i><i data-s2></i><i data-s3></i></div>
-        <button class="go" type="button" data-pay-go>Run payroll</button>
-        <p class="sent" data-sent aria-live="polite"></p>
-      </div>
-      <div class="ctl ctl--two">
-        <label for="oth">Overtime hours</label><b data-oth-out>6</b><input id="oth" type="range" min="0" max="20" value="6" data-oth>
-        <label for="ulv">Unpaid leave days</label><b data-ulv-out>1</b><input id="ulv" type="range" min="0" max="5" value="1" data-ulv>
-        <p class="ctl__hint">Overtime is paid at 1.5 times the hourly rate. Each unpaid day removes one thirtieth of the basic.</p>
-      </div>
-    </div>
-    <div class="play__who"><div class="say say--play" data-say-play aria-live="polite">Go on, press something.</div>${who(people[3], 3, "ppl--play")}</div>
+      <div class="hist"><small>This week</small><ul data-hist><li><span>Mon</span><b>08:49</b><em class="ok">On time</em></li><li><span>Tue</span><b>09:07</b><em class="gr">Grace</em></li><li><span>Wed</span><b>08:52</b><em class="ok">On time</em></li><li data-today><span>Today</span><b>--:--</b><em>Waiting</em></li></ul></div>
+    </article>
+    <article class="lc lc--leave">
+      <header><i>${icon("calendar", "ic")}</i><div><h3>Request leave</h3><p>Pick two dates. Weekends are skipped.</p></div></header>
+      <div class="modes" role="radiogroup" aria-label="Leave type"><button type="button" role="radio" aria-checked="true" data-ltype="annual">Annual</button><button type="button" role="radio" aria-checked="false" data-ltype="sick">Sick</button><button type="button" role="radio" aria-checked="false" data-ltype="comp">Comp-off</button></div>
+      <div class="lcal" data-lcal></div>
+      <div class="lbal"><div class="lbal__bar"><i data-lbar></i></div><p data-lsum>Pick a start date.</p></div>
+      <button class="go" type="button" data-lgo>Send request</button>
+      <p class="lflow" data-lflow aria-live="polite"></p>
+    </article>
+    <article class="lc lc--pay">
+      <header><i>${icon("wallet", "ic")}</i><div><h3>Payroll</h3><p>Overtime and unpaid leave flow into the payslip.</p></div></header>
+      <div class="net"><small>Net pay, March</small><b data-net>0</b></div>
+      <div class="split" aria-hidden="true"><i data-s1></i><i data-s2></i><i data-s3></i></div>
+      <div class="rows"><div><span>Basic and allowance</span><b>5,100</b></div><div><span>Overtime <em data-ot-h>6</em> h</span><b class="plus" data-ot-v>+ 0</b></div><div><span>Unpaid leave <em data-ul-d>1</em> d</span><b class="minus" data-ul-v>- 0</b></div></div>
+      <div class="sl"><label for="oth">Overtime hours</label><b data-oth-out>6</b><input id="oth" type="range" min="0" max="20" value="6" data-oth></div>
+      <div class="sl"><label for="ulv">Unpaid leave days</label><b data-ulv-out>1</b><input id="ulv" type="range" min="0" max="5" value="1" data-ulv></div>
+      <button class="go" type="button" data-pay-go>Run payroll</button>
+      <p class="lflow" data-sent aria-live="polite"></p>
+    </article>
+    <article class="lc lc--perm">
+      <header><i>${icon("shield", "ic")}</i><div><h3>Permissions</h3><p>Switch roles, flip access, see what they see.</p></div></header>
+      <div class="modes modes--4" role="radiogroup" aria-label="Role"><button type="button" role="radio" aria-checked="true" data-role-p="0">Employee</button><button type="button" role="radio" aria-checked="false" data-role-p="1">Manager</button><button type="button" role="radio" aria-checked="false" data-role-p="2">HR</button><button type="button" role="radio" aria-checked="false" data-role-p="3">Admin</button></div>
+      <ul class="perms" data-perms></ul>
+      <p class="note" data-perm-sum></p>
+    </article>
+    <article class="lc lc--here">
+      <header><i>${icon("users", "ic")}</i><div><h3>Who's in</h3><p>Scrub through the morning and watch the board fill.</p></div></header>
+      <div class="here__top"><b data-here-t>08:00</b><span data-here-n>0 of 24 in</span></div>
+      <input type="range" min="450" max="600" value="480" data-here aria-label="Time of morning">
+      <div class="here" data-here-grid></div>
+      <p class="note"><i class="dot ok"></i>on time <i class="dot late"></i>late <i class="dot off"></i>not yet</p>
+    </article>
+    <article class="lc lc--roster">
+      <header><i>${icon("repeat", "ic")}</i><div><h3>Shift roster</h3><p>Click a shift to rotate it. Coverage is checked live, so no day goes understaffed.</p></div></header>
+      <div class="roster" data-roster></div>
+      <p class="cover" data-cover aria-live="polite"></p>
+    </article>
   </div>
 </section>
 
@@ -450,19 +513,67 @@ export function home2() {
   </div>
 </section>
 
-<section class="views" aria-labelledby="h-views">
-  <h2 id="h-views">Everyone sees a different company.</h2>
-  <div class="views__row">
-    ${roleViews.map(([t, pi, line, href], i) => `<a class="vw vw--${i + 1}" href="${href}">
-      <div class="vw__who">${who(people[pi], pi, "ppl--bust")}</div>
-      <h3>${t}</h3><p>${line}</p></a>`).join("")}
+<section class="roles" aria-labelledby="h-roles" data-roles>
+  <h2 id="h-roles">Everyone sees a different company.</h2>
+  <div class="roles__grid">
+    <div class="roles__tabs" role="tablist" aria-label="Roles">
+      ${roles.map(([t, pi, s], i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-r="${i}"><span class="rb">${who(people[pi], pi, "ppl--bust")}</span><span><b>${t}</b><small>${s}</small></span></button>`).join("")}
+    </div>
+    <div class="roles__screen">
+      <div class="rs on" data-rs="0">
+        <div class="rs__h"><b>Hi Aisha</b><span>Employee app</span></div>
+        <button class="rs__clock" type="button" data-rclock><span data-rclock-t>Clock in</span><small data-rclock-s>Tap to punch, 09:00 shift</small></button>
+        <div class="rs__bal"><div><small>Annual</small><i style="--w:78%"></i><b>14</b></div><div><small>Sick</small><i style="--w:55%"></i><b>6</b></div><div><small>Comp-off</small><i style="--w:30%"></i><b>2</b></div></div>
+        <div class="rs__row"><span>${icon("file", "ic")}Next payslip</span><b>1 April</b></div>
+      </div>
+      <div class="rs" data-rs="1" hidden>
+        <div class="rs__h"><b>Approvals <em data-appr-n>3</em></b><span>Manager view</span></div>
+        <ul class="appr" data-appr>
+          <li><i style="--c:#FFD05A">OM</i><span><b>Omar</b>Annual leave, 23 to 24 Apr</span><button type="button" data-ap="ok">Approve</button></li>
+          <li><i style="--c:#9B8CFF">SN</i><span><b>Sara</b>Shift swap with Karan, Thu</span><button type="button" data-ap="ok">Approve</button></li>
+          <li><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Overtime, 2 hours</span><button type="button" data-ap="ok">Approve</button></li>
+        </ul>
+        <div class="rs__pills"><span>11 in</span><span>2 late</span><span>1 away</span></div>
+      </div>
+      <div class="rs" data-rs="2" hidden>
+        <div class="rs__h"><b>People</b><span>HR view</span></div>
+        <label class="rs__find"><span class="vh">Search people</span>${icon("search", "ic")}<input type="search" placeholder="Search by name or team" data-find></label>
+        <ul class="dir" data-dir></ul>
+      </div>
+      <div class="rs" data-rs="3" hidden>
+        <div class="rs__h"><b>March payroll</b><span>Finance view</span></div>
+        <div class="fin"><div><small>Total cost</small><b>1.96 M</b></div><div><small>Employees</small><b>412</b></div></div>
+        <div class="fin__bars" aria-hidden="true"><i style="--h:82%"><em>Ops</em></i><i style="--h:64%"><em>Sales</em></i><i style="--h:48%"><em>Tech</em></i><i style="--h:30%"><em>HR</em></i><i style="--h:22%"><em>Fin</em></i></div>
+        <ul class="steps" data-fsteps><li><button type="button" aria-pressed="false">Attendance locked</button></li><li><button type="button" aria-pressed="false">Overtime approved</button></li><li><button type="button" aria-pressed="false">Deductions checked</button></li><li><button type="button" aria-pressed="false">Payslips released</button></li></ul>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="mods" aria-labelledby="h-mods">
   <div class="mods__head"><h2 id="h-mods">Everything behind the people.</h2><a class="link link--ink" href="/features/">See all features</a></div>
   <div class="mods__grid">
-    ${modules.map((m, i) => `<a class="md md--${i % 5}" href="/software/${m.slug}/"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span></a>`).join("")}
+    ${modules.map((m, i) => `<a class="md md--${i % 5}" href="/software/${m.slug}/"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}
+  </div>
+</section>
+
+<section class="why" aria-labelledby="h-why">
+  <h2 id="h-why">Little things that make HR feel effortless.</h2>
+  <div class="why__grid">
+    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p></div>`).join("")}
+  </div>
+</section>
+
+<section class="ask" id="ask" aria-labelledby="h-ask" data-ask>
+  <div class="ask__copy">
+    <h2 id="h-ask">Ask Subi anything.</h2>
+    <p>Pick a question or type your own. Subi answers instantly, and a real person replies within one business day.</p>
+    <div class="ask__qs" data-qs></div>
+  </div>
+  <div class="chat">
+    <div class="chat__top"><span class="chat__av"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span></span><b>Subi</b><em>Online</em></div>
+    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi, I'm Subi. Pick a question on the left or type your own.</div></div>
+    <form class="chat__foot" data-ask-form><label class="vh" for="ask-in">Ask a question</label><input id="ask-in" placeholder="For example: Do you support biometric devices?" autocomplete="off"><button type="submit" aria-label="Send">${icon("send", "ic")}</button></form>
   </div>
 </section>
 
@@ -483,6 +594,8 @@ export function home2() {
   <a class="foot__ph" href="${site.phoneHref}">${site.phone}</a>
 </footer>
 
+<button class="fab" type="button" data-sound aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a8 8 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg><span>Sound off</span></button>
+<div class="nudge" data-nudge hidden>Turn the sound on for the full demo.</div>
 <a class="back" href="/">Current home</a>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
 </body>
