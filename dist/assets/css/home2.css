@@ -1756,5 +1756,5 @@ body[data-ft="6"] .footer__grid > div:nth-child(2) { background: #E4F6EE; } body
 body[data-ft="6"] .footer h2 { color: var(--ink); } body[data-ft="6"] .footer h2::after { background: var(--ink); filter: none; opacity: .5; } body[data-ft="6"] .footer ul a { color: var(--ink); } body[data-ft="6"] .footer ul a:hover { background: rgba(255,255,255,.75); }
 body[data-ft="6"] .footer__contact a { background: rgba(255,255,255,.22); color: var(--on); } body[data-ft="6"] .footer__contact .ic { color: var(--on); }
 body[data-ft="6"] .footer__bar { color: var(--ink2); border-color: rgba(20,33,61,.12); } body[data-ft="6"] .footer__bar nav a { background: #fff; color: var(--ink); } body[data-ft="6"] .footer__word { display: none; }
-body[data-ft] main > :not(.meet) { display: none !important; } body[data-ft] .nav, body[data-ft] .guide, body[data-ft] .fab, body[data-ft] .nudge, body[data-ft] .topbtn { display: none !important; }
-body[data-ft] .footer, body[data-ft] * { transition: none !important; }
+body.ftprev main > :not(.meet) { display: none !important; } body.ftprev .nav, body.ftprev .guide, body.ftprev .fab, body.ftprev .nudge, body.ftprev .topbtn { display: none !important; }
+body.ftprev .footer, body.ftprev * { transition: none !important; }
