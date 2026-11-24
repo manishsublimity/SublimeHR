@@ -1758,3 +1758,14 @@ body[data-ft="6"] .footer__contact a { background: rgba(255,255,255,.22); color:
 body[data-ft="6"] .footer__bar { color: var(--ink2); border-color: rgba(20,33,61,.12); } body[data-ft="6"] .footer__bar nav a { background: #fff; color: var(--ink); } body[data-ft="6"] .footer__word { display: none; }
 body.ftprev main > :not(.meet) { display: none !important; } body.ftprev .nav, body.ftprev .guide, body.ftprev .fab, body.ftprev .nudge, body.ftprev .topbtn { display: none !important; }
 body.ftprev .footer, body.ftprev * { transition: none !important; }
+
+/* footer: corners show the section above, contact as two clear tiles */
+.meet { padding-bottom: 54px; }
+.footer { margin-top: -54px; position: relative; z-index: 2; }
+.footer__contact { gap: 10px; }
+.footer__contact a { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 14px 10px 10px; border-radius: 18px; background: color-mix(in srgb, var(--world) 9%, #fff); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--world) 22%, #fff); transition: transform .3s var(--spring), box-shadow .25s, background .25s; }
+.footer__contact a i { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 14px; background: var(--world); color: var(--on); font-style: normal; } .footer__contact a i .ic { width: 20px; height: 20px; color: var(--on); }
+.footer__contact a span { display: grid; gap: 1px; min-width: 0; } .footer__contact a small { font-size: 11.5px; font-weight: 700; color: var(--ink2); letter-spacing: .02em; } .footer__contact a b { font: 600 15px/1.2 var(--f-d); color: var(--ink); letter-spacing: -.01em; }
+body[data-ft="3"] .footer__contact a { background: color-mix(in srgb, var(--world) 9%, #fff); color: var(--ink); }
+body[data-ft="3"] .footer__contact .ic { color: var(--on); }
+.footer__contact a:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 2px var(--world), 0 14px 20px -14px color-mix(in srgb, var(--world) 70%, #000); background: #fff; }

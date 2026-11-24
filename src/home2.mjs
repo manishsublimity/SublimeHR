@@ -775,7 +775,7 @@ export function home2() {
       <div class="footer__about">
         <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34"><span>Sublime<span class="hr">HR</span></span></a>
         <p>Powering your worklife — attendance, leave, payroll and self-service in one friendly platform.</p>
-        <div class="footer__contact"><a href="${site.phoneHref}">${icon("call", "ic")} ${site.phone}</a><a href="${site.whatsapp}" target="_blank" rel="noopener">${icon("message", "ic")} Chat on WhatsApp</a></div>
+        <div class="footer__contact"><a href="${site.phoneHref}"><i>${icon("call", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span></a><a href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>WhatsApp</small><b>Chat with us</b></span></a></div>
       </div>
       ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
       ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
