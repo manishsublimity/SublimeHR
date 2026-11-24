@@ -1472,3 +1472,29 @@ main h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; tex
 .mwk3 div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 7px; } .mwk3 span { display: grid; gap: 2px; padding: 7px 6px; border-radius: 10px; background: #fff; font: 700 11px/1.2 var(--f-d); text-align: center; } .mwk3 span b { font: 700 8.5px/1 var(--f); color: var(--ink2); } .mwk3 em { justify-self: center; padding: 1px 6px; border-radius: 99px; font: 700 8px/1.3 var(--f); font-style: normal; background: #DDF5EA; color: #167A4F; } .mwk3 em.gr { background: #FFF0CC; color: #8A5A00; }
 .mbal3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; } .mbal3 span { display: grid; place-items: center; gap: 1px; padding: 8px 4px; border-radius: 12px; background: color-mix(in srgb, var(--world) 9%, #fff); font-size: 9px; font-weight: 700; color: var(--ink2); } .mbal3 b { font: 700 16px/1.1 var(--f-d); color: var(--ink); }
 .mappr { display: flex; align-items: center; gap: 9px; margin-top: 10px; padding: 9px 11px; border-radius: 12px; background: #F6F7FB; font-size: 9.5px; color: var(--ink2); } .mappr i { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: #FFD05A; font: 700 9px/1 var(--f); font-style: normal; color: var(--ink); } .mappr span { flex: 1; } .mappr b { display: block; font-size: 11px; color: var(--ink); } .mappr em { font-style: normal; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: color-mix(in srgb, var(--world) 14%, #fff); }
+
+/* =====================================================================
+   twelfth pass: dead space audit
+   ===================================================================== */
+/* dashboard cards fill their height */
+.chart .bars { max-height: none; }
+.chart .heat { flex: 1; grid-auto-rows: 1fr; align-content: stretch; } .heat i { height: auto; min-height: 24px; }
+.donut { justify-content: center; }
+.plist { display: flex; flex-direction: column; } .plist ul { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin-top: 8px; }
+.ckl { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin-top: 8px; }
+.pane > .mini { flex: 1; align-content: space-around; }
+.shf { margin-top: 0; }
+/* rhythm: circles centred in their half */
+.rhythm { grid-template-columns: 1fr 1fr; } .orbit { justify-self: center; }
+/* role panels: lists spread inside their card */
+.rs__away { display: flex; flex-direction: column; align-content: initial; } .rs__away ul { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin-top: 8px; }
+.rs__cov { display: flex; flex-direction: column; justify-content: center; }
+/* little things: bigger lead card with figures, tidy wide card */
+.wy--0 { justify-content: center; } .wy--0 h3 { font-size: 30px; } .wy--0 p { font-size: 17.5px; }
+.wy__stats { display: flex; gap: 14px; margin-top: 22px; } .wy__stats span { flex: 1; padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,.6); font-size: 13.5px; font-weight: 600; color: var(--ink2); } .wy__stats b { display: block; font: 600 28px/1.1 var(--f-d); color: var(--ink); letter-spacing: -.02em; }
+.wy--0:hover .wy__stats span { background: rgba(255,255,255,.18); color: var(--on); } .wy--0:hover .wy__stats b { color: var(--on); }
+.wy--5 { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "i h c" "i p c"; gap: 4px 22px; align-items: center; align-content: center; } .wy--5 i { grid-area: i; } .wy--5 h3 { grid-area: h; align-self: end; } .wy--5 p { grid-area: p; align-self: start; } .wy--5 .wy__cta { grid-area: c; align-self: center; }
+/* phone clock screen: the week card spans the screen */
+.mwk3 { align-self: stretch; width: auto; margin-top: 10px; }
+.shf__c:first-child .shf__r:nth-child(4) { display: none; } .mini span.c { height: 24px; } .shf__c { padding: 11px 14px; }
+.meet h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; }

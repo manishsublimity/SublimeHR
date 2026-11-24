@@ -720,7 +720,7 @@ export function home2() {
 <section class="why" aria-labelledby="h-why">
   <h2 id="h-why">Little things that make HR feel effortless.</h2>
   <div class="why__grid">
-    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p>${i === 5 ? '<a class="wy__cta" href="/custom-development/">See custom development</a>' : ""}${i === 0 ? '<ul class="wy__tags"><li>Office</li><li>Remote</li><li>Hybrid</li><li>Shift-based</li><li>Field teams</li></ul>' : ""}</div>`).join("")}
+    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p>${i === 5 ? '<a class="wy__cta" href="/custom-development/">See custom development</a>' : ""}${i === 0 ? '<ul class="wy__tags"><li>Office</li><li>Remote</li><li>Hybrid</li><li>Shift-based</li><li>Field teams</li></ul><div class="wy__stats"><span><b>70+</b>feature areas</span><span><b>' + modules.length + '</b>modules</span><span><b>13</b>reports</span></div>' : ""}</div>`).join("")}
   </div>
 </section>
 

@@ -142,7 +142,7 @@
     } else if (k === 2) {
       tween($('[data-l="pend"]'), 5 + (i * 3) % 9); tween($('[data-l="appr"]'), 12 + (i * 5) % 14); tween($('[data-l="away"]'), 9 + (i * 4) % 11); tween($('[data-l="used"]'), 38 + (i * 6) % 30);
       $("[data-heat]").innerHTML = Array.apply(null, Array(14)).map(function (_, j) { var v = Math.round(10 + rnd(s + j * 2) * 60), we = j % 7 === 5 || j % 7 === 6; return '<i style="--v:' + (we ? 6 : v) + '">' + (we ? "" : Math.round(v / 8)) + "</i>"; }).join("");
-      var st = [["ok", "Approved"], ["wait", "Pending"], ["ok", "Cover found"]]; $("[data-reqs]").innerHTML = [0, 1].map(function (j) { var n = names[(j * 2 + i) % 7]; return '<li><i style="--c:' + avc[(j * 2 + i) % 7] + '">' + av(n) + "</i><span><b>" + n + "</b>" + ["Annual, 2 days", "Sick, 1 day", "Comp-off, 1 day"][j] + '</span><em class="' + st[j][0] + '">' + st[j][1] + "</em></li>"; }).join("");
+      var st = [["ok", "Approved"], ["wait", "Pending"], ["ok", "Cover found"]]; $("[data-reqs]").innerHTML = [0, 1, 2].map(function (j) { var n = names[(j * 2 + i) % 7]; return '<li><i style="--c:' + avc[(j * 2 + i) % 7] + '">' + av(n) + "</i><span><b>" + n + "</b>" + ["Annual, 2 days", "Sick, 1 day", "Comp-off, 1 day"][j] + '</span><em class="' + st[j][0] + '">' + st[j][1] + "</em></li>"; }).join("");
     } else if (k === 3) {
       var gross = 1900 + (i * 37) % 150; tween($('[data-p="gross"]'), gross); tween($('[data-p="net"]'), gross * .86); tween($('[data-p="ot"]'), 38 + (i * 7) % 30); tween($('[data-p="ded"]'), 120 + (i * 11) % 60);
       $$("[data-pbars] i").forEach(function (b, j) { b.style.setProperty("--h", Math.round([82, 64, 48, 30, 22][j] + (rnd(s + j) - .5) * 20) + "%"); });
