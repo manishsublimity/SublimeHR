@@ -509,6 +509,9 @@
     }
     tk(); setInterval(tk, 1000);
   })();
+
+  // footer options for review: /home-v2/?ft=1..6
+  (function () { var m = location.search.match(/ft=(\d+)/); if (!m) return; document.body.setAttribute("data-ft", +m[1]); setTimeout(function () { window.scrollTo(0, document.documentElement.scrollHeight); }, 400); })();
   /* ================= Subi, the page guide: stays with you, speaks about each section, and shows you how things work ================= */
   var guide = $("[data-guide]"), gSay = $("[data-guide-say]"), gMenu = $("[data-guide-menu]"), gBot = $("[data-guide-bot]"), gBusy = false, gFly = false;
   function gPlace(x, y) { guide.style.setProperty("--gx", Math.round(x) + "px"); guide.style.setProperty("--gy", Math.round(y) + "px"); }
