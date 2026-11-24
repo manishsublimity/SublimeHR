@@ -438,6 +438,7 @@ export function home2() {
             <div class="tile"><small>Swaps pending</small><b data-s="sw">0</b><i class="up">one tap to approve</i></div>
           </div>
           <div class="mini" data-mini></div>
+          <div class="shf"><div class="shf__c"><small>Coverage by shift</small><div class="shf__r"><span>Morning</span><i style="--w:92%"></i><b>92%</b></div><div class="shf__r"><span>Evening</span><i style="--w:78%"></i><b>78%</b></div><div class="shf__r"><span>Night</span><i style="--w:64%"></i><b>64%</b></div></div><div class="shf__c"><small>Swap requests</small><ul><li><b>Sara</b> and <b>Karan</b>, Thursday evening<em>Pending</em></li><li><b>Ravi</b> and <b>Omar</b>, Saturday night<em>Pending</em></li></ul></div></div>
         </div>
       </div>
       <aside class="feed" aria-label="Live activity"><div class="feed__h"><b>Live activity</b><em><i></i>Live</em></div><ul data-feed></ul></aside>
@@ -448,7 +449,6 @@ export function home2() {
 <section class="rhythm" aria-labelledby="h-rhythm" data-rhythm data-tip="Touch a need around the character. It explains itself.">
   <div class="rhythm__copy">
     <h2 id="h-rhythm">Every industry has its own rhythm.</h2>
-    <p class="rhythm__lead" data-lead2>${industries[0].lead}</p>
     <p class="rhythm__sub">The usual headaches</p>
     <ul class="pains" data-pains></ul>
     <p class="rhythm__sub">Modules that fit</p>
@@ -579,7 +579,6 @@ export function home2() {
         </div>
       </div>
       <div class="hist"><small>This week</small><ul data-hist><li><span>Mon</span><b>08:49</b><em class="ok">On time</em></li><li><span>Tue</span><b>09:07</b><em class="gr">Grace</em></li><li><span>Wed</span><b>08:52</b><em class="ok">On time</em></li><li data-today><span>Today</span><b>--:--</b><em>Waiting</em></li></ul></div>
-      <div class="rules"><span>${icon("clock", "ic")}Grace 15 min</span><span>${icon("alert", "ic")}Late after 09:15</span><span>${icon("pin", "ic")}Fence 50 m</span></div>
     </article>
     <article class="lc lc--leave" data-demo="leave">
       <header><i>${icon("calendar", "ic")}</i><div><h3>Request leave</h3><p>Pick two dates. Weekends are skipped.</p></div></header>
@@ -646,32 +645,57 @@ export function home2() {
     <div class="roles__screen">
       <div class="rs on" data-rs="0">
         <div class="rs__h"><b>Hi Aisha</b><span>Employee app</span></div>
-        <button class="rs__clock" type="button" data-rclock><span data-rclock-t>Clock in</span><small data-rclock-s>Tap to punch, 09:00 shift</small></button>
-        <div class="rs__bal"><div><small>Annual</small><b>14</b><i style="--w:78%"></i></div><div><small>Sick</small><b>6</b><i style="--w:55%"></i></div><div><small>Comp-off</small><b>2</b><i style="--w:30%"></i></div></div>
-        <div class="rs__wk"><small>My week</small><div><span><b>Mon</b>M</span><span><b>Tue</b>M</span><span><b>Wed</b>E</span><span><b>Thu</b>E</span><span><b>Fri</b>O</span></div></div>
-        <div class="rs__row"><span>${icon("calendar", "ic")}Leave, 23 to 24 Apr</span><b class="okc">Approved</b></div>
-        <div class="rs__row"><span>${icon("file", "ic")}Next payslip</span><b>1 April</b></div>
+        <div class="rs__cols">
+          <div class="rs__col">
+            <button class="rs__clock" type="button" data-rclock><span data-rclock-t>Clock in</span><small data-rclock-s>Tap to punch, 09:00 shift</small></button>
+            <div class="rs__wk"><small>My week</small><div><span><b>Mon</b>M</span><span><b>Tue</b>M</span><span><b>Wed</b>E</span><span><b>Thu</b>E</span><span><b>Fri</b>O</span></div></div>
+            <div class="rs__news">${icon("sparkles", "ic")}<span><b>Holiday notice</b>Office closed on 30 March</span></div>
+          </div>
+          <div class="rs__col">
+            <div class="rs__bal"><div><small>Annual</small><b>14</b><i style="--w:78%"></i></div><div><small>Sick</small><b>6</b><i style="--w:55%"></i></div><div><small>Comp-off</small><b>2</b><i style="--w:30%"></i></div></div>
+            <div class="rs__row"><span>${icon("calendar", "ic")}Leave, 23 to 24 Apr</span><b class="okc">Approved</b></div>
+            <div class="rs__row"><span>${icon("file", "ic")}Next payslip</span><b>1 April</b></div>
+            <div class="rs__row"><span>${icon("repeat", "ic")}Shift swap with Karan</span><b class="okc">Accepted</b></div>
+          </div>
+        </div>
       </div>
       <div class="rs" data-rs="1" hidden>
         <div class="rs__h"><b>Approvals <em data-appr-n>3</em></b><span>Manager view</span></div>
-        <ul class="appr" data-appr>
-          <li><i style="--c:#FFD05A">OM</i><span><b>Omar</b>Annual leave, 23 to 24 Apr</span><button type="button" data-ap="ok">Approve</button></li>
-          <li><i style="--c:#9B8CFF">SN</i><span><b>Sara</b>Shift swap with Karan, Thu</span><button type="button" data-ap="ok">Approve</button></li>
-          <li><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Overtime, 2 hours</span><button type="button" data-ap="ok">Approve</button></li>
-        </ul>
-        <div class="rs__pills"><span>11 in</span><span>2 late</span><span>1 away</span></div>
-        <div class="rs__cov"><small>Team coverage today</small><div><i style="--w:86%"></i></div><span>11 of 13 are in. Nobody is double-booked this week.</span></div>
+        <div class="rs__cols">
+          <div class="rs__col">
+            <ul class="appr" data-appr>
+              <li><i style="--c:#FFD05A">OM</i><span><b>Omar</b>Annual leave, 23 to 24 Apr</span><div class="appr__b"><button type="button" data-ap="ok">Approve</button><button type="button" class="no" data-ap="no">Reject</button></div></li>
+              <li><i style="--c:#9B8CFF">SN</i><span><b>Sara</b>Shift swap with Karan, Thu</span><div class="appr__b"><button type="button" data-ap="ok">Approve</button><button type="button" class="no" data-ap="no">Reject</button></div></li>
+              <li><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Overtime, 2 hours</span><div class="appr__b"><button type="button" data-ap="ok">Approve</button><button type="button" class="no" data-ap="no">Reject</button></div></li>
+            </ul>
+          </div>
+          <div class="rs__col">
+            <div class="rs__pills"><span>11 in</span><span>2 late</span><span>1 away</span></div>
+            <div class="rs__cov"><small>Team coverage today</small><div><i style="--w:86%"></i></div><span>11 of 13 are in. Nobody is double-booked this week.</span></div>
+            <div class="rs__away"><small>Away this week</small><ul><li><i style="--c:#FFD05A">OM</i><span><b>Omar</b>Annual leave</span><em>23 to 24 Apr</em></li><li><i style="--c:#E86F9C">KM</i><span><b>Karan</b>Sick leave</span><em>Today</em></li></ul></div>
+          </div>
+        </div>
       </div>
       <div class="rs" data-rs="2" hidden>
         <div class="rs__h"><b>People</b><span>HR view</span></div>
-        <label class="rs__find"><span class="vh">Search people</span>${icon("search", "ic")}<input type="search" placeholder="Search by name or team" data-find></label>
-        <ul class="dir" data-dir></ul>
+        <div class="rs__cols">
+          <div class="rs__col">
+            <label class="rs__find"><span class="vh">Search people</span>${icon("search", "ic")}<input type="search" placeholder="Search by name or team" data-find></label>
+            <ul class="dir" data-dir></ul>
+          </div>
+          <div class="rs__col">
+            <div class="kpis kpis--2"><div class="kpi"><small>Headcount</small><b>412</b><em class="up">+6 this month</em></div><div class="kpi"><small>Open roles</small><b>6</b><em>2 interviews today</em></div><div class="kpi"><small>On probation</small><b>18</b><em>4 reviews due</em></div><div class="kpi"><small>Documents expiring</small><b>7</b><em class="warn">within 30 days</em></div></div>
+            <div class="rs__news">${icon("shield", "ic")}<span><b>Policy updated</b>Remote work, version 2</span></div>
+          </div>
+        </div>
       </div>
       <div class="rs" data-rs="3" hidden>
-        <div class="rs__h"><b>March payroll</b><span>Finance view</span></div>
-        <div class="fin"><div><small>Total cost</small><b>1.96 M</b></div><div><small>Employees</small><b>412</b></div></div>
-        <div class="fin__bars" aria-hidden="true"><i style="--h:82%"><em>Ops</em></i><i style="--h:64%"><em>Sales</em></i><i style="--h:48%"><em>Tech</em></i><i style="--h:30%"><em>HR</em></i><i style="--h:22%"><em>Fin</em></i></div>
-        <ul class="steps" data-fsteps><li><button type="button" aria-pressed="false">Attendance locked</button></li><li><button type="button" aria-pressed="false">Overtime approved</button></li><li><button type="button" aria-pressed="false">Deductions checked</button></li><li><button type="button" aria-pressed="false">Payslips released</button></li></ul>
+        <div class="rs__h"><b><span data-fin-month>Last month</span> payroll</b><span>Finance view</span></div>
+        <div class="kpis"><div class="kpi"><small>Total cost</small><b>1.96 M</b></div><div class="kpi"><small>Employees</small><b>412</b></div><div class="kpi"><small>Net pay</small><b>1.71 M</b></div><div class="kpi"><small>Overtime</small><b>43 K</b></div><div class="kpi"><small>Deductions</small><b>175 K</b></div><div class="kpi"><small>Cost per head</small><b>4.76 K</b></div></div>
+        <div class="rs__cols rs__cols--fin">
+          <div class="rs__col"><small class="rs__cap">Cost by team</small><div class="fin__bars" aria-hidden="true"><i style="--h:82%"><em>Ops</em></i><i style="--h:64%"><em>Sales</em></i><i style="--h:48%"><em>Tech</em></i><i style="--h:30%"><em>HR</em></i><i style="--h:22%"><em>Fin</em></i></div></div>
+          <div class="rs__col"><small class="rs__cap">Before you run it</small><ul class="steps" data-fsteps><li><button type="button" aria-pressed="false">Attendance locked</button></li><li><button type="button" aria-pressed="false">Overtime approved</button></li><li><button type="button" aria-pressed="false">Deductions checked</button></li><li><button type="button" aria-pressed="false">Payslips released</button></li></ul></div>
+        </div>
       </div>
     </div>
   </div>

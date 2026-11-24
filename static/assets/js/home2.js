@@ -313,11 +313,11 @@
   var sample = $("[data-sample]"), selfieIn = $("[data-selfie-in]"), geoSw = $("[data-geo]"), punching = false, mode = "fp", hasImg = false;
   var hm = function (m) { return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
   arr.addEventListener("input", function () { arrOut.textContent = hm(+arr.value); }); arrOut.textContent = hm(+arr.value);
-  var modeMap = { fp: ["Fingerprint matched", "Press to clock in"], selfie: ["Selfie matched", "Take a selfie"], gps: ["Location shared", "Check my location"] };
+  var modeMap = { fp: ["Fingerprint matched", "Press to clock in"], selfie: ["Selfie matched", ""], gps: ["Location shared", "Check my location"] };
   function setMode(m) {
     mode = m; $$("[data-mode]", lab).forEach(function (x) { x.setAttribute("aria-checked", x.getAttribute("data-mode") === m ? "true" : "false"); });
     scanner.setAttribute("data-m", m); scanner.classList.remove("ok", "bad", "at-in", "at-out", "scan"); c0.textContent = modeMap[m][0]; scanLbl.textContent = modeMap[m][1];
-    sample.hidden = m !== "selfie"; $("[data-upload]", lab).hidden = m !== "selfie"; scanner.classList.toggle("has-img", m === "selfie" && hasImg); scanImg.hidden = !(m === "selfie" && hasImg); Snd.tick();
+    sample.hidden = m !== "selfie"; $("[data-upload]", lab).hidden = true; scanner.classList.toggle("has-img", m === "selfie" && hasImg); scanImg.hidden = !(m === "selfie" && hasImg); Snd.tick();
   }
   $$("[data-mode]", lab).forEach(function (b) { b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); }); });
   geoSw.addEventListener("click", function () { var on = geoSw.getAttribute("aria-checked") !== "true"; geoSw.setAttribute("aria-checked", on ? "true" : "false"); c1.textContent = on ? "GPS 12 m, inside Head Office" : "GPS 340 m away, outside the fence"; Snd.tick(); });
@@ -443,10 +443,11 @@
   $$(".pk").forEach(function (c) { c.addEventListener("click", function () { c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") === "true" ? "false" : "true"); Snd.pop(); }); c.addEventListener("mouseenter", Snd.tick); });
 
   /* ================= role views ================= */
+  (function () { var fm = $("[data-fin-month]"), d = new Date(); d.setMonth(d.getMonth() - 1); if (fm) fm.textContent = d.toLocaleDateString("en", { month: "long" }); })();
   var rolesEl = $("[data-roles]"), rTabs = $$("[data-r]", rolesEl), rScr = $$("[data-rs]", rolesEl);
   rTabs.forEach(function (t) { t.addEventListener("click", function () { var i = +t.getAttribute("data-r"); rTabs.forEach(function (x) { x.setAttribute("aria-selected", x === t ? "true" : "false"); }); rScr.forEach(function (s, k) { s.hidden = k !== i; }); Snd.whoosh(); }); });
   var rc = $("[data-rclock]"); rc.addEventListener("click", function () { var on = rc.classList.toggle("on"); $("[data-rclock-t]").textContent = on ? "Clocked in 08:52" : "Clock in"; $("[data-rclock-s]").textContent = on ? "On time. Have a good day." : "Tap to punch, 09:00 shift"; if (on) { Snd.ding(); burstAt(rc, 14); } else Snd.tick(); });
-  var apprN = $("[data-appr-n]"); $("[data-appr]").addEventListener("click", function (e) { var b = e.target.closest("[data-ap]"); if (!b) return; var li = b.closest("li"); if (li.classList.contains("done")) return; li.classList.add("done"); b.textContent = "Approved"; apprN.textContent = Math.max(0, +apprN.textContent - 1); Snd.chime(); burstAt(li, 8); });
+  var apprN = $("[data-appr-n]"); $("[data-appr]").addEventListener("click", function (e) { var b = e.target.closest("[data-ap]"); if (!b) return; var li = b.closest("li"); if (li.classList.contains("done")) return; li.classList.add("done"); var no = b.getAttribute("data-ap") === "no"; if (no) li.classList.add("rej"); $$("button", li).forEach(function (x) { x.hidden = x !== b; }); b.textContent = no ? "Rejected" : "Approved"; apprN.textContent = Math.max(0, +apprN.textContent - 1); if (!no) { Snd.chime(); burstAt(li, 8); } else Snd.tick(); });
   var dirData = [["Aisha Khan", "Finance", "Present"], ["Omar Mansour", "Operations", "On leave"], ["Sara Nasser", "Design", "Present"], ["Ravi Verma", "Engineering", "Present"], ["Priya Shah", "HR", "Present"], ["Karan Mehta", "Sales", "On leave"], ["Nadia Farouk", "Finance", "Present"], ["John Lewis", "Reception", "Present"]], dcols = ["#FF8A70", "#E0A42E", "#9B8CFF", "#45C4B0", "#5E8FE0", "#E86F9C", "#6BB84A", "#8A7BD8"];
   var dir = $("[data-dir]"), find = $("[data-find]");
   function dRender() { var qq = find.value.trim().toLowerCase(), rows = dirData.map(function (r, i) { return [r, i]; }).filter(function (x) { return !qq || (x[0][0] + " " + x[0][1]).toLowerCase().indexOf(qq) > -1; }); dir.innerHTML = rows.length ? rows.slice(0, 5).map(function (x) { var r = x[0]; return '<li><i style="--c:' + dcols[x[1]] + '">' + r[0].split(" ").map(function (w) { return w[0]; }).join("") + "</i><span><b>" + r[0] + "</b>" + r[1] + "</span><em" + (r[2] === "On leave" ? ' class="lv"' : "") + ">" + r[2] + "</em></li>"; }).join("") : '<li class="none">No one matches that. Try another name or team.</li>'; }
@@ -489,7 +490,7 @@
   // helpers for the guided demos
   function settle() { return new Promise(function (res) { var last = -1, n = 0, t0 = Date.now(); (function f() { var y = window.scrollY; if (Math.abs(y - last) < 1) n++; else n = 0; last = y; if (n >= 8 || Date.now() - t0 > 3200) res(); else requestAnimationFrame(f); })(); }); }
   function toEl(el, block) { el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: block || "center" }); return wait(150).then(settle).then(function () { return wait(150); }); }
-  function flyTo(el, fx, fy) { var r = el.getBoundingClientRect(); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, r.left + r.width * fx)), Math.max(70, Math.min(window.innerHeight - 140, r.top + r.height * fy))); return wait(1100); }
+  function flyTo(el, fx, fy) { var r = el.getBoundingClientRect(); if (!r.width && !r.height) return wait(100); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, r.left + r.width * fx)), Math.max(70, Math.min(window.innerHeight - 140, r.top + r.height * fy))); return wait(1100); }
   var vcur = document.createElement("div"); vcur.className = "vcur"; vcur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 2 3.5 6.5-2.5 1.2L10.5 14 6 18z" fill="#fff" stroke="#14213D" stroke-width="1.6" stroke-linejoin="round"/></svg>'; document.body.appendChild(vcur);
   function curTo(x, y) { vcur.style.setProperty("--cx", Math.round(x) + "px"); vcur.style.setProperty("--cy", Math.round(y) + "px"); }
   async function press(el) {
