@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { site, modules, faqs, plans, industries } from "./src/data.mjs";
 import * as P from "./src/pages.mjs";
+import { home2 } from "./src/home2.mjs";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const out = join(root, "dist");
@@ -34,6 +35,9 @@ for (const [path, html] of routes) {
   writeFileSync(file, html);
 }
 writeFileSync(join(out, "404.html"), P.notFound());
+// Design option B for the home page (not in sitemap, noindex)
+mkdirSync(join(out, "home-v2"), { recursive: true });
+writeFileSync(join(out, "home-v2", "index.html"), home2());
 
 const today = new Date().toISOString().slice(0, 10);
 writeFileSync(
