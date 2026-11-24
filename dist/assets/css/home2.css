@@ -1130,3 +1130,102 @@ main h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; tex
 .pop1 { left: 6%; top: 18px; } .pop2 { left: 38%; top: 0; animation-delay: -1.2s; } .pop3 { left: 70%; top: 34px; animation-delay: -2.2s; }
 .crowd { height: 440px; } .crowd__p { bottom: calc(var(--cy) * 1.45); }
 .pop1 { top: 40px; } .pop2 { top: 8px; } .pop3 { top: 56px; }
+
+/* =====================================================================
+   seventh pass
+   ===================================================================== */
+
+/* header: the logo takes the text colour, no outline anywhere */
+.nav__logo { display: block; flex: none; width: 36px; height: 33px; background: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; transition: transform .4s var(--spring); }
+.nav__brand:hover .nav__logo { transform: rotate(-8deg) scale(1.08); }
+.nav__brand span { text-shadow: none; }
+.nav.solid .nav__logo { background: linear-gradient(135deg, #3FBDB3, #2F72B8); }
+.nav.solid .btn--on { background: var(--ink); color: #fff; }
+.nav.solid .btn--on:hover { background: color-mix(in srgb, var(--ink) 85%, var(--world)); color: #fff; }
+
+/* hero: floor rug, plants on the floor, a darker modern clock */
+.stage__floor { left: 20px; right: 20px; top: 300px; height: 280px; border-radius: 50%; transform: none; background-image: none; background: radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--on) 17%, transparent) 0 60%, color-mix(in srgb, var(--on) 8%, transparent) 61% 100%); -webkit-mask-image: none; mask-image: none; box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--on) 16%, transparent); }
+.stage__floor::before { content: ""; position: absolute; inset: 22px; border-radius: 50%; border: 2px dashed color-mix(in srgb, var(--on) 22%, transparent); }
+.floorplant { left: -46px; top: 396px; width: 60px; } .floorplant.fp2 { left: 706px; top: 392px; }
+.wc-shade { fill: rgba(0,0,0,.22); } .wc-face { fill: #14213D; }
+.wc-ring { stroke: color-mix(in srgb, var(--world) 45%, #fff); stroke-width: 5; }
+.wc-dots circle { fill: #fff; opacity: .55; } .wc-nums text { fill: #fff; }
+.wallclock line.hh, .wallclock line.mh { stroke: #fff; } .wallclock line.sh { stroke: #FFD05A; } .wc-pin { fill: #FFD05A; } .wc-pin2 { fill: #14213D; }
+
+/* badge: the lanyard is part of the body so heads and hair sit over it */
+.ppl .ppl__fig > .chest::after { display: none; }
+.ppl__body::after { content: ""; position: absolute; left: 50%; top: 0; width: 34px; height: 26px; margin-left: -17px; background: linear-gradient(to top right, transparent 44%, #14213D 46% 58%, transparent 60%) left / 50% 100% no-repeat, linear-gradient(to top left, transparent 44%, #14213D 46% 58%, transparent 60%) right / 50% 100% no-repeat; pointer-events: none; }
+.ppl__fig:has(.chest:empty) .ppl__body::after, .ppl--bust .ppl__body::after, .ppl--wave .ppl__body::after, .ppl--walk .ppl__body::after, .ppl--big .ppl__body::after { display: none; }
+.ppl--walk .chest, .ppl--big .chest { display: none; }
+
+/* hands: plain again */
+.fa, .fa::after { box-shadow: none; }
+.ppl[data-outfit="none"], .crowd .ppl { --sleeve: var(--shirt); }
+.ppl--walk .arm { background: var(--sleeve, var(--shirt)); }
+
+/* dashboard */
+.win__bar em.ind { background: var(--ink); color: #fff; filter: none; }
+.feed li:nth-child(n+5) { display: none; }
+
+/* rhythm: wider copy, circles pushed to the right edge, calmer headaches */
+.rhythm { grid-template-columns: minmax(0, 600px) minmax(0, 1fr); gap: 20px; }
+.orbit { justify-self: end; }
+.rhythm__copy h2 { max-width: 14em; }
+.pains { display: grid; gap: 8px; }
+.pains li { padding: 11px 16px 11px 12px; border: 0; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px var(--line); font-size: 15.5px; }
+
+/* phone section */
+.movie__steps::before { display: none; }
+.movie__who { transform: translateX(var(--sx, 0px)) scale(1.12); transition: transform .55s var(--ease); margin-left: -8px; }
+
+/* playground */
+.scanner { background: color-mix(in srgb, var(--world) 6%, #fff); border-color: color-mix(in srgb, var(--world) 26%, #fff); color: color-mix(in srgb, var(--world) 72%, #14213D); }
+.lc { padding: 20px; gap: 11px; }
+.lcal span, .lcal button { height: 30px; } .lcal .h { height: 18px; }
+.lbal p { min-height: 0; } .lflow { min-height: 1.2em; margin: 0; }
+.lc .go { height: 44px; }
+.arr3 { min-height: 128px; align-content: start; }
+.arr3 .more { justify-content: center; background: none; color: var(--ink2); font-weight: 700; }
+
+/* flip cards: the back is a clean white card with a coloured edge */
+.peek .pk .pk__b { background: #fff; color: var(--ink); box-shadow: 0 20px 30px -22px rgba(20,33,61,.5); overflow: hidden; }
+.pk--sun { --pc: #FFD05A; } .pk--lilac { --pc: #CDBDFF; } .pk--mint { --pc: #A9ECD9; } .pk--coral { --pc: #FF9C84; } .pk--ink { --pc: #14213D; } .pk--white { --pc: #C9D3E6; }
+.pk__b::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: var(--pc); }
+.peek .pk .pk__b .pk__d { background: var(--pc); color: var(--ink); } .peek .pk--ink .pk__b .pk__d { color: #fff; }
+
+/* roles: faces stand on the bottom edge, no square behind */
+.roles__tabs button { height: 92px; padding: 0 18px 0 6px; align-items: flex-end; overflow: hidden; }
+.roles__tabs button > span:last-child { align-self: center; }
+.rb, .roles__tabs button[aria-selected="true"] .rb { width: 86px; height: 92px; border-radius: 0; background: none; overflow: visible; }
+.rb .ppl { top: 14px; left: calc(50% - 52px); transform: scale(.72); }
+.roles__tabs { gap: 10px; }
+
+/* modules and little things: lighter */
+.mods { padding-bottom: 70px; } .md { min-height: 168px; padding: 18px 18px 16px; gap: 6px; } .md__ic { width: 42px; height: 42px; border-radius: 14px; font-size: 21px; }
+.why { padding-bottom: 70px; } .why__grid { margin-top: 28px; gap: 16px; } .wy { padding: 20px 22px; } .wy i { width: 44px; height: 44px; border-radius: 15px; font-size: 22px; } .wy h3 { margin-top: 12px; font-size: 17px; } .wy p { margin-top: 6px; font-size: 15px; }
+
+/* numbers: back to the single white card */
+.score { padding: 30px var(--gut) 90px; }
+.score__card { max-width: 1368px; gap: 0; background: #fff; border-radius: 36px; box-shadow: 0 30px 50px -36px rgba(20,33,61,.5), 0 0 0 1px var(--line); }
+.score__card .sc1 { background: none; border-radius: 0; padding: 30px 32px 28px; }
+.score__card .sc1::after { display: none; }
+.score__card .sc1 + .sc1::before { display: block !important; content: ""; position: absolute; left: 0; top: 26px; bottom: 26px; width: 1px; background: var(--line); }
+.score__card .sc1 b { font-size: 46px; height: 50px; line-height: 50px; color: color-mix(in srgb, var(--world) 85%, #000); }
+.score__card .sc1--lang b { font-size: 40px; }
+.meet__wrap { max-width: 1480px; }
+
+/* ask: the head only, as before */
+.chat__av { position: relative; width: auto; height: auto; overflow: visible; }
+.chat__av .s-ant { display: none; }
+.chat__av .s-head { position: static; display: block; width: 52px; height: 42px; border-radius: 17px; box-shadow: 0 8px 14px -8px rgba(0,0,0,.5), inset 0 -4px 0 rgba(20,33,61,.12); }
+.chat__av .s-scr { position: absolute; inset: 7px 6px 9px; border-radius: 10px; gap: 8px; } .chat__av .s-scr b { width: 7px; height: 10px; }
+
+/* footer: exactly the main site */
+.footer { padding-top: 48px; padding-bottom: 0; }
+.footer .container { max-width: 1264px; padding: 0 32px; }
+.footer__grid { grid-template-columns: 1.5fr repeat(4, 1fr); gap: 32px; }
+.footer__bar { margin-top: 48px; }
+.footer__word { bottom: 6px; line-height: .82; font-size: clamp(4rem, 15vw, 13rem); padding-bottom: 0; }
+.ppl .ppl__fig > .chest:empty { display: none; }
+.ppl__body::after { width: 36px; margin-left: -18px; background: linear-gradient(to top right, transparent 40%, #14213D 42% 62%, transparent 64%) left / 50% 100% no-repeat, linear-gradient(to top left, transparent 40%, #14213D 42% 62%, transparent 64%) right / 50% 100% no-repeat; filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff); }
+.rhythm { grid-template-columns: minmax(0, 640px) minmax(0, 1fr); } .rec a b { white-space: nowrap; }

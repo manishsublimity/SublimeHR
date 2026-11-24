@@ -246,7 +246,7 @@ industries.forEach((d) => {
 
 // seven people with different builds, outfits and habits; job, prop, hat, pose and lines change per industry
 const people = [
-  { n: "Aisha", skin: "#E8B48C", hair: "#2B1B17", style: "long", shirt: "#FF8A70", pants: "#33415F", bw: 80, bh: 98, lean: -2, x: 40, y: 318, s: 1 },
+  { n: "Aisha", skin: "#E8B48C", hair: "#2B1B17", style: "long", shirt: "#E5566D", pants: "#33415F", bw: 80, bh: 98, lean: -2, x: 40, y: 318, s: 1 },
   { n: "Omar", skin: "#B97D52", hair: "#1C1410", style: "cap", shirt: "#FFD05A", pants: "#2F3B52", bw: 92, bh: 92, lean: 2, beard: 1, x: 170, y: 96, s: .84 },
   { n: "Sara", skin: "#F1CBA6", hair: "#6B3A22", style: "bun", shirt: "#9B8CFF", pants: "#3C3A55", bw: 82, bh: 96, lean: -1, glasses: 1, x: 230, y: 318, s: 1 },
   { n: "Ravi", skin: "#9A6238", hair: "#120D0B", style: "curls", shirt: "#45C4B0", pants: "#27324A", bw: 84, bh: 104, lean: 1.5, x: 470, y: 96, s: .84 },
@@ -321,7 +321,7 @@ export function home2() {
 <div class="fx" aria-hidden="true" data-fx></div>
 
 <header class="nav" data-nav>
-  <a class="nav__brand" href="/home-v2/"><img src="${site.logo}" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
+  <a class="nav__brand" href="/home-v2/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
   <nav class="nav__links" aria-label="Main"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></nav>
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>
 </header>
@@ -342,10 +342,7 @@ export function home2() {
         </div>
         <div class="deco" aria-hidden="true">
           <div class="sticky s1"><b>Payslips out</b><i></i></div><div class="sticky s2"><b>Swap approved</b><i></i></div>
-          <div class="wallcal"><em data-wc-m>MAR</em><strong data-wc-d>1</strong><span data-wc-w>Monday</span></div>
-          <div class="shelf"><svg viewBox="0 0 96 70"><path class="lf" d="M48 40c-14-4-22-14-22-26 12 0 22 8 22 26z"/><path class="lf l2" d="M48 40c10-6 14-16 12-28-10 4-16 14-12 28z"/><path class="lf l3" d="M48 42c-4-12 0-22 10-28 4 12-2 22-10 28z"/><path class="pot" d="M34 40h28l-4 20H38z"/><rect class="bd" x="10" y="60" width="76" height="6" rx="3"/></svg></div>
-          <div class="floorplant"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div>
-          <div class="shiftcard"><i></i><span><small>Today's shift</small><b>09:00 to 18:00</b></span></div>
+          <div class="floorplant"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div><div class="floorplant fp2"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div>
         </div>
         ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}<span class="tag"><b>${p.n}</b><em data-role></em></span></div>`).join("")}
         <div class="tally" aria-label="Today at a glance">
@@ -582,7 +579,6 @@ export function home2() {
         </div>
       </div>
       <div class="hist"><small>This week</small><ul data-hist><li><span>Mon</span><b>08:49</b><em class="ok">On time</em></li><li><span>Tue</span><b>09:07</b><em class="gr">Grace</em></li><li><span>Wed</span><b>08:52</b><em class="ok">On time</em></li><li data-today><span>Today</span><b>--:--</b><em>Waiting</em></li></ul></div>
-      <div class="mstat" aria-label="This month"><small>This month</small><div class="mstat__bar" aria-hidden="true"><i class="ok" style="flex:18"></i><i class="gr" style="flex:2"></i><i class="late" style="flex:0.4"></i></div><p><span><i class="ok"></i><b>18</b> on time</span><span><i class="gr"></i><b>2</b> grace</span><span><i class="late"></i><b>0</b> late</span></p></div>
       <div class="rules"><span>${icon("clock", "ic")}Grace 15 min</span><span>${icon("alert", "ic")}Late after 09:15</span><span>${icon("pin", "ic")}Fence 50 m</span></div>
     </article>
     <article class="lc lc--leave" data-demo="leave">
@@ -711,7 +707,7 @@ export function home2() {
     <div class="ask__qs" data-qs></div>
   </div>
   <div class="chat">
-    <div class="chat__top"><span class="chat__av"><span class="mini-subi"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="s-body"><i class="s-core"></i></span></span></span><b>Subi</b><em>Online</em></div>
+    <div class="chat__top"><span class="chat__av"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span></span><b>Subi</b><em>Online</em></div>
     <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi, I'm Subi. Pick a question on the left or type your own.</div></div>
     <form class="chat__foot" data-ask-form><label class="vh" for="ask-in">Ask a question</label><input id="ask-in" placeholder="For example: Do you support biometric devices?" autocomplete="off"><button type="submit" aria-label="Send">${icon("send", "ic")}</button></form>
   </div>
