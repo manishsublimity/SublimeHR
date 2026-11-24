@@ -320,7 +320,7 @@ export function home2() {
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
 </head>
-<body class="lo" data-w="${industries[0].key}" data-clk="15">
+<body class="lo" data-w="${industries[0].key}" data-clk="15" data-ft="3">
 <script type="application/json" id="lo-data">${JSON.stringify({ industries, people: people.map((p) => p.n), icons: iconSet, faq }).replace(/</g, "\\u003c")}</script>
 <div class="fx" aria-hidden="true" data-fx></div>
 
@@ -431,7 +431,7 @@ export function home2() {
           </div>
           <div class="win__grid">
             <div class="chart"><small>Cost by team</small><div class="bars bars--h" data-pbars><i><em>Ops</em></i><i><em>Sales</em></i><i><em>Tech</em></i><i><em>HR</em></i><i><em>Fin</em></i></div></div>
-            <div class="plist"><small>Run checklist</small><ul class="ckl" data-pck><li><b>Attendance locked</b><span>All punches reviewed</span></li><li><b>Overtime approved</b><span>Managers signed off</span></li><li><b>Deductions checked</b><span>Tax and unpaid leave</span></li><li><b>Payslips released</b><span>Sent to every phone</span></li></ul></div>
+            <div class="plist"><small>Run checklist</small><div class="ckp"><i><u data-ckb></u></i><b data-ckn>0 of 4</b></div><ul class="ckl" data-pck><li><b>Attendance locked</b><span>All punches reviewed</span></li><li><b>Overtime approved</b><span>Managers signed off</span></li><li><b>Deductions checked</b><span>Tax and unpaid leave</span></li><li><b>Payslips released</b><span>Sent to every phone</span></li></ul></div>
           </div>
         </div>
         <div class="pane" data-pane="4" hidden>
@@ -775,7 +775,7 @@ export function home2() {
       <div class="footer__about">
         <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34"><span>Sublime<span class="hr">HR</span></span></a>
         <p>Powering your worklife — attendance, leave, payroll and self-service in one friendly platform.</p>
-        <div class="footer__contact"><a href="${site.phoneHref}">${icon("call", "ic")} ${site.phone}</a><a href="${site.whatsapp}" target="_blank" rel="noopener">${icon("message", "ic")} Chat on WhatsApp</a></div>
+        <div class="footer__contact"><a href="${site.phoneHref}"><i>${icon("call", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span></a><a href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>WhatsApp</small><b>Chat with us</b></span></a></div>
       </div>
       ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
       ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
