@@ -380,7 +380,7 @@
     if (!selA) { lflow.textContent = "Pick a date first."; lflow.className = "lflow tohr"; Snd.boop(); return; }
     var n = workDays(selA, selB || selA); Snd.whoosh();
     setTimeout(function () {
-      if (n <= bal[ltype]) { bal[ltype] -= n; Snd.chime(); burstAt(e.currentTarget, 16); lflow.textContent = "Approved by Priya. " + bal[ltype] + " days left."; lflow.className = "lflow"; selA = selB = null; lRender(); lbar.style.width = Math.max(4, bal[ltype] / maxb[ltype] * 100) + "%"; lsum.textContent = "Pick a start date."; }
+      if (n <= bal[ltype]) { bal[ltype] -= n; Snd.chime(); burstAt($("[data-lgo]"), 16); lflow.textContent = "Approved by Priya. " + bal[ltype] + " days left."; lflow.className = "lflow"; selA = selB = null; lRender(); lbar.style.width = Math.max(4, bal[ltype] / maxb[ltype] * 100) + "%"; lsum.textContent = "Pick a start date."; }
       else { Snd.boop(); lflow.textContent = "Sent to HR. Not enough balance to auto-approve."; lflow.className = "lflow tohr"; }
     }, 600);
   });
