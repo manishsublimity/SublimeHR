@@ -77,13 +77,12 @@
   function ring(el) { var r = el.getBoundingClientRect(), d = document.createElement("i"); d.className = "tapring"; d.style.left = r.left + r.width / 2 + "px"; d.style.top = r.top + r.height / 2 + "px"; fx.appendChild(d); setTimeout(function () { d.remove(); }, 900); }
 
   /* ================= stage fit, wall clock, nav, back to top ================= */
-  function fit() { var w = Math.min(hero.clientWidth, 1240) - 80; stage.style.setProperty("--fit", String(Math.max(.5, Math.min(1, (w - 430 - 24) / 760)))); }
+  function fit() { var w = Math.min(hero.clientWidth, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.55, Math.min(1.28, (w - 440 - 36) / 760)))); }
   fit(); window.addEventListener("resize", fit);
-  var wc = $(".wallclock", stage), hh = $(".hh", wc), mh = $(".mh", wc), sh = $(".sh", wc), dg = $("[data-digital]", wc);
+  var wc = $(".wallclock", stage), hh = $(".hh", wc), mh = $(".mh", wc), sh = $(".sh", wc);
   function tick() {
     var d = new Date(), s = d.getSeconds(), m = d.getMinutes() + s / 60, h = (d.getHours() % 12) + m / 60;
     hh.style.transform = "rotate(" + h * 30 + "deg)"; mh.style.transform = "rotate(" + m * 6 + "deg)"; sh.style.transform = "rotate(" + s * 6 + "deg)";
-    dg.textContent = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
   }
   tick(); setInterval(tick, 1000);
   var topBtn = $("[data-top]");
@@ -139,11 +138,11 @@
     } else if (k === 1) {
       tween($('[data-a="ontime"]'), 84 + (i * 3) % 10); tween($('[data-a="late"]'), 12 + (i * 5) % 20); tween($('[data-a="abs"]'), 8 + (i * 7) % 12); tween($('[data-a="hrs"]'), 7.4 + (i % 5) * .2, 800, 1);
       $$("[data-abars] i").forEach(function (b, j) { var base = [22, 58, 92, 64, 34, 16, 8][j]; b.style.setProperty("--h", Math.round(Math.max(6, base + (rnd(s + j) - .5) * 18)) + "%"); });
-      $("[data-late]").innerHTML = [0, 1, 2, 3].map(function (j) { var n = names[(j + i) % 7], m = 5 + Math.round(rnd(s + j * 3) * 38); return '<li><i style="--c:' + avc[(j + i) % 7] + '">' + av(n) + "</i><span><b>" + n + "</b>09:" + String(m < 10 ? "0" + m : m) + ", " + m + " min late</span><em class=\"" + (m <= 15 ? "wait" : "bad") + '">' + (m <= 15 ? "Grace" : "Late") + "</em></li>"; }).join("");
+      $("[data-late]").innerHTML = [0, 1, 2].map(function (j) { var n = names[(j + i) % 7], m = 5 + Math.round(rnd(s + j * 3) * 38); return '<li><i style="--c:' + avc[(j + i) % 7] + '">' + av(n) + "</i><span><b>" + n + "</b>09:" + String(m < 10 ? "0" + m : m) + ", " + m + " min late</span><em class=\"" + (m <= 15 ? "wait" : "bad") + '">' + (m <= 15 ? "Grace" : "Late") + "</em></li>"; }).join("");
     } else if (k === 2) {
       tween($('[data-l="pend"]'), 5 + (i * 3) % 9); tween($('[data-l="appr"]'), 12 + (i * 5) % 14); tween($('[data-l="away"]'), 9 + (i * 4) % 11); tween($('[data-l="used"]'), 38 + (i * 6) % 30);
       $("[data-heat]").innerHTML = Array.apply(null, Array(14)).map(function (_, j) { var v = Math.round(10 + rnd(s + j * 2) * 60), we = j % 7 === 5 || j % 7 === 6; return '<i style="--v:' + (we ? 6 : v) + '">' + (we ? "" : Math.round(v / 8)) + "</i>"; }).join("");
-      var st = [["ok", "Approved"], ["wait", "Pending"], ["ok", "Cover found"]]; $("[data-reqs]").innerHTML = [0, 1, 2].map(function (j) { var n = names[(j * 2 + i) % 7]; return '<li><i style="--c:' + avc[(j * 2 + i) % 7] + '">' + av(n) + "</i><span><b>" + n + "</b>" + ["Annual, 2 days", "Sick, 1 day", "Comp-off, 1 day"][j] + '</span><em class="' + st[j][0] + '">' + st[j][1] + "</em></li>"; }).join("");
+      var st = [["ok", "Approved"], ["wait", "Pending"], ["ok", "Cover found"]]; $("[data-reqs]").innerHTML = [0, 1].map(function (j) { var n = names[(j * 2 + i) % 7]; return '<li><i style="--c:' + avc[(j * 2 + i) % 7] + '">' + av(n) + "</i><span><b>" + n + "</b>" + ["Annual, 2 days", "Sick, 1 day", "Comp-off, 1 day"][j] + '</span><em class="' + st[j][0] + '">' + st[j][1] + "</em></li>"; }).join("");
     } else if (k === 3) {
       var gross = 1900 + (i * 37) % 150; tween($('[data-p="gross"]'), gross); tween($('[data-p="net"]'), gross * .86); tween($('[data-p="ot"]'), 38 + (i * 7) % 30); tween($('[data-p="ded"]'), 120 + (i * 11) % 60);
       $$("[data-pbars] i").forEach(function (b, j) { b.style.setProperty("--h", Math.round([82, 64, 48, 30, 22][j] + (rnd(s + j) - .5) * 20) + "%"); });
@@ -165,8 +164,9 @@
   $(".win", prodEl).addEventListener("mouseenter", function () { pnHover = true; }); $(".win", prodEl).addEventListener("mouseleave", function () { pnHover = false; });
   $("[data-dash-date]").textContent = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   var typeIcon = { in: "clock", leave: "calendar", swap: "repeat", other: "check" };
+  var typeCol = { in: "var(--world)", leave: "#F59F00", swap: "#7A4DF0", other: "#2BB673" };
   function pushFeed(name, text, type) {
-    var li = document.createElement("li"); li.innerHTML = "<i>" + icons[typeIcon[type] || "check"] + "</i><span><b>" + name + "</b>" + text + "<br><em>just now</em></span>";
+    var li = document.createElement("li"); li.innerHTML = '<i style="--c:' + typeCol[type] + '">' + icons[typeIcon[type] || "check"] + "</i><div><b>" + name + "<em>just now</em></b><p>" + text + "</p></div>";
     feed.insertBefore(li, feed.firstChild); while (feed.children.length > 5) feed.removeChild(feed.lastChild);
   }
 
@@ -185,14 +185,14 @@
     pushFeed(names[ev[0]], ev[1], ev[2]);
   }
   if (!reduce) { setInterval(act, 3200); setTimeout(act, 1100); }
-  slots.forEach(function (s, i) { $(".ppl", s).addEventListener("click", function () { var d = inds[cur]; say($("[data-say]", s), d.roles[i] + ": " + d.events[(i + cur) % d.events.length][1], 3200, pitch[i]); talk($(".ppl", s), 1700); Snd.pop(); }); });
+  slots.forEach(function (s, i) { $(".ppl", s).addEventListener("click", function () { var pp = $(".ppl", s), prev = pp.getAttribute("data-pose"); pp.setAttribute("data-pose", "wave"); setTimeout(function () { pp.setAttribute("data-pose", prev); }, 2600); burstAt(pp, 8); var d = inds[cur]; say($("[data-say]", s), d.roles[i] + ": " + d.events[(i + cur) % d.events.length][1], 3200, pitch[i]); talk($(".ppl", s), 1700); Snd.pop(); }); });
 
   /* ================= needs orbit, pains and recommended modules ================= */
   function renderNeeds() {
     var d = inds[cur];
     needsEl.innerHTML = d.needs.map(function (n, i) { return '<li class="need" style="--a:' + (i * 60 - 60) + 'deg;--r:240px;--i:' + i + '"><span><button class="need__in" type="button" data-n="' + i + '"><i>' + icons[n[0]] + "</i>" + n[1] + "</button></span></li>"; }).join("");
     painsEl.innerHTML = d.pains.map(function (t, i) { return '<li style="--i:' + i + '">' + t + "</li>"; }).join("");
-    recEl.innerHTML = d.rec.map(function (r, i) { return '<a href="' + r[1] + '" style="--i:' + i + '"><i>' + icons[r[2]] + "</i>" + r[0] + "</a>"; }).join("");
+    recEl.innerHTML = d.rec.map(function (r, i) { return '<a href="' + r[1] + '" style="--i:' + i + '"><i>' + icons[r[2]] + "</i><span><b>" + r[0] + "</b><small>" + (r[3] || "") + "</small></span></a>"; }).join("");
     needsEl.style.animation = "none"; void needsEl.offsetWidth; needsEl.style.animation = "";
   }
   function speakNeed(i) { var n = inds[cur].needs[i]; if (!n) return; say(coreSay, n[2], 4200, pitch[2]); talk(core, 1800); }
@@ -276,48 +276,6 @@
   function wSet() { walker.style.setProperty("--wx", wk.x.toFixed(2) + "%"); prog.style.setProperty("--pw", Math.max(0, wk.x - 2).toFixed(2) + "%"); }
   function wReset() { wk.x = 3; wk.k = 0; wk.pause = 0; stp.forEach(function (s) { s.classList.remove("on"); }); wSet(); }
   vis(day, function (v) { wk.vis = v; }, .3);
-  var T3 = (function () {
-    if (!window.THREE) return null;
-    var cv = $("[data-w3d]"), THREE = window.THREE, renderer;
-    try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true }); } catch (e) { return null; }
-    var scene = new THREE.Scene(), CW = 240, CH = 260, TW = 1, cam = new THREE.OrthographicCamera(-CW / 2, CW / 2, CH, 0, -1000, 1000); cam.position.z = 500;
-    scene.add(new THREE.AmbientLight(0xffffff, .72)); var sun = new THREE.DirectionalLight(0xffffff, .85); sun.position.set(180, 420, 520); scene.add(sun);
-    var rim = new THREE.DirectionalLight(0xbcd4ff, .35); rim.position.set(-300, 200, -200); scene.add(rim);
-    var M = function (c, r) { return new THREE.MeshStandardMaterial({ color: c, roughness: r === undefined ? .6 : r, metalness: 0 }); };
-    var skin = M(0xE8B48C, .7), hair = M(0x2B1B17, .8), shirt = M(0xFF8A70), pants = M(0x33415F), shoe = M(0x14213D, .5), white = M(0xffffff, .3), eyeM = M(0x14213D, .3);
-    function capsule(r, len, m) { var g = new THREE.Group(), c = new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, 18), m), a = new THREE.Mesh(new THREE.SphereGeometry(r, 18, 12), m), b = a.clone(); a.position.y = len / 2; b.position.y = -len / 2; g.add(c, a, b); return g; }
-    var fig = new THREE.Group(), body = new THREE.Group(); fig.add(body);
-    var torso = capsule(14, 22, shirt); torso.position.y = 82; torso.scale.set(1.08, 1, .72); body.add(torso);
-    var neck = new THREE.Mesh(new THREE.CylinderGeometry(4.4, 4.4, 8, 12), skin); neck.position.y = 100; body.add(neck);
-    var head = new THREE.Group(); head.position.y = 114; body.add(head);
-    var skull = new THREE.Mesh(new THREE.SphereGeometry(14.5, 28, 20), skin); head.add(skull);
-    var hairTop = new THREE.Mesh(new THREE.SphereGeometry(15.6, 28, 16, 0, Math.PI * 2, 0, Math.PI * .56), hair); hairTop.position.y = 1; hairTop.rotation.x = -.18; head.add(hairTop);
-    var hairBack = capsule(11.5, 18, hair); hairBack.position.set(0, -9, -6.5); hairBack.scale.set(1.18, 1, .62); head.add(hairBack);
-    [-5.4, 5.4].forEach(function (x) { var w = new THREE.Mesh(new THREE.SphereGeometry(4, 16, 12), white); w.position.set(x, 1.5, 12.7); w.scale.z = .45; head.add(w); var e = new THREE.Mesh(new THREE.SphereGeometry(2.3, 14, 10), eyeM); e.position.set(x, 1.3, 14.3); e.scale.z = .6; head.add(e); });
-    var cheek = new THREE.MeshStandardMaterial({ color: 0xFF8E8E, roughness: .8, transparent: true, opacity: .5 }); [-8, 8].forEach(function (x) { var c = new THREE.Mesh(new THREE.SphereGeometry(2.6, 10, 8), cheek); c.position.set(x, -3.2, 12.6); c.scale.z = .45; head.add(c); });
-    var smile = new THREE.Mesh(new THREE.TorusGeometry(3.6, .7, 8, 16, Math.PI), M(0x7A3B30)); smile.position.set(0, -4.4, 14); smile.rotation.z = Math.PI; head.add(smile);
-    function arm(side) { var g = new THREE.Group(); g.position.set(side * 18, 94, 0); var u = capsule(4.8, 14, shirt); u.position.y = -10; g.add(u); var el = new THREE.Group(); el.position.y = -20; var f = capsule(4, 12, skin); f.position.y = -8; el.add(f); var h = new THREE.Mesh(new THREE.SphereGeometry(4.6, 12, 10), skin); h.position.y = -17; el.add(h); g.add(el); g.userData.el = el; body.add(g); return g; }
-    var armL = arm(-1), armR = arm(1);
-    function leg(side) { var g = new THREE.Group(); g.position.set(side * 7.5, 62, 0); var u = capsule(6.6, 18, pants); u.position.y = -12; g.add(u); var kn = new THREE.Group(); kn.position.y = -24; var l = capsule(5.8, 18, pants); l.position.y = -12; kn.add(l); var s = new THREE.Mesh(new THREE.BoxGeometry(11, 7, 19), shoe); s.position.set(0, -26, 4); kn.add(s); g.add(kn); g.userData.kn = kn; body.add(g); return g; }
-    var legL = leg(-1), legR = leg(1);
-    var shadow = new THREE.Mesh(new THREE.CircleGeometry(20, 24), new THREE.MeshBasicMaterial({ color: 0x14213D, transparent: true, opacity: .26 })); shadow.rotation.x = -Math.PI / 2; shadow.scale.set(1.2, 1, .55); shadow.position.y = .4; fig.add(shadow);
-    fig.scale.set(1.12, 1.12, 1.12); scene.add(fig);
-    var st = { phase: 0, w: 0, face: 0, t: 0 };
-    function size() { TW = Math.max(1, track.getBoundingClientRect().width); renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5)); renderer.setSize(CW, CH, false); }
-    size(); window.addEventListener("resize", size);
-    function render(dt, xPct, walking) {
-      st.t += dt; st.w += ((walking ? 1 : 0) - st.w) * Math.min(1, dt * 9); st.phase += dt * 7.4 * st.w;
-      var sw = Math.sin(st.phase), w = st.w;
-      legL.rotation.x = sw * .72 * w; legR.rotation.x = -sw * .72 * w; legL.userData.kn.rotation.x = Math.max(0, -sw) * .8 * w; legR.userData.kn.rotation.x = Math.max(0, sw) * .8 * w;
-      armL.rotation.x = -sw * .62 * w; armR.rotation.x = sw * .62 * w; armL.userData.el.rotation.x = -.35 * w; armR.userData.el.rotation.x = -.35 * w;
-      var idle = 1 - w; armR.rotation.z = idle * (2.35 + Math.sin(st.t * 7) * .28) + w * .08; armR.userData.el.rotation.z = idle * Math.sin(st.t * 9) * .35; armL.rotation.z = -.1;
-      body.position.y = Math.abs(sw) * 2.4 * w + Math.sin(st.t * 2.4) * .5 * idle; body.rotation.z = sw * .04 * w; torso.rotation.y = sw * .12 * w; head.rotation.y = -sw * .08 * w; head.rotation.x = .05 * w;
-      st.face += ((walking ? Math.PI * .5 : 0) - st.face) * Math.min(1, dt * 7); fig.rotation.y = st.face; fig.rotation.x = .1;
-      fig.position.set(0, 30, 0); cv.style.transform = "translate3d(" + (xPct / 100 * TW - CW / 2).toFixed(1) + "px," + (304 - (CH - 30)) + "px,0)"; renderer.render(scene, cam);
-    }
-    return { render: render };
-  })();
-  if (T3) day.classList.add("has3d");
   (function wLoop(t) {
     var dt = Math.min(.05, (t - (wk.t0 || t)) / 1000); wk.t0 = t; wk.walking = false;
     if (wk.vis && !document.hidden) {
@@ -328,7 +286,6 @@
         else { wk.x = goal; wSet(); stp[wk.k].classList.add("on"); Snd[wk.k === stp.length - 1 ? "cash" : "ding"](); if (wk.k === stp.length - 1) burstAt(walker, 14); wk.k++; wk.pause = wk.k >= stp.length ? 3 : 1.7; }
       }
       walkP.classList.toggle("walking", wk.walking);
-      if (T3) T3.render(dt, wk.x, wk.walking);
     } else walkP.classList.remove("walking");
     requestAnimationFrame(wLoop);
   })(0);
@@ -336,15 +293,16 @@
 
   /* ================= live playground ================= */
   var lab = $("[data-lab]");
-  // clock in: fingerprint, selfie (upload or sample) and GPS, with a geofence switch
-  var arr = $("[data-arr]"), arrOut = $("[data-arr-out]"), scanner = $("[data-scan]"), scanIc = $("[data-scan-ic]"), scanLbl = $("[data-scan-lbl]"), scanImg = $("[data-scan-img]"), checks = $$("[data-checks] li", lab), status = $("[data-status]"), c0 = $("[data-c0]"), c1 = $("[data-c1]");
+  // clock in: a thumb presses the fingerprint, the selfie counts down and flashes, and GPS sweeps a radar
+  var arr = $("[data-arr]"), arrOut = $("[data-arr-out]"), scanner = $("[data-scan]"), scanLbl = $("[data-scan-lbl]"), scanImg = $("[data-scan-img]"), cnt = $("[data-cnt]"), flashEl = $(".flash", scanner), checks = $$("[data-checks] li", lab), status = $("[data-status]"), c0 = $("[data-c0]"), c1 = $("[data-c1]");
   var sample = $("[data-sample]"), selfieIn = $("[data-selfie-in]"), geoSw = $("[data-geo]"), punching = false, mode = "fp", hasImg = false;
   var hm = function (m) { return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
   arr.addEventListener("input", function () { arrOut.textContent = hm(+arr.value); }); arrOut.textContent = hm(+arr.value);
-  var modeMap = { fp: ["fingerprint", "Fingerprint matched", "Press to clock in"], selfie: ["camera", "Selfie matched", "Upload a selfie"], gps: ["pin", "Location shared", "Check my location"] };
+  var modeMap = { fp: ["Fingerprint matched", "Press to clock in"], selfie: ["Selfie matched", "Take a selfie"], gps: ["Location shared", "Check my location"] };
   function setMode(m) {
     mode = m; $$("[data-mode]", lab).forEach(function (x) { x.setAttribute("aria-checked", x.getAttribute("data-mode") === m ? "true" : "false"); });
-    scanIc.innerHTML = icons[modeMap[m][0]]; c0.textContent = modeMap[m][1]; scanLbl.textContent = modeMap[m][2]; sample.hidden = m !== "selfie"; scanner.classList.toggle("has-img", m === "selfie" && hasImg); scanImg.hidden = !(m === "selfie" && hasImg); Snd.tick();
+    scanner.setAttribute("data-m", m); scanner.classList.remove("ok", "bad", "at-in", "at-out", "scan"); c0.textContent = modeMap[m][0]; scanLbl.textContent = modeMap[m][1];
+    sample.hidden = m !== "selfie"; scanner.classList.toggle("has-img", m === "selfie" && hasImg); scanImg.hidden = !(m === "selfie" && hasImg); Snd.tick();
   }
   $$("[data-mode]", lab).forEach(function (b) { b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); }); });
   geoSw.addEventListener("click", function () { var on = geoSw.getAttribute("aria-checked") !== "true"; geoSw.setAttribute("aria-checked", on ? "true" : "false"); c1.textContent = on ? "GPS 12 m, inside Head Office" : "GPS 340 m away, outside the fence"; Snd.tick(); });
@@ -356,17 +314,20 @@
     g.fillStyle = "#fff"; [80, 120].forEach(function (x) { g.beginPath(); g.ellipse(x, 104, 9, 10, 0, 0, 7); g.fill(); }); g.fillStyle = "#14213D"; [82, 122].forEach(function (x) { g.beginPath(); g.arc(x, 106, 4.5, 0, 7); g.fill(); });
     g.strokeStyle = "#7A3B30"; g.lineWidth = 4; g.lineCap = "round"; g.beginPath(); g.arc(100, 124, 14, .2, Math.PI - .2); g.stroke(); return cv.toDataURL("image/png");
   }
-  function useImage(src) { scanImg.src = src; hasImg = true; scanImg.hidden = false; scanner.classList.add("has-img"); runScan(); }
+  function useImage(src) { scanImg.src = src; hasImg = true; scanner.classList.add("has-img"); scanImg.hidden = true; runScan(); }
   sample.addEventListener("click", function () { Snd.pop(); useImage(sampleFace()); });
   selfieIn.addEventListener("change", function () { var f = selfieIn.files && selfieIn.files[0]; if (!f) return; var r = new FileReader(); r.onload = function () { useImage(r.result); }; r.readAsDataURL(f); });
   function runScan() {
-    if (punching) return; punching = true; var m = +arr.value, inside = geoSw.getAttribute("aria-checked") === "true";
-    checks.forEach(function (c) { c.className = ""; }); status.textContent = "Checking"; scanner.classList.remove("ok", "bad"); scanner.classList.add("scan"); scanLbl.textContent = "Scanning..."; Snd.whoosh();
-    setTimeout(function () { checks[0].classList.add("on"); Snd.tick(); }, 700);
-    setTimeout(function () { checks[1].classList.add("on"); if (!inside) checks[1].classList.add("late"); Snd.tick(); }, 1200);
+    if (punching) return; punching = true; var m = +arr.value, inside = geoSw.getAttribute("aria-checked") === "true", selfie = mode === "selfie", d = selfie ? 1500 : 0;
+    checks.forEach(function (c) { c.className = ""; }); status.textContent = "Checking"; scanner.classList.remove("ok", "bad", "at-in", "at-out"); scanner.classList.add("scan"); scanLbl.textContent = selfie ? "Hold still" : "Scanning..."; Snd.whoosh();
+    if (selfie) {
+      scanImg.hidden = true; [3, 2, 1].forEach(function (n, i) { setTimeout(function () { cnt.textContent = n; cnt.classList.remove("on"); void cnt.offsetWidth; cnt.classList.add("on"); Snd.tick(); }, i * 430); });
+      setTimeout(function () { cnt.classList.remove("on"); cnt.textContent = ""; flashEl.classList.remove("go"); void flashEl.offsetWidth; flashEl.classList.add("go"); scanImg.hidden = false; Snd.pop(); }, 1290);
+    }
+    setTimeout(function () { checks[0].classList.add("on"); Snd.tick(); }, d + 700); setTimeout(function () { checks[1].classList.add("on"); if (!inside) checks[1].classList.add("late"); Snd.tick(); }, d + 1200);
     setTimeout(function () {
       var cls, txt, lbl, td = $("[data-today]", lab), em = $("em", td);
-      scanner.classList.remove("scan");
+      scanner.classList.remove("scan"); scanner.classList.add(inside ? "at-in" : "at-out");
       if (!inside) { cls = "on late"; txt = "Rejected: outside the fence"; lbl = "Rejected"; scanner.classList.add("bad"); Snd.boop(); em.textContent = "Rejected"; em.className = "late"; $("b", td).textContent = "--:--"; }
       else {
         if (m <= 540) { cls = "on"; txt = "On time, " + hm(m); lbl = "On time"; scanner.classList.add("ok"); Snd.ding(); burstAt(scanner, 16); }
@@ -375,7 +336,7 @@
         $("b", td).textContent = hm(m); em.textContent = lbl; em.className = m <= 540 ? "ok" : m <= 555 ? "gr" : "late";
       }
       status.textContent = txt; checks[2].className = cls; scanLbl.textContent = lbl; td.classList.remove("pulse-in"); void td.offsetWidth; td.classList.add("pulse-in"); punching = false;
-    }, 1900);
+    }, d + 1900);
   }
   scanner.addEventListener("click", function () { if (mode === "selfie" && !hasImg) { selfieIn.click(); return; } runScan(); });
   // leave
@@ -383,13 +344,15 @@
   var now = new Date(), y = now.getFullYear(), mo = now.getMonth(), first = new Date(y, mo, 1).getDay(), dim = new Date(y, mo + 1, 0).getDate();
   function lRender() {
     var s = ["S", "M", "T", "W", "T", "F", "S"].map(function (x) { return '<span class="h">' + x + "</span>"; }).join(""), k;
-    for (k = 0; k < first; k++) s += "<span></span>";
+    var pdim = new Date(y, mo, 0).getDate(); for (k = first - 1; k >= 0; k--) s += '<span class="adj">' + (pdim - k) + "</span>";
     for (var d = 1; d <= dim; d++) { var wd = (first + d - 1) % 7, we = wd === 0 || wd === 6, cl = we ? "we" : ""; if (selA && d === selA) cl += " st"; else if (selB && d === selB) cl += " st"; else if (selA && selB && d > selA && d < selB && !we) cl += " in"; s += we ? '<span class="' + cl + '">' + d + "</span>" : '<button type="button" class="' + cl + '" data-day="' + d + '">' + d + "</button>"; }
+    for (k = first + dim; k < 42; k++) s += '<span class="adj">' + (k - first - dim + 1) + "</span>";
     lcal.innerHTML = s;
   }
+  var linfo = $("[data-linfo]"), lcard = $(".lc--leave"), lmeta = { annual: ["var(--world)", "Annual leave: 14 days a year and 5 can carry forward. Needs 2 days notice."], sick: ["#E8590C", "Sick leave: 6 days a year. A medical note is needed after 2 days."], comp: ["#7A4DF0", "Comp-off: earned for holiday work and expires after 30 days."] };
   function workDays(a, b) { var n = 0; for (var d = a; d <= b; d++) { var wd = (first + d - 1) % 7; if (wd !== 0 && wd !== 6) n++; } return n; }
   function lSummary() {
-    lflow.textContent = ""; lflow.className = "lflow";
+    lflow.textContent = ""; lflow.className = "lflow"; linfo.textContent = lmeta[ltype][1]; lcard.style.setProperty("--tc", lmeta[ltype][0]);
     if (!selA) { lsum.textContent = "Pick a start date."; lbar.style.width = Math.max(4, bal[ltype] / maxb[ltype] * 100) + "%"; return; }
     var b = selB || selA, n = workDays(selA, b), after = bal[ltype] - n;
     lsum.textContent = n + " working day" + (n === 1 ? "" : "s") + ", weekends skipped. " + (after >= 0 ? "Balance after: " + after + "." : "Not enough balance, so HR decides.");
@@ -412,7 +375,7 @@
     var h = +oth.value, u = +ulv.value, base = 5100, ot = Math.round(4800 / 160 * 1.5 * h), ded = Math.round(4800 / 30 * u), net = base + ot - ded;
     $("[data-oth-out]").textContent = h; $("[data-ulv-out]").textContent = u; $("[data-ot-h]").textContent = h; $("[data-ul-d]").textContent = u;
     $("[data-ot-v]").textContent = "+ " + fmt(ot); $("[data-ul-v]").textContent = "- " + fmt(ded); tween(netEl, net, 450);
-    $("[data-s1]").style.flex = String(base); $("[data-s2]").style.flex = String(Math.max(ot, 1)); $("[data-s3]").style.flex = String(Math.max(ded, 1)); $("[data-sent]").textContent = "";
+    var gross = base + ot, pct = Math.round(net / gross * 100); $("[data-th]").style.width = pct + "%"; $("[data-th-t]").textContent = pct + "%"; $("[data-s1]").style.flex = String(base); $("[data-s2]").style.flex = String(Math.max(ot, 1)); $("[data-s3]").style.flex = String(Math.max(ded, 1)); $("[data-sent]").textContent = "";
   }
   oth.addEventListener("input", payUpdate); ulv.addEventListener("input", payUpdate); oth.addEventListener("change", Snd.tick); ulv.addEventListener("change", Snd.tick); netEl.textContent = "0"; payUpdate();
   $("[data-pay-go]").addEventListener("click", function (e) { $("[data-sent]").textContent = "412 payslips sent to every phone"; Snd.cash(); burstAt(e.currentTarget, 18); });
@@ -421,28 +384,32 @@
   var pm = [[1, 1, 0, 0, 0], [1, 1, 0, 1, 0], [1, 1, 1, 1, 0], [1, 1, 1, 1, 1]], pr = 0;
   function pRender() {
     perms.innerHTML = areas.map(function (a, i) { return "<li>" + icons[a[0]] + "<span>" + a[1] + '</span><button class="sw" type="button" role="switch" aria-checked="' + (pm[pr][i] ? "true" : "false") + '" data-pi="' + i + '" aria-label="' + a[1] + '"></button></li>'; }).join("");
-    var n = pm[pr].reduce(function (s, v) { return s + v; }, 0); permSum.textContent = roleNames[pr] + " can open " + n + " of 5 areas" + (pm[pr][2] ? ", including payroll." : ", and cannot see payroll.");
+    var n = pm[pr].reduce(function (s, v) { return s + v; }, 0); $("[data-pmenu-in]").innerHTML = areas.map(function (a, i) { return '<span class="pm' + (pm[pr][i] ? "" : " off") + '">' + (pm[pr][i] ? icons[a[0]] : icons.lock) + a[1] + "</span>"; }).join(""); permSum.textContent = roleNames[pr] + " can open " + n + " of 5 areas" + (pm[pr][2] ? ", including payroll." : ", and cannot see payroll.");
   }
   perms.addEventListener("click", function (e) { var b = e.target.closest("[data-pi]"); if (!b) return; var i = +b.getAttribute("data-pi"); pm[pr][i] = pm[pr][i] ? 0 : 1; Snd.tick(); pRender(); });
   $$("[data-role-p]", lab).forEach(function (b) { b.addEventListener("click", function () { pr = +b.getAttribute("data-role-p"); $$("[data-role-p]", lab).forEach(function (x) { x.setAttribute("aria-checked", x === b ? "true" : "false"); }); Snd.tick(); pRender(); }); });
   pRender();
-  // who's in
-  var hereG = $("[data-here-grid]"), hereS = $("[data-here]"), people24 = [], cols = ["#45C4B0", "#FF8A70", "#9B8CFF", "#FFB020", "#7FB4FF", "#FF9FC0", "#B8E986", "#E98ACD"], ini = ["AK", "OM", "SN", "RV", "PR", "KR", "ND", "JL", "MH", "SI", "TB", "DL", "ES", "FA", "GU", "HY", "IM", "JO", "KA", "LU", "MA", "NO", "OL", "PA"];
-  for (var q = 0; q < 24; q++) people24.push({ a: 470 + Math.round(((q * 37) % 100) * 1.05) + (q % 5 === 0 ? 40 : 0), c: cols[q % 8], n: ini[q] });
-  hereG.innerHTML = people24.map(function (p) { return '<i style="--c:' + p.c + '">' + p.n + "</i>"; }).join("");
+  // who's in: little faces fill in as the morning goes on
+  var hereG = $("[data-here-grid]"), hereS = $("[data-here]"), people24 = [], skins = ["#F1CBA6", "#E8B48C", "#D49A6E", "#B97D52", "#9A6238", "#8A5530"], hairs = ["#2B1B17", "#6B3A22", "#1C1410", "#B5651D", "#120D0B", "#8E5A2B", "#3A2A20"];
+  for (var q = 0; q < 24; q++) people24.push({ a: 470 + Math.round(((q * 37) % 100) * 1.05) + (q % 5 === 0 ? 40 : 0), sk: skins[(q * 5 + 1) % 6], hr: hairs[(q * 3 + 2) % 7] });
+  hereG.innerHTML = people24.map(function (p) { return '<i style="--sk:' + p.sk + ";--hr:" + p.hr + '"></i>'; }).join("");
   function hRender() {
     var m = +hereS.value, inN = 0, late = 0; $("[data-here-t]").textContent = hm(m);
     $$("i", hereG).forEach(function (el, k) { var p = people24[k], arrived = m >= p.a, isLate = p.a > 540; el.className = arrived ? (isLate ? "late" : "ok") : ""; if (arrived) { inN++; if (isLate) late++; } });
     $("[data-here-n]").textContent = inN + " of 24 in" + (late ? ", " + late + " late" : "");
+    $("[data-hb-ok]").style.flexBasis = (inN - late) / 24 * 100 + "%"; $("[data-hb-late]").style.flexBasis = late / 24 * 100 + "%";
+    $("[data-hk-ok]").textContent = inN - late; $("[data-hk-late]").textContent = late; $("[data-hk-off]").textContent = 24 - inN;
   }
   hereS.addEventListener("input", hRender); hRender();
-  // roster
+  // roster: icons for each shift and a coverage bar per day
   var roster = $("[data-roster]"), cover = $("[data-cover]"), days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], rp = [["Karan", "#FF9FC0"], ["Ravi", "#45C4B0"], ["Sara", "#9B8CFF"], ["Nadia", "#B8E986"], ["Omar", "#FFD05A"]], seq = ["M", "E", "N", "O"], lastBad = false;
+  var ICO = { M: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>', E: '<svg viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 9V2M4.2 10.2l1.4 1.4M2 18h2M20 18h2M18.4 11.6l1.4-1.4M22 22H2M8 5l4-3 4 3"/></svg>', N: '<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>', O: '<svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>' };
+  var mon = new Date(); mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7));
   var rs = [["M", "M", "E", "E", "O", "M", "O"], ["E", "E", "M", "M", "M", "O", "M"], ["M", "O", "M", "M", "E", "E", "O"], ["O", "M", "O", "E", "M", "M", "E"], ["N", "N", "M", "O", "E", "O", "M"]];
   function rRender() {
-    var h = '<div class="r"><span></span>' + days.map(function (d) { return '<span class="hd">' + d + "</span>"; }).join("") + "</div>", bad = [];
-    rp.forEach(function (p, r) { h += '<div class="r"><span class="nm"><i style="--c:' + p[1] + '">' + p[0].slice(0, 2).toUpperCase() + "</i>" + p[0] + "</span>" + rs[r].map(function (s, d) { return '<button type="button" class="' + s + '" data-r="' + r + '" data-d="' + d + '" aria-label="' + p[0] + " " + days[d] + ", shift " + s + '">' + s + "</button>"; }).join("") + "</div>"; });
-    h += '<div class="r"><span class="nm">Morning crew</span>' + days.map(function (d, di) { var n = rs.reduce(function (s, row) { return s + (row[di] === "M" ? 1 : 0); }, 0), b = n < 2; if (b) bad.push(d + " has " + n); return '<span class="cv' + (b ? " bad" : "") + '">' + n + "</span>"; }).join("") + "</div>";
+    var h = '<div class="r"><span></span>' + days.map(function (d, i) { var dt = new Date(mon); dt.setDate(mon.getDate() + i); return '<span class="hd">' + d + "<b>" + dt.getDate() + "</b></span>"; }).join("") + "</div>", bad = [];
+    rp.forEach(function (p, r) { h += '<div class="r"><span class="nm"><i style="--c:' + p[1] + '">' + p[0].slice(0, 2).toUpperCase() + "</i>" + p[0] + "</span>" + rs[r].map(function (s, d) { return '<button type="button" class="' + s + '" data-r="' + r + '" data-d="' + d + '" aria-label="' + p[0] + " " + days[d] + ", shift " + s + '">' + ICO[s] + "<span>" + s + "</span></button>"; }).join("") + "</div>"; });
+    h += '<div class="r"><span class="nm">Morning crew</span>' + days.map(function (d, di) { var n = rs.reduce(function (s, row) { return s + (row[di] === "M" ? 1 : 0); }, 0), b = n < 2; if (b) bad.push(d + " has " + n); return '<span class="cv' + (b ? " bad" : "") + '"><i style="--w:' + Math.min(100, n / 2 * 100) + '%"></i><b>' + n + (b ? " of 2" : "") + "</b></span>"; }).join("") + "</div>";
     roster.innerHTML = h; cover.className = "cover" + (bad.length ? " bad" : ""); cover.textContent = bad.length ? "Understaffed: " + bad.join(", ") + " on the morning shift (needs 2)." : "Coverage is fine for the whole week.";
     if (bad.length && !lastBad) Snd.boop(); lastBad = !!bad.length;
   }
@@ -498,7 +465,14 @@
   // helpers for the guided demos
   function toEl(el, block) { el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: block || "center" }); return wait(950); }
   function flyTo(el, fx, fy) { var r = el.getBoundingClientRect(); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, r.left + r.width * fx)), Math.max(70, Math.min(window.innerHeight - 140, r.top + r.height * fy))); return wait(1100); }
-  async function press(el) { guide.classList.add("act"); ring(el); Snd.tick(); await wait(420); el.click(); guide.classList.remove("act"); }
+  var vcur = document.createElement("div"); vcur.className = "vcur"; vcur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 2 3.5 6.5-2.5 1.2L10.5 14 6 18z" fill="#fff" stroke="#14213D" stroke-width="1.6" stroke-linejoin="round"/></svg>'; document.body.appendChild(vcur);
+  function curTo(x, y) { vcur.style.setProperty("--cx", Math.round(x) + "px"); vcur.style.setProperty("--cy", Math.round(y) + "px"); }
+  async function press(el) {
+    var g = gBot.getBoundingClientRect(); curTo(g.left + 6, g.top + 62); vcur.classList.add("on"); await wait(120); guide.classList.add("act");
+    var r = el.getBoundingClientRect(); curTo(r.left + r.width / 2 - 6, r.top + r.height / 2 - 4); await wait(1000);
+    ring(el); Snd.tick(); await wait(200); el.click(); await wait(350);
+    g = gBot.getBoundingClientRect(); curTo(g.left + 6, g.top + 62); await wait(750); vcur.classList.remove("on"); guide.classList.remove("act");
+  }
   async function finish(msgText) { await wait(1500); guideSay(msgText || "That's how it works. Click me for more.", 3600); await wait(900); gHome(); await wait(1000); gBusy = false; }
   var shows = {
     clock: async function () { var c = $(".lc--clock"); await toEl(c); setMode("fp"); guideSay("Let's clock in with a thumb.", 2400); await flyTo($("[data-scan]"), 1.15, -.35); guideSay("I press the scanner with my thumb.", 2400); await wait(500); await press($("[data-scan]")); await wait(2300); guideSay($("[data-status]").textContent + ". The check marks are the checks it ran.", 3800); await finish(); },
