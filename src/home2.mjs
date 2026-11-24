@@ -387,7 +387,7 @@ export function home2() {
           </div>
           <div class="win__grid">
             <div class="chart"><small>Attendance this week</small><div class="bars" data-bars><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="bars__x"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div>
-            <div class="donut"><small>Leave by type</small><div class="donut__ring" data-ring><span data-ring-n>0</span></div><ul class="donut__key"><li class="a">Paid</li><li class="b">Unpaid</li><li class="c">Comp-off</li></ul></div>
+            <div class="donut"><small>Leave by type</small><div class="donut__ring" data-ring><span data-ring-n>0</span></div><ul class="donut__key"><li class="a"><span>Paid leave</span><b data-dk="a">0</b></li><li class="b"><span>Unpaid leave</span><b data-dk="b">0</b></li><li class="c"><span>Comp-off</span><b data-dk="c">0</b></li></ul></div>
           </div>
         </div>
         <div class="pane" data-pane="1" hidden>
@@ -412,7 +412,7 @@ export function home2() {
             <div class="tile"><small>Balance used</small><b data-l="used">0</b><i>percent of annual</i></div>
           </div>
           <div class="win__grid">
-            <div class="chart"><small>Who is away, next 14 days</small><div class="heat" data-heat></div></div>
+            <div class="chart"><small>Who is away, next 14 days</small><div class="heat" data-heat></div><div class="heat__s" data-heat-s></div></div>
             <div class="plist"><small>Latest requests</small><ul data-reqs></ul></div>
           </div>
         </div>
@@ -426,7 +426,7 @@ export function home2() {
           </div>
           <div class="win__grid">
             <div class="chart"><small>Cost by team</small><div class="bars bars--h" data-pbars><i><em>Ops</em></i><i><em>Sales</em></i><i><em>Tech</em></i><i><em>HR</em></i><i><em>Fin</em></i></div></div>
-            <div class="plist"><small>Run checklist</small><ul class="ckl" data-pck><li>Attendance locked</li><li>Overtime approved</li><li>Deductions checked</li><li>Payslips released</li></ul></div>
+            <div class="plist"><small>Run checklist</small><ul class="ckl" data-pck><li><b>Attendance locked</b><span>All punches reviewed</span></li><li><b>Overtime approved</b><span>Managers signed off</span></li><li><b>Deductions checked</b><span>Tax and unpaid leave</span></li><li><b>Payslips released</b><span>Sent to every phone</span></li></ul></div>
           </div>
         </div>
         <div class="pane" data-pane="4" hidden>
@@ -501,10 +501,10 @@ export function home2() {
           <div class="mnews">${icon("sparkles", "ic")}<span><b>Holiday notice</b>Office closed on 30 March</span></div>
         </div>
         <div class="mscr mscr--c" data-ms="3">
-          <span class="mchip">${icon("pin", "ic")}Inside geofence, 12 m</span>
-          <div class="mmap" aria-hidden="true"><svg viewBox="0 0 220 96"><path d="M0 70 L90 52 L220 64 M120 0 L104 96 M0 30 L220 18" class="rd"/><circle class="gf" cx="112" cy="50" r="32"/><circle cx="112" cy="50" r="6" class="me"/></svg></div>
+          <div class="mshift"><div><small>Today's shift</small><b>09:00 to 18:00</b></div><span>Head Office</span></div>
           <div class="mscan" data-mscan>${icon("fingerprint", "ic")}<i></i></div>
           <b data-mclock>Hold to clock in</b>
+          <div class="mgeo">${icon("pin", "ic")}<span>Inside geofence, 12 m</span><i></i></div>
           <div class="mpun"><div><small>In</small><b data-mpin>--:--</b></div><div><small>Out</small><b>--:--</b></div><div><small>Hours</small><b>0.0</b></div></div>
           <div class="mwk3"><small>This week</small><div><span><b>Mon</b>08:49<em class="ok">On time</em></span><span><b>Tue</b>09:07<em class="gr">Grace</em></span><span><b>Wed</b>08:52<em class="ok">On time</em></span></div></div>
         </div>
@@ -680,7 +680,7 @@ export function home2() {
           <div class="rs__col">
             <div class="rs__pills"><span>11 in</span><span>2 late</span><span>1 away</span></div>
             <div class="rs__cov"><small>Team coverage today</small><div><i style="--w:86%"></i></div><span>11 of 13 are in. Nobody is double-booked this week.</span></div>
-            <div class="rs__away"><small>Away this week</small><ul><li><i style="--c:#FFD05A">OM</i><span><b>Omar</b>Annual leave</span><em>23 to 24 Apr</em></li><li><i style="--c:#E86F9C">KM</i><span><b>Karan</b>Sick leave</span><em>Today</em></li></ul></div>
+            <div class="rs__away"><small>Away this week</small><ul><li><i style="--c:#FFD05A">OM</i><span><b>Omar</b>Annual leave</span><em>23 to 24 Apr</em></li><li><i style="--c:#E86F9C">KM</i><span><b>Karan</b>Sick leave</span><em>Today</em></li><li><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Work from home</span><em>Wed to Fri</em></li></ul></div>
           </div>
         </div>
       </div>
