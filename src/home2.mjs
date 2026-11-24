@@ -320,7 +320,7 @@ export function home2() {
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
 </head>
-<body class="lo" data-w="${industries[0].key}">
+<body class="lo" data-w="${industries[0].key}" data-clk="15">
 <script type="application/json" id="lo-data">${JSON.stringify({ industries, people: people.map((p) => p.n), icons: iconSet, faq }).replace(/</g, "\\u003c")}</script>
 <div class="fx" aria-hidden="true" data-fx></div>
 
