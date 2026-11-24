@@ -3,270 +3,222 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SublimeHR — The paperwork behind every workday, gone</title>
+<title>SublimeHR: HR that is alive</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#FBF8F1">
-<script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 <link rel="icon" type="image/png" href="/assets/img/sublimehr-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/home2.css?v=mwuagxlu">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/home2.css?v=mwuax1a3">
 </head>
-<body class="tc">
+<body class="lo" data-w="it">
+<script type="application/json" id="lo-data">{"industries":[{"key":"it","name":"IT company","icon":"laptop","color":"#3558F5","on":"#FFFFFF","lead":"In IT the workday has no address, so clock-in follows people home.","roles":["Developer","Designer","QA lead","Team manager","HR partner","Finance","Intern"],"props":["laptop","palette","shield","users","headset","wallet","bulb"],"events":[[0,"Clocked in from home at 09:02","in"],[3,"Emergency leave approved in one tap","leave"],[2,"Comp-off earned for the Saturday release","other"],[1,"Timesheet matches attendance","other"],[6,"First payslip landed on my phone","other"],[4,"Leave balance updated: 2 comp-off days","other"],[5,"Payroll ran straight from attendance","other"],[0,"Swapped sprint-week shift with Omar","swap"]],"needs":[["clock","Clock in from anywhere","Home, office or a client site. A selfie and GPS keep it honest."],["alert","Emergency leave","One tap, the manager is pinged and cover is suggested."],["repeat","Comp-off","Weekend deploy? The day off is credited and tracked."],["calendar","Leave balances","Paid, unpaid and comp-off, each by its own policy."],["chart","Timesheets","Hours worked match attendance, so billing never argues."],["wallet","Payroll","Allowances, deductions and payslips from real attendance."]]},{"key":"hospital","name":"Hospital","icon":"health","color":"#0E9F8A","on":"#FFFFFF","lead":"In a hospital the clock never stops, so every shift needs a name.","roles":["Staff nurse","Doctor","Night nurse","Pharmacist","Ward manager","HR officer","Accounts"],"props":["heart","health","clock","briefcase","users","headset","wallet"],"events":[[2,"Night shift started at 20:00","in"],[0,"Swap request: Ravi covers my Thursday","swap"],[1,"On-call allowance added automatically","other"],[4,"Float nurse found for tomorrow's gap","leave"],[3,"Registration renewal due in 14 days","other"],[5,"Overtime calculated for the ward","other"],[6,"Payslip includes night allowance","other"],[0,"Clocked in at the ICU, geofence matched","in"]],"needs":[["clock","Round-the-clock rosters","Day, evening and night shifts planned in one view."],["repeat","Shift swaps","Nurses trade shifts, the ward manager approves in a tap."],["alert","On-call and emergency","Float staff are suggested the moment someone calls in."],["wallet","Night and on-call pay","Allowances calculated for every hour that qualifies."],["badge","Licence reminders","Expiring registrations flagged weeks ahead."],["shield","Access by ward","Staff see only their own unit and records stay private."]]},{"key":"retail","name":"Retail","icon":"retail","color":"#F2593B","on":"#FFFFFF","lead":"In retail the rota changes every week, and so does everything that depends on it.","roles":["Cashier","Store manager","Stock clerk","Merchandiser","Part-timer","HR officer","Accounts"],"props":["retail","building","truck","palette","clock","headset","dollar"],"events":[[4,"Clocked in at Store 7, geofence matched","in"],[1,"Weekend rota published to every phone","other"],[0,"Swapped Saturday with Karan","swap"],[1,"Leave clash flagged before I approved","leave"],[3,"Festival overtime approved","other"],[6,"Commission added to the payslip","other"],[2,"Half-day leave approved","leave"],[5,"Seasonal staff onboarded in minutes","other"]],"needs":[["calendar","Weekend and festival rotas","Publish early and let staff see it on their phone."],["pin","Clock in at the right store","A geofence per outlet, part-timers included."],["alert","Short-staffed warnings","Leave clashes flagged before you approve."],["dollar","Commission and bonus","Sales incentives land on the payslip automatically."],["repeat","Quick swaps","Two cashiers agree and the rota updates itself."],["users","Seasonal hiring","Onboard temps in minutes and offboard them cleanly."]]},{"key":"factory","name":"Factory","icon":"factory","color":"#FFB81F","on":"#14213D","lead":"On a plant floor every minute counts twice: once for output, once for pay.","roles":["Machine operator","Supervisor","Safety officer","Maintenance","Contract worker","HR officer","Payroll clerk"],"props":["factory","users","hardhat","sliders","fingerprint","headset","wallet"],"events":[[4,"Punched in with fingerprint, shift B","in"],[1,"Shift A rotated to B on schedule","swap"],[0,"Two hours of overtime approved","other"],[2,"Safety induction completed","other"],[3,"Late within grace, no deduction","other"],[6,"Daily wages calculated for 240 workers","other"],[0,"Half-day leave approved","leave"],[5,"Absenteeism report ready for the morning meeting","other"]],"needs":[["repeat","Shift rotation","A, B and C shifts rotate on schedule, no whiteboard."],["fingerprint","Biometric punch","Contract and daily-wage workers clock in with a touch."],["clock","Overtime control","Approvals first and pay calculated after."],["hardhat","Safety and training","Induction and certificate dates tracked per worker."],["wallet","Daily wage payroll","Pay by day, hour or piece with every deduction shown."],["chart","Plant reports","Absenteeism by line and shift, ready each morning."]]},{"key":"school","name":"School","icon":"school","color":"#7A4DF0","on":"#FFFFFF","lead":"In a school one absence moves a whole timetable.","roles":["Teacher","Principal","Office admin","Bus driver","Counsellor","Lab assistant","Accountant"],"props":["school","briefcase","file","truck","heart","sliders","wallet"],"events":[[3,"Bus driver clocked in at 06:10","in"],[1,"Substitute assigned for Class 7 maths","swap"],[0,"Half-day leave approved","leave"],[2,"Term-break leave balance reset","other"],[5,"Lab assistant clocked in before the bell","in"],[6,"Salary slips sent on the 1st","other"],[4,"Qualification renewal flagged","other"],[0,"Emergency leave, cover found in a minute","leave"]],"needs":[["users","Substitute cover","A teacher is out and the free ones show up instantly."],["calendar","Term-based leave","Balances reset with the academic year."],["clock","Early starts","Drivers and caretakers clock in before the bell."],["file","Staff records","Qualifications, contracts and renewals in one file."],["wallet","Salary on schedule","Payslips on the same day every month."],["globe","Two languages","English and Arabic, right to left included."]]},{"key":"hotel","name":"Hotel","icon":"hotel","color":"#0B8FB5","on":"#FFFFFF","lead":"In a hotel the guests see the smiles, and HR sees the shifts behind them.","roles":["Front desk","Head chef","Housekeeper","Concierge","Duty manager","HR officer","Accounts"],"props":["hotel","sparkles","layers","globe","users","headset","dollar"],"events":[[0,"Split shift scheduled: breakfast and dinner","swap"],[1,"Holiday work credited as comp-off","other"],[4,"Visitor badge printed at the lobby","other"],[2,"Clocked in at the east wing, geofence matched","in"],[6,"Tips share added to payroll","other"],[3,"Night audit shift logged","in"],[5,"Seasonal staff onboarded for peak week","other"],[0,"Emergency leave covered by the duty manager","leave"]],"needs":[["repeat","Split shifts","Breakfast and dinner service planned without clashes."],["calendar","Peak season","Leave caps for busy weeks and comp-off for holiday work."],["badge","Guest and visitor check-in","Badges printed at the door and hosts notified."],["dollar","Tips and service charge","Shared fairly and added to payroll."],["clock","Night audit","Late shifts tracked with allowances applied."],["globe","Multilingual teams","Every screen in the language the staff speak."]]}],"people":["Aisha","Omar","Sara","Ravi","Priya","Karan","Nadia"],"icons":{"laptop":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003crect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\"/>\u003cpath d=\"M2 20h20\"/>\u003c/svg>","palette":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003ccircle cx=\"13.5\" cy=\"6.5\" r=\"1.5\"/>\u003ccircle cx=\"17.5\" cy=\"10.5\" r=\"1.5\"/>\u003ccircle cx=\"8.5\" cy=\"7.5\" r=\"1.5\"/>\u003ccircle cx=\"6.5\" cy=\"12.5\" r=\"1.5\"/>\u003cpath d=\"M12 2a10 10 0 0 0 0 20c1 0 1.5-.8 1.5-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6c0-4.9-4.5-8.4-10-8.4z\"/>\u003c/svg>","shield":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/>\u003cpath d=\"m9 12 2 2 4-4\"/>\u003c/svg>","users":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/>\u003ccircle cx=\"9\" cy=\"7\" r=\"4\"/>\u003cpath d=\"M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75\"/>\u003c/svg>","headset":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M3 14v-2a9 9 0 0 1 18 0v2\"/>\u003cpath d=\"M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z\"/>\u003cpath d=\"M18 17v1a3 3 0 0 1-3 3h-3\"/>\u003c/svg>","wallet":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003crect x=\"2\" y=\"5\" width=\"20\" height=\"15\" rx=\"2\"/>\u003cpath d=\"M2 10h20M6 15h4\"/>\u003c/svg>","bulb":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z\"/>\u003c/svg>","clock":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003ccircle cx=\"12\" cy=\"12\" r=\"10\"/>\u003cpath d=\"M12 6v6l4 2\"/>\u003c/svg>","alert":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003ccircle cx=\"12\" cy=\"12\" r=\"10\"/>\u003cpath d=\"M12 8v4M12 16h.01\"/>\u003c/svg>","repeat":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"m17 2 4 4-4 4\"/>\u003cpath d=\"M3 11V9a3 3 0 0 1 3-3h15\"/>\u003cpath d=\"m7 22-4-4 4-4\"/>\u003cpath d=\"M21 13v2a3 3 0 0 1-3 3H3\"/>\u003c/svg>","calendar":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003crect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/>\u003cpath d=\"M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01\"/>\u003c/svg>","chart":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M3 3v18h18\"/>\u003cpath d=\"M7 16v-4M12 16V8M17 16v-7\"/>\u003c/svg>","health":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003crect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/>\u003cpath d=\"M12 8v8M8 12h8\"/>\u003c/svg>","heart":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z\"/>\u003c/svg>","briefcase":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003crect x=\"2\" y=\"7\" width=\"20\" height=\"14\" rx=\"2\"/>\u003cpath d=\"M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\"/>\u003c/svg>","badge":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003crect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/>\u003ccircle cx=\"9\" cy=\"11\" r=\"2\"/>\u003cpath d=\"M6 16c.6-1.5 1.8-2 3-2s2.4.5 3 2M15 10h3M15 14h3\"/>\u003c/svg>","retail":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z\"/>\u003cpath d=\"M3 6h18M16 10a4 4 0 0 1-8 0\"/>\u003c/svg>","building":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003crect x=\"4\" y=\"2\" width=\"16\" height=\"20\" rx=\"2\"/>\u003cpath d=\"M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01\"/>\u003c/svg>","truck":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M1 3h15v13H1zM16 8h4l3 3v5h-7z\"/>\u003ccircle cx=\"5.5\" cy=\"18.5\" r=\"2.5\"/>\u003ccircle cx=\"18.5\" cy=\"18.5\" r=\"2.5\"/>\u003c/svg>","dollar":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/>\u003c/svg>","pin":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z\"/>\u003ccircle cx=\"12\" cy=\"10\" r=\"3\"/>\u003c/svg>","factory":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M2 20V8l6 4V8l6 4V4h8v16z\"/>\u003cpath d=\"M6 16h.01M10 16h.01M14 16h.01M18 16h.01\"/>\u003c/svg>","hardhat":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M2 18h20M4 18v-3a8 8 0 0 1 16 0v3M10 7V4h4v3\"/>\u003c/svg>","sliders":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6\"/>\u003c/svg>","fingerprint":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4\"/>\u003cpath d=\"M14 13.12c0 2.38 0 6.38-1 8.88\"/>\u003cpath d=\"M17.29 21.02c.12-.6.43-2.3.5-3.02\"/>\u003cpath d=\"M2 12a10 10 0 0 1 18-6\"/>\u003cpath d=\"M2 16h.01\"/>\u003cpath d=\"M21.8 16c.2-2 .131-5.354 0-6\"/>\u003cpath d=\"M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2\"/>\u003cpath d=\"M8.65 22c.21-.66.45-1.32.57-2\"/>\u003cpath d=\"M9 6.8a6 6 0 0 1 9 5.2v2\"/>\u003c/svg>","school":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M22 10 12 5 2 10l10 5z\"/>\u003cpath d=\"M6 12v5c3 2 9 2 12 0v-5\"/>\u003c/svg>","file":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/>\u003cpath d=\"M14 2v6h6M8 13h8M8 17h5\"/>\u003c/svg>","globe":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003ccircle cx=\"12\" cy=\"12\" r=\"10\"/>\u003cpath d=\"M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20\"/>\u003c/svg>","hotel":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9\"/>\u003c/svg>","sparkles":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z\"/>\u003cpath d=\"M19 3v4M17 5h4\"/>\u003c/svg>","layers":"\u003csvg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\">\u003cpath d=\"m12 2 10 5-10 5L2 7z\"/>\u003cpath d=\"m2 17 10 5 10-5M2 12l10 5 10-5\"/>\u003c/svg>"}}</script>
 
-<header class="tc-top">
-  <div class="tc-form" aria-hidden="true"><span>FORM HR-01</span><span>WORKDAY RECORD</span><span class="hide-s">SUBLIMEHR · REV. 2026</span><span class="hide-s">PAGE 1 OF 1</span></div>
-  <nav class="tc-nav" aria-label="Main">
-    <a class="tc-brand" href="/home-v2/"><img src="/assets/img/sublimehr-logo.png" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
-    <span class="tc-links"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></span>
-    <button class="tc-menu" type="button" data-menu aria-expanded="false" aria-controls="tc-drawer" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="tc-theme" type="button" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
-    <a class="tc-btn sm" href="/book-demo/"><span>Book a demo</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-  </nav>
-  <div class="tc-drawer" id="tc-drawer" data-drawer hidden>
-    <a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a><a href="/contact/">Contact</a>
-  </div>
+<header class="nav">
+  <a class="nav__brand" href="/home-v2/"><img src="/assets/img/sublimehr-logo.png" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
+  <nav class="nav__links" aria-label="Main"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></nav>
+  <a class="btn btn--on" href="/book-demo/">Book a demo</a>
 </header>
 
 <main>
-<section class="tc-hero" aria-labelledby="tc-h">
-  <div class="tc-copy">
-    <p class="tc-kick"><span class="box">01</span>Attendance · Leave · Payroll · Shifts</p>
-    <h1 class="tc-h" id="tc-h">The paperwork behind every workday, <span class="gone">gone.<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span></h1>
-    <ul class="tc-strike" aria-label="What SublimeHR replaces">
-      <li style="--i:0"><span>Attendance register</span><svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 C 60 3, 140 10, 198 5"/></svg></li><li style="--i:1"><span>Leave slip</span><svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 C 60 3, 140 10, 198 5"/></svg></li><li style="--i:2"><span>Payslip envelope</span><svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 C 60 3, 140 10, 198 5"/></svg></li><li style="--i:3"><span>Shift rota on the wall</span><svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 C 60 3, 140 10, 198 5"/></svg></li>
-    </ul>
-    <p class="tc-lead">Registers, leave slips and payslip envelopes become one app your people already carry. Punches, approvals and pay, recorded once and right.</p>
-    <div class="tc-cta">
-      <a class="tc-btn" href="/book-demo/"><span>Book a free demo</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-      <button class="tc-link" type="button" data-punch-cta>Punch the card<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 8v9H8"/></svg></button>
+<section class="hero" aria-labelledby="h1" data-hero>
+  <div class="hero__copy">
+    <h1 id="h1">Your people are alive. Your HR should be too.</h1>
+    <p class="hero__lead" data-lead>In IT the workday has no address, so clock-in follows people home.</p>
+    <p class="hero__ask" id="pick-lbl">Pick your industry and watch the office change.</p>
+    <div class="chips" role="group" aria-labelledby="pick-lbl" data-chips>
+      <button class="chip" type="button" data-k="it" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg><span>IT company</span></button><button class="chip" type="button" data-k="hospital" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><span>Hospital</span></button><button class="chip" type="button" data-k="retail" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg><span>Retail</span></button><button class="chip" type="button" data-k="factory" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 20V8l6 4V8l6 4V4h8v16z"/><path d="M6 16h.01M10 16h.01M14 16h.01M18 16h.01"/></svg><span>Factory</span></button><button class="chip" type="button" data-k="school" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg><span>School</span></button><button class="chip" type="button" data-k="hotel" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg><span>Hotel</span></button>
     </div>
-    <dl class="tc-fields">
-      <div><dt>Industries</dt><dd>9</dd></div>
-      <div><dt>Apps</dt><dd>Web · iOS · Android</dd></div>
-      <div><dt>Languages</dt><dd>English · العربية</dd></div>
-    </dl>
+    <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="/features/">Explore the features</a></div>
   </div>
 
-  <div class="tc-stage" data-stage>
-    <div class="slot" aria-hidden="true"><span class="slot__mouth"></span><span class="slot__lbl">TIME RECORDER · <b data-clock>08:51</b></span></div>
-
-    <article class="card" data-card aria-label="Paper timecard for Aisha K., week 47">
-      <div class="card__perf" aria-hidden="true"></div>
-      <header class="card__hd"><span>TIME CARD</span><span>WEEK 47</span></header>
-      <div class="card__name"><small>NAME</small><span class="sig">Aisha K.</span><small>DEPT</small><span class="sig">Finance</span></div>
-      <table class="card__tb">
-        <thead><tr><th scope="col">DAY</th><th scope="col">IN</th><th scope="col">OUT</th></tr></thead>
-        <tbody><tr><th scope="row">MON</th><td>08:52</td><td>17:31</td></tr><tr><th scope="row">TUE</th><td>08:49</td><td>17:30</td></tr><tr class="today"><th scope="row">WED</th><td data-in></td><td></td></tr><tr><th scope="row">THU</th><td></td><td></td></tr><tr><th scope="row">FRI</th><td></td><td></td></tr></tbody>
-      </table>
-      <div class="card__ft"><small>SUPERVISOR</small><span class="sig faint">R. Verma</span></div>
-      <span class="stamp" data-stamp aria-hidden="true">ON TIME</span>
-      <span class="note" aria-hidden="true">Payslips Friday,<br>collect from HR!</span>
-    </article>
-
-    <div class="phone" data-phone aria-label="The same punch in the SublimeHR app">
-      <div class="phone__bar"><span>08:52</span><span class="dots"><i></i><i></i><i></i></span></div>
-      <div class="phone__me"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=80&h=80&q=70" alt="" width="40" height="40"><span><small>Good morning</small><b>Aisha K.</b></span></div>
-      <div class="phone__map" aria-hidden="true">
-        <svg viewBox="0 0 200 96"><path class="road" d="M0 70 L80 52 L200 64"/><path class="road" d="M120 0 L104 96"/><circle class="fence" cx="110" cy="52" r="30"/><circle class="me" cx="110" cy="52" r="6"/></svg>
-        <span>Head Office · inside geofence</span>
-      </div>
-      <ul class="phone__checks">
-        <li style="--i:0"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Selfie matched</span><i><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></i></li>
-        <li style="--i:1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>GPS · 12 m</span><i><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></i></li>
-        <li style="--i:2"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Geofence</span><i><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></i></li>
-      </ul>
-      <div class="phone__done"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Clocked in <b>08:52</b></span></div>
+  <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
+    <div class="stage__rug" aria-hidden="true"></div>
+    <div class="wall" aria-hidden="true">
+      <svg class="clock" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46"/><line class="hh" x1="50" y1="50" x2="50" y2="28"/><line class="mh" x1="50" y1="50" x2="50" y2="17"/><line class="sh" x1="50" y1="56" x2="50" y2="12"/><circle class="pin" cx="50" cy="50" r="3"/></svg>
     </div>
+    <div class="slot" style="--x:40px;--y:318px;--s:1;--z:106;--par:12" data-slot="0"><div class="say" data-say aria-live="polite"></div><div class="ppl s-long " style="--skin:#E8B48C;--hair:#2B1B17;--shirt:#FF8A70;--hijab:#2B1B17;--d:0.0s" data-i="0">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div><span class="tag"><b>Aisha</b><em data-role></em></span></div><div class="slot" style="--x:170px;--y:96px;--s:0.84;--z:32;--par:5" data-slot="1"><div class="say" data-say aria-live="polite"></div><div class="ppl s-cap " style="--skin:#B97D52;--hair:#1C1410;--shirt:#FFD05A;--hijab:#1C1410;--d:-0.7s" data-i="1">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div><span class="tag"><b>Omar</b><em data-role></em></span></div><div class="slot" style="--x:230px;--y:318px;--s:1;--z:106;--par:12" data-slot="2"><div class="say" data-say aria-live="polite"></div><div class="ppl s-bun " style="--skin:#F1CBA6;--hair:#6B3A22;--shirt:#9B8CFF;--hijab:#6B3A22;--d:-1.4s" data-i="2">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div><span class="tag"><b>Sara</b><em data-role></em></span></div><div class="slot" style="--x:470px;--y:96px;--s:0.84;--z:32;--par:5" data-slot="3"><div class="say" data-say aria-live="polite"></div><div class="ppl s-curls " style="--skin:#9A6238;--hair:#120D0B;--shirt:#45C4B0;--hijab:#120D0B;--d:-2.1s" data-i="3">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div><span class="tag"><b>Ravi</b><em data-role></em></span></div><div class="slot" style="--x:600px;--y:318px;--s:1;--z:106;--par:12" data-slot="4"><div class="say" data-say aria-live="polite"></div><div class="ppl s-hijab " style="--skin:#D49A6E;--hair:#1A1210;--shirt:#7FB4FF;--hijab:#F7F3FF;--d:-2.8s" data-i="4">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div><span class="tag"><b>Priya</b><em data-role></em></span></div><div class="slot" style="--x:320px;--y:96px;--s:0.84;--z:32;--par:5" data-slot="5"><div class="say" data-say aria-live="polite"></div><div class="ppl s-cap " style="--skin:#8A5530;--hair:#17100C;--shirt:#FF9FC0;--hijab:#17100C;--d:-3.5s" data-i="5">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div><span class="tag"><b>Karan</b><em data-role></em></span></div><div class="slot" style="--x:420px;--y:318px;--s:1;--z:106;--par:12" data-slot="6"><div class="say" data-say aria-live="polite"></div><div class="ppl s-long " style="--skin:#F3D2B3;--hair:#B5651D;--shirt:#B8E986;--hijab:#B5651D;--d:-4.2s" data-i="6">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div><span class="tag"><b>Nadia</b><em data-role></em></span></div>
+    <div class="tally" aria-label="Today at a glance">
+      <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
+    </div>
+  </div>
+  <div class="pulse" aria-hidden="true"></div>
+</section>
 
-    <p class="hand" aria-hidden="true">same punch,<br>no paper<svg viewBox="0 0 80 50"><path d="M4 6 C 30 4, 58 14, 70 40"/><path d="M60 36 L71 42 L74 30"/></svg></p>
-    <button class="again" type="button" data-again hidden>Punch again</button>
+<section class="rhythm" aria-labelledby="h-rhythm" data-rhythm>
+  <div class="rhythm__copy">
+    <h2 id="h-rhythm">Every industry has its own rhythm.</h2>
+    <p class="rhythm__lead" data-lead2>In IT the workday has no address, so clock-in follows people home.</p>
+    <p class="rhythm__hint">Touch any need and listen to what it says.</p>
+    <div class="chips chips--ink" role="group" aria-label="Industry" data-chips>
+      <button class="chip" type="button" data-k="it" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg><span>IT company</span></button><button class="chip" type="button" data-k="hospital" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><span>Hospital</span></button><button class="chip" type="button" data-k="retail" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg><span>Retail</span></button><button class="chip" type="button" data-k="factory" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 20V8l6 4V8l6 4V4h8v16z"/><path d="M6 16h.01M10 16h.01M14 16h.01M18 16h.01"/></svg><span>Factory</span></button><button class="chip" type="button" data-k="school" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg><span>School</span></button><button class="chip" type="button" data-k="hotel" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg><span>Hotel</span></button>
+    </div>
+  </div>
+  <div class="orbit" data-orbit>
+    <div class="orbit__ring" aria-hidden="true"></div><div class="orbit__ring r2" aria-hidden="true"></div>
+    <div class="orbit__core">
+      <div class="say say--big" data-say-core aria-live="polite">Hover a need around me.</div>
+      <div class="ppl s-bun ppl--big" style="--skin:#F1CBA6;--hair:#6B3A22;--shirt:#9B8CFF;--hijab:#6B3A22;--d:-1.4s" data-i="2">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div>
+    </div>
+    <ul class="orbit__spin" data-needs></ul>
   </div>
 </section>
 
-<div class="tc-tear" aria-hidden="true"><span>✂</span><i></i><span class="txt">tear here · no more paper past this line</span><i></i></div>
-
-<section class="lv" aria-labelledby="lv-h" data-leave>
-  <div class="lv__copy">
-    <p class="tc-kick"><span class="box">02</span>Leave management</p>
-    <h2 class="lv__h" id="lv-h">Leave slips that approve <span class="gone">themselves<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span> into the system.</h2>
-    <p class="tc-lead">No carbon copies, no chasing signatures down the corridor. Employees request from their phone, managers approve in one tap, and the balance and calendar update on their own.</p>
-    <ul class="lv__pts">
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Balances calculated by policy, per leave type</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Approval chain with reminders, never lost in a tray</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Team calendar shows clashes before you approve</span></li>
-    </ul>
-    <a class="tc-btn" href="/software/leave-management/"><span>Explore leave management</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+<section class="peek" aria-labelledby="h-peek">
+  <div class="peek__head">
+    <h2 id="h-peek">Things you didn't know HR could do.</h2>
+    <p>Each of these is a question your team asks every month. Turn a card over for the answer.</p>
   </div>
-
-  <div class="lv__stage" data-lv-stage>
-    <article class="slip" aria-label="Paper leave slip for Omar M.">
-      <header><span>LEAVE REQUEST</span><span>No. 0418</span></header>
-      <div class="slip__r"><small>EMPLOYEE</small><span class="sig">Omar M.</span></div>
-      <div class="slip__r"><small>TYPE</small><span class="sig">Annual leave</span></div>
-      <div class="slip__r two"><div><small>FROM</small><span class="sig">23 Apr</span></div><div><small>TO</small><span class="sig">24 Apr</span></div></div>
-      <div class="slip__r"><small>REASON</small><span class="sig">Family trip</span></div>
-      <div class="slip__sign"><small>MANAGER SIGNATURE</small><span class="sig faint">Priya S.</span></div>
-      <span class="stamp lv__stamp" data-lv-stamp aria-hidden="true">APPROVED</span>
-      <div class="slip__carbon" aria-hidden="true"><span>CARBON COPY · FILE</span></div>
-    </article>
-
-    <div class="lv__phone" data-lv-phone aria-label="The same approval in the SublimeHR app">
-      <div class="lv__note"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span><b>Leave approved</b><small>Omar M. · Annual · 23–24 Apr · 2 days</small></span></div>
-      <div class="lv__bal"><small>ANNUAL BALANCE</small><div class="lv__bar"><i data-lv-bar></i></div><span><b data-lv-days>14</b> days left</span></div>
-      <div class="lv__cal" aria-hidden="true"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div>
-    </div>
+  <div class="peek__grid">
+    <button class="pk pk--sun pk--1" type="button" aria-pressed="false"><span class="pk__in"><span class="pk__f"><span class="pk__q">What happens when someone works on a holiday?</span><i class="pk__m" aria-hidden="true">?</i></span><span class="pk__b"><span class="pk__a">Comp-off lands in their balance on its own, with an expiry date. Nobody keeps a spreadsheet.</span><span class="pk__d">+1 comp-off day</span></span></span></button><button class="pk pk--lilac pk--2" type="button" aria-pressed="false"><span class="pk__in"><span class="pk__f"><span class="pk__q">Who covers when someone takes emergency leave?</span><i class="pk__m" aria-hidden="true">?</i></span><span class="pk__b"><span class="pk__a">One tap raises the leave, alerts the manager and shows who is free to cover that shift.</span><span class="pk__d">Cover found: Sara</span></span></span></button><button class="pk pk--mint pk--3" type="button" aria-pressed="false"><span class="pk__in"><span class="pk__f"><span class="pk__q">How do you stop one person punching in for another?</span><i class="pk__m" aria-hidden="true">?</i></span><span class="pk__b"><span class="pk__a">Every clock-in takes a selfie and checks the GPS fence. The face and the place both have to match.</span><span class="pk__d">Face match 98%</span></span></span></button><button class="pk pk--coral pk--4" type="button" aria-pressed="false"><span class="pk__in"><span class="pk__f"><span class="pk__q">Paid, unpaid or comp-off: which one is it?</span><i class="pk__m" aria-hidden="true">?</i></span><span class="pk__b"><span class="pk__a">Each leave type follows its own policy for accrual, carry-forward and half-days. Balances stay right.</span><span class="pk__d">Paid 12 / Unpaid 2 / Comp-off 1</span></span></span></button><button class="pk pk--ink pk--5" type="button" aria-pressed="false"><span class="pk__in"><span class="pk__f"><span class="pk__q">What if payroll was ready before the month ended?</span><i class="pk__m" aria-hidden="true">?</i></span><span class="pk__b"><span class="pk__a">Attendance, leave and overtime flow in as they happen. Run it once and every phone gets a payslip.</span><span class="pk__d">412 payslips sent</span></span></span></button><button class="pk pk--white pk--6" type="button" aria-pressed="false"><span class="pk__in"><span class="pk__f"><span class="pk__q">Who is in the building right now?</span><i class="pk__m" aria-hidden="true">?</i></span><span class="pk__b"><span class="pk__a">Staff and visitors, live. Badges print at the door and hosts get a ping the moment a guest arrives.</span><span class="pk__d">In the building: 38</span></span></span></button>
   </div>
 </section>
 
-<section class="sh" aria-labelledby="sh-h" data-shifts>
-  <div class="sh__stage" data-sh-stage>
-    <article class="rota" aria-label="Paper shift rota on graph paper">
-      <header><span>SHIFT ROTA · WEEK 47</span><span class="pencil-note">swap?</span></header>
-      <div class="rota__grid" role="table" aria-label="Shifts by person and day">
-        <div class="rota__row head" role="row"><span></span><b>MON</b><b>TUE</b><b>WED</b><b>THU</b><b>FRI</b></div>
-        <div class="rota__row" role="row"><span class="nm">Karan</span><i class="c m">M</i><i class="c m">M</i><i class="c e" data-sw="0">E</i><i class="c e">E</i><i class="c off">—</i></div><div class="rota__row" role="row"><span class="nm">Ravi</span><i class="c e">E</i><i class="c e">E</i><i class="c m" data-sw="1">M</i><i class="c m">M</i><i class="c n">N</i></div><div class="rota__row" role="row"><span class="nm">Sara</span><i class="c n">N</i><i class="c off">—</i><i class="c m">M</i><i class="c e">E</i><i class="c e">E</i></div>
-      </div>
-      <p class="rota__key"><span class="m">M</span> morning · <span class="e">E</span> evening · <span class="n">N</span> night</p>
-      <span class="scrib" aria-hidden="true"><svg viewBox="0 0 120 40"><path d="M4 30 C 20 4, 40 4, 56 20 S 90 36, 112 10"/><path d="M104 8 L113 10 L109 19"/></svg></span>
-      <span class="eraser" aria-hidden="true">erased &amp; rewritten</span>
-    </article>
-
-    <div class="sh__app" data-sh-app aria-label="The same swap in the SublimeHR scheduler">
-      <div class="sh__tb"><b>Shift schedule</b><span>Week 47</span></div>
-      <div class="sh__g">
-        <div class="sh__r"><span>Karan</span><i class="c m">M</i><i class="c m">M</i><i class="c e" data-app-sw="0">E</i><i class="c e">E</i><i class="c off">—</i></div><div class="sh__r"><span>Ravi</span><i class="c e">E</i><i class="c e">E</i><i class="c m" data-app-sw="1">M</i><i class="c m">M</i><i class="c n">N</i></div><div class="sh__r"><span>Sara</span><i class="c n">N</i><i class="c off">—</i><i class="c m">M</i><i class="c e">E</i><i class="c e">E</i></div>
-      </div>
-      <div class="sh__toast" data-sh-toast><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg><span><b>Swap approved</b><small>Karan ⇄ Ravi · Wed · both notified</small></span></div>
-    </div>
+<section class="views" aria-labelledby="h-views">
+  <h2 id="h-views">Everyone sees a different company.</h2>
+  <div class="views__row">
+    <article class="vw vw--1" tabindex="0">
+      <div class="vw__who"><div class="ppl s-long ppl--bust" style="--skin:#E8B48C;--hair:#2B1B17;--shirt:#FF8A70;--hijab:#2B1B17;--d:0.0s" data-i="0">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
   </div>
-
-  <div class="sh__copy">
-    <p class="tc-kick"><span class="box">03</span>Shift scheduling</p>
-    <h2 class="lv__h" id="sh-h">Rotas rubbed out in pencil, <span class="gone">rebuilt<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span> in one drag.</h2>
-    <p class="tc-lead">Plan the week once. When someone swaps, the schedule, the attendance rules and everyone's phone update together. No more photographing the wall.</p>
-    <ul class="lv__pts">
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Drag and drop rotas with clash and overtime warnings</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Swap requests approved in a tap, both people notified</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Shifts feed attendance, so late and overtime are automatic</span></li>
-    </ul>
-    <a class="tc-btn" href="/software/shift-scheduling/"><span>Explore shift scheduling</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+</div></div>
+      <h3>Employee</h3><p>Clock in with a selfie. Ask for leave in two taps. See your balance. Open your payslip.</p></article><article class="vw vw--2" tabindex="0">
+      <div class="vw__who"><div class="ppl s-curls ppl--bust" style="--skin:#9A6238;--hair:#120D0B;--shirt:#45C4B0;--hijab:#120D0B;--d:-2.1s" data-i="3">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
   </div>
-</section>
-
-<section class="pr" aria-labelledby="pr-h" data-payroll>
-  <div class="pr__copy">
-    <p class="tc-kick"><span class="box">04</span>Payroll</p>
-    <h2 class="lv__h" id="pr-h">Payslips that skip the envelope and land <span class="gone">on every phone<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span>.</h2>
-    <p class="tc-lead">Attendance and leave flow straight into pay, so the numbers are right before you press run. Payslips go out as private PDFs the moment payroll closes.</p>
-    <ul class="lv__pts">
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Overtime, deductions and leave balances calculated from real attendance</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>One run for every employee, with an audit trail on each change</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Payslips delivered securely, in English or Arabic</span></li>
-    </ul>
-    <a class="tc-btn" href="/software/payroll/"><span>Explore payroll</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+</div></div>
+      <h3>Manager</h3><p>Approve in one tap. See who is in, late or away. Swap shifts without a phone call.</p></article><article class="vw vw--3" tabindex="0">
+      <div class="vw__who"><div class="ppl s-hijab ppl--bust" style="--skin:#D49A6E;--hair:#1A1210;--shirt:#7FB4FF;--hijab:#F7F3FF;--d:-2.8s" data-i="4">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
   </div>
-
-  <div class="pr__stage" data-pr-stage>
-    <div class="env" aria-hidden="true"><span class="env__lbl">PAY ENVELOPE · MARCH</span></div>
-    <article class="pay" aria-label="Paper payslip for Ravi V., March">
-      <header><span>PAYSLIP</span><span>MARCH</span></header>
-      <div class="pay__who"><small>EMPLOYEE</small><span class="sig">Ravi V.</span></div>
-      <dl class="pay__rows">
-        <div><dt>Basic</dt><dd>4,800.00</dd></div>
-        <div><dt>Overtime · 6h</dt><dd>+ 540.00</dd></div>
-        <div><dt>Deductions</dt><dd>− 125.00</dd></div>
-      </dl>
-      <div class="pay__net"><small>NET PAY</small><b>5,215.00</b></div>
-      <span class="stamp pr__stamp" data-pr-stamp aria-hidden="true">PAID</span>
-      <div class="pay__perf" aria-hidden="true"><span>✂</span></div>
-    </article>
-
-    <div class="pr__phone" data-pr-phone aria-label="The same payslip in the SublimeHR app">
-      <div class="pr__top"><span class="pr__av"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="5" width="20" height="15" rx="2"/><path d="M2 10h20M6 15h4"/></svg></span><span><b>Payslip · March</b><small>Delivered 17:30 · opened</small></span></div>
-      <div class="pr__big"><small>NET PAY</small><b data-pr-count>0.00</b></div>
-      <div class="pr__bars" aria-hidden="true"><i style="--w:92%"></i><i style="--w:10%" class="o"></i><i style="--w:2.4%" class="d"></i></div>
-      <p class="pr__leg"><span class="b">Basic</span><span class="o">Overtime</span><span class="d">Deductions</span></p>
-      <div class="pr__btn"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg><span>Download PDF</span></div>
-    </div>
-    <div class="pr__fall" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+</div></div>
+      <h3>HR</h3><p>Every record in one place. A policy for each leave type. Reports ready for the audit.</p></article><article class="vw vw--4" tabindex="0">
+      <div class="vw__who"><div class="ppl s-cap ppl--bust" style="--skin:#8A5530;--hair:#17100C;--shirt:#FF9FC0;--hijab:#17100C;--d:-3.5s" data-i="5">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div></div>
+      <h3>Finance</h3><p>Payroll built from real attendance. Allowances and deductions you can trace. Export in a click.</p></article>
   </div>
 </section>
 
-<section class="vs" aria-labelledby="vs-h" data-visitors>
-  <div class="vs__stage" data-vs-stage>
-    <div class="logbook" aria-label="Paper visitor logbook">
-      <header><span>VISITOR LOG</span><span>RECEPTION</span></header>
-      <div class="logbook__cols" aria-hidden="true"><span>NAME</span><span>COMPANY</span><span>HOST</span><span>IN</span></div>
-      <div class="logbook__r"><span>M. Haddad</span><span>Alba Tech</span><span>Priya</span><span>09:05</span></div><div class="logbook__r"><span>S. Iyer</span><span>Northwind</span><span>Omar</span><span>10:20</span></div><div class="logbook__r blank"><span></span><span></span><span></span><span></span></div>
-      <span class="scrawl" aria-hidden="true">illegible…</span>
-      <span class="logbook__mark" data-vs-mark aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
-    </div>
-
-    <div class="kiosk" data-vs-kiosk aria-label="The same visitor check-in on the SublimeHR kiosk">
-      <div class="kiosk__hd"><b>Welcome to Head Office</b><small>Tap to check in</small></div>
-      <div class="kiosk__f"><span class="kiosk__l">Name</span><span class="kiosk__v"><em data-vs-type data-text="John Carter"></em><i class="caret"></i></span></div>
-      <div class="kiosk__f"><span class="kiosk__l">Visiting</span><span class="kiosk__v host"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=56&h=56&q=70" alt="" width="28" height="28"><em>Priya S. · Finance</em></span></div>
-      <div class="kiosk__cam"><span class="kiosk__ph"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span><small>Photo captured</small></div>
-      <div class="kiosk__ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Checked in <b data-vs-time>10:42</b></span></div>
-    </div>
-
-    <div class="badge-wrap" data-vs-badge>
-      <span class="lanyard" aria-hidden="true"></span>
-      <div class="vbadge" aria-label="Printed visitor badge for John Carter">
-        <span class="vbadge__hole" aria-hidden="true"></span>
-        <b class="vbadge__v">VISITOR</b>
-        <img src="https://images.unsplash.com/photo-1576558656222-ba66febe3dec?auto=format&fit=crop&w=180&h=180&q=70" alt="" width="90" height="90">
-        <span class="vbadge__n">John Carter</span>
-        <small>Host: Priya S.</small>
-        <small class="vbadge__t">Today · <span data-vs-time2>10:42</span></small>
-        <span class="vbadge__qr" aria-hidden="true"><i class="k"></i><i class="k"></i><i></i><i class="k"></i><i class="k"></i><i class="k"></i><i></i><i></i><i></i><i class="k"></i><i class="k"></i><i></i><i class="k"></i><i></i><i class="k"></i><i class="k"></i><i></i><i></i><i></i><i class="k"></i><i class="k"></i><i class="k"></i><i></i><i class="k"></i><i class="k"></i></span>
-      </div>
-    </div>
-
-    <div class="vs__ping" data-vs-ping><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg><span><b>John is here</b><small>Priya notified instantly</small></span></div>
+<section class="meet" aria-labelledby="h-meet">
+  <div class="meet__in">
+    <h2 id="h-meet">Meet your workforce.</h2>
+    <p>A 30-minute walkthrough, built around how your industry really works.</p>
+    <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="/pricing/">See pricing</a></div>
   </div>
-
-  <div class="vs__copy">
-    <p class="tc-kick"><span class="box">05</span>Visitor management</p>
-    <h2 class="lv__h" id="vs-h">The logbook at reception becomes a <span class="gone">proper welcome<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span>.</h2>
-    <p class="tc-lead">Guests check in on a tablet, hosts are told the moment they arrive, and every visit leaves a clean record. No illegible handwriting, no lost badges.</p>
-    <ul class="lv__pts">
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Pre-register guests and send them a QR pass</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Instant notification to the host on every arrival</span></li>
-      <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg><span>Printed badges and a searchable visit history</span></li>
-    </ul>
-    <a class="tc-btn" href="/software/visitor-management/"><span>Explore visitor management</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+  <div class="crowd" aria-hidden="true"><div class="crowd__p" style="--i:0"><div class="ppl s-long ppl--wave" style="--skin:#E8B48C;--hair:#2B1B17;--shirt:#FF8A70;--hijab:#2B1B17;--d:0.0s" data-i="0">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
   </div>
-</section>
-
-<section class="end" aria-labelledby="end-h" data-end>
-  <div class="end__pile" aria-hidden="true">
-    <div class="form f1"><b>TIME CARD</b><i></i><i></i><i></i><em>Date ______</em></div><div class="form f2"><b>LEAVE REQUEST</b><i></i><i></i><i></i><em>Signature ______</em></div><div class="form f3"><b>SHIFT ROTA</b><i></i><i></i><i></i><em>Date ______</em></div><div class="form f4"><b>PAYSLIP</b><i></i><i></i><i></i><em>Signature ______</em></div><div class="form f5"><b>VISITOR LOG</b><i></i><i></i><i></i><em>Date ______</em></div>
+</div></div><div class="crowd__p" style="--i:1"><div class="ppl s-cap ppl--wave" style="--skin:#B97D52;--hair:#1C1410;--shirt:#FFD05A;--hijab:#1C1410;--d:-0.7s" data-i="1">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
   </div>
-  <div class="end__in">
-    <p class="tc-kick"><span class="box">06</span>Form HR-01 · complete</p>
-    <h2 class="end__h" id="end-h">Never fill one <span class="gone">again.<svg class="ul" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 50 4, 120 3, 217 9"/></svg></span></h2>
-    <p class="tc-lead">See attendance, leave, shifts, payroll and visitors working as one in a 30-minute walkthrough, built around your team.</p>
-    <div class="tc-cta">
-      <a class="tc-btn" href="/book-demo/"><span>Book a free demo</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-      <a class="tc-link" href="/pricing/">See pricing</a>
-    </div>
+</div></div><div class="crowd__p" style="--i:2"><div class="ppl s-bun ppl--wave" style="--skin:#F1CBA6;--hair:#6B3A22;--shirt:#9B8CFF;--hijab:#6B3A22;--d:-1.4s" data-i="2">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
   </div>
+</div></div><div class="crowd__p" style="--i:3"><div class="ppl s-curls ppl--wave" style="--skin:#9A6238;--hair:#120D0B;--shirt:#45C4B0;--hijab:#120D0B;--d:-2.1s" data-i="3">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div></div><div class="crowd__p" style="--i:4"><div class="ppl s-hijab ppl--wave" style="--skin:#D49A6E;--hair:#1A1210;--shirt:#7FB4FF;--hijab:#F7F3FF;--d:-2.8s" data-i="4">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div></div><div class="crowd__p" style="--i:5"><div class="ppl s-cap ppl--wave" style="--skin:#8A5530;--hair:#17100C;--shirt:#FF9FC0;--hijab:#17100C;--d:-3.5s" data-i="5">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div></div><div class="crowd__p" style="--i:6"><div class="ppl s-long ppl--wave" style="--skin:#F3D2B3;--hair:#B5651D;--shirt:#B8E986;--hijab:#B5651D;--d:-4.2s" data-i="6">
+  <div class="ppl__fig">
+    <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><span class="ck l"></span><span class="ck r"></span><span class="mo"></span></i></div>
+    <div class="ppl__body"><i class="arm l"></i><i class="arm r"></i><span class="chest" data-prop></span></div>
+    <div class="ppl__legs"><i></i><i></i></div>
+  </div>
+</div></div></div>
 </section>
 </main>
 
-<footer class="tc-foot">
-  <div class="tc-foot__in">
-    <a class="tc-brand" href="/"><img src="/assets/img/sublimehr-logo.png" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
-    <span class="tc-foot__links"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></span>
-    <a class="tc-foot__ph" href="tel:+917976117684">+91-7976117684</a>
-  </div>
-  <p class="tc-foot__sm">FORM HR-01 · FILED ELECTRONICALLY · © 2026 SublimeHR</p>
+<footer class="foot">
+  <a class="nav__brand" href="/"><img src="/assets/img/sublimehr-logo.png" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
+  <span class="foot__links"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></span>
+  <a class="foot__ph" href="tel:+917976117684">+91-7976117684</a>
 </footer>
 
-<a class="back" href="/">← Current home</a>
-<script src="/assets/js/home2.js?v=mwuagxlu" defer></script>
+<a class="back" href="/">Current home</a>
+<script src="/assets/js/home2.js?v=mwuax1a3" defer></script>
 </body>
 </html>

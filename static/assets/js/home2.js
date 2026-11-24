@@ -1,193 +1,136 @@
-/* SublimeHR — Timecard hero: punch the card → stamp lands → paper becomes the app */
+/* SublimeHR — Living Office: characters that breathe, blink and watch you, events that keep happening,
+   and a page that takes on the colour of the industry you pick. */
 (function () {
   "use strict";
   var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var data; try { data = JSON.parse($("#lo-data").textContent); } catch (e) { return; }
+  var inds = data.industries, icons = data.icons;
+  var body = document.body, hero = $("[data-hero]"), stage = $("[data-stage]");
+  var slots = $$("[data-slot]", stage), cur = 0, userPicked = false, heroVisible = true;
+  var leads = [$("[data-lead]"), $("[data-lead2]")];
+  var chipBtns = $$("[data-chips] .chip");
+  var coreSay = $("[data-say-core]"), core = $(".orbit__core .ppl"), needsEl = $("[data-needs]");
+  var tally = { in: 412, leave: 9, swap: 3 }, last = -1, timers = [];
 
-  /* ---------- theme toggle (shares the main site's storage key) ---------- */
-  var root = document.documentElement, tg = $("[data-theme-toggle]");
-  function syncTheme() { if (tg) tg.setAttribute("aria-label", root.getAttribute("data-theme") === "dark" ? "Switch to light theme" : "Switch to dark theme"); }
-  if (tg) {
-    tg.addEventListener("click", function () {
-      var dark = root.getAttribute("data-theme") !== "dark";
-      if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
-      try { localStorage.setItem("shr-theme", dark ? "dark" : "light"); } catch (e) {}
-      syncTheme();
+  /* ---------- fit the stage to its column ---------- */
+  function fit() {
+    var avail = hero.clientWidth - 112 - 470 - 36;
+    stage.style.setProperty("--fit", String(Math.max(.5, Math.min(1, avail / 760))));
+  }
+  fit(); window.addEventListener("resize", fit);
+
+  /* ---------- wall clock follows the real time ---------- */
+  var hh = $(".hh", stage), mh = $(".mh", stage), sh = $(".sh", stage);
+  function tick() {
+    var d = new Date(), s = d.getSeconds(), m = d.getMinutes() + s / 60, h = (d.getHours() % 12) + m / 60;
+    if (hh) hh.style.transform = "rotate(" + h * 30 + "deg)"; if (mh) mh.style.transform = "rotate(" + m * 6 + "deg)"; if (sh) sh.style.transform = "rotate(" + s * 6 + "deg)";
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ---------- eyes follow the cursor; when nobody moves the mouse they look around ---------- */
+  var pointer = null, lastMove = 0, rafId = 0, wander = 0;
+  var allPpl = $$(".ppl");
+  function look() {
+    rafId = 0;
+    var idle = performance.now() - lastMove > 2600;
+    allPpl.forEach(function (p) {
+      var ex, ey;
+      if (!idle && pointer) {
+        var r = $(".ppl__head", p).getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        var dx = pointer.x - cx, dy = pointer.y - cy, dist = Math.sqrt(dx * dx + dy * dy) || 1, k = Math.min(1, dist / 160) * 3.6;
+        ex = dx / dist * k; ey = dy / dist * k;
+      } else { ex = p._wx || 0; ey = p._wy || 0; }
+      p.style.setProperty("--ex", ex.toFixed(2) + "px"); p.style.setProperty("--ey", ey.toFixed(2) + "px");
     });
-    syncTheme();
   }
+  function queueLook() { if (!rafId) rafId = requestAnimationFrame(look); }
+  document.addEventListener("pointermove", function (e) {
+    pointer = { x: e.clientX, y: e.clientY }; lastMove = performance.now(); queueLook();
+    if (hero && e.clientY < hero.getBoundingClientRect().bottom) stage.style.setProperty("--px", ((e.clientX / window.innerWidth - .5) * 2).toFixed(3));
+  }, { passive: true });
+  setInterval(function () {
+    if (performance.now() - lastMove < 2600) return;
+    allPpl.forEach(function (p) { if (Math.random() < .55) { p._wx = (Math.random() - .5) * 6; p._wy = (Math.random() - .45) * 5; } });
+    queueLook();
+  }, 1700);
 
-  /* ---------- small-screen menu ---------- */
-  var mb = $("[data-menu]"), dr = $("[data-drawer]");
-  if (mb && dr) {
-    function setMenu(open) { dr.hidden = !open; mb.setAttribute("aria-expanded", open ? "true" : "false"); mb.setAttribute("aria-label", open ? "Close menu" : "Open menu"); }
-    mb.addEventListener("click", function () { setMenu(dr.hidden); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !dr.hidden) { setMenu(false); mb.focus(); } });
-    dr.addEventListener("click", function (e) { if (e.target.tagName === "A") setMenu(false); });
+  /* ---------- speech ---------- */
+  function say(el, text, ms) {
+    el.textContent = text; el.classList.add("on");
+    clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove("on"); }, ms || 2600);
   }
-
-  /* ---------- 02 · leave: when scrolled into view the slip is stamped, then becomes the app ---------- */
-  (function () {
-    var sec = $("[data-leave]"), st = $("[data-lv-stage]"); if (!sec || !st) return;
-    var bar = $("[data-lv-bar]", st), days = $("[data-lv-days]", st), done = false;
-    function go() {
-      if (done) return; done = true; sec.classList.add("in");
-      var d = reduce ? 0 : 1;
-      setTimeout(function () { st.classList.add("stamped"); }, 500 * d);
-      setTimeout(function () {
-        st.classList.add("digital");
-        if (bar) bar.style.setProperty("--w", "70%");
-        if (days) { var n = 16, t = setInterval(function () { n--; days.textContent = n; if (n <= 14) clearInterval(t); }, reduce ? 1 : 420); }
-      }, 1700 * d);
-    }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
-    } else go();
-    st.addEventListener("click", function () { if (!done) go(); });
-  })();
-
-  /* ---------- 03 · shifts: pencil swap on the rota, then the live scheduler does the same swap ---------- */
-  (function () {
-    var sec = $("[data-shifts]"), st = $("[data-sh-stage]"); if (!sec || !st) return;
-    var paper = Array.prototype.slice.call(st.querySelectorAll(".rota [data-sw]")),
-        app = Array.prototype.slice.call(st.querySelectorAll(".sh__app [data-app-sw]")),
-        toast = $("[data-sh-toast]", st), done = false;
-    var cls = { M: "m", E: "e", N: "n" };
-    function setCell(el, v) { el.textContent = v; el.className = "c " + cls[v]; }
-    function go() {
-      if (done) return; done = true; sec.classList.add("in");
-      var d = reduce ? 0 : 1;
-      // the pencil scribble, then each cell is rubbed out and rewritten with the other person's shift
-      setTimeout(function () { st.classList.add("swap"); }, 400 * d);
-      setTimeout(function () {
-        paper.forEach(function (c, i) { c.setAttribute("data-new", paper[1 - i].textContent.trim()); c.classList.add("swapped"); });
-      }, 1100 * d);
-      setTimeout(function () { paper.forEach(function (c) { c.classList.add("rewritten"); }); }, 1700 * d);
-      // the product appears and performs the same swap
-      setTimeout(function () { st.classList.add("digital"); }, 2900 * d);
-      setTimeout(function () { app.forEach(function (c) { c.classList.add("lift"); }); }, 3900 * d);
-      setTimeout(function () {
-        var a = app[0].textContent.trim(), b = app[1].textContent.trim();
-        setCell(app[0], b); setCell(app[1], a);
-      }, 4500 * d);
-      setTimeout(function () { app.forEach(function (c) { c.classList.remove("lift"); }); if (toast) toast.classList.add("on"); }, 5000 * d);
-    }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
-    } else go();
-    st.addEventListener("click", function () { if (!done) go(); });
-  })();
-
-  /* ---------- 04 · payroll: slip slides out, is stamped PAID, tears off, then lands on the phone as a live figure ---------- */
-  (function () {
-    var sec = $("[data-payroll]"), st = $("[data-pr-stage]"); if (!sec || !st) return;
-    var out = $("[data-pr-count]", st), done = false, TARGET = 5215;
-    function fmt(n) { return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-    function count() {
-      if (reduce) { out.textContent = fmt(TARGET); return; }
-      var t0 = performance.now(), D = 1300;
-      (function f(t) { var p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3); out.textContent = fmt(TARGET * e); if (p < 1) requestAnimationFrame(f); })(t0);
-    }
-    function go() {
-      if (done) return; done = true; sec.classList.add("in");
-      var d = reduce ? 0 : 1;
-      setTimeout(function () { st.classList.add("out"); }, 300 * d);
-      setTimeout(function () { st.classList.add("paid"); }, 1300 * d);
-      setTimeout(function () { st.classList.add("tear"); }, 2100 * d);
-      setTimeout(function () { st.classList.add("digital"); count(); }, 2800 * d);
-    }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
-    } else go();
-    st.addEventListener("click", function () { if (!done) go(); });
-  })();
-
-  /* ---------- 05 · visitors: logbook is crossed out, guest types in on the kiosk, badge prints and hangs ---------- */
-  (function () {
-    var sec = $("[data-visitors]"), st = $("[data-vs-stage]"); if (!sec || !st) return;
-    var typ = $("[data-vs-type]", st), done = false;
-    var now = new Date(), t = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
-    Array.prototype.forEach.call(st.querySelectorAll("[data-vs-time],[data-vs-time2]"), function (e) { e.textContent = t; });
-    function type() {
-      var s = typ.getAttribute("data-text"), i = 0;
-      if (reduce) { typ.textContent = s; return; }
-      var iv = setInterval(function () { i++; typ.textContent = s.slice(0, i); if (i >= s.length) clearInterval(iv); }, 70);
-    }
-    function go() {
-      if (done) return; done = true; sec.classList.add("in");
-      var d = reduce ? 0 : 1;
-      setTimeout(function () { st.classList.add("struck"); }, 500 * d);
-      setTimeout(function () { st.classList.add("digital"); }, 1400 * d);
-      setTimeout(type, 2300 * d);
-      setTimeout(function () { st.classList.add("done"); }, 3500 * d);
-      setTimeout(function () { st.classList.add("printed"); }, 3900 * d);
-    }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { go(); o.disconnect(); } }, { threshold: 0.35 }).observe(st);
-    } else go();
-    st.addEventListener("click", function () { if (!done) go(); });
-  })();
-
-  /* ---------- 06 · closing: the pile of blank forms falls away ---------- */
-  (function () {
-    var sec = $("[data-end]"); if (!sec) return;
-    function go() { sec.classList.add("in"); }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { setTimeout(go, reduce ? 0 : 700); o.disconnect(); } }, { threshold: 0.4 }).observe(sec);
-    } else go();
-  })();
-
-  /* ---------- the punch ---------- */
-  var stage = $("[data-stage]"); if (!stage) return;
-  var card = $("[data-card]", stage), inCell = $("[data-in]", stage), stamp = $("[data-stamp]", stage),
-      phone = $("[data-phone]", stage), clock = $("[data-clock]", stage), again = $("[data-again]", stage), cta = $("[data-punch-cta]");
-  var busy = false, timers = [];
-  function later(fn, ms) { timers.push(setTimeout(fn, reduce ? 0 : ms)); }
-  function hhmm(d) { return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); }
-
-  // the slot clock ticks with the visitor's real time
-  function tick() { if (clock) clock.textContent = hhmm(new Date()); }
-  tick(); setInterval(tick, 15000);
-
-  function punch() {
-    if (busy) return; busy = true;
-    var t = hhmm(new Date());
-    stage.classList.add("punching", "flash");
-    later(function () {
-      stage.classList.remove("punching", "flash");
-      stage.classList.add("printed");
-      inCell.textContent = t; inCell.classList.add("printed");
-      stamp.classList.add("on");
-    }, 520);
-    later(function () {
-      stage.classList.add("digital");
-      var b = $(".phone__bar span", phone), d = $(".phone__done b", phone);
-      if (b) b.textContent = t; if (d) d.textContent = t;
-      phone.classList.add("on");
-      again.hidden = false; busy = false;
-    }, 1500);
+  function bump(key, n) {
+    tally[key] += n; var b = $('[data-t="' + key + '"]'); if (!b) return;
+    b.textContent = tally[key]; var s = b.parentNode; s.classList.remove("bump"); void s.offsetWidth; s.classList.add("bump");
   }
-
-  function reset() {
-    timers.forEach(clearTimeout); timers = [];
-    stage.classList.remove("punching", "printed", "digital", "flash");
-    phone.classList.remove("on"); stamp.classList.remove("on");
-    inCell.textContent = ""; inCell.classList.remove("printed");
-    again.hidden = true; busy = false;
+  function act() {
+    if (!heroVisible || document.hidden) return;
+    var evs = inds[cur].events, n = evs.length, idx;
+    do { idx = Math.floor(Math.random() * n); } while (idx === last && n > 1);
+    last = idx;
+    var ev = evs[idx], slot = slots[ev[0]]; if (!slot) return;
+    var p = $(".ppl", slot);
+    slots.forEach(function (s) { $("[data-say]", s).classList.remove("on"); });
+    say($("[data-say]", slot), ev[1], 2800);
+    p.classList.remove("hop"); void p.offsetWidth; p.classList.add("hop", "talk");
+    setTimeout(function () { p.classList.remove("talk"); }, 1500);
+    if (ev[2] === "in") bump("in", 1); else if (ev[2] === "leave") bump("leave", 1); else if (ev[2] === "swap") bump("swap", 1);
   }
+  if (!reduce) { setInterval(act, 3000); setTimeout(act, 900); }
 
-  card.addEventListener("click", function () { if (!stage.classList.contains("digital")) punch(); });
-  card.setAttribute("tabindex", "0"); card.setAttribute("role", "button");
-  card.setAttribute("aria-label", "Punch the timecard: click to clock Aisha in");
-  card.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (!stage.classList.contains("digital")) punch(); } });
-  again.addEventListener("click", reset);
-  if (cta) cta.addEventListener("click", function () {
-    var r = stage.getBoundingClientRect();
-    if (r.top < 0 || r.bottom > window.innerHeight) stage.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
-    if (stage.classList.contains("digital")) reset();
-    later(punch, 350);
+  /* ---------- the needs that orbit the core character ---------- */
+  function renderNeeds() {
+    var d = inds[cur];
+    needsEl.innerHTML = d.needs.map(function (n, i) {
+      return '<li class="need" style="--a:' + (i * 60 - 90) + 'deg;--r:240px;--i:' + i + '"><span><button class="need__in" type="button" data-n="' + i + '"><i>' + icons[n[0]] + "</i>" + n[1] + "</button></span></li>";
+    }).join("");
+    // restart the orbit so the ring and each pill's counter-spin start on the same frame and pills stay upright
+    needsEl.style.animation = "none"; void needsEl.offsetWidth; needsEl.style.animation = "";
+  }
+  function speakNeed(i) {
+    var n = inds[cur].needs[i]; if (!n) return;
+    say(coreSay, n[2], 4200); core.classList.add("talk"); clearTimeout(core._t); core._t = setTimeout(function () { core.classList.remove("talk"); }, 1600);
+  }
+  needsEl.addEventListener("mouseover", function (e) { var b = e.target.closest(".need__in"); if (b) speakNeed(+b.getAttribute("data-n")); });
+  needsEl.addEventListener("focusin", function (e) { var b = e.target.closest(".need__in"); if (b) speakNeed(+b.getAttribute("data-n")); });
+  needsEl.addEventListener("click", function (e) { var b = e.target.closest(".need__in"); if (b) speakNeed(+b.getAttribute("data-n")); });
+
+  /* ---------- switching industry: the whole world changes ---------- */
+  function setText(el, text) {
+    el.classList.add("swap"); setTimeout(function () { el.textContent = text; el.classList.remove("swap"); }, 230);
+  }
+  function setIndustry(i) {
+    cur = i; var d = inds[i];
+    body.setAttribute("data-w", d.key);
+    var meta = $('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", d.color);
+    chipBtns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === d.key ? "true" : "false"); });
+    leads.forEach(function (l) { if (l) setText(l, d.lead); });
+    slots.forEach(function (s, k) {
+      $("[data-role]", s).textContent = d.roles[k];
+      $("[data-prop]", s).innerHTML = icons[d.props[k]] || "";
+      var p = $(".ppl", s); p.classList.remove("hop"); void p.offsetWidth; p.classList.add("hop");
+    });
+    renderNeeds();
+    say(coreSay, "Touch a need and I'll tell you more.", 3200);
+    last = -1; setTimeout(act, 700);
+  }
+  chipBtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      userPicked = true;
+      var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i);
+    });
+  });
+  // until someone picks an industry, the office tours them on its own
+  if (!reduce) setInterval(function () { if (!userPicked && heroVisible && !document.hidden) setIndustry((cur + 1) % inds.length); }, 9500);
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; }, { threshold: .15 }).observe(hero);
+
+  /* ---------- peek cards: click also flips (touch and keyboard) ---------- */
+  $$(".pk").forEach(function (c) {
+    c.addEventListener("click", function () { c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") === "true" ? "false" : "true"); });
   });
 
-  // gentle invitation: if the visitor hasn't punched after a few seconds, punch it for them once
-  if (!reduce) later(function () { if (!stage.classList.contains("digital") && !busy && document.visibilityState === "visible") punch(); }, 5200);
+  setIndustry(0);
+  say(coreSay, "Touch a need and I'll tell you more.", 5000);
 })();
