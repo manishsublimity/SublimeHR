@@ -489,6 +489,26 @@
   });
 
   document.addEventListener("click", function (e) { var h = e.target.closest && e.target.closest("[data-hq]"); if (h) { var q = $$("[data-qs] button")[+h.getAttribute("data-hq")]; if (q) q.click(); } });
+
+  // clock options for review: /home-v2/?clock=1..6
+  (function () {
+    var m = location.search.match(/clock=(\d)/); if (!m) return; var n = +m[1]; document.body.setAttribute("data-clock", n);
+    var wcl = $(".wallclock"); if (!wcl || ![3, 5, 6].some(function (x) { return x === n; })) return;
+    var h = {
+      3: '<div class="dc dc--pill"><i></i><b data-dt>09:41</b><small data-dd>Tue 24 Nov</small></div>',
+      5: '<div class="dc dc--flip"><div class="fl"><span data-fh>09</span></div><em>:</em><div class="fl"><span data-fm>41</span></div></div>',
+      6: '<div class="dc dc--ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="rg" cx="60" cy="60" r="50"/><circle class="rp" cx="60" cy="60" r="50" pathLength="100" data-rp/></svg><b data-dt>09:41</b><small>Shift 09:00 to 18:00</small></div>'
+    };
+    wcl.insertAdjacentHTML("beforeend", h[n]);
+    function tk() {
+      var d = new Date(), hh2 = String(d.getHours()).padStart(2, "0"), mm = String(d.getMinutes()).padStart(2, "0"), e;
+      if ((e = $("[data-dt]", wcl))) e.textContent = hh2 + ":" + mm;
+      if ((e = $("[data-dd]", wcl))) e.textContent = d.toLocaleDateString("en", { weekday: "short", day: "numeric", month: "short" });
+      if ((e = $("[data-fh]", wcl))) e.textContent = hh2; if ((e = $("[data-fm]", wcl))) e.textContent = mm;
+      if ((e = $("[data-rp]", wcl))) { var mins = d.getHours() * 60 + d.getMinutes(), pc = Math.max(0, Math.min(100, (mins - 540) / 540 * 100)); e.style.strokeDasharray = pc + " 100"; }
+    }
+    tk(); setInterval(tk, 1000);
+  })();
   /* ================= Subi, the page guide: stays with you, speaks about each section, and shows you how things work ================= */
   var guide = $("[data-guide]"), gSay = $("[data-guide-say]"), gMenu = $("[data-guide-menu]"), gBot = $("[data-guide-bot]"), gBusy = false, gFly = false;
   function gPlace(x, y) { guide.style.setProperty("--gx", Math.round(x) + "px"); guide.style.setProperty("--gy", Math.round(y) + "px"); }

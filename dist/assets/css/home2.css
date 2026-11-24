@@ -1561,3 +1561,37 @@ main h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; tex
 /* name tags live above every character, so a hat in front never covers them */
 .tagx { position: absolute; z-index: 250; left: calc(var(--x) + 52px); top: calc(var(--y) + 190px + 10px); transform: translateX(-50%) scale(var(--s, 1)); transform-origin: 50% 0; display: flex; gap: 6px; align-items: baseline; white-space: nowrap; padding: 5px 11px; border-radius: 999px; background: var(--on); color: var(--world); font-size: 12.5px; line-height: 1.2; pointer-events: none; box-shadow: 0 6px 12px -8px rgba(0,0,0,.5); }
 .tagx b { font-weight: 700; } .tagx em { font-style: normal; font-weight: 500; opacity: .85; }
+
+/* =====================================================================
+   sixteenth pass
+   ===================================================================== */
+/* factory: white hard hats and light work-shirt sleeves, so nothing melts into the yellow floor */
+body[data-w="factory"] [data-hat="hard"] .hat { background: #F6F8FC; box-shadow: inset 0 -5px 0 rgba(20,33,61,.1), 0 0 0 1.5px rgba(20,33,61,.12); }
+body[data-w="factory"] [data-hat="hard"] .hat::before, body[data-w="factory"] [data-hat="hard"] .hat::after { background: #D3DAE7; }
+body[data-w="factory"] [data-outfit="vest"] { --sleeve: #F1F3F8; --fore: #F1F3F8; }
+/* sticky header: more see-through, the original logo colours */
+.nav.solid { background: rgba(255,255,255,.4); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%); }
+.nav.solid .nav__logo { background: var(--logo) center / contain no-repeat; -webkit-mask: none; mask: none; }
+
+/* ---- clock options (open /home-v2/?clock=1 to 6) ---- */
+.dc { display: block; }
+body[data-clock="3"] .wallclock > svg, body[data-clock="5"] .wallclock > svg, body[data-clock="6"] .wallclock > svg { display: none; }
+/* 2: dark face */
+body[data-clock="2"] .wc-face { fill: #14213D; } body[data-clock="2"] .wc-ring { stroke: rgba(255,255,255,.35); stroke-width: 5; }
+body[data-clock="2"] .wc-dots circle { fill: #fff; opacity: .6; } body[data-clock="2"] .wallclock line.hh, body[data-clock="2"] .wallclock line.mh { stroke: #fff; } body[data-clock="2"] .wallclock line.sh, body[data-clock="2"] .wc-pin { stroke: #FFD05A; fill: #FFD05A; } body[data-clock="2"] .wc-pin2 { fill: #14213D; }
+/* 4: bold bezel, tinted face, big markers */
+body[data-clock="4"] .wc-ring { stroke: #fff; stroke-width: 11; } body[data-clock="4"] .wc-face { fill: color-mix(in srgb, var(--world) 22%, #fff); }
+body[data-clock="4"] .wc-dots circle { r: 3px; fill: color-mix(in srgb, var(--world) 70%, #14213D); } body[data-clock="4"] .wallclock line.hh { stroke: color-mix(in srgb, var(--world) 75%, #14213D); stroke-width: 6; } body[data-clock="4"] .wallclock line.mh { stroke: #14213D; stroke-width: 4; }
+body[data-clock="4"] .wallclock { width: 120px; }
+/* 3: digital pill */
+.dc--pill { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; background: #fff; color: #14213D; box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); white-space: nowrap; }
+.dc--pill i { width: 10px; height: 10px; border-radius: 50%; background: #2BB673; box-shadow: 0 0 0 4px rgba(43,182,115,.25); animation: pulse 1.6s ease-in-out infinite; } .dc--pill b { font: 700 30px/1 var(--f-d); letter-spacing: -.03em; } .dc--pill small { font-size: 12px; font-weight: 700; color: #5A6580; }
+body[data-clock="3"] .wallclock { width: auto; left: 10px; top: 14px; }
+/* 5: flip clock */
+.dc--flip { display: flex; align-items: center; gap: 6px; } .dc--flip em { font: 700 26px/1 var(--f-d); font-style: normal; color: var(--on); }
+.fl { position: relative; display: grid; place-items: center; width: 58px; height: 74px; border-radius: 12px; background: #14213D; color: #fff; box-shadow: 0 14px 22px -12px rgba(0,0,0,.55); } .fl span { font: 700 40px/1 var(--f-d); letter-spacing: -.03em; } .fl::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: rgba(0,0,0,.35); }
+body[data-clock="5"] .wallclock { width: auto; left: 6px; top: 10px; }
+/* 6: shift ring */
+.dc--ring { position: relative; width: 116px; height: 116px; display: grid; place-items: center; align-content: center; border-radius: 50%; background: #fff; box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } .dc--ring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); } .dc--ring .rg { fill: none; stroke: #E6E9F0; stroke-width: 8; } .dc--ring .rp { fill: none; stroke: var(--world); stroke-width: 8; stroke-linecap: round; transition: stroke-dasharray .6s; filter: brightness(.85); }
+.dc--ring b { font: 700 24px/1 var(--f-d); color: #14213D; letter-spacing: -.03em; } .dc--ring small { margin-top: 3px; font-size: 8.5px; font-weight: 700; color: #5A6580; text-align: center; max-width: 70px; line-height: 1.2; }
+body[data-clock="6"] .wallclock { width: auto; left: 6px; top: 6px; }

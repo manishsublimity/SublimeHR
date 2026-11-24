@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hero clock options</title>
+<style>
+body{margin:0;padding:28px;background:#EEF1F8;font-family:system-ui,Segoe UI,sans-serif;color:#14213D}
+h1{margin:0 0 6px;font-size:26px} p{margin:0 0 22px;color:#5A6580}
+.g{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.c{background:#fff;border-radius:20px;padding:14px;box-shadow:0 14px 30px -20px rgba(20,33,61,.5)}
+.c b{display:block;margin:0 0 4px;font-size:17px} .c span{display:block;margin-bottom:10px;color:#5A6580;font-size:14px}
+.f{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#ddd}
+.f iframe{position:absolute;left:0;top:0;width:1600px;height:900px;border:0;transform-origin:0 0}
+.f a{position:absolute;inset:0;z-index:2}
+</style></head><body>
+<h1>Hero clock: 6 options</h1><p>Each frame is the real home-v2 hero. Click a frame to open it full size. Tell me the number you like.</p>
+<div class="g">
+<div class="c"><b>1. Light face</b><span>The current clock: white face, thin dots, orange second hand.</span><div class="f"><iframe src="/home-v2/?clock=1" loading="lazy" title="Clock 1"></iframe><a href="/home-v2/?clock=1" target="_blank" aria-label="Open option 1"></a></div></div>
+<div class="c"><b>2. Midnight face</b><span>Navy face, white hands, amber second hand.</span><div class="f"><iframe src="/home-v2/?clock=2" loading="lazy" title="Clock 2"></iframe><a href="/home-v2/?clock=2" target="_blank" aria-label="Open option 2"></a></div></div>
+<div class="c"><b>3. Digital pill</b><span>Time and date in a rounded pill with a live green dot.</span><div class="f"><iframe src="/home-v2/?clock=3" loading="lazy" title="Clock 3"></iframe><a href="/home-v2/?clock=3" target="_blank" aria-label="Open option 3"></a></div></div>
+<div class="c"><b>4. Bold bezel</b><span>Thick white rim, a face tinted with the industry colour, big markers.</span><div class="f"><iframe src="/home-v2/?clock=4" loading="lazy" title="Clock 4"></iframe><a href="/home-v2/?clock=4" target="_blank" aria-label="Open option 4"></a></div></div>
+<div class="c"><b>5. Flip clock</b><span>Two flip cards for hours and minutes.</span><div class="f"><iframe src="/home-v2/?clock=5" loading="lazy" title="Clock 5"></iframe><a href="/home-v2/?clock=5" target="_blank" aria-label="Open option 5"></a></div></div>
+<div class="c"><b>6. Shift ring</b><span>A ring that fills across the 09:00 to 18:00 shift, with the time inside.</span><div class="f"><iframe src="/home-v2/?clock=6" loading="lazy" title="Clock 6"></iframe><a href="/home-v2/?clock=6" target="_blank" aria-label="Open option 6"></a></div></div>
+</div>
+<script>
+function fit(){document.querySelectorAll('.f').forEach(function(f){var k=f.clientWidth/1600;f.firstElementChild.style.transform='scale('+k+')';});}
+fit();addEventListener('resize',fit);
+</script></body></html>

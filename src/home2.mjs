@@ -246,13 +246,13 @@ industries.forEach((d) => {
 
 // seven people with different builds, outfits and habits; job, prop, hat, pose and lines change per industry
 const people = [
-  { n: "Aisha", skin: "#E8B48C", hair: "#2B1B17", style: "long", shirt: "#E5566D", pants: "#33415F", bw: 80, bh: 98, lean: -2, x: 40, y: 318, s: 1 },
+  { n: "Aisha", skin: "#E8B48C", hair: "#2B1B17", style: "long", shirt: "#E5566D", pants: "#33415F", bw: 80, bh: 98, lean: -2, x: 40, y: 344, s: 1 },
   { n: "Omar", skin: "#B97D52", hair: "#1C1410", style: "cap", shirt: "#FFD05A", pants: "#2F3B52", bw: 92, bh: 92, lean: 2, beard: 1, x: 170, y: 96, s: .84 },
-  { n: "Sara", skin: "#F1CBA6", hair: "#6B3A22", style: "bun", shirt: "#9B8CFF", pants: "#3C3A55", bw: 82, bh: 96, lean: -1, glasses: 1, x: 230, y: 318, s: 1 },
+  { n: "Sara", skin: "#F1CBA6", hair: "#6B3A22", style: "bun", shirt: "#9B8CFF", pants: "#3C3A55", bw: 82, bh: 96, lean: -1, glasses: 1, x: 230, y: 344, s: 1 },
   { n: "Ravi", skin: "#9A6238", hair: "#120D0B", style: "curls", shirt: "#45C4B0", pants: "#27324A", bw: 84, bh: 104, lean: 1.5, x: 470, y: 96, s: .84 },
-  { n: "Priya", skin: "#D49A6E", hair: "#1A1210", style: "hijab", hijab: "#F7F3FF", shirt: "#7FB4FF", pants: "#35405E", bw: 82, bh: 94, lean: -1.5, x: 600, y: 318, s: 1 },
+  { n: "Priya", skin: "#D49A6E", hair: "#1A1210", style: "hijab", hijab: "#F7F3FF", shirt: "#7FB4FF", pants: "#35405E", bw: 82, bh: 94, lean: -1.5, x: 600, y: 344, s: 1 },
   { n: "Karan", skin: "#8A5530", hair: "#17100C", style: "cap", shirt: "#FF9FC0", pants: "#2B3350", bw: 90, bh: 94, lean: 2.5, glasses: 1, x: 320, y: 96, s: .84 },
-  { n: "Nadia", skin: "#F3D2B3", hair: "#B5651D", style: "long", shirt: "#B8E986", pants: "#3A4565", bw: 78, bh: 96, lean: -2.5, x: 420, y: 318, s: 1 }
+  { n: "Nadia", skin: "#F3D2B3", hair: "#B5651D", style: "long", shirt: "#B8E986", pants: "#3A4565", bw: 78, bh: 96, lean: -2.5, x: 420, y: 344, s: 1 }
 ];
 
 const who = (p, i, extra = "") => `<div class="ppl s-${p.style}${p.glasses ? " has-gl" : ""}${p.beard ? " has-bd" : ""} ${extra}" data-hat="none" data-pose="rest" data-item="none" data-outfit="none" style="--skin:${p.skin};--hair:${p.hair};--shirt:${p.shirt};--hijab:${p.hijab || p.hair};--pants:${p.pants};--bw:${p.bw}px;--bh:${p.bh}px;--lean:${p.lean}deg;--d:${(i * -0.7).toFixed(1)}s" data-i="${i}">
