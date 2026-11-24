@@ -1538,3 +1538,4 @@ main h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; tex
 .ckl li b, .ckl li span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ckl li { padding-right: 8px; }
 .ckl li { padding: 6px 10px; border-left: 3px solid #C5CCD9; } .ckl li::before { display: none; } .ckl li.on { border-left-color: #2BB673; }
+.rs__cols--fin .rs__col > .fin__bars { flex: 1 1 auto; min-height: 120px; }
