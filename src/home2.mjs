@@ -347,7 +347,8 @@ export function home2() {
           <div class="sticky s1"><b>Payslips out</b><i></i></div><div class="sticky s2"><b>Swap approved</b><i></i></div>
           <div class="floorplant"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div><div class="floorplant fp2"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div>
         </div>
-        ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}<span class="tag"><b>${p.n}</b><em data-role></em></span></div>`).join("")}
+        ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}</div>`).join("")}
+        ${people.map((p, i) => `<span class="tagx" data-tagx="${i}" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s}"><b>${p.n}</b><em data-role></em></span>`).join("")}
       </div>
     </div>
     <div class="dock">

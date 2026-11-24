@@ -1557,3 +1557,7 @@ main h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; tex
 .md__ic { background: var(--world); color: var(--on); filter: none; }
 /* header: frosted glass once you scroll */
 .nav.solid { background: rgba(255,255,255,.58); -webkit-backdrop-filter: blur(22px) saturate(190%); backdrop-filter: blur(22px) saturate(190%); box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 10px 30px -18px rgba(20,33,61,.35); border-bottom: 1px solid rgba(255,255,255,.55); }
+
+/* name tags live above every character, so a hat in front never covers them */
+.tagx { position: absolute; z-index: 250; left: calc(var(--x) + 52px); top: calc(var(--y) + 190px + 10px); transform: translateX(-50%) scale(var(--s, 1)); transform-origin: 50% 0; display: flex; gap: 6px; align-items: baseline; white-space: nowrap; padding: 5px 11px; border-radius: 999px; background: var(--on); color: var(--world); font-size: 12.5px; line-height: 1.2; pointer-events: none; box-shadow: 0 6px 12px -8px rgba(0,0,0,.5); }
+.tagx b { font-weight: 700; } .tagx em { font-style: normal; font-weight: 500; opacity: .85; }
