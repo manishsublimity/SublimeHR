@@ -1618,10 +1618,7 @@ body[data-clk="4"] .wallclock svg { border-radius: 50%; background: radial-gradi
 body[data-clk="5"] .wallclock svg { border-radius: 50%; background: rgba(255,255,255,.18); -webkit-backdrop-filter: blur(10px) saturate(170%); backdrop-filter: blur(10px) saturate(170%); box-shadow: inset 0 0 0 2px rgba(255,255,255,.6), 0 14px 26px -16px rgba(0,0,0,.45); } body[data-clk="5"] .wc-ring { stroke: none; } body[data-clk="5"] .wc-dots circle { fill: #fff; opacity: .9; }
 body[data-clk="5"] .wallclock line.hh, body[data-clk="5"] .wallclock line.mh { stroke: #fff; } body[data-clk="5"] .wallclock line.sh { stroke: #FFD05A; } body[data-clk="5"] .wc-pin { fill: #fff; } body[data-clk="5"] .wc-pin2 { fill: transparent; }
 /* 6 rounded square */
-body[data-clk="6"] .wallclock svg { border-radius: 30px; background: #fff; box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } body[data-clk="6"] .wc-ring { stroke: none; }
-body[data-clk="6"] .wc-dots circle { fill: color-mix(in srgb, var(--ink) 70%, #fff); } body[data-clk="6"] .wallclock line.mh { stroke: color-mix(in srgb, var(--world) 70%, #14213D); }
 /* 7 ring only */
-body[data-clk="7"] .wc-ring { stroke: #fff; stroke-width: 7; } body[data-clk="7"] .wc-dots circle { fill: #fff; opacity: .85; } body[data-clk="7"] .wallclock line.hh, body[data-clk="7"] .wallclock line.mh { stroke: #fff; } body[data-clk="7"] .wallclock line.sh { stroke: #FFD05A; } body[data-clk="7"] .wc-pin { fill: #fff; } body[data-clk="7"] .wc-pin2 { fill: transparent; }
 /* 8 cream with ink rim */
 body[data-clk="8"] .wallclock svg { border-radius: 50%; background: #FFF4D6; box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } body[data-clk="8"] .wc-ring { stroke: #14213D; stroke-width: 5; } body[data-clk="8"] .wc-dots circle { r: 2.4px; fill: #14213D; opacity: 1; }
 body[data-clk="8"] .wallclock line.sh { stroke: #E5484D; } body[data-clk="8"] .wc-pin { fill: #E5484D; }
@@ -1636,3 +1633,16 @@ body[data-clk="10"] .wallclock line.hh { stroke-width: 6; }
 .nav.solid.onhero .nav__links a, .nav.solid.onhero .nav__brand span { text-shadow: 0 1px 10px rgba(0,0,0,.28); }
 .nav.solid.onhero .nav__logo { background: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
 .nav.solid.onhero .btn--on { background: #fff; color: var(--ink); }
+
+/* 6 wooden frame, numerals: a traditional wall clock */
+body[data-clk="6"] .wc-face { fill: #FFF8E8; } body[data-clk="6"] .wc-shade { display: block; } body[data-clk="6"] .wc-ring { stroke: #8A5A2B; stroke-width: 9; }
+body[data-clk="6"] .wc-dots circle { fill: #8A5A2B; opacity: .8; } body[data-clk="6"] .wc-nums { display: block; } body[data-clk="6"] .wc-nums text { fill: #3B2A1A; font-size: 13px; }
+body[data-clk="6"] .wallclock line.hh, body[data-clk="6"] .wallclock line.mh { stroke: #3B2A1A; } body[data-clk="6"] .wallclock line.sh { stroke: #C0392B; } body[data-clk="6"] .wc-pin { fill: #C0392B; } body[data-clk="6"] .wc-pin2 { fill: #FFF8E8; }
+/* 7 classic white with numerals and dark rim */
+body[data-clk="7"] .wc-face { fill: #fff; } body[data-clk="7"] .wc-shade { display: block; } body[data-clk="7"] .wc-ring { stroke: #14213D; stroke-width: 5; }
+body[data-clk="7"] .wc-dots circle { fill: #14213D; opacity: .5; r: 1.3px; } body[data-clk="7"] .wc-nums { display: block; } body[data-clk="7"] .wc-nums text { fill: #14213D; font-size: 14px; }
+body[data-clk="7"] .wallclock line.hh, body[data-clk="7"] .wallclock line.mh { stroke: #14213D; } body[data-clk="7"] .wallclock line.sh { stroke: #E5484D; } body[data-clk="7"] .wc-pin { fill: #E5484D; } body[data-clk="7"] .wc-pin2 { fill: #fff; }
+body[data-clk="6"] .wallclock, body[data-clk="7"] .wallclock { width: 116px; }
+body[data-clk="6"] .wc-dots, body[data-clk="7"] .wc-dots { display: none; }
+body[data-clk="6"] .wc-nums text, body[data-clk="7"] .wc-nums text { font-size: 11px; }
+body[data-clk="6"] .wc-nums, body[data-clk="7"] .wc-nums { transform: translate(60px, 60px) scale(.88) translate(-60px, -60px); }
