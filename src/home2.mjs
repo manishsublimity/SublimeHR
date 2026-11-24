@@ -267,7 +267,7 @@ const who = (p, i, extra = "") => `<div class="ppl s-${p.style}${p.glasses ? " h
 const iconSet = {};
 const need = (k) => (iconSet[k] = icon(k, "ic"));
 for (const ind of industries) { need(ind.icon); ind.props.forEach(need); ind.needs.forEach((n) => need(n[0])); ind.rec.forEach((r) => need(r[2])); }
-["check", "close", "camera", "pin", "shield", "calendar", "clock", "wallet", "repeat", "users", "chart", "file", "sparkles", "alert", "dollar", "layers", "dashboard", "fingerprint", "lock", "send"].forEach(need);
+["check", "close", "camera", "pin", "shield", "calendar", "clock", "wallet", "repeat", "users", "chart", "file", "sparkles", "alert", "dollar", "layers", "dashboard", "fingerprint", "lock", "send", "arrow-up", "call", "message", "search", "bot"].forEach(need);
 
 const peeks = [
   ["What happens when someone works on a holiday?", "Comp-off lands in their balance on its own, with an expiry date. Nobody keeps a spreadsheet.", "+1 comp-off day", "sun"],
@@ -285,18 +285,22 @@ const stops = [
   [75, "18:05", "Clock out", "Hours add up and nobody types anything."],
   [92, "Month end", "Payslip", "One run, and every phone has its payslip."]
 ];
-const steps = [["lock", "Sign in", "Email, username or employee code"], ["shield", "Verify OTP", "MFA keeps HR data safe"], ["dashboard", "Home", "Balances and shift at a glance"], ["fingerprint", "Clock in", "Fingerprint or selfie, plus GPS"], ["calendar", "Apply leave", "Pick dates, done"], ["file", "Payslip", "Download it any time"]];
+const steps = [["lock", "Sign in", "Employee code, email or username"], ["shield", "Verify OTP", "A one-time code keeps data safe"], ["dashboard", "Home", "Shift, balances and shortcuts"], ["fingerprint", "Clock in", "Fingerprint or selfie, plus GPS"], ["calendar", "Apply leave", "Pick dates and send"], ["file", "Payslip", "Download or share it any time"], ["repeat", "My shifts", "The week ahead, with swaps"], ["alert", "Inbox", "Approvals and updates, live"]];
 const roles = [
   ["Employee", 0, "Clock in, request leave, open payslips"],
   ["Manager", 3, "Approve in one tap, see who is in"],
   ["HR", 4, "Every record, every policy, every report"],
-  ["Finance", 5, "Payroll from real attendance"]
+  ["Finance", 5, "Payroll built from real attendance"]
 ];
 const ticks = modules.map((m) => m.name);
 const ticks2 = ["Hire to retire", "Attendance to payroll", "Admin to self-service", "English and Arabic", "Mobile ready", "Role-based security", "13 reports", "70+ feature areas"];
 const tick = (arr, rev) => `<div class="ticker__row${rev ? " rev" : ""}">${[0, 1].map(() => `<span>${arr.map((t) => `<b>${t}</b>`).join("")}</span>`).join("")}</div>`;
 const chip = (d, i) => `<button class="chip" type="button" data-k="${d.key}" aria-pressed="${i === 0}">${icon(d.icon, "ic")}<span>${d.name}</span></button>`;
 const faq = homeFaqItems().map(([q, a]) => [q, a]);
+const clockNums = Array.from({ length: 12 }, (_, i) => { const n = i + 1, a = n * Math.PI / 6; return `<text x="${(60 + 43 * Math.sin(a)).toFixed(1)}" y="${(60 - 43 * Math.cos(a) + 3.8).toFixed(1)}">${n}</text>`; }).join("");
+const clockTicks = Array.from({ length: 60 }, (_, i) => { const a = i * Math.PI / 30, r1 = i % 5 ? 53 : 51, r2 = 55; return `<line x1="${(60 + r1 * Math.sin(a)).toFixed(1)}" y1="${(60 - r1 * Math.cos(a)).toFixed(1)}" x2="${(60 + r2 * Math.sin(a)).toFixed(1)}" y2="${(60 - r2 * Math.cos(a)).toFixed(1)}"/>`; }).join("");
+const col = (t, links) => `<div class="foot__col"><h2>${t}</h2><ul>${links.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join("")}</ul></div>`;
+const showBtns = [["clock", "fingerprint", "Clock in with a thumb"], ["selfie", "camera", "Check in with a selfie"], ["gps", "pin", "Test the GPS fence"], ["leave", "calendar", "Request some leave"], ["pay", "wallet", "Run payroll"], ["roster", "repeat", "Fix a shift roster"], ["ask", "bot", "Ask a question"]];
 
 export function home2() {
   return `<!doctype html>
@@ -323,45 +327,45 @@ export function home2() {
 </header>
 
 <main>
-<section class="hero" aria-labelledby="h1" data-hero>
-  <div class="hero__main">
-    <div class="hero__copy">
-      <h1 id="h1">Your people are alive. Your HR should be too.</h1>
-      <p class="hero__lead" data-lead>${industries[0].lead}</p>
-      <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="#lab">Play with it live</a></div>
-      <ul class="facts" aria-label="At a glance"><li><b>70+</b> feature areas</li><li><b>13</b> built-in reports</li><li><b>EN</b> and <b>AR</b>, right to left</li><li><b>Web</b>, iOS and Android</li></ul>
+<section class="hero" aria-labelledby="h1" data-hero data-tip="Pick an industry below. I'll change the whole office.">
+  <div class="wrap hero__wrap">
+    <div class="hero__main">
+      <div class="hero__copy">
+        <h1 id="h1">Your people are alive. Your HR should be too.</h1>
+        <p class="hero__lead" data-lead>${industries[0].lead}</p>
+        <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="#lab">Play with it live</a></div>
+      </div>
+      <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
+        <div class="stage__floor" aria-hidden="true"></div>
+        <div class="wallclock" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><circle class="wc-face" cx="60" cy="60" r="57"/><g class="wc-ticks">${clockTicks}</g><g class="wc-nums">${clockNums}</g><line class="hh" x1="60" y1="60" x2="60" y2="36"/><line class="mh" x1="60" y1="60" x2="60" y2="22"/><line class="sh" x1="60" y1="66" x2="60" y2="16"/><circle class="wc-pin" cx="60" cy="60" r="4"/></svg>
+          <b class="wallclock__d" data-digital>00:00</b>
+        </div>
+        ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}<span class="tag"><b>${p.n}</b><em data-role></em></span></div>`).join("")}
+        <div class="tally" aria-label="Today at a glance">
+          <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
+        </div>
+      </div>
     </div>
-    <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
-      <div class="stage__floor" aria-hidden="true"></div>
-      <div class="wall" aria-hidden="true">
-        <svg class="clock" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46"/><line class="hh" x1="50" y1="50" x2="50" y2="28"/><line class="mh" x1="50" y1="50" x2="50" y2="17"/><line class="sh" x1="50" y1="56" x2="50" y2="12"/><circle class="pin" cx="50" cy="50" r="3"/></svg>
-      </div>
-      ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}<span class="tag"><b>${p.n}</b><em data-role></em></span></div>`).join("")}
-      <div class="subi" data-subi><div class="subi__say" data-subi-say></div>
-        <button class="subi__bot" type="button" aria-label="Ask Subi, the office helper"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="s-body"><i class="s-core"></i></span><i class="s-ar l"></i><i class="s-ar r"></i><i class="s-jet"></i></button>
-        <span class="subi__lbl">Ask Subi</span><i class="subi__sh"></i></div>
-      <div class="tally" aria-label="Today at a glance">
-        <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
-      </div>
+    <div class="dock">
+      <p class="dock__lbl" id="pick-lbl">Pick your industry and watch the office change.</p>
+      <div class="chips" role="group" aria-labelledby="pick-lbl" data-chips>${industries.map(chip).join("")}</div>
     </div>
   </div>
-  <div class="dock">
-    <p class="dock__lbl" id="pick-lbl">Pick your industry and watch the office change.</p>
-    <div class="chips" role="group" aria-labelledby="pick-lbl" data-chips>${industries.map(chip).join("")}</div>
-  </div>
-  <div class="pulse" aria-hidden="true"></div>
 </section>
 
 <div class="ticker" aria-hidden="true">${tick(ticks)}${tick(ticks2, true)}</div>
 
 <section class="stats" aria-label="SublimeHR in numbers">
-  <div><i>${icon("layers", "ic")}</i><b data-count="70" data-suf="+">70+</b><span>Feature areas</span><small>From hire to retire</small></div>
-  <div><i>${icon("chart", "ic")}</i><b data-count="13">13</b><span>Built-in reports</span><small>Audit-ready and exportable</small></div>
-  <div><i>${icon("users", "ic")}</i><b data-count="2">2</b><span>Panels</span><small>Admin, HR and employee</small></div>
-  <div><i>${icon("globe", "ic")}</i><b>EN + AR</b><span>Two languages</span><small>Left to right and right to left</small></div>
+  <div class="wrap stats__in">
+    <div class="st st--0"><i>${icon("layers", "ic")}</i><b data-count="70" data-suf="+">70+</b><span>Feature areas</span><small>From hire to retire, in one record</small></div>
+    <div class="st st--1"><i>${icon("chart", "ic")}</i><b data-count="13">13</b><span>Built-in reports</span><small>Audit-ready and exportable</small></div>
+    <div class="st st--2"><i>${icon("users", "ic")}</i><b data-count="2">2</b><span>Panels</span><small>Admin and HR, and employee</small></div>
+    <div class="st st--3"><i>${icon("globe", "ic")}</i><b>EN + AR</b><span>Two languages</span><small>Left to right and right to left</small></div>
+  </div>
 </section>
 
-<section class="prod" aria-labelledby="h-prod" data-prod>
+<section class="prod" aria-labelledby="h-prod" data-prod data-tip="This dashboard fills as the characters work. Click the left icons to switch views.">
   <div class="prod__copy">
     <h2 id="h-prod">Behind every character, one calm dashboard.</h2>
     <p>Everything the characters just did shows up here, live. HR sees who is in, who is away and what payroll will cost, without chasing anyone.</p>
@@ -373,22 +377,73 @@ export function home2() {
     <a class="btn" href="/software/reports-analytics/">See reports and analytics</a>
   </div>
   <div class="win" aria-label="SublimeHR dashboard preview">
-    <div class="win__bar"><i></i><i></i><i></i><span>${site.appUrl}/dashboard</span><em data-dash-ind>IT company</em></div>
+    <div class="win__bar"><i></i><i></i><i></i><span>${site.appUrl}/<em data-url>dashboard</em></span><em class="ind" data-dash-ind>IT company</em></div>
     <div class="win__body">
-      <nav class="win__nav" aria-hidden="true" data-dnav>
-        <span class="on">${icon("dashboard", "ic")}</span><span>${icon("clock", "ic")}</span><span>${icon("calendar", "ic")}</span><span>${icon("wallet", "ic")}</span><span>${icon("repeat", "ic")}</span>
+      <nav class="win__nav" aria-label="Dashboard views" data-dnav>
+        <button type="button" class="on" data-pn="0" aria-label="Dashboard">${icon("dashboard", "ic")}</button><button type="button" data-pn="1" aria-label="Attendance">${icon("clock", "ic")}</button><button type="button" data-pn="2" aria-label="Leave">${icon("calendar", "ic")}</button><button type="button" data-pn="3" aria-label="Payroll">${icon("wallet", "ic")}</button><button type="button" data-pn="4" aria-label="Shifts">${icon("repeat", "ic")}</button>
       </nav>
       <div class="win__main">
-        <div class="win__hi"><b>Good morning, HR team</b><span data-dash-date></span></div>
-        <div class="tiles">
-          <div class="tile"><small>Present today</small><b data-d="present">0</b><i class="up">+2.4%</i></div>
-          <div class="tile"><small>On leave</small><b data-d="leave">0</b><i>planned and urgent</i></div>
-          <div class="tile"><small>Overtime hours</small><b data-d="ot">0</b><i class="up">awaiting 3</i></div>
-          <div class="tile"><small>Payroll ready</small><b data-d="pay">0</b><i>percent</i></div>
+        <div class="pane" data-pane="0">
+          <div class="win__hi"><b>Good morning, HR team</b><span data-dash-date></span></div>
+          <div class="tiles">
+            <div class="tile"><small>Present today</small><b data-d="present">0</b><i class="up">+2.4%</i></div>
+            <div class="tile"><small>On leave</small><b data-d="leave">0</b><i>planned and urgent</i></div>
+            <div class="tile"><small>Overtime hours</small><b data-d="ot">0</b><i class="up">awaiting 3</i></div>
+            <div class="tile"><small>Payroll ready</small><b data-d="pay">0</b><i>percent</i></div>
+          </div>
+          <div class="win__grid">
+            <div class="chart"><small>Attendance this week</small><div class="bars" data-bars><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="bars__x"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div>
+            <div class="donut"><small>Leave by type</small><div class="donut__ring" data-ring><span data-ring-n>0</span></div><ul class="donut__key"><li class="a">Paid</li><li class="b">Unpaid</li><li class="c">Comp-off</li></ul></div>
+          </div>
         </div>
-        <div class="win__grid">
-          <div class="chart"><small>Attendance this week</small><div class="bars" data-bars><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="bars__x"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div>
-          <div class="donut"><small>Leave by type</small><div class="donut__ring" data-ring><span data-ring-n>0</span></div><ul class="donut__key"><li class="a">Paid</li><li class="b">Unpaid</li><li class="c">Comp-off</li></ul></div>
+        <div class="pane" data-pane="1" hidden>
+          <div class="win__hi"><b>Attendance today</b><span>Live from every device</span></div>
+          <div class="tiles">
+            <div class="tile"><small>On time</small><b data-a="ontime">0</b><i class="up">percent</i></div>
+            <div class="tile"><small>Late</small><b data-a="late">0</b><i>within grace: 6</i></div>
+            <div class="tile"><small>Absent</small><b data-a="abs">0</b><i>9 on approved leave</i></div>
+            <div class="tile"><small>Average hours</small><b data-a="hrs">0</b><i class="up">per person</i></div>
+          </div>
+          <div class="win__grid">
+            <div class="chart"><small>Arrivals by half hour</small><div class="bars" data-abars><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="bars__x"><span>8:00</span><span>8:30</span><span>9:00</span><span>9:30</span><span>10:00</span><span>10:30</span><span>11:00</span></div></div>
+            <div class="plist"><small>Late today</small><ul data-late></ul></div>
+          </div>
+        </div>
+        <div class="pane" data-pane="2" hidden>
+          <div class="win__hi"><b>Leave requests</b><span>Approvals and balances</span></div>
+          <div class="tiles">
+            <div class="tile"><small>Pending</small><b data-l="pend">0</b><i>awaiting a manager</i></div>
+            <div class="tile"><small>Approved today</small><b data-l="appr">0</b><i class="up">auto-routed</i></div>
+            <div class="tile"><small>Away today</small><b data-l="away">0</b><i>cover assigned</i></div>
+            <div class="tile"><small>Balance used</small><b data-l="used">0</b><i>percent of annual</i></div>
+          </div>
+          <div class="win__grid">
+            <div class="chart"><small>Who is away, next 14 days</small><div class="heat" data-heat></div></div>
+            <div class="plist"><small>Latest requests</small><ul data-reqs></ul></div>
+          </div>
+        </div>
+        <div class="pane" data-pane="3" hidden>
+          <div class="win__hi"><b>March payroll</b><span>Built from attendance</span></div>
+          <div class="tiles">
+            <div class="tile"><small>Gross</small><b data-p="gross">0</b><i>thousand</i></div>
+            <div class="tile"><small>Net pay</small><b data-p="net">0</b><i class="up">thousand</i></div>
+            <div class="tile"><small>Overtime</small><b data-p="ot">0</b><i>thousand</i></div>
+            <div class="tile"><small>Deductions</small><b data-p="ded">0</b><i>thousand</i></div>
+          </div>
+          <div class="win__grid">
+            <div class="chart"><small>Cost by team</small><div class="bars bars--h" data-pbars><i><em>Ops</em></i><i><em>Sales</em></i><i><em>Tech</em></i><i><em>HR</em></i><i><em>Fin</em></i></div></div>
+            <div class="plist"><small>Run checklist</small><ul class="ckl" data-pck><li>Attendance locked</li><li>Overtime approved</li><li>Deductions checked</li><li>Payslips released</li></ul></div>
+          </div>
+        </div>
+        <div class="pane" data-pane="4" hidden>
+          <div class="win__hi"><b>Shift roster</b><span>This week</span></div>
+          <div class="tiles">
+            <div class="tile"><small>Morning</small><b data-s="m">0</b><i>people on shift</i></div>
+            <div class="tile"><small>Evening</small><b data-s="e">0</b><i>people on shift</i></div>
+            <div class="tile"><small>Night</small><b data-s="n">0</b><i>people on shift</i></div>
+            <div class="tile"><small>Swaps pending</small><b data-s="sw">0</b><i class="up">one tap to approve</i></div>
+          </div>
+          <div class="mini" data-mini></div>
         </div>
       </div>
       <aside class="feed" aria-label="Live activity"><small>Live activity</small><ul data-feed></ul></aside>
@@ -396,7 +451,7 @@ export function home2() {
   </div>
 </section>
 
-<section class="rhythm" aria-labelledby="h-rhythm" data-rhythm>
+<section class="rhythm" aria-labelledby="h-rhythm" data-rhythm data-tip="Touch a need around the character. It explains itself.">
   <div class="rhythm__copy">
     <h2 id="h-rhythm">Every industry has its own rhythm.</h2>
     <p class="rhythm__lead" data-lead2>${industries[0].lead}</p>
@@ -416,8 +471,8 @@ export function home2() {
   </div>
 </section>
 
-<section class="movie" aria-labelledby="h-movie" data-movie>
-  <div class="movie__head"><h2 id="h-movie">Twenty seconds on a phone.</h2><p>Sign in, clock in, ask for leave and open a payslip. This is the employee app, playing by itself. Tap any step to jump in.</p></div>
+<section class="movie" aria-labelledby="h-movie" data-movie data-tip="That is the employee app, playing by itself. Tap a step to jump in.">
+  <div class="movie__head"><h2 id="h-movie">Twenty seconds on a phone.</h2><p>Sign in, clock in, ask for leave, check shifts and open a payslip. This is the employee app, playing by itself. Tap any step to jump in.</p></div>
   <div class="movie__grid">
     <div class="movie__steps" role="tablist" aria-label="App walkthrough">
       ${steps.map(([ic, t, s], i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-go="${i}"><i>${icon(ic, "ic")}</i><span><b>${t}</b><small>${s}</small></span><em></em></button>`).join("")}
@@ -426,12 +481,69 @@ export function home2() {
       <div class="mphone" role="img" aria-label="Animated walkthrough of the SublimeHR mobile app"><div class="mscreen">
         <span class="tapdot" data-tap></span>
         <div class="msbar" aria-hidden="true"><span>9:41</span><i></i></div>
-        <div class="mscr on" data-ms="0"><img src="${site.logo}" alt="" width="46" height="41"><h5>Welcome back</h5><small>Sign in to SublimeHR</small><div class="mfld"><small>Employee code</small><span><em data-mtype></em><i class="caret"></i></span></div><div class="mbtn" data-mbtn>Continue</div></div>
-        <div class="mscr" data-ms="1"><h5>Enter OTP</h5><small>Sent to +91 •••• 7684</small><div class="motp" data-motp><span></span><span></span><span></span><span></span></div><div class="mbtn" data-mbtn>Verify</div></div>
-        <div class="mscr" data-ms="2"><div class="mhead"><img src="${site.logo}" alt="" width="18" height="16">SublimeHR<span>SN</span></div><small>Good morning</small><h5>Sara</h5><div class="mcard"><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office</span></div><div class="mtiles"><div><small>Leave balance</small><b>14</b></div><div><small>Present this month</small><b>21</b></div></div><div class="mbtn">Clock in</div></div>
-        <div class="mscr mscr--c" data-ms="3"><span class="mchip">${icon("pin", "ic")}Inside geofence</span><div class="mscan" data-mscan>${icon("fingerprint", "ic")}<i></i></div><b data-mclock>Hold to clock in</b></div>
-        <div class="mscr" data-ms="4"><h5>Apply leave</h5><div class="mpills"><span class="on">Annual</span><span>Sick</span><span>Comp-off</span></div><div class="mcal" data-mcal2></div><div class="mbtn" data-mbtn>Submit request</div></div>
-        <div class="mscr" data-ms="5"><h5>April payslip</h5><div class="mslip"><div><span>Basic</span><b>4,200</b></div><div><span>Allowance</span><b>1,050</b></div><div class="neg"><span>Deductions</span><b>- 310</b></div><div class="net"><span>Net pay</span><b>4,940</b></div></div><div class="mbtn">Download PDF</div></div>
+        <div class="mscr on" data-ms="0">
+          <div class="mtop"><img src="${site.logo}" alt="" width="34" height="30"><span class="mlang"><b>EN</b><em>عربي</em></span></div>
+          <h5>Welcome back</h5><small>Sign in to your SublimeHR workspace</small>
+          <div class="mfld"><small>Employee code</small><span><em data-mtype></em><i class="caret"></i></span></div>
+          <div class="mfld mfld--p"><small>Password</small><span>••••••••</span></div>
+          <div class="mbtn" data-mbtn>Continue</div>
+          <div class="mor"><i></i>or<i></i></div>
+          <div class="mbio">${icon("fingerprint", "ic")}<span>Use fingerprint</span></div>
+          <small class="mfoot">Trouble signing in? Ask your HR team.</small>
+        </div>
+        <div class="mscr" data-ms="1">
+          <div class="mback">${icon("arrow", "ic")}</div><h5>Enter your code</h5><small>We sent a 4-digit code to +91 •••• 7684</small>
+          <div class="motp" data-motp><span></span><span></span><span></span><span></span></div>
+          <small class="mresend">Resend code in <b data-mresend>0:24</b></small>
+          <div class="mkeys" data-mkeys>${["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "x"].map((k) => `<span${k ? ` data-k="${k}"` : ' class="blank"'}>${k === "x" ? "&larr;" : k}</span>`).join("")}</div>
+          <div class="mbtn" data-mbtn>Verify</div>
+        </div>
+        <div class="mscr" data-ms="2">
+          <div class="mhead"><img src="${site.logo}" alt="" width="20" height="18">SublimeHR<span class="mbell">${icon("alert", "ic")}<i></i></span><span class="mav">SN</span></div>
+          <small>Good morning</small><h5>Sara Nasser</h5>
+          <div class="mcard"><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office, Dubai</span><div class="mbtn mbtn--w" data-mbtn>Clock in</div></div>
+          <div class="mquick"><span><i>${icon("calendar", "ic")}</i>Leave</span><span><i>${icon("file", "ic")}</i>Payslip</span><span><i>${icon("repeat", "ic")}</i>Shifts</span><span><i>${icon("users", "ic")}</i>Team</span></div>
+          <div class="mlist"><div><i style="--c:#FFD05A">OM</i><span><b>Omar</b>On leave until Thursday</span></div><div><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Working from home</span></div></div>
+          <div class="mnews">${icon("sparkles", "ic")}<span><b>Holiday notice</b>Office closed on 30 March</span></div>
+        </div>
+        <div class="mscr mscr--c" data-ms="3">
+          <span class="mchip">${icon("pin", "ic")}Inside geofence, 12 m</span>
+          <div class="mmap" aria-hidden="true"><svg viewBox="0 0 220 96"><path d="M0 70 L90 52 L220 64 M120 0 L104 96 M0 30 L220 18" class="rd"/><circle class="gf" cx="112" cy="50" r="32"/><circle cx="112" cy="50" r="6" class="me"/></svg></div>
+          <div class="mscan" data-mscan>${icon("fingerprint", "ic")}<i></i></div>
+          <b data-mclock>Hold to clock in</b>
+          <div class="mpun"><div><small>In</small><b data-mpin>--:--</b></div><div><small>Out</small><b>--:--</b></div><div><small>Hours</small><b>0.0</b></div></div>
+        </div>
+        <div class="mscr" data-ms="4">
+          <h5>Apply leave</h5>
+          <div class="mpills"><span class="on">Annual</span><span>Sick</span><span>Comp-off</span></div>
+          <div class="mcal" data-mcal2></div>
+          <div class="msum"><span data-msum>Pick your dates</span><b>14 days left</b></div>
+          <div class="mfld mfld--s"><small>Reason</small><span>Family trip</span></div>
+          <div class="mbtn" data-mbtn>Submit request</div>
+        </div>
+        <div class="mscr" data-ms="5">
+          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>April payslip</h5><span>${icon("arrow", "ic")}</span></div>
+          <div class="mnet"><small>Net pay</small><b>4,940</b><span>Paid on 1 May</span></div>
+          <div class="mslip"><div><span>Basic</span><b>4,200</b></div><div><span>Allowance</span><b>1,050</b></div><div class="neg"><span>Deductions</span><b>- 310</b></div></div>
+          <div class="mtrend"><small>Last six months</small><div><i style="--h:60%"></i><i style="--h:72%"></i><i style="--h:66%"></i><i style="--h:78%"></i><i style="--h:70%"></i><i style="--h:92%"></i></div></div>
+          <div class="mrow2"><div class="mbtn">Download PDF</div><div class="mbtn mbtn--o">Share</div></div>
+        </div>
+        <div class="mscr" data-ms="6">
+          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>This week</h5><span>${icon("arrow", "ic")}</span></div>
+          <div class="mwk" data-mwk></div>
+          <div class="mswap">${icon("repeat", "ic")}<span><b>Swap Thursday?</b>Karan can cover your evening</span><em>Ask</em></div>
+          <div class="mcov"><small>Team coverage</small><div><i style="--w:92%"></i></div><span>Fully covered all week</span></div>
+        </div>
+        <div class="mscr" data-ms="7">
+          <h5>Inbox</h5>
+          <ul class="minbox" data-minbox>
+            <li><i style="--c:#2BB673">${icon("check", "ic")}</i><span><b>Leave approved</b>Priya approved 23 to 24 Apr</span><em>2m</em></li>
+            <li><i style="--c:#7FB4FF">${icon("file", "ic")}</i><span><b>April payslip is ready</b>Tap to open</span><em>1h</em></li>
+            <li><i style="--c:#FFB020">${icon("repeat", "ic")}</i><span><b>Shift swap accepted</b>Karan covers Thursday</span><em>3h</em></li>
+            <li><i style="--c:#9B8CFF">${icon("shield", "ic")}</i><span><b>Policy updated</b>Remote work, version 2</span><em>1d</em></li>
+          </ul>
+        </div>
+        <div class="mtab" data-mtab aria-hidden="true"><span class="on">${icon("dashboard", "ic")}Home</span><span>${icon("clock", "ic")}Clock</span><span>${icon("calendar", "ic")}Leave</span><span>${icon("wallet", "ic")}Pay</span><span>${icon("alert", "ic")}Inbox</span></div>
       </div></div>
       <div class="movie__who"><div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div>${who(people[0], 0, "ppl--movie")}</div>
     </div>
@@ -439,32 +551,37 @@ export function home2() {
   <div class="movie__bar" aria-hidden="true"><i data-mbar></i></div>
 </section>
 
-<section class="day" aria-labelledby="h-day" data-day>
+<section class="day" aria-labelledby="h-day" data-day data-tip="Watch Aisha walk through a working day.">
   <div class="day__head"><h2 id="h-day">One day, from clock-in to payslip.</h2><p>Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets.</p></div>
   <div class="day__track" data-track>
     <div class="day__line"><i data-prog></i></div>
     ${stops.map(([l, t, h, p], i) => `<div class="stp ${i % 2 ? "dn" : "up"}" style="--l:${l}%"><div class="stp__c"><small>${t}</small><b>${h}</b><span>${p}</span></div><i class="stp__d"></i></div>`).join("")}
+    <canvas class="walker3d" data-w3d aria-hidden="true"></canvas>
     <div class="walker" data-walker>${who(people[0], 0, "ppl--walk")}</div>
   </div>
 </section>
 
-<section class="lab" id="lab" aria-labelledby="h-lab" data-lab>
-  <div class="lab__head"><h2 id="h-lab">Don't take our word for it. Play with it.</h2><p>Six working mini versions of SublimeHR. Punch a clock, pick leave dates, move payroll sliders, rotate a roster. The numbers are real arithmetic.</p></div>
+<section class="lab" id="lab" aria-labelledby="h-lab" data-lab data-tip="Want a tour of these? Click me and pick something to see.">
+  <div class="lab__head"><h2 id="h-lab">Don't take our word for it. Play with it.</h2><p>Six working mini versions of SublimeHR. Punch a clock, pick leave dates, move payroll sliders, rotate a roster. The numbers are real arithmetic. Not sure where to start? Click Subi, the robot, and it will show you.</p></div>
   <div class="lab__grid">
-    <article class="lc lc--clock">
+    <article class="lc lc--clock" data-demo="clock">
       <header><i>${icon("fingerprint", "ic")}</i><div><h3>Clock in</h3><p>Fingerprint, selfie or GPS. Grace and late rules run themselves.</p></div></header>
       <div class="modes" role="radiogroup" aria-label="Punch method"><button type="button" role="radio" aria-checked="true" data-mode="fp">Fingerprint</button><button type="button" role="radio" aria-checked="false" data-mode="selfie">Selfie</button><button type="button" role="radio" aria-checked="false" data-mode="gps">GPS only</button></div>
       <div class="clk">
-        <button class="scanner" type="button" data-scan aria-label="Press to clock in"><span class="scanner__ic" data-scan-ic>${icon("fingerprint", "ic")}</span><i class="scanner__beam"></i><span class="scanner__lbl" data-scan-lbl>Press to clock in</span></button>
+        <div class="clk__l">
+          <button class="scanner" type="button" data-scan aria-label="Press to clock in"><img class="scanner__img" data-scan-img alt="" hidden><span class="scanner__ic" data-scan-ic>${icon("fingerprint", "ic")}</span><i class="scanner__beam"></i><span class="scanner__lbl" data-scan-lbl>Press to clock in</span></button>
+          <div class="clk__acts"><button type="button" class="mini-link" data-sample hidden>Use a sample face</button><input type="file" accept="image/*" data-selfie-in hidden aria-label="Upload a selfie"></div>
+        </div>
         <div class="clk__r">
-          <ul class="checks" data-checks><li><span data-c0>Fingerprint matched</span><i>${icon("check", "ic")}</i></li><li><span>GPS 12 m, inside Head Office</span><i>${icon("check", "ic")}</i></li><li><span data-status>Waiting</span><i>${icon("check", "ic")}</i></li></ul>
+          <ul class="checks" data-checks><li><span data-c0>Fingerprint matched</span><i>${icon("check", "ic")}</i></li><li><span data-c1>GPS 12 m, inside Head Office</span><i>${icon("check", "ic")}</i></li><li><span data-status>Waiting</span><i>${icon("check", "ic")}</i></li></ul>
+          <label class="geo"><span>I am at the office</span><button class="sw" type="button" role="switch" aria-checked="true" data-geo aria-label="I am at the office"></button></label>
           <div class="arr"><label for="arr">Arrival</label><b data-arr-out>08:52</b><input id="arr" type="range" min="510" max="600" value="532" data-arr aria-label="Arrival time"></div>
           <p class="note">Shift starts 09:00. Grace until 09:15.</p>
         </div>
       </div>
       <div class="hist"><small>This week</small><ul data-hist><li><span>Mon</span><b>08:49</b><em class="ok">On time</em></li><li><span>Tue</span><b>09:07</b><em class="gr">Grace</em></li><li><span>Wed</span><b>08:52</b><em class="ok">On time</em></li><li data-today><span>Today</span><b>--:--</b><em>Waiting</em></li></ul></div>
     </article>
-    <article class="lc lc--leave">
+    <article class="lc lc--leave" data-demo="leave">
       <header><i>${icon("calendar", "ic")}</i><div><h3>Request leave</h3><p>Pick two dates. Weekends are skipped.</p></div></header>
       <div class="modes" role="radiogroup" aria-label="Leave type"><button type="button" role="radio" aria-checked="true" data-ltype="annual">Annual</button><button type="button" role="radio" aria-checked="false" data-ltype="sick">Sick</button><button type="button" role="radio" aria-checked="false" data-ltype="comp">Comp-off</button></div>
       <div class="lcal" data-lcal></div>
@@ -472,7 +589,7 @@ export function home2() {
       <button class="go" type="button" data-lgo>Send request</button>
       <p class="lflow" data-lflow aria-live="polite"></p>
     </article>
-    <article class="lc lc--pay">
+    <article class="lc lc--pay" data-demo="pay">
       <header><i>${icon("wallet", "ic")}</i><div><h3>Payroll</h3><p>Overtime and unpaid leave flow into the payslip.</p></div></header>
       <div class="net"><small>Net pay, March</small><b data-net>0</b></div>
       <div class="split" aria-hidden="true"><i data-s1></i><i data-s2></i><i data-s3></i></div>
@@ -495,15 +612,16 @@ export function home2() {
       <div class="here" data-here-grid></div>
       <p class="note"><i class="dot ok"></i>on time <i class="dot late"></i>late <i class="dot off"></i>not yet</p>
     </article>
-    <article class="lc lc--roster">
+    <article class="lc lc--roster" data-demo="roster">
       <header><i>${icon("repeat", "ic")}</i><div><h3>Shift roster</h3><p>Click a shift to rotate it. Coverage is checked live, so no day goes understaffed.</p></div></header>
+      <p class="legend"><span class="M">M</span>Morning<span class="E">E</span>Evening<span class="N">N</span>Night<span class="O">O</span>Day off<span class="cvk">2</span>people on the morning shift, and each day needs at least 2</p>
       <div class="roster" data-roster></div>
       <p class="cover" data-cover aria-live="polite"></p>
     </article>
   </div>
 </section>
 
-<section class="peek" aria-labelledby="h-peek">
+<section class="peek" aria-labelledby="h-peek" data-tip="Flip a card. The curious ones learn the most.">
   <div class="peek__head">
     <h2 id="h-peek">Things you didn't know HR could do.</h2>
     <p>Each of these is a question your team asks every month. Turn a card over for the answer.</p>
@@ -513,8 +631,8 @@ export function home2() {
   </div>
 </section>
 
-<section class="roles" aria-labelledby="h-roles" data-roles>
-  <h2 id="h-roles">Everyone sees a different company.</h2>
+<section class="roles" aria-labelledby="h-roles" data-roles data-tip="Same data, four screens. Pick a role to see what they see.">
+  <div class="roles__head"><h2 id="h-roles">Everyone sees a different company.</h2><p>One set of records, four different screens. Pick a role and use its screen: clock in as an employee, approve as a manager, search as HR, close payroll as finance.</p></div>
   <div class="roles__grid">
     <div class="roles__tabs" role="tablist" aria-label="Roles">
       ${roles.map(([t, pi, s], i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-r="${i}"><span class="rb">${who(people[pi], pi, "ppl--bust")}</span><span><b>${t}</b><small>${s}</small></span></button>`).join("")}
@@ -523,7 +641,8 @@ export function home2() {
       <div class="rs on" data-rs="0">
         <div class="rs__h"><b>Hi Aisha</b><span>Employee app</span></div>
         <button class="rs__clock" type="button" data-rclock><span data-rclock-t>Clock in</span><small data-rclock-s>Tap to punch, 09:00 shift</small></button>
-        <div class="rs__bal"><div><small>Annual</small><i style="--w:78%"></i><b>14</b></div><div><small>Sick</small><i style="--w:55%"></i><b>6</b></div><div><small>Comp-off</small><i style="--w:30%"></i><b>2</b></div></div>
+        <div class="rs__bal"><div><small>Annual</small><b>14</b><i style="--w:78%"></i></div><div><small>Sick</small><b>6</b><i style="--w:55%"></i></div><div><small>Comp-off</small><b>2</b><i style="--w:30%"></i></div></div>
+        <div class="rs__wk"><small>My week</small><div><span><b>Mon</b>M</span><span><b>Tue</b>M</span><span><b>Wed</b>E</span><span><b>Thu</b>E</span><span><b>Fri</b>O</span></div></div>
         <div class="rs__row"><span>${icon("file", "ic")}Next payslip</span><b>1 April</b></div>
       </div>
       <div class="rs" data-rs="1" hidden>
@@ -550,7 +669,7 @@ export function home2() {
   </div>
 </section>
 
-<section class="mods" aria-labelledby="h-mods">
+<section class="mods" aria-labelledby="h-mods" data-tip="Ten modules, one employee record.">
   <div class="mods__head"><h2 id="h-mods">Everything behind the people.</h2><a class="link link--ink" href="/features/">See all features</a></div>
   <div class="mods__grid">
     ${modules.map((m, i) => `<a class="md md--${i % 5}" href="/software/${m.slug}/"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}
@@ -560,43 +679,70 @@ export function home2() {
 <section class="why" aria-labelledby="h-why">
   <h2 id="h-why">Little things that make HR feel effortless.</h2>
   <div class="why__grid">
-    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p></div>`).join("")}
+    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p></div>`).join("")}
   </div>
 </section>
 
-<section class="ask" id="ask" aria-labelledby="h-ask" data-ask>
+<section class="ask" id="ask" aria-labelledby="h-ask" data-ask data-tip="Ask me anything about SublimeHR.">
   <div class="ask__copy">
     <h2 id="h-ask">Ask Subi anything.</h2>
     <p>Pick a question or type your own. Subi answers instantly, and a real person replies within one business day.</p>
     <div class="ask__qs" data-qs></div>
   </div>
   <div class="chat">
-    <div class="chat__top"><span class="chat__av"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span></span><b>Subi</b><em>Online</em></div>
+    <div class="chat__top"><span class="chat__av"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span></span><b>Subi</b><em>Online</em></div>
     <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi, I'm Subi. Pick a question on the left or type your own.</div></div>
     <form class="chat__foot" data-ask-form><label class="vh" for="ask-in">Ask a question</label><input id="ask-in" placeholder="For example: Do you support biometric devices?" autocomplete="off"><button type="submit" aria-label="Send">${icon("send", "ic")}</button></form>
   </div>
 </section>
 
-<section class="meet" aria-labelledby="h-meet">
+<section class="meet" aria-labelledby="h-meet" data-tip="Ready? Book a walkthrough.">
+  <div class="meet__blob b1" aria-hidden="true"></div><div class="meet__blob b2" aria-hidden="true"></div>
   <div class="meet__in">
     <h2 id="h-meet">Meet your workforce.</h2>
     <p>A 30-minute walkthrough, built around how your industry really works.</p>
+    <ul class="meet__pts"><li>${icon("check", "ic")}Free, with no commitment</li><li>${icon("check", "ic")}Built around your industry</li><li>${icon("check", "ic")}Live in days, not months</li></ul>
     <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="/pricing/">See pricing</a></div>
     <p class="meet__alt">Does your industry look different? <a class="link" href="/contact/">Tell us how your team works</a>.</p>
   </div>
-  <div class="crowd" aria-hidden="true">${people.map((p, i) => `<div class="crowd__p" style="--i:${i}">${who(p, i, "ppl--wave")}</div>`).join("")}</div>
+  <div class="crowd" aria-hidden="true"><i class="crowd__floor"></i>${people.map((p, i) => `<div class="crowd__p" style="--i:${i}">${who(p, i, "ppl--wave")}</div>`).join("")}</div>
 </section>
 </main>
 
 <footer class="foot">
-  <a class="nav__brand" href="/"><img src="${site.logo}" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
-  <span class="foot__links"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></span>
-  <a class="foot__ph" href="${site.phoneHref}">${site.phone}</a>
+  <span class="foot__glow g1" aria-hidden="true"></span><span class="foot__glow g2" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__about">
+        <a class="nav__brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="" width="38" height="34"><span>Sublime<b>HR</b></span></a>
+        <p>Powering your worklife: attendance, leave, payroll and self-service in one friendly platform.</p>
+        <div class="foot__contact"><a href="${site.phoneHref}">${icon("call", "ic")} ${site.phone}</a><a href="${site.whatsapp}" target="_blank" rel="noopener">${icon("message", "ic")} Chat on WhatsApp</a></div>
+      </div>
+      ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
+      ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
+      ${col("Industries", [["Manufacturing", "/industries/#manufacturing"], ["Healthcare", "/industries/#healthcare"], ["IT and Software", "/industries/#it-software"], ["Retail", "/industries/#retail"], ["Hospitality", "/industries/#hospitality"]])}
+      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"]])}
+    </div>
+    <div class="foot__bar"><span>&copy; ${new Date().getFullYear()} SublimeHR. All rights reserved.</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div>
+  </div>
+  <div class="foot__word" aria-hidden="true">SublimeHR</div>
 </footer>
 
+<div class="guide" data-guide>
+  <div class="guide__say" data-guide-say aria-live="polite"></div>
+  <div class="guide__menu" data-guide-menu hidden role="menu" aria-label="Ask Subi to show you something">
+    <b>What should I show you?</b>
+    ${showBtns.map(([k, ic, t]) => `<button type="button" role="menuitem" data-show="${k}">${icon(ic, "ic")}${t}</button>`).join("")}
+  </div>
+  <button class="subi__bot" type="button" data-guide-bot aria-label="Ask Subi, the page helper" aria-expanded="false"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="s-body"><i class="s-core"></i></span><i class="s-ar l"></i><i class="s-ar r"></i><i class="s-jet"></i></button>
+  <span class="subi__lbl">Ask Subi</span>
+  <i class="guide__thumb" data-thumb aria-hidden="true"></i>
+</div>
 <button class="fab" type="button" data-sound aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a8 8 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg><span>Sound off</span></button>
 <div class="nudge" data-nudge hidden>Turn the sound on for the full demo.</div>
 <a class="back" href="/">Current home</a>
+<button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
 </body>
 </html>`;
