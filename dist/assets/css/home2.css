@@ -1687,3 +1687,9 @@ body[data-clk="15"] .wallclock line.hh { stroke-width: 5.2; } body[data-clk="15"
 body[data-clk="15"] .wc-h { display: none; } body[data-clk="15"] .wc-b { display: block; }
 body[data-clk="15"] .wc-b line { stroke: #fff; stroke-width: 2; stroke-linecap: round; opacity: .95; } body[data-clk="15"] .wc-b .q { stroke-width: 3.6; opacity: 1; } body[data-clk="15"] .wc-b line:first-child { stroke: #FFD05A; }
 body[data-clk="15"] .wc-t line { stroke-width: .8; }
+/* yellow factory: the glass clock switches to dark marks and a red second hand so everything stays visible */
+body[data-w="factory"][data-clk="15"] .wallclock svg { background: rgba(255,255,255,.32); box-shadow: inset 0 0 0 2px rgba(255,255,255,.8), 0 16px 28px -16px rgba(0,0,0,.4); }
+body[data-w="factory"][data-clk="15"] .wc-b line { stroke: #14213D; opacity: .9; } body[data-w="factory"][data-clk="15"] .wc-b line:first-child { stroke: #E5484D; }
+body[data-w="factory"][data-clk="15"] .wc-t line { stroke: rgba(20,33,61,.7); }
+body[data-w="factory"][data-clk="15"] .wallclock line.hh, body[data-w="factory"][data-clk="15"] .wallclock line.mh { stroke: #14213D; }
+body[data-w="factory"][data-clk="15"] .wallclock line.sh { stroke: #E5484D; stroke-width: 1.7; } body[data-w="factory"][data-clk="15"] .wc-pin { fill: #E5484D; }
