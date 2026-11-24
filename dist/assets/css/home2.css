@@ -1430,3 +1430,27 @@ main h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; tex
 .rs__h { padding: 0 0 2px; }
 .rs__h b span { font: inherit; font-size: inherit; color: inherit; padding: 0; background: none; }
 .why__grid { grid-auto-rows: minmax(120px, auto); } .wy--5 { padding: 18px 28px; }
+
+/* =====================================================================
+   tenth pass
+   ===================================================================== */
+.rs__col { justify-content: space-between; }
+.rs__col .rs__pills { margin-top: 0; }
+.rs__shift { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 16px; background: #F6F7FB; } .rs__shift small { display: block; font-size: 12px; font-weight: 700; color: var(--ink2); } .rs__shift b { display: block; font: 600 20px/1.2 var(--f-d); } .rs__shift span { font-size: 13px; color: var(--ink2); } .rs__shift em { flex: none; padding: 6px 12px; border-radius: 99px; background: color-mix(in srgb, var(--world) 16%, #fff); color: color-mix(in srgb, var(--world) 70%, #14213D); font-style: normal; font-weight: 700; font-size: 12.5px; }
+.rs__team { padding: 14px 16px; border-radius: 16px; background: #F6F7FB; } .rs__team small { font-size: 12px; font-weight: 700; color: var(--ink2); } .rs__team span { display: block; margin-top: 8px; font-size: 13px; color: var(--ink2); }
+.rs__faces { display: flex; margin-top: 10px; } .rs__faces i { display: grid; place-items: center; width: 34px; height: 34px; margin-right: -8px; border-radius: 50%; background: var(--c); border: 3px solid #F6F7FB; font: 700 10.5px/1 var(--f); font-style: normal; color: var(--ink); } .rs__faces i.more { background: var(--ink); color: #fff; }
+.rs__wkcov { padding: 14px 16px; border-radius: 16px; background: color-mix(in srgb, var(--world) 8%, #fff); } .rs__wkcov small { font-size: 12.5px; font-weight: 700; color: var(--ink2); }
+.rs__wkcov > div { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; align-items: end; height: 84px; margin-top: 10px; } .rs__wkcov span { position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 3px; height: 100%; } .rs__wkcov span::before { content: ""; width: 100%; height: calc((100% - 32px) * var(--h) / 100%); min-height: 8px; border-radius: 8px 8px 3px 3px; background: var(--world); order: 1; } .rs__wkcov b { order: 0; font: 700 11px/1 var(--f-d); color: var(--ink); } .rs__wkcov em { order: 2; font-style: normal; font-size: 11px; color: var(--ink2); }
+.rs__run { padding: 13px; border-radius: 16px; background: var(--ink); color: #fff; font: 700 15px/1 var(--f-d); transition: transform .3s var(--spring), background .3s, opacity .3s; } .rs__run:disabled { opacity: .45; cursor: not-allowed; } .rs__run:not(:disabled):hover { transform: translateY(-2px); } .rs__run.sent { background: #2BB673; }
+.steps { gap: 8px; } .steps button { display: flex; align-items: center; }
+
+/* little things: the big card is filled from the top */
+.wy--0 { justify-content: flex-start; gap: 0; }
+.wy--0 i { margin-bottom: 22px; } .wy--0 h3 { margin-top: 0; } .wy--0 p { margin-top: 10px; }
+.wy__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 22px; } .wy__tags li { padding: 8px 15px; border-radius: 99px; background: rgba(255,255,255,.7); font-weight: 700; font-size: 14px; color: var(--ink); }
+.wy--0:hover .wy__tags li { background: rgba(255,255,255,.22); color: var(--on); }
+.wy--5 { align-content: center; padding: 22px 28px; }
+
+/* phone: a full month calendar */
+.mcal span { height: 22px; font-size: 10.5px; } .mcal .adj { color: #C9CFDB; background: none; } .mcal { gap: 3px; }
+.rs__team span { display: none; } .rs__team { padding: 12px 16px; }

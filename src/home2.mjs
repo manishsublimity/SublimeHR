@@ -650,12 +650,14 @@ export function home2() {
             <button class="rs__clock" type="button" data-rclock><span data-rclock-t>Clock in</span><small data-rclock-s>Tap to punch, 09:00 shift</small></button>
             <div class="rs__wk"><small>My week</small><div><span><b>Mon</b>M</span><span><b>Tue</b>M</span><span><b>Wed</b>E</span><span><b>Thu</b>E</span><span><b>Fri</b>O</span></div></div>
             <div class="rs__news">${icon("sparkles", "ic")}<span><b>Holiday notice</b>Office closed on 30 March</span></div>
+            <div class="rs__shift"><div><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office, Dubai</span></div><em>Clock-in opens in 12 min</em></div>
           </div>
           <div class="rs__col">
             <div class="rs__bal"><div><small>Annual</small><b>14</b><i style="--w:78%"></i></div><div><small>Sick</small><b>6</b><i style="--w:55%"></i></div><div><small>Comp-off</small><b>2</b><i style="--w:30%"></i></div></div>
             <div class="rs__row"><span>${icon("calendar", "ic")}Leave, 23 to 24 Apr</span><b class="okc">Approved</b></div>
             <div class="rs__row"><span>${icon("file", "ic")}Next payslip</span><b>1 April</b></div>
             <div class="rs__row"><span>${icon("repeat", "ic")}Shift swap with Karan</span><b class="okc">Accepted</b></div>
+            <div class="rs__team"><small>Team today</small><div class="rs__faces"><i style="--c:#FFD05A">OM</i><i style="--c:#45C4B0">RV</i><i style="--c:#9B8CFF">SN</i><i style="--c:#E86F9C">KM</i><i class="more">+8</i></div><span>12 teammates are in. Omar is on leave until Thursday.</span></div>
           </div>
         </div>
       </div>
@@ -668,6 +670,7 @@ export function home2() {
               <li><i style="--c:#9B8CFF">SN</i><span><b>Sara</b>Shift swap with Karan, Thu</span><div class="appr__b"><button type="button" data-ap="ok">Approve</button><button type="button" class="no" data-ap="no">Reject</button></div></li>
               <li><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Overtime, 2 hours</span><div class="appr__b"><button type="button" data-ap="ok">Approve</button><button type="button" class="no" data-ap="no">Reject</button></div></li>
             </ul>
+            <div class="rs__wkcov"><small>Coverage this week</small><div><span style="--h:92%"><b>92%</b><em>Mon</em></span><span style="--h:88%"><b>88%</b><em>Tue</em></span><span style="--h:76%"><b>76%</b><em>Wed</em></span><span style="--h:84%"><b>84%</b><em>Thu</em></span><span style="--h:94%"><b>94%</b><em>Fri</em></span></div></div>
           </div>
           <div class="rs__col">
             <div class="rs__pills"><span>11 in</span><span>2 late</span><span>1 away</span></div>
@@ -686,6 +689,7 @@ export function home2() {
           <div class="rs__col">
             <div class="kpis kpis--2"><div class="kpi"><small>Headcount</small><b>412</b><em class="up">+6 this month</em></div><div class="kpi"><small>Open roles</small><b>6</b><em>2 interviews today</em></div><div class="kpi"><small>On probation</small><b>18</b><em>4 reviews due</em></div><div class="kpi"><small>Documents expiring</small><b>7</b><em class="warn">within 30 days</em></div></div>
             <div class="rs__news">${icon("shield", "ic")}<span><b>Policy updated</b>Remote work, version 2</span></div>
+            <div class="rs__news">${icon("sparkles", "ic")}<span><b>Birthdays this week</b>Nadia on Tuesday, Ravi on Friday</span></div>
           </div>
         </div>
       </div>
@@ -694,7 +698,7 @@ export function home2() {
         <div class="kpis"><div class="kpi"><small>Total cost</small><b>1.96 M</b></div><div class="kpi"><small>Employees</small><b>412</b></div><div class="kpi"><small>Net pay</small><b>1.71 M</b></div><div class="kpi"><small>Overtime</small><b>43 K</b></div><div class="kpi"><small>Deductions</small><b>175 K</b></div><div class="kpi"><small>Cost per head</small><b>4.76 K</b></div></div>
         <div class="rs__cols rs__cols--fin">
           <div class="rs__col"><small class="rs__cap">Cost by team</small><div class="fin__bars" aria-hidden="true"><i style="--h:82%"><em>Ops</em></i><i style="--h:64%"><em>Sales</em></i><i style="--h:48%"><em>Tech</em></i><i style="--h:30%"><em>HR</em></i><i style="--h:22%"><em>Fin</em></i></div></div>
-          <div class="rs__col"><small class="rs__cap">Before you run it</small><ul class="steps" data-fsteps><li><button type="button" aria-pressed="false">Attendance locked</button></li><li><button type="button" aria-pressed="false">Overtime approved</button></li><li><button type="button" aria-pressed="false">Deductions checked</button></li><li><button type="button" aria-pressed="false">Payslips released</button></li></ul></div>
+          <div class="rs__col"><small class="rs__cap">Before you run it</small><ul class="steps" data-fsteps><li><button type="button" aria-pressed="false">Attendance locked</button></li><li><button type="button" aria-pressed="false">Overtime approved</button></li><li><button type="button" aria-pressed="false">Deductions checked</button></li><li><button type="button" aria-pressed="false">Payslips released</button></li></ul><button class="rs__run" type="button" data-frun disabled>Run payroll (0 of 4 ready)</button></div>
         </div>
       </div>
     </div>
@@ -711,7 +715,7 @@ export function home2() {
 <section class="why" aria-labelledby="h-why">
   <h2 id="h-why">Little things that make HR feel effortless.</h2>
   <div class="why__grid">
-    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p></div>`).join("")}
+    ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p>${i === 0 ? '<ul class="wy__tags"><li>Office</li><li>Remote</li><li>Hybrid</li><li>Shift-based</li><li>Field teams</li></ul>' : ""}</div>`).join("")}
   </div>
 </section>
 

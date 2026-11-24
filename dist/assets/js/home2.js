@@ -86,7 +86,7 @@
   }
   tick(); setInterval(tick, 1000);
   var topBtn = $("[data-top]");
-  window.addEventListener("scroll", function () { nav.classList.toggle("solid", window.scrollY > hero.offsetHeight - 140); topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
+  window.addEventListener("scroll", function () { nav.classList.toggle("solid", window.scrollY > 30); topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
   topBtn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); Snd.tick(); });
 
   /* ================= eyes follow the cursor; idle eyes wander ================= */
@@ -244,7 +244,11 @@
   var mLines = ["Employee code first.", "Now the one-time code.", "Here's my whole day.", "Fingerprint and GPS, one press.", "Two days off. Easy.", "And there's my payslip.", "My week, with a swap ready.", "Everything lands in my inbox."];
   (function () {
     var cal = $("[data-mcal2]", movie), h = ["S", "M", "T", "W", "T", "F", "S"], s = h.map(function (x) { return '<span class="h">' + x + "</span>"; }).join("");
-    for (var n = 20; n < 34; n++) { var d = n > 30 ? n - 30 : n, wd = (n - 20) % 7; s += '<span class="' + (wd === 0 || wd === 6 ? "we" : "") + '" data-d="' + d + '">' + d + "</span>"; } cal.innerHTML = s;
+    var nowd = new Date(), fy = nowd.getFullYear(), fm = nowd.getMonth(), fd = new Date(fy, fm, 1).getDay(), dm = new Date(fy, fm + 1, 0).getDate(), pd = new Date(fy, fm, 0).getDate(), q;
+    for (q = fd - 1; q >= 0; q--) s += '<span class="adj">' + (pd - q) + "</span>";
+    for (var d = 1; d <= dm; d++) { var wd = (fd + d - 1) % 7; s += '<span class="' + (wd === 0 || wd === 6 ? "we" : "") + '" data-d="' + d + '">' + d + "</span>"; }
+    for (q = fd + dm; q % 7 !== 0; q++) s += '<span class="adj">' + (q - fd - dm + 1) + "</span>";
+    cal.innerHTML = s;
     var wk = [["Mon", "M", "09:00 to 17:00"], ["Tue", "M", "09:00 to 17:00"], ["Wed", "E", "13:00 to 21:00"], ["Thu", "E", "13:00 to 21:00"], ["Fri", "M", "09:00 to 17:00"], ["Sat", "O", "Day off"], ["Sun", "O", "Day off"]];
     $("[data-mwk]", movie).innerHTML = wk.map(function (r) { return '<div class="' + r[1] + (r[0] === "Thu" ? " today" : "") + '"><b>' + r[0] + "</b><span>" + r[2] + "</span><em>" + r[1] + "</em></div>"; }).join("");
   })();
@@ -452,7 +456,9 @@
   var dir = $("[data-dir]"), find = $("[data-find]");
   function dRender() { var qq = find.value.trim().toLowerCase(), rows = dirData.map(function (r, i) { return [r, i]; }).filter(function (x) { return !qq || (x[0][0] + " " + x[0][1]).toLowerCase().indexOf(qq) > -1; }); dir.innerHTML = rows.length ? rows.slice(0, 5).map(function (x) { var r = x[0]; return '<li><i style="--c:' + dcols[x[1]] + '">' + r[0].split(" ").map(function (w) { return w[0]; }).join("") + "</i><span><b>" + r[0] + "</b>" + r[1] + "</span><em" + (r[2] === "On leave" ? ' class="lv"' : "") + ">" + r[2] + "</em></li>"; }).join("") : '<li class="none">No one matches that. Try another name or team.</li>'; }
   find.addEventListener("input", dRender); dRender();
-  $$("[data-fsteps] button").forEach(function (b) { b.addEventListener("click", function () { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", on ? "true" : "false"); Snd.tick(); if ($$("[data-fsteps] [aria-pressed=true]").length === 4) { Snd.cash(); burstAt(b, 18); } }); });
+  var frun = $("[data-frun]");
+  $$("[data-fsteps] button").forEach(function (b) { b.addEventListener("click", function () { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", on ? "true" : "false"); Snd.tick(); var cnt = $$("[data-fsteps] [aria-pressed=true]").length; frun.disabled = cnt < 4; frun.classList.remove("sent"); frun.textContent = cnt < 4 ? "Run payroll (" + cnt + " of 4 ready)" : "Run payroll"; if (cnt === 4) Snd.chime(); }); });
+  frun.addEventListener("click", function () { if (frun.disabled) return; Snd.cash(); burstAt(frun, 18); frun.textContent = "412 payslips sent"; frun.classList.add("sent"); });
 
   /* ================= Ask Subi chat ================= */
   var faq = data.faq, qs = $("[data-qs]"), log = $("[data-log]"), askForm = $("[data-ask-form]"), askIn = $("#ask-in");
