@@ -86,7 +86,7 @@
   }
   tick(); setInterval(tick, 1000);
   var topBtn = $("[data-top]");
-  window.addEventListener("scroll", function () { nav.classList.toggle("solid", window.scrollY > 30); topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
+  window.addEventListener("scroll", function () { nav.classList.toggle("solid", window.scrollY > 30); nav.classList.toggle("onhero", window.scrollY < hero.offsetHeight - 90); topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
   topBtn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); Snd.tick(); });
 
   /* ================= eyes follow the cursor; idle eyes wander ================= */
@@ -492,7 +492,7 @@
 
   // clock options for review: /home-v2/?clock=1..6
   (function () {
-    var m = location.search.match(/clock=(\d)/); if (!m) return; var n = +m[1]; document.body.setAttribute("data-clock", n);
+    var m = location.search.match(/clk=(\d+)/); if (!m) return; document.body.setAttribute("data-clk", +m[1]); return;
     var wcl = $(".wallclock"); if (!wcl || ![3, 5, 6].some(function (x) { return x === n; })) return;
     var h = {
       3: '<div class="dc dc--pill"><i></i><b data-dt>09:41</b><small data-dd>Tue 24 Nov</small></div>',

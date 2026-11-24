@@ -1595,3 +1595,44 @@ body[data-clock="5"] .wallclock { width: auto; left: 6px; top: 10px; }
 .dc--ring { position: relative; width: 116px; height: 116px; display: grid; place-items: center; align-content: center; border-radius: 50%; background: #fff; box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } .dc--ring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); } .dc--ring .rg { fill: none; stroke: #E6E9F0; stroke-width: 8; } .dc--ring .rp { fill: none; stroke: var(--world); stroke-width: 8; stroke-linecap: round; transition: stroke-dasharray .6s; filter: brightness(.85); }
 .dc--ring b { font: 700 24px/1 var(--f-d); color: #14213D; letter-spacing: -.03em; } .dc--ring small { margin-top: 3px; font-size: 8.5px; font-weight: 700; color: #5A6580; text-align: center; max-width: 70px; line-height: 1.2; }
 body[data-clock="6"] .wallclock { width: auto; left: 6px; top: 6px; }
+
+/* =====================================================================
+   seventeenth pass: analog clock variants (?clk=1..10) and a glassier header
+   ===================================================================== */
+.nav.solid { background: rgba(255,255,255,.2); -webkit-backdrop-filter: blur(28px) saturate(210%); backdrop-filter: blur(28px) saturate(210%); border-bottom: 1px solid rgba(255,255,255,.4); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 12px 34px -20px rgba(20,33,61,.3); }
+.nav.solid .nav__links a, .nav.solid .nav__brand span { text-shadow: 0 0 14px rgba(255,255,255,.95), 0 0 3px rgba(255,255,255,.8); }
+
+body[data-clk] .wallclock svg { display: block; }
+/* 2 midnight */
+body[data-clk="2"] .wc-face { fill: #14213D; } body[data-clk="2"] .wc-ring { stroke: rgba(255,255,255,.35); stroke-width: 5; } body[data-clk="2"] .wc-dots circle { fill: #fff; opacity: .6; }
+body[data-clk="2"] .wallclock line.hh, body[data-clk="2"] .wallclock line.mh { stroke: #fff; } body[data-clk="2"] .wallclock line.sh { stroke: #FFD05A; } body[data-clk="2"] .wc-pin { fill: #FFD05A; } body[data-clk="2"] .wc-pin2 { fill: #14213D; }
+/* 3 bold bezel */
+body[data-clk="3"] .wc-ring { stroke: #fff; stroke-width: 11; } body[data-clk="3"] .wc-face { fill: color-mix(in srgb, var(--world) 22%, #fff); } body[data-clk="3"] .wc-dots circle { r: 3px; fill: color-mix(in srgb, var(--world) 70%, #14213D); }
+body[data-clk="3"] .wallclock line.hh { stroke: color-mix(in srgb, var(--world) 75%, #14213D); stroke-width: 6; } body[data-clk="3"] .wallclock line.mh { stroke: #14213D; stroke-width: 4; } body[data-clk="3"] .wallclock { width: 120px; }
+/* shared for the background-painted variants */
+body[data-clk="4"] .wc-face, body[data-clk="5"] .wc-face, body[data-clk="6"] .wc-face, body[data-clk="7"] .wc-face, body[data-clk="8"] .wc-face, body[data-clk="9"] .wc-face, body[data-clk="10"] .wc-face { fill: none; }
+body[data-clk="4"] .wc-shade, body[data-clk="5"] .wc-shade, body[data-clk="6"] .wc-shade, body[data-clk="7"] .wc-shade, body[data-clk="8"] .wc-shade, body[data-clk="9"] .wc-shade, body[data-clk="10"] .wc-shade { display: none; }
+/* 4 sunrise */
+body[data-clk="4"] .wallclock svg { border-radius: 50%; background: radial-gradient(circle at 34% 28%, #fff 0, color-mix(in srgb, var(--world) 30%, #fff) 75%); box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } body[data-clk="4"] .wc-ring { stroke: rgba(255,255,255,.75); stroke-width: 4; }
+/* 5 frosted glass */
+body[data-clk="5"] .wallclock svg { border-radius: 50%; background: rgba(255,255,255,.18); -webkit-backdrop-filter: blur(10px) saturate(170%); backdrop-filter: blur(10px) saturate(170%); box-shadow: inset 0 0 0 2px rgba(255,255,255,.6), 0 14px 26px -16px rgba(0,0,0,.45); } body[data-clk="5"] .wc-ring { stroke: none; } body[data-clk="5"] .wc-dots circle { fill: #fff; opacity: .9; }
+body[data-clk="5"] .wallclock line.hh, body[data-clk="5"] .wallclock line.mh { stroke: #fff; } body[data-clk="5"] .wallclock line.sh { stroke: #FFD05A; } body[data-clk="5"] .wc-pin { fill: #fff; } body[data-clk="5"] .wc-pin2 { fill: transparent; }
+/* 6 rounded square */
+body[data-clk="6"] .wallclock svg { border-radius: 30px; background: #fff; box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } body[data-clk="6"] .wc-ring { stroke: none; }
+body[data-clk="6"] .wc-dots circle { fill: color-mix(in srgb, var(--ink) 70%, #fff); } body[data-clk="6"] .wallclock line.mh { stroke: color-mix(in srgb, var(--world) 70%, #14213D); }
+/* 7 ring only */
+body[data-clk="7"] .wc-ring { stroke: #fff; stroke-width: 7; } body[data-clk="7"] .wc-dots circle { fill: #fff; opacity: .85; } body[data-clk="7"] .wallclock line.hh, body[data-clk="7"] .wallclock line.mh { stroke: #fff; } body[data-clk="7"] .wallclock line.sh { stroke: #FFD05A; } body[data-clk="7"] .wc-pin { fill: #fff; } body[data-clk="7"] .wc-pin2 { fill: transparent; }
+/* 8 cream with ink rim */
+body[data-clk="8"] .wallclock svg { border-radius: 50%; background: #FFF4D6; box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } body[data-clk="8"] .wc-ring { stroke: #14213D; stroke-width: 5; } body[data-clk="8"] .wc-dots circle { r: 2.4px; fill: #14213D; opacity: 1; }
+body[data-clk="8"] .wallclock line.sh { stroke: #E5484D; } body[data-clk="8"] .wc-pin { fill: #E5484D; }
+/* 9 neon glass */
+body[data-clk="9"] .wallclock svg { border-radius: 50%; background: rgba(20,33,61,.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 2px var(--on), 0 0 24px color-mix(in srgb, var(--on) 55%, transparent); } body[data-clk="9"] .wc-ring { stroke: none; } body[data-clk="9"] .wc-dots circle { fill: var(--on); opacity: .9; }
+body[data-clk="9"] .wallclock line.hh, body[data-clk="9"] .wallclock line.mh { stroke: #fff; } body[data-clk="9"] .wallclock line.sh { stroke: var(--on); } body[data-clk="9"] .wc-pin { fill: var(--on); } body[data-clk="9"] .wc-pin2 { fill: #14213D; }
+/* 10 two-tone */
+body[data-clk="10"] .wallclock svg { border-radius: 50%; background: linear-gradient(115deg, #fff 50%, color-mix(in srgb, var(--world) 30%, #fff) 50%); box-shadow: 0 14px 24px -14px rgba(0,0,0,.5); } body[data-clk="10"] .wc-ring { stroke: rgba(255,255,255,.8); stroke-width: 4; }
+body[data-clk="10"] .wallclock line.hh { stroke-width: 6; }
+/* over the coloured hero the glass header keeps light text; below it, dark text */
+.nav.solid.onhero, .nav.solid.onhero .nav__links a, .nav.solid.onhero .nav__brand span { color: var(--on); }
+.nav.solid.onhero .nav__links a, .nav.solid.onhero .nav__brand span { text-shadow: 0 1px 10px rgba(0,0,0,.28); }
+.nav.solid.onhero .nav__logo { background: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
+.nav.solid.onhero .btn--on { background: #fff; color: var(--ink); }
