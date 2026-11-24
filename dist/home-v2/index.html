@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/home2.css?v=mwuae11v">
+<link rel="stylesheet" href="/assets/css/home2.css?v=mwuagxlu">
 </head>
 <body class="tc">
 
@@ -20,9 +20,13 @@
   <nav class="tc-nav" aria-label="Main">
     <a class="tc-brand" href="/home-v2/"><img src="/assets/img/sublimehr-logo.png" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
     <span class="tc-links"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></span>
+    <button class="tc-menu" type="button" data-menu aria-expanded="false" aria-controls="tc-drawer" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
     <button class="tc-theme" type="button" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     <a class="tc-btn sm" href="/book-demo/"><span>Book a demo</span><i><svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
   </nav>
+  <div class="tc-drawer" id="tc-drawer" data-drawer hidden>
+    <a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a><a href="/contact/">Contact</a>
+  </div>
 </header>
 
 <main>
@@ -263,6 +267,6 @@
 </footer>
 
 <a class="back" href="/">← Current home</a>
-<script src="/assets/js/home2.js?v=mwuae11v" defer></script>
+<script src="/assets/js/home2.js?v=mwuagxlu" defer></script>
 </body>
 </html>

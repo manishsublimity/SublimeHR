@@ -36,9 +36,13 @@ export function home2() {
   <nav class="tc-nav" aria-label="Main">
     <a class="tc-brand" href="/home-v2/"><img src="${site.logo}" alt="" width="30" height="27"><span>Sublime<b>HR</b></span></a>
     <span class="tc-links"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></span>
+    <button class="tc-menu" type="button" data-menu aria-expanded="false" aria-controls="tc-drawer" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
     <button class="tc-theme" type="button" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     <a class="tc-btn sm" href="/book-demo/"><span>Book a demo</span><i>${arrow}</i></a>
   </nav>
+  <div class="tc-drawer" id="tc-drawer" data-drawer hidden>
+    <a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a><a href="/contact/">Contact</a>
+  </div>
 </header>
 
 <main>

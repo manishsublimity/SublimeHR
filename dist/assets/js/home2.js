@@ -17,6 +17,15 @@
     syncTheme();
   }
 
+  /* ---------- small-screen menu ---------- */
+  var mb = $("[data-menu]"), dr = $("[data-drawer]");
+  if (mb && dr) {
+    function setMenu(open) { dr.hidden = !open; mb.setAttribute("aria-expanded", open ? "true" : "false"); mb.setAttribute("aria-label", open ? "Close menu" : "Open menu"); }
+    mb.addEventListener("click", function () { setMenu(dr.hidden); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !dr.hidden) { setMenu(false); mb.focus(); } });
+    dr.addEventListener("click", function (e) { if (e.target.tagName === "A") setMenu(false); });
+  }
+
   /* ---------- 02 · leave: when scrolled into view the slip is stamped, then becomes the app ---------- */
   (function () {
     var sec = $("[data-leave]"), st = $("[data-lv-stage]"); if (!sec || !st) return;
