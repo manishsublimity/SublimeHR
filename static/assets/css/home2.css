@@ -1539,3 +1539,8 @@ main h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.6rem); line-height: 1.14; tex
 .ckl li { padding-right: 8px; }
 .ckl li { padding: 6px 10px; border-left: 3px solid #C5CCD9; } .ckl li::before { display: none; } .ckl li.on { border-left-color: #2BB673; }
 .rs__cols--fin .rs__col > .fin__bars { flex: 1 1 auto; min-height: 120px; }
+/* manager panel: list keeps its own height, the chart card takes the spare room, right side matched */
+.rs__col .appr { flex: none; }
+.rs__col .rs__wkcov { flex: 1 1 auto; }
+.rs__away { padding: 16px 16px 18px; } .rs__away ul { gap: 14px; }
+.rs__cov { padding: 18px 16px; }
