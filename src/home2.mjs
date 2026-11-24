@@ -258,8 +258,8 @@ const people = [
 const who = (p, i, extra = "") => `<div class="ppl s-${p.style}${p.glasses ? " has-gl" : ""}${p.beard ? " has-bd" : ""} ${extra}" data-hat="none" data-pose="rest" data-item="none" data-outfit="none" style="--skin:${p.skin};--hair:${p.hair};--shirt:${p.shirt};--hijab:${p.hijab || p.hair};--pants:${p.pants};--bw:${p.bw}px;--bh:${p.bh}px;--lean:${p.lean}deg;--d:${(i * -0.7).toFixed(1)}s" data-i="${i}">
   <div class="ppl__fig">
     <div class="ppl__head"><i class="hr"></i><i class="fc"><span class="eye l"><b></b></span><span class="eye r"><b></b></span><i class="gl"></i><span class="ck l"></span><span class="ck r"></span><i class="bd"></i><span class="mo"></span></i><i class="hat"></i></div>
-    <div class="ppl__body"><i class="ofit"></i><span class="chest" data-prop></span><i class="item"></i></div>
-    <i class="arm l"><i class="fa"></i></i><i class="arm r"><i class="fa"></i></i>
+    <div class="ppl__body"><i class="ofit"></i><i class="item"></i></div>
+    <i class="arm l"><i class="fa"></i></i><i class="arm r"><i class="fa"></i></i><span class="chest" data-prop></span>
     <div class="ppl__legs"><i></i><i></i></div>
   </div>
 </div>`;
@@ -288,7 +288,7 @@ const stops = [
 const steps = [["lock", "Sign in", "Employee code, email or username"], ["shield", "Verify OTP", "A one-time code keeps data safe"], ["dashboard", "Home", "Shift, balances and shortcuts"], ["fingerprint", "Clock in", "Fingerprint or selfie, plus GPS"], ["calendar", "Apply leave", "Pick dates and send"], ["file", "Payslip", "Download or share it any time"], ["repeat", "My shifts", "The week ahead, with swaps"], ["alert", "Inbox", "Approvals and updates, live"]];
 const roles = [
   ["Employee", 0, "Clock in, request leave, open payslips"],
-  ["Manager", 3, "Approve in one tap, see who is in"],
+  ["Manager", 2, "Approve in one tap, see who is in"],
   ["HR", 4, "Every record, every policy, every report"],
   ["Finance", 5, "Payroll built from real attendance"]
 ];
@@ -340,6 +340,13 @@ export function home2() {
         <div class="wallclock" aria-hidden="true">
           <svg viewBox="0 0 120 120"><circle class="wc-shade" cx="60" cy="65" r="54"/><circle class="wc-face" cx="60" cy="60" r="54"/><circle class="wc-ring" cx="60" cy="60" r="47"/><g class="wc-dots">${clockDots}</g><g class="wc-nums">${clockNums}</g><line class="hh" x1="60" y1="60" x2="60" y2="38"/><line class="mh" x1="60" y1="60" x2="60" y2="24"/><line class="sh" x1="60" y1="64" x2="60" y2="19"/><circle class="wc-pin" cx="60" cy="60" r="5"/><circle class="wc-pin2" cx="60" cy="60" r="2"/></svg>
         </div>
+        <div class="deco" aria-hidden="true">
+          <div class="sticky s1"><b>Payslips out</b><i></i></div><div class="sticky s2"><b>Swap approved</b><i></i></div>
+          <div class="wallcal"><em data-wc-m>MAR</em><strong data-wc-d>1</strong><span data-wc-w>Monday</span></div>
+          <div class="shelf"><svg viewBox="0 0 96 70"><path class="lf" d="M48 40c-14-4-22-14-22-26 12 0 22 8 22 26z"/><path class="lf l2" d="M48 40c10-6 14-16 12-28-10 4-16 14-12 28z"/><path class="lf l3" d="M48 42c-4-12 0-22 10-28 4 12-2 22-10 28z"/><path class="pot" d="M34 40h28l-4 20H38z"/><rect class="bd" x="10" y="60" width="76" height="6" rx="3"/></svg></div>
+          <div class="floorplant"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div>
+          <div class="shiftcard"><i></i><span><small>Today's shift</small><b>09:00 to 18:00</b></span></div>
+        </div>
         ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}<span class="tag"><b>${p.n}</b><em data-role></em></span></div>`).join("")}
         <div class="tally" aria-label="Today at a glance">
           <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
@@ -354,15 +361,6 @@ export function home2() {
 </section>
 
 <div class="ticker" aria-hidden="true">${tick(ticks)}${tick(ticks2, true)}</div>
-
-<section class="score" aria-label="SublimeHR in numbers">
-  <div class="score__card">
-    <div class="sc1"><b data-count="70" data-suf="+">70+</b><span>Feature areas</span><small>From hire to retire, in one employee record</small></div>
-    <div class="sc1"><b data-count="13">13</b><span>Built-in reports</span><small>Audit-ready and exportable in a click</small></div>
-    <div class="sc1"><b data-count="2">2</b><span>Panels</span><small>One for admin and HR, one for employees</small></div>
-    <div class="sc1 sc1--lang"><b><span class="lg lg--en">EN</span><span class="lg lg--ar">عربي</span></b><span>Two languages</span><small>Left to right and right to left</small></div>
-  </div>
-</section>
 
 <section class="prod" aria-labelledby="h-prod" data-prod data-tip="This dashboard fills as the characters work. Click the left icons to switch views.">
   <div class="prod__copy">
@@ -572,8 +570,8 @@ export function home2() {
             <span class="sc sc--selfie"><img class="scanner__img" data-scan-img alt="" hidden><i class="silh"></i><i class="crn"></i><b class="cnt" data-cnt></b><i class="flash"></i></span>
             <span class="sc sc--gps"><i class="grid"></i><i class="gfence"></i><i class="radar"></i><i class="pin" data-pin></i></span>
             <i class="scanner__beam"></i>
-            <span class="scanner__lbl" data-scan-lbl>Press to clock in</span>
           </button>
+          <span class="scanner__lbl" data-scan-lbl>Press to clock in</span>
           <div class="clk__acts"><button type="button" class="mini-link" data-sample hidden>Use a sample face</button><input type="file" accept="image/*" data-selfie-in hidden aria-label="Upload a selfie"></div>
         </div>
         <div class="clk__r">
@@ -584,6 +582,7 @@ export function home2() {
         </div>
       </div>
       <div class="hist"><small>This week</small><ul data-hist><li><span>Mon</span><b>08:49</b><em class="ok">On time</em></li><li><span>Tue</span><b>09:07</b><em class="gr">Grace</em></li><li><span>Wed</span><b>08:52</b><em class="ok">On time</em></li><li data-today><span>Today</span><b>--:--</b><em>Waiting</em></li></ul></div>
+      <div class="mstat" aria-label="This month"><small>This month</small><div class="mstat__bar" aria-hidden="true"><i class="ok" style="flex:18"></i><i class="gr" style="flex:2"></i><i class="late" style="flex:0.4"></i></div><p><span><i class="ok"></i><b>18</b> on time</span><span><i class="gr"></i><b>2</b> grace</span><span><i class="late"></i><b>0</b> late</span></p></div>
       <div class="rules"><span>${icon("clock", "ic")}Grace 15 min</span><span>${icon("alert", "ic")}Late after 09:15</span><span>${icon("pin", "ic")}Fence 50 m</span></div>
     </article>
     <article class="lc lc--leave" data-demo="leave">
@@ -619,6 +618,7 @@ export function home2() {
       <div class="here__top"><b data-here-t>08:00</b><span data-here-n>0 of 24 in</span></div>
       <input type="range" min="450" max="600" value="480" data-here aria-label="Time of morning">
       <div class="here" data-here-grid></div>
+      <ul class="arr3" data-arr3 aria-label="Latest arrivals"></ul>
       <div class="hbar" aria-hidden="true"><i class="ok" data-hb-ok></i><i class="late" data-hb-late></i></div>
       <p class="note"><i class="dot ok"></i><span data-hk-ok>0</span> on time <i class="dot late"></i><span data-hk-late>0</span> late <i class="dot off"></i><span data-hk-off>24</span> not yet</p>
     </article>
@@ -664,6 +664,7 @@ export function home2() {
           <li><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Overtime, 2 hours</span><button type="button" data-ap="ok">Approve</button></li>
         </ul>
         <div class="rs__pills"><span>11 in</span><span>2 late</span><span>1 away</span></div>
+        <div class="rs__cov"><small>Team coverage today</small><div><i style="--w:86%"></i></div><span>11 of 13 are in. Nobody is double-booked this week.</span></div>
       </div>
       <div class="rs" data-rs="2" hidden>
         <div class="rs__h"><b>People</b><span>HR view</span></div>
@@ -694,6 +695,15 @@ export function home2() {
   </div>
 </section>
 
+<section class="score" aria-label="SublimeHR in numbers">
+  <div class="score__card">
+    <div class="sc1"><b data-count="70" data-suf="+">70+</b><span>Feature areas</span><small>From hire to retire, in one employee record</small></div>
+    <div class="sc1"><b data-count="13">13</b><span>Built-in reports</span><small>Audit-ready and exportable in a click</small></div>
+    <div class="sc1"><b data-count="2">2</b><span>Panels</span><small>One for admin and HR, one for employees</small></div>
+    <div class="sc1 sc1--lang"><b data-lang>EN</b><span>Languages</span><small>Left to right and right to left, switch in a tap</small></div>
+  </div>
+</section>
+
 <section class="ask" id="ask" aria-labelledby="h-ask" data-ask data-tip="Ask me anything about SublimeHR.">
   <div class="ask__copy">
     <h2 id="h-ask">Ask Subi anything.</h2>
@@ -701,7 +711,7 @@ export function home2() {
     <div class="ask__qs" data-qs></div>
   </div>
   <div class="chat">
-    <div class="chat__top"><span class="chat__av"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span></span><b>Subi</b><em>Online</em></div>
+    <div class="chat__top"><span class="chat__av"><span class="mini-subi"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="s-body"><i class="s-core"></i></span></span></span><b>Subi</b><em>Online</em></div>
     <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi, I'm Subi. Pick a question on the left or type your own.</div></div>
     <form class="chat__foot" data-ask-form><label class="vh" for="ask-in">Ask a question</label><input id="ask-in" placeholder="For example: Do you support biometric devices?" autocomplete="off"><button type="submit" aria-label="Send">${icon("send", "ic")}</button></form>
   </div>
@@ -716,7 +726,9 @@ export function home2() {
       <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="/pricing/">See pricing</a></div>
       <p class="meet__alt">Different industry? <a class="link" href="/contact/">Tell us how your team works</a>.</p>
     </div>
-    <div class="crowd" aria-hidden="true"><i class="crowd__floor"></i>${people.map((p, i) => `<div class="crowd__p" style="--i:${i}">${who(p, i, "ppl--wave")}</div>`).join("")}</div>
+    <div class="crowd" aria-hidden="true"><i class="crowd__floor"></i>
+        <span class="pop pop1">${icon("check", "ic")}Leave approved</span><span class="pop pop2">${icon("wallet", "ic")}412 payslips sent</span><span class="pop pop3">${icon("clock", "ic")}98% on time</span>
+        ${people.map((p, i) => `<div class="crowd__p" style="--i:${i};--cx:${[4, 15, 27, 61, 73, 38, 50][i]}%;--cy:${[0, 78, 0, 78, 0, 78, 0][i]}px;--cs:${[1.2, 1, 1.2, 1, 1.2, 1, 1.2][i]};--cz:${[2, 1, 2, 1, 2, 1, 2][i]}">${who(p, i, "ppl--wave")}</div>`).join("")}</div>
   </div>
 </section>
 </main>

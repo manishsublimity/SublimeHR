@@ -225,6 +225,14 @@
   vis(hero, function (v) { heroVisible = v; }, .15);
 
   /* ================= stats count up ================= */
+
+  // wall calendar date and rotating languages
+  (function () {
+    var d = new Date(), M = $("[data-wc-m]"), D = $("[data-wc-d]"), W = $("[data-wc-w]");
+    if (M) { M.textContent = d.toLocaleDateString("en", { month: "short" }).toUpperCase(); D.textContent = d.getDate(); W.textContent = d.toLocaleDateString("en", { weekday: "long" }); }
+    var L = $("[data-lang]"); if (!L) return; var langs = [["EN", "ltr"], ["\u0639\u0631\u0628\u064a", "rtl"], ["\u0939\u093f\u0928\u094d\u0926\u0940", "ltr"], ["Espa\u00f1ol", "ltr"], ["Fran\u00e7ais", "ltr"], ["Deutsch", "ltr"], ["T\u00fcrk\u00e7e", "ltr"], ["Bahasa", "ltr"]], li = 0;
+    setInterval(function () { li = (li + 1) % langs.length; L.classList.add("out"); setTimeout(function () { L.textContent = langs[li][0]; L.setAttribute("dir", langs[li][1]); L.classList.remove("out"); }, 280); }, 1900);
+  })();
   $$("[data-count]").forEach(function (el) {
     var to = +el.getAttribute("data-count"), suf = el.getAttribute("data-suf") || "", done = false;
     vis(el, function (v) { if (!v || done) return; done = true; if (reduce) { el.textContent = to + suf; return; } var t0 = performance.now(); (function f(t) { var p = Math.min(1, (t - t0) / 1200); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + suf; if (p < 1) requestAnimationFrame(f); })(t0); }, .5);
@@ -241,7 +249,7 @@
     $("[data-mwk]", movie).innerHTML = wk.map(function (r) { return '<div class="' + r[1] + (r[0] === "Thu" ? " today" : "") + '"><b>' + r[0] + "</b><span>" + r[2] + "</span><em>" + r[1] + "</em></div>"; }).join("");
   })();
   function mLater(fn, ms) { mT.push(setTimeout(fn, reduce ? 0 : ms)); }
-  function tapOn(el) { var a = el.getBoundingClientRect(), b = mScreen.getBoundingClientRect(); tap.style.left = a.left - b.left + a.width / 2 + "px"; tap.style.top = a.top - b.top + a.height / 2 + "px"; tap.classList.add("on"); mLater(function () { tap.classList.add("tap"); el.classList.add("press"); Snd.tick(); }, 420); mLater(function () { tap.classList.remove("tap", "on"); el.classList.remove("press"); }, 760); }
+  function tapOn(el) { mWho.setAttribute("data-pose", "reach"); mLater(function () { mWho.setAttribute("data-pose", "rest"); }, 1200); var a = el.getBoundingClientRect(), b = mScreen.getBoundingClientRect(); tap.style.left = a.left - b.left + a.width / 2 + "px"; tap.style.top = a.top - b.top + a.height / 2 + "px"; tap.classList.add("on"); mLater(function () { tap.classList.add("tap"); el.classList.add("press"); Snd.tick(); }, 420); mLater(function () { tap.classList.remove("tap", "on"); el.classList.remove("press"); }, 760); }
   function mGo(i) {
     mT.forEach(clearTimeout); mT = []; mi = i; var scr = mScr[i];
     mSteps.forEach(function (b, k) { b.setAttribute("aria-selected", k === i ? "true" : "false"); b.style.setProperty("--dur", MDUR / 1000 + "s"); var em = $("em", b); em.style.animation = "none"; if (k === i) { void em.offsetWidth; em.style.animation = ""; } });
@@ -345,7 +353,7 @@
   function lRender() {
     var s = ["S", "M", "T", "W", "T", "F", "S"].map(function (x) { return '<span class="h">' + x + "</span>"; }).join(""), k;
     var pdim = new Date(y, mo, 0).getDate(); for (k = first - 1; k >= 0; k--) s += '<span class="adj">' + (pdim - k) + "</span>";
-    for (var d = 1; d <= dim; d++) { var wd = (first + d - 1) % 7, we = wd === 0 || wd === 6, cl = we ? "we" : ""; if (selA && d === selA) cl += " st"; else if (selB && d === selB) cl += " st"; else if (selA && selB && d > selA && d < selB && !we) cl += " in"; s += we ? '<span class="' + cl + '">' + d + "</span>" : '<button type="button" class="' + cl + '" data-day="' + d + '">' + d + "</button>"; }
+    for (var d = 1; d <= dim; d++) { var wd = (first + d - 1) % 7, we = wd === 0 || wd === 6, cl = we ? "we" : ""; if (selA && d === selA) cl += " pick"; else if (selB && d === selB) cl += " pick"; else if (selA && selB && d > selA && d < selB && !we) cl += " in"; s += we ? '<span class="' + cl + '">' + d + "</span>" : '<button type="button" class="' + cl + '" data-day="' + d + '">' + d + "</button>"; }
     for (k = first + dim; k < 42; k++) s += '<span class="adj">' + (k - first - dim + 1) + "</span>";
     lcal.innerHTML = s;
   }
@@ -361,11 +369,11 @@
   lcal.addEventListener("click", function (e) { var b = e.target.closest("[data-day]"); if (!b) return; var d = +b.getAttribute("data-day"); Snd.tick(); if (!selA || (selA && selB)) { selA = d; selB = null; } else if (d < selA) { selB = selA; selA = d; } else selB = d; lRender(); lSummary(); });
   $$("[data-ltype]", lab).forEach(function (b) { b.addEventListener("click", function () { ltype = b.getAttribute("data-ltype"); $$("[data-ltype]", lab).forEach(function (x) { x.setAttribute("aria-checked", x === b ? "true" : "false"); }); Snd.tick(); lSummary(); }); });
   $("[data-lgo]").addEventListener("click", function (e) {
-    if (!selA) { lflow.textContent = "Pick a date first."; lflow.className = "lflow hr"; Snd.boop(); return; }
+    if (!selA) { lflow.textContent = "Pick a date first."; lflow.className = "lflow tohr"; Snd.boop(); return; }
     var n = workDays(selA, selB || selA); Snd.whoosh();
     setTimeout(function () {
       if (n <= bal[ltype]) { bal[ltype] -= n; Snd.chime(); burstAt(e.currentTarget, 16); lflow.textContent = "Approved by Priya. " + bal[ltype] + " days left."; lflow.className = "lflow"; selA = selB = null; lRender(); lbar.style.width = Math.max(4, bal[ltype] / maxb[ltype] * 100) + "%"; lsum.textContent = "Pick a start date."; }
-      else { Snd.boop(); lflow.textContent = "Sent to HR. Not enough balance to auto-approve."; lflow.className = "lflow hr"; }
+      else { Snd.boop(); lflow.textContent = "Sent to HR. Not enough balance to auto-approve."; lflow.className = "lflow tohr"; }
     }, 600);
   });
   lRender(); lSummary();
@@ -390,13 +398,20 @@
   $$("[data-role-p]", lab).forEach(function (b) { b.addEventListener("click", function () { pr = +b.getAttribute("data-role-p"); $$("[data-role-p]", lab).forEach(function (x) { x.setAttribute("aria-checked", x === b ? "true" : "false"); }); Snd.tick(); pRender(); }); });
   pRender();
   // who's in: little faces fill in as the morning goes on
-  var hereG = $("[data-here-grid]"), hereS = $("[data-here]"), people24 = [], skins = ["#F1CBA6", "#E8B48C", "#D49A6E", "#B97D52", "#9A6238", "#8A5530"], hairs = ["#2B1B17", "#6B3A22", "#1C1410", "#B5651D", "#120D0B", "#8E5A2B", "#3A2A20"];
-  for (var q = 0; q < 24; q++) people24.push({ a: 470 + Math.round(((q * 37) % 100) * 1.05) + (q % 5 === 0 ? 40 : 0), sk: skins[(q * 5 + 1) % 6], hr: hairs[(q * 3 + 2) % 7] });
-  hereG.innerHTML = people24.map(function (p) { return '<i style="--sk:' + p.sk + ";--hr:" + p.hr + '"></i>'; }).join("");
+  var hereG = $("[data-here-grid]"), hereS = $("[data-here]"), people24 = [], skins = ["#F1CBA6", "#E8B48C", "#D49A6E", "#B97D52", "#9A6238", "#8A5530"], hairs = ["#2B1B17", "#6B3A22", "#1C1410", "#B5651D", "#120D0B", "#8E5A2B", "#3A2A20"], tops = ["#FF8A70", "#9B8CFF", "#45C4B0", "#FFD05A", "#7FB4FF", "#FF9FC0", "#B8E986", "#F4F7FB"], hstyle = ["short", "long", "bun", "curls", "hijab", "cap", "short", "long"], fnames = ["Aisha", "Omar", "Sara", "Ravi", "Priya", "Karan", "Nadia", "Leo", "Mina", "Yusuf", "Anya", "Dev", "Hana", "Ben", "Zoya", "Raj", "Lina", "Tariq", "Maya", "Sam", "Noor", "Ivan", "Isha", "Jon"];
+  function faceSvg(sk, hr, top, st) {
+    var hair = { short: '<path d="M10 17c0-8 4-11 10-11s10 3 10 11c-3-4-7-5-10-5s-7 1-10 5z" fill="' + hr + '"/>', long: '<path d="M8.5 22c-1-10 3-16 11.5-16S32 12 31.5 22c0 5-1 8-3 9l-1-12c-4-1-10-1-14 0l-1 12c-2-1-4-4-4-9z" fill="' + hr + '"/>', bun: '<circle cx="20" cy="5.5" r="4" fill="' + hr + '"/><path d="M10 17c0-8 4-11 10-11s10 3 10 11c-3-4-7-5-10-5s-7 1-10 5z" fill="' + hr + '"/>', curls: '<path d="M8.5 18c-2-3 0-6 3-5 0-4 4-6 8.500-6s8.500 2 8.500 6c3-1 5 2 3 5-3-3-6-4-11.500-4S11.500 15 8.500 18z" fill="' + hr + '"/>', hijab: '<path d="M7 24c-1-11 4-18 13-18s14 7 13 18c0 5-2 8-4 9H11c-2-1-4-4-4-9z" fill="' + hr + '"/>', cap: '<path d="M9.500 16c0-7 4-10 10.500-10S30.500 9 30.500 16z" fill="' + hr + '"/><path d="M28 14h8c0 2-3 3-8 3z" fill="' + hr + '"/>' }[st];
+    var hijab = st === "hijab", faceY = hijab ? 'cx="20" cy="21" rx="8" ry="9.500"' : 'cx="20" cy="20" rx="8.500" ry="10"';
+    return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M2 40c1-8 7-11 18-11s17 3 18 11z" fill="' + top + '"/><rect x="16.500" y="26" width="7" height="6" rx="3" fill="' + sk + '"/>' + (st === "long" || hijab ? hair : "") + '<ellipse ' + faceY + ' fill="' + sk + '"/>' + (hijab ? "" : '<circle cx="11.500" cy="21" r="1.800" fill="' + sk + '"/><circle cx="28.500" cy="21" r="1.800" fill="' + sk + '"/>') + (st === "long" || hijab ? "" : hair) + (st === "long" ? '<path d="M11 15c4-4 14-4 18 0-4-2-14-2-18 0z" fill="' + hr + '"/>' : "") + (hijab ? '<path d="M12.500 17c4-5 11-5 15 0-4-2-11-2-15 0z" fill="' + hr + '"/>' : "") + '<ellipse cx="16.200" cy="21" rx="1.700" ry="2" fill="#fff"/><ellipse cx="23.800" cy="21" rx="1.700" ry="2" fill="#fff"/><circle cx="16.500" cy="21.300" r="1.050" fill="#14213D"/><circle cx="24.100" cy="21.300" r="1.050" fill="#14213D"/><path d="M14 18.200q2.200-1.300 4.200 0M21.800 18.200q2-1.300 4.200 0" stroke="#14213D" stroke-width=".8" fill="none" stroke-linecap="round" opacity=".55"/><circle cx="13.600" cy="25" r="1.700" fill="#FF7A8A" opacity=".35"/><circle cx="26.400" cy="25" r="1.700" fill="#FF7A8A" opacity=".35"/><path d="M17.200 26.200q2.800 2.600 5.600 0" stroke="#7A3B30" stroke-width="1.100" fill="none" stroke-linecap="round"/></svg>';
+  }
+  for (var q = 0; q < 24; q++) people24.push({ a: 470 + Math.round(((q * 37) % 100) * 1.05) + (q % 5 === 0 ? 40 : 0), sk: skins[(q * 5 + 1) % 6], hr: hairs[(q * 3 + 2) % 7], n: fnames[q] });
+  hereG.innerHTML = people24.map(function (p, q) { return '<span class="hf" title="' + p.n + '">' + faceSvg(p.sk, p.hr, tops[(q * 3 + 1) % 8], hstyle[(q * 5 + 2) % 8]) + "</span>"; }).join("");
+  var arr3 = $("[data-arr3]");
   function hRender() {
     var m = +hereS.value, inN = 0, late = 0; $("[data-here-t]").textContent = hm(m);
-    $$("i", hereG).forEach(function (el, k) { var p = people24[k], arrived = m >= p.a, isLate = p.a > 540; el.className = arrived ? (isLate ? "late" : "ok") : ""; if (arrived) { inN++; if (isLate) late++; } });
+    $$(".hf", hereG).forEach(function (el, k) { var p = people24[k], arrived = m >= p.a, isLate = p.a > 540; el.className = "hf" + (arrived ? (isLate ? " late" : " ok") : ""); if (arrived) { inN++; if (isLate) late++; } });
     $("[data-here-n]").textContent = inN + " of 24 in" + (late ? ", " + late + " late" : "");
+    if (arr3) { var got = people24.map(function (p, k) { return { p: p, k: k }; }).filter(function (o) { return m >= o.p.a; }).sort(function (a, b) { return b.p.a - a.p.a; }).slice(0, 3); arr3.innerHTML = got.length ? got.map(function (o) { return '<li><span class="hf mini ' + (o.p.a > 540 ? "late" : "ok") + '">' + faceSvg(o.p.sk, o.p.hr, tops[(o.k * 3 + 1) % 8], hstyle[(o.k * 5 + 2) % 8]) + "</span><b>" + o.p.n + "</b><em>" + hm(o.p.a) + "</em><i class=\"" + (o.p.a > 540 ? "late" : "ok") + "\">" + (o.p.a > 540 ? "Late" : "On time") + "</i></li>"; }).join("") : "<li class=\"none\">Nobody has arrived yet. Drag the slider.</li>"; }
     $("[data-hb-ok]").style.flexBasis = (inN - late) / 24 * 100 + "%"; $("[data-hb-late]").style.flexBasis = late / 24 * 100 + "%";
     $("[data-hk-ok]").textContent = inN - late; $("[data-hk-late]").textContent = late; $("[data-hk-off]").textContent = 24 - inN;
   }
