@@ -230,8 +230,8 @@
   (function () {
     var d = new Date(), M = $("[data-wc-m]"), D = $("[data-wc-d]"), W = $("[data-wc-w]");
     if (M) { M.textContent = d.toLocaleDateString("en", { month: "short" }).toUpperCase(); D.textContent = d.getDate(); W.textContent = d.toLocaleDateString("en", { weekday: "long" }); }
-    var L = $("[data-lang]"); if (!L) return; var langs = [["EN", "ltr"], ["\u0639\u0631\u0628\u064a", "rtl"], ["\u0939\u093f\u0928\u094d\u0926\u0940", "ltr"], ["Espa\u00f1ol", "ltr"], ["Fran\u00e7ais", "ltr"], ["Deutsch", "ltr"], ["T\u00fcrk\u00e7e", "ltr"], ["Bahasa", "ltr"]], li = 0;
-    setInterval(function () { li = (li + 1) % langs.length; L.classList.add("out"); setTimeout(function () { L.textContent = langs[li][0]; L.setAttribute("dir", langs[li][1]); L.classList.remove("out"); }, 280); }, 1900);
+    var L = $("[data-lang]"); if (!L) return; var langs = [["EN", "ltr", 46], ["\u0639\u0631\u0628\u064a", "rtl", 60], ["\u0939\u093f\u0928\u094d\u0926\u0940", "ltr", 54], ["Espa\u00f1ol", "ltr", 44], ["Fran\u00e7ais", "ltr", 44], ["Deutsch", "ltr", 44], ["T\u00fcrk\u00e7e", "ltr", 44], ["Bahasa", "ltr", 44]], li = 0;
+    setInterval(function () { li = (li + 1) % langs.length; L.classList.add("out"); setTimeout(function () { L.textContent = langs[li][0]; L.setAttribute("dir", langs[li][1]); L.style.fontSize = langs[li][2] + "px"; L.classList.remove("out"); }, 280); }, 1900);
   })();
   $$("[data-count]").forEach(function (el) {
     var to = +el.getAttribute("data-count"), suf = el.getAttribute("data-suf") || "", done = false;
@@ -252,7 +252,7 @@
   function reachTo(el) {
     var w = mWho.parentNode, r = w.getBoundingClientRect(), k = r.height / 190, kx = r.width / 104, a = el.getBoundingClientRect(), bw = parseFloat(getComputedStyle(mWho).getPropertyValue("--bw")) || 84;
     var cur = parseFloat(w.style.getPropertyValue("--sx")) || 0, sx = r.left - cur + ((104 - bw) / 2 - 1.5) * kx, sy = r.top + 84 * k, tx = a.left + a.width / 2, ty = a.top + a.height / 2, reach = 84 * k;
-    var dx = tx - sx, dy = Math.max(-reach * .8, Math.min(reach * .8, ty - sy)), hx = Math.sqrt(Math.max(0, reach * reach - dy * dy)), s = Math.min(70 * kx, Math.max(0, -dx - hx + 6)), dn = dx + s, ang = Math.max(25, Math.min(165, Math.atan2(-dn, dy) * 180 / Math.PI));
+    var dx = tx - sx, dy = Math.max(-reach * .8, Math.min(reach * .8, ty - sy)), hx = Math.sqrt(Math.max(0, reach * reach - dy * dy)), s = Math.min(140 * kx, Math.max(0, -dx - hx + 6)), dn = dx + s, ang = Math.max(25, Math.min(165, Math.atan2(-dn, dy) * 180 / Math.PI));
     w.style.setProperty("--sx", -s + "px"); mWho.style.setProperty("--lu", -ang); mWho.style.setProperty("--lf", 0);
   }
   function reachOff() { var w = mWho.parentNode; w.style.removeProperty("--sx"); mWho.style.removeProperty("--lu"); mWho.style.removeProperty("--lf"); mWho.setAttribute("data-pose", "rest"); }
@@ -317,7 +317,7 @@
   function setMode(m) {
     mode = m; $$("[data-mode]", lab).forEach(function (x) { x.setAttribute("aria-checked", x.getAttribute("data-mode") === m ? "true" : "false"); });
     scanner.setAttribute("data-m", m); scanner.classList.remove("ok", "bad", "at-in", "at-out", "scan"); c0.textContent = modeMap[m][0]; scanLbl.textContent = modeMap[m][1];
-    sample.hidden = m !== "selfie"; scanner.classList.toggle("has-img", m === "selfie" && hasImg); scanImg.hidden = !(m === "selfie" && hasImg); Snd.tick();
+    sample.hidden = m !== "selfie"; $("[data-upload]", lab).hidden = m !== "selfie"; scanner.classList.toggle("has-img", m === "selfie" && hasImg); scanImg.hidden = !(m === "selfie" && hasImg); Snd.tick();
   }
   $$("[data-mode]", lab).forEach(function (b) { b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); }); });
   geoSw.addEventListener("click", function () { var on = geoSw.getAttribute("aria-checked") !== "true"; geoSw.setAttribute("aria-checked", on ? "true" : "false"); c1.textContent = on ? "GPS 12 m, inside Head Office" : "GPS 340 m away, outside the fence"; Snd.tick(); });
@@ -353,7 +353,8 @@
       status.textContent = txt; checks[2].className = cls; scanLbl.textContent = lbl; td.classList.remove("pulse-in"); void td.offsetWidth; td.classList.add("pulse-in"); punching = false;
     }, d + 1900);
   }
-  scanner.addEventListener("click", function () { if (mode === "selfie" && !hasImg) { selfieIn.click(); return; } runScan(); });
+  scanner.addEventListener("click", function () { if (mode === "selfie" && !hasImg) { useImage(sampleFace()); return; } runScan(); });
+  $("[data-upload]", lab).addEventListener("click", function () { selfieIn.click(); });
   // leave
   var lcal = $("[data-lcal]"), lsum = $("[data-lsum]"), lbar = $("[data-lbar]"), lflow = $("[data-lflow]"), ltype = "annual", bal = { annual: 14, sick: 6, comp: 2 }, maxb = { annual: 14, sick: 6, comp: 6 }, selA = null, selB = null;
   var now = new Date(), y = now.getFullYear(), mo = now.getMonth(), first = new Date(y, mo, 1).getDay(), dim = new Date(y, mo + 1, 0).getDate();
@@ -466,6 +467,7 @@
     reply(qq, best ? esc(best[1]) : 'I don\'t have a ready answer for that yet. A teammate replies within one business day: <a class="link" href="/contact/">send us your question</a>.');
   });
 
+  document.addEventListener("click", function (e) { var h = e.target.closest && e.target.closest("[data-hq]"); if (h) { var q = $$("[data-qs] button")[+h.getAttribute("data-hq")]; if (q) q.click(); } });
   /* ================= Subi, the page guide: stays with you, speaks about each section, and shows you how things work ================= */
   var guide = $("[data-guide]"), gSay = $("[data-guide-say]"), gMenu = $("[data-guide-menu]"), gBot = $("[data-guide-bot]"), gBusy = false, gFly = false;
   function gPlace(x, y) { guide.style.setProperty("--gx", Math.round(x) + "px"); guide.style.setProperty("--gy", Math.round(y) + "px"); }
@@ -485,7 +487,8 @@
   }
   if (!reduce) setTimeout(function () { guideSay("Hi, I'm Subi. Pick an industry below, or click me and I'll show you around.", 5200); }, 2600);
   // helpers for the guided demos
-  function toEl(el, block) { el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: block || "center" }); return wait(950); }
+  function settle() { return new Promise(function (res) { var last = -1, n = 0, t0 = Date.now(); (function f() { var y = window.scrollY; if (Math.abs(y - last) < 1) n++; else n = 0; last = y; if (n >= 8 || Date.now() - t0 > 3200) res(); else requestAnimationFrame(f); })(); }); }
+  function toEl(el, block) { el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: block || "center" }); return wait(150).then(settle).then(function () { return wait(150); }); }
   function flyTo(el, fx, fy) { var r = el.getBoundingClientRect(); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, r.left + r.width * fx)), Math.max(70, Math.min(window.innerHeight - 140, r.top + r.height * fy))); return wait(1100); }
   var vcur = document.createElement("div"); vcur.className = "vcur"; vcur.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 2 3.5 6.5-2.5 1.2L10.5 14 6 18z" fill="#fff" stroke="#14213D" stroke-width="1.6" stroke-linejoin="round"/></svg>'; document.body.appendChild(vcur);
   function curTo(x, y) { vcur.style.setProperty("--cx", Math.round(x) + "px"); vcur.style.setProperty("--cy", Math.round(y) + "px"); }

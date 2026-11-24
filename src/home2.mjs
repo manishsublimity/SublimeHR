@@ -334,6 +334,9 @@ export function home2() {
         <h1 id="h1">Your people are alive. Your HR should be too.</h1>
         <p class="hero__lead" data-lead>${industries[0].lead}</p>
         <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="#lab">Play with it live</a></div>
+                <div class="tally" aria-label="Today at a glance">
+                  <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
+                </div>
       </div>
       <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
         <div class="stage__floor" aria-hidden="true"></div>
@@ -345,9 +348,6 @@ export function home2() {
           <div class="floorplant"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div><div class="floorplant fp2"><svg viewBox="0 0 70 120"><path class="lf" d="M35 70C14 62 6 40 8 14c20 6 30 28 27 56z"/><path class="lf l2" d="M35 70C50 58 58 38 54 12 38 22 30 44 35 70z"/><path class="lf l3" d="M35 72C30 52 34 30 46 18c6 20 0 40-11 54z"/><path class="pot" d="M16 70h38l-5 44H21z"/></svg></div>
         </div>
         ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}<span class="tag"><b>${p.n}</b><em data-role></em></span></div>`).join("")}
-        <div class="tally" aria-label="Today at a glance">
-          <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
-        </div>
       </div>
     </div>
     <div class="dock">
@@ -539,7 +539,7 @@ export function home2() {
         </div>
         <div class="mtab" data-mtab aria-hidden="true"><span class="on">${icon("dashboard", "ic")}Home</span><span>${icon("clock", "ic")}Clock</span><span>${icon("calendar", "ic")}Leave</span><span>${icon("wallet", "ic")}Pay</span><span>${icon("alert", "ic")}Inbox</span></div>
       </div></div>
-      <div class="movie__who"><div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div>${who(people[0], 0, "ppl--movie")}</div>
+      <div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div><div class="movie__who">${who(people[0], 0, "ppl--movie")}</div>
     </div>
   </div>
   <div class="movie__bar" aria-hidden="true"><i data-mbar></i></div>
@@ -569,7 +569,7 @@ export function home2() {
             <i class="scanner__beam"></i>
           </button>
           <span class="scanner__lbl" data-scan-lbl>Press to clock in</span>
-          <div class="clk__acts"><button type="button" class="mini-link" data-sample hidden>Use a sample face</button><input type="file" accept="image/*" data-selfie-in hidden aria-label="Upload a selfie"></div>
+          <div class="clk__acts"><button type="button" class="mini-link" data-upload hidden>Upload a photo</button><button type="button" class="mini-link" data-sample hidden>Use a sample face</button><input type="file" accept="image/*" data-selfie-in hidden aria-label="Upload a selfie"></div>
         </div>
         <div class="clk__r">
           <ul class="checks" data-checks><li><span data-c0>Fingerprint matched</span><i>${icon("check", "ic")}</i></li><li><span data-c1>GPS 12 m, inside Head Office</span><i>${icon("check", "ic")}</i></li><li><span data-status>Waiting</span><i>${icon("check", "ic")}</i></li></ul>
@@ -708,7 +708,8 @@ export function home2() {
   </div>
   <div class="chat">
     <div class="chat__top"><span class="chat__av"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span></span><b>Subi</b><em>Online</em></div>
-    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi, I'm Subi. Pick a question on the left or type your own.</div></div>
+    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi, I'm Subi. Pick a question on the left or type your own.</div>
+      <div class="chat__hint"><b>Popular right now</b><div><button type="button" data-hq="2">How quickly can we go live?</button><button type="button" data-hq="3">Do you offer a free trial or demo?</button><button type="button" data-hq="5">Can employees punch in from mobile?</button></div><p>Or ask in your own words below. A real person replies within one business day.</p></div></div>
     <form class="chat__foot" data-ask-form><label class="vh" for="ask-in">Ask a question</label><input id="ask-in" placeholder="For example: Do you support biometric devices?" autocomplete="off"><button type="submit" aria-label="Send">${icon("send", "ic")}</button></form>
   </div>
 </section>
