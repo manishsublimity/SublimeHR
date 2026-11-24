@@ -1683,3 +1683,7 @@ body[data-clk="16"] .wc-h { display: block; } body[data-clk="16"] .wc-h circle {
 body[data-clk="15"] .wc-t line { stroke: rgba(255,255,255,.82); stroke-width: .9; }
 body[data-clk="15"] .wc-h circle { opacity: 1; } body[data-clk="15"] .wc-h .q { r: 3.5px; }
 body[data-clk="15"] .wallclock line.hh { stroke-width: 5.2; } body[data-clk="15"] .wallclock line.mh { stroke-width: 3.4; } body[data-clk="15"] .wallclock line.sh { stroke-width: 1.5; }
+/* default glass clock: hour batons instead of dots, a smaller mark ring */
+body[data-clk="15"] .wc-h { display: none; } body[data-clk="15"] .wc-b { display: block; }
+body[data-clk="15"] .wc-b line { stroke: #fff; stroke-width: 2; stroke-linecap: round; opacity: .95; } body[data-clk="15"] .wc-b .q { stroke-width: 3.6; opacity: 1; } body[data-clk="15"] .wc-b line:first-child { stroke: #FFD05A; }
+body[data-clk="15"] .wc-t line { stroke-width: .8; }

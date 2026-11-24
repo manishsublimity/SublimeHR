@@ -300,8 +300,8 @@ const faq = homeFaqItems().map(([q, a]) => [q, a]);
 const clockNums = [[12, 0], [3, 90], [6, 180], [9, 270]].map(([n, d]) => { const a = d * Math.PI / 180; return `<text x="${(60 + 37 * Math.sin(a)).toFixed(1)}" y="${(60 - 37 * Math.cos(a) + 4.2).toFixed(1)}">${n}</text>`; }).join("");
 const clockPt = (i, n, r) => { const a = i * 2 * Math.PI / n; return [(60 + r * Math.sin(a)).toFixed(1), (60 - r * Math.cos(a)).toFixed(1)]; };
 const clockH = Array.from({ length: 12 }, (_, i) => { const [x, y] = clockPt(i, 12, 51.5); const q = i % 3 === 0; return `<circle class="${q ? "q" : ""}" cx="${x}" cy="${y}" r="${q ? 3.5 : 2.1}"/>`; }).join("");
-const clockB = Array.from({ length: 12 }, (_, i) => { const q = i % 3 === 0, [x1, y1] = clockPt(i, 12, q ? 37 : 40.5), [x2, y2] = clockPt(i, 12, 46.5); return `<line class="${q ? "q" : ""}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }).join("");
-const clockT = Array.from({ length: 60 }, (_, i) => { if (i % 5 === 0) return ""; const [x1, y1] = clockPt(i, 60, 50), [x2, y2] = clockPt(i, 60, 54); return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }).join("");
+const clockB = Array.from({ length: 12 }, (_, i) => { const q = i % 3 === 0, [x1, y1] = clockPt(i, 12, q ? 38 : 42), [x2, y2] = clockPt(i, 12, 48.2); return `<line class="${q ? "q" : ""}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }).join("");
+const clockT = Array.from({ length: 60 }, (_, i) => { if (i % 5 === 0) return ""; const [x1, y1] = clockPt(i, 60, 45.8), [x2, y2] = clockPt(i, 60, 48.2); return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }).join("");
 const clockDots = Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI / 6; return i % 3 ? `<circle cx="${(60 + 46 * Math.sin(a)).toFixed(1)}" cy="${(60 - 46 * Math.cos(a)).toFixed(1)}" r="1.7"/>` : ""; }).join("");
 const col = (t, links) => `<div><h2>${t}</h2><ul>${links.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join("")}</ul></div>`;
 const showBtns = [["clock", "fingerprint", "Clock in with a thumb"], ["selfie", "camera", "Check in with a selfie"], ["gps", "pin", "Test the GPS fence"], ["leave", "calendar", "Request some leave"], ["pay", "wallet", "Run payroll"], ["roster", "repeat", "Fix a shift roster"], ["ask", "bot", "Ask a question"]];
@@ -345,7 +345,7 @@ export function home2() {
       <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
         <div class="stage__floor" aria-hidden="true"></div>
         <div class="wallclock" aria-hidden="true">
-          <svg viewBox="0 0 120 120"><circle class="wc-shade" cx="60" cy="65" r="54"/><circle class="wc-face" cx="60" cy="60" r="54"/><circle class="wc-ring" cx="60" cy="60" r="47"/><g class="wc-dots">${clockDots}</g><g class="wc-h">${clockH}</g><g class="wc-b">${clockB}</g><g class="wc-t">${clockT}</g><g class="wc-nums">${clockNums}</g><line class="hh" x1="60" y1="60" x2="60" y2="35"/><line class="mh" x1="60" y1="60" x2="60" y2="19"/><line class="sh" x1="60" y1="65" x2="60" y2="14"/><circle class="wc-pin" cx="60" cy="60" r="5"/><circle class="wc-pin2" cx="60" cy="60" r="2"/></svg>
+          <svg viewBox="0 0 120 120"><circle class="wc-shade" cx="60" cy="65" r="54"/><circle class="wc-face" cx="60" cy="60" r="54"/><circle class="wc-ring" cx="60" cy="60" r="47"/><g class="wc-dots">${clockDots}</g><g class="wc-h">${clockH}</g><g class="wc-b">${clockB}</g><g class="wc-t">${clockT}</g><g class="wc-nums">${clockNums}</g><line class="hh" x1="60" y1="60" x2="60" y2="37"/><line class="mh" x1="60" y1="60" x2="60" y2="22"/><line class="sh" x1="60" y1="65" x2="60" y2="17"/><circle class="wc-pin" cx="60" cy="60" r="5"/><circle class="wc-pin2" cx="60" cy="60" r="2"/></svg>
         </div>
         <div class="deco" aria-hidden="true">
           <div class="sticky s1"><b>Payslips out</b><i></i></div><div class="sticky s2"><b>Swap approved</b><i></i></div>
