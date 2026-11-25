@@ -49,7 +49,7 @@
 
   /* ================= nav and back-to-top ================= */
   var nav = $("[data-nav]"), hero = $("[data-hero]"), top = $("[data-top]");
-  function onScroll() { nav.classList.toggle("solid", window.scrollY > 30); nav.classList.toggle("onhero", window.scrollY < hero.offsetHeight - 90); if (top) top.classList.toggle("on", window.scrollY > 900); }
+  function onScroll() { nav.classList.toggle("solid", window.scrollY > 30 || !hero); nav.classList.toggle("onhero", !!hero && window.scrollY < hero.offsetHeight - 90); if (top) top.classList.toggle("on", window.scrollY > 900); }
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
   if (top) top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
 

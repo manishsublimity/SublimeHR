@@ -242,12 +242,12 @@ export function modulePage(m, faqItems, ldExtra = "", o = {}) {
   const path = o.path || `/software/${m.slug}/`;
   const description = o.description || `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300);
   return `${head(m, path, description, o.title)}
-<body class="lo mpage" data-w="it" data-ft="3">
+<body class="lo mpage${o.noHero ? " nohero" : ""}" data-w="it" data-ft="3">
 <script>try{var w=localStorage.getItem("shr-world");if(w)document.body.setAttribute("data-w",w)}catch(e){}</script>
 <script type="application/json" id="mod-story">${JSON.stringify([m.benefits[0], m.benefits[1], m.benefits[2], m.features[3] || m.features[0]].filter(Boolean)).replace(/</g, "\u003c")}</script>
 <script type="application/json" id="mod-data">${JSON.stringify({ faq: faqItems.map(([q, a]) => [q, a]), icons: Object.fromEntries(["file", "folder", "users", "clock", "shield", "calendar", "wallet", "repeat", "chart", "lock", "fingerprint", "camera", "layers", "send", "search", "bot", "dollar", "sparkles", "check", "message", "call", "pin", "dashboard", "alert"].map((k) => [k, icon(k, "ic")])) }).replace(/</g, "\\u003c")}</script>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav onhero" data-nav>
+<header class="nav${o.noHero ? " solid" : " onhero"}" data-nav>
   <a class="nav__brand" href="/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
   ${navMenu("features")}
 </header>
@@ -453,6 +453,9 @@ export function integrationsModulePage(ldExtra = "") {
 
 
 
+const cfSide = (side, say) => side === "L"
+  ? `<div class="cf__ch cf__ch--l cast" aria-hidden="true"><span class="cf__say" data-cfsay data-def="${esc(say)}">${esc(say)}</span><div class="cf__ppl">${who(byName["Aisha"], 3, "ppl--wave")}</div></div>`
+  : `<div class="cf__ch cf__ch--r cast" aria-hidden="true"><div class="cf__ppl">${who(byName["Omar"], 4, "")}</div></div>`;
 const cfWho = (say) => `<div class="cf__stage cast" aria-hidden="true"><span class="cf__say" data-cfsay data-def="${esc(say)}">${esc(say)}</span><div class="cf__ppl">${who(byName["Aisha"], 3, "ppl--wave")}</div></div>`;
 
 /* ================= the contact page: the original content and form, in the new design ================= */
@@ -461,7 +464,9 @@ const TOPICS = ["General question", "Sales", "Support", "Custom development", "I
 
 function contactSection() {
   return `<section class="ctc" id="try" aria-label="Contact us" data-tip="Send us a message. We reply within one business day.">
-  <div class="cf__grid">
+  <div class="cfh"><h1>Let's talk.</h1><p>Questions, support, partnerships or anything else — we reply within 1 business day.</p></div>
+  <div class="cf__wrap">
+    ${cfSide("L", "How can we help?")}
     <div class="cf-card">
       <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
         <input type="hidden" name="intent" value="contact_sales">
@@ -486,18 +491,16 @@ function contactSection() {
         <div class="cf-ok__a"><a class="cf__send" id="wa-followup" href="${site.whatsapp}" target="_blank" rel="noopener">Message us on WhatsApp${icon("message", "ic")}</a><a class="cf__alt" href="/">Back to home</a></div>
       </div>
     </div>
-    <aside class="cf__side">
-      <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
+    ${cfSide("R", "")}
+  </div>
+</section>
+<section class="cfr" aria-label="More ways to reach us"><div class="cfr__grid"><a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
       <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a>
       <div class="cf__short"><p>Looking for something specific?</p><div>
         <a href="/book-demo/"><i>${icon("play", "ic")}</i><b>Book a demo</b><small>30-min tour</small></a>
         <a href="/get-pricing/"><i>${icon("wallet", "ic")}</i><b>Get pricing</b><small>Team quote</small></a>
         <a href="/faq/"><i>${icon("message", "ic")}</i><b>FAQ</b><small>50 answers</small></a>
-      </div></div>
-      ${cfWho("How can we help?")}
-    </aside>
-  </div>
-</section>
+      </div></div></div></section>
 <script src="/assets/js/form.js?v=${V}" defer></script>`;
 }
 
@@ -512,7 +515,7 @@ export function contactModulePage(ldExtra = "") {
     path: "/contact/", title: "Contact SublimeHR | SublimeHR",
     description: "Contact SublimeHR for questions, support or partnerships. Call +91-7976117684 or chat on WhatsApp. We reply within 1 business day.",
     menu: [["try", "message", "Write to us"]],
-    main: (mm) => `${hero(mm)}\n${contactSection()}`
+    noHero: true, main: () => `${contactSection()}`
   });
 }
 
@@ -681,7 +684,9 @@ export function faqModulePage(all, ldExtra = "") {
 const AGENDA = [["0–5", "Your goals & current process"], ["5–20", "Live tour tailored to your team"], ["20–25", "Pricing & rollout plan"], ["25–30", "Your questions, answered"]];
 function demoBookSection() {
   return `<section class="ctc" id="try" aria-label="Book a demo" data-tip="Pick a day. We confirm the exact time by email or WhatsApp.">
-  <div class="cf__grid">
+  <div class="cfh"><h1>See SublimeHR live.</h1><p>A personalized 30-minute walkthrough with your policies, your shifts and your questions.</p></div>
+  <div class="cf__wrap">
+    ${cfSide("L", "Let's book your demo!")}
     <div class="cf-card">
       <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
         <input type="hidden" name="intent" value="book_demo">
@@ -710,15 +715,13 @@ function demoBookSection() {
         <div class="cf-ok__a"><a class="cf__send" id="wa-followup" href="${site.whatsapp}" target="_blank" rel="noopener">Message us on WhatsApp${icon("message", "ic")}</a><a class="cf__alt" href="/">Back to home</a></div>
       </div>
     </div>
-    <aside class="cf__side">
-      <div class="cf__agenda"><p>Your 30 minutes</p><ol>${AGENDA.map(([tm, tx], i) => `<li style="--i:${i}"><b>${tm}</b><span>${esc(tx)}</span></li>`).join("")}</ol></div>
-      <div class="cf__incl"><p>Included on every plan</p><ul><li>${icon("check", "ic")}Free onboarding & data migration</li><li>${icon("check", "ic")}Admin & employee training</li><li>${icon("check", "ic")}No credit card to start</li></ul></div>
-      <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
-      <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a>
-      ${cfWho("Let's book your demo!")}
-    </aside>
+    ${cfSide("R", "")}
   </div>
 </section>
+<section class="cfr" aria-label="More ways to reach us"><div class="cfr__grid"><div class="cf__agenda"><p>Your 30 minutes</p><ol>${AGENDA.map(([tm, tx], i) => `<li style="--i:${i}"><b>${tm}</b><span>${esc(tx)}</span></li>`).join("")}</ol></div>
+      <div class="cf__incl"><p>Included on every plan</p><ul><li>${icon("check", "ic")}Free onboarding & data migration</li><li>${icon("check", "ic")}Admin & employee training</li><li>${icon("check", "ic")}No credit card to start</li></ul></div>
+      <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
+      <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a></div></section>
 <script src="/assets/js/form.js?v=${V}" defer></script>`;
 }
 
@@ -734,7 +737,7 @@ export function demoModulePage(ldExtra = "") {
     path: "/book-demo/", title: "Book a Demo — See SublimeHR Live | SublimeHR",
     description: "Book a free 30-minute SublimeHR demo tailored to your workforce: attendance, leave, payroll and self-service.",
     menu: [["try", "play", "Book my demo"]],
-    main: (mm) => `${hero(mm)}\n${demoBookSection()}`
+    noHero: true, main: () => `${demoBookSection()}`
   });
 }
 
@@ -743,7 +746,9 @@ export function demoModulePage(ldExtra = "") {
 function quoteSection() {
   const sel = (id, name, label, opts, ph, req) => `<div class="cf-field"${req ? " data-validate" : ""}><label for="${id}">${label}${req ? " <b>*</b>" : ""}</label><select id="${id}" name="${name}"${req ? " required" : ""}><option value="">${ph}</option>${opts.map((v) => `<option>${esc(v)}</option>`).join("")}</select>${req ? `<span class="cf-err">Please choose your team size.</span>` : ""}</div>`;
   return `<section class="ctc" id="try" aria-label="Get pricing" data-tip="Tell us your team size and modules. We send a clear quote.">
-  <div class="cf__grid">
+  <div class="cfh"><h1>Get a quote for your team.</h1><p>Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.</p></div>
+  <div class="cf__wrap">
+    ${cfSide("L", "Let's get you a quote!")}
     <div class="cf-card">
       <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
         <input type="hidden" name="intent" value="request_quote">
@@ -772,15 +777,13 @@ function quoteSection() {
         <div class="cf-ok__a"><a class="cf__send" id="wa-followup" href="${site.whatsapp}" target="_blank" rel="noopener">Message us on WhatsApp${icon("message", "ic")}</a><a class="cf__alt" href="/">Back to home</a></div>
       </div>
     </div>
-    <aside class="cf__side">
-      <div class="cf__agenda"><p>Plans at a glance</p><div class="cf__plans">${plans.map((pl) => `<span><b>${esc(pl.name)}</b><small>${esc(pl.price)} ${esc(pl.unit)}</small></span>`).join("")}</div><a class="cf__cmp" href="/pricing/">Compare plans ${icon("arrow", "ic")}</a></div>
-      <div class="cf__incl"><p>Every quote includes</p><ul><li>${icon("check", "ic")}Pay only for active employees</li><li>${icon("check", "ic")}Free onboarding & data migration</li><li>${icon("check", "ic")}Monthly or annual billing</li></ul></div>
-      <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
-      <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a>
-      ${cfWho("Let's get you a quote!")}
-    </aside>
+    ${cfSide("R", "")}
   </div>
 </section>
+<section class="cfr" aria-label="More ways to reach us"><div class="cfr__grid"><div class="cf__agenda"><p>Plans at a glance</p><div class="cf__plans">${plans.map((pl) => `<span><b>${esc(pl.name)}</b><small>${esc(pl.price)} ${esc(pl.unit)}</small></span>`).join("")}</div><a class="cf__cmp" href="/pricing/">Compare plans ${icon("arrow", "ic")}</a></div>
+      <div class="cf__incl"><p>Every quote includes</p><ul><li>${icon("check", "ic")}Pay only for active employees</li><li>${icon("check", "ic")}Free onboarding & data migration</li><li>${icon("check", "ic")}Monthly or annual billing</li></ul></div>
+      <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
+      <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a></div></section>
 <script src="/assets/js/form.js?v=${V}" defer></script>`;
 }
 
@@ -796,6 +799,6 @@ export function quoteModulePage(ldExtra = "") {
     path: "/get-pricing/", title: "Get Pricing — Request a SublimeHR Quote | SublimeHR",
     description: "Request a SublimeHR quote for your team size and modules. Pay only for active employees, with free onboarding and migration.",
     menu: [["try", "wallet", "Get my quote"]],
-    main: (mm) => `${hero(mm)}\n${quoteSection()}`
+    noHero: true, main: () => `${quoteSection()}`
   });
 }
