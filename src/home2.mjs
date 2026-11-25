@@ -322,7 +322,7 @@ export function home2(path = "/home-v2/") {
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
-<link rel="stylesheet" href="/assets/css/nav2.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/menu1.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
 <body class="lo" data-w="${industries[0].key}" data-clk="15" data-ft="3">
@@ -802,7 +802,7 @@ ${nav2("")}
 <div class="nudge" data-nudge hidden>Turn the sound on for the full demo.</div>
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
-<script src="/assets/js/nav2.js?v=${V}" defer></script>
+<script src="/assets/js/menu1.js?v=${V}" defer></script>
 </body>
 </html>`;
 }

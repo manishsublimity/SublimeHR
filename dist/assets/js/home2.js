@@ -86,7 +86,7 @@
   }
   tick(); setInterval(tick, 1000);
   var topBtn = $("[data-top]");
-  window.addEventListener("scroll", function () { nav.classList.toggle("solid", window.scrollY > 30); nav.classList.toggle("onhero", window.scrollY < hero.offsetHeight - 90); var dk = $(".dock"); if (dk) { var o = Math.max(0, 1 - window.scrollY / 170); dk.style.opacity = o; dk.style.pointerEvents = o < .15 ? "none" : ""; } topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
+  window.addEventListener("scroll", function () {  var dk = $(".dock"); if (dk) { var o = Math.max(0, 1 - window.scrollY / 170); dk.style.opacity = o; dk.style.pointerEvents = o < .15 ? "none" : ""; } topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
   topBtn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); Snd.tick(); });
 
   /* ================= eyes follow the cursor; idle eyes wander ================= */
