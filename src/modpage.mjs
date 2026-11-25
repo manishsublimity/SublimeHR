@@ -449,3 +449,65 @@ export function integrationsModulePage(ldExtra = "") {
     main: (mm) => `${hero(mm)}\n${intgHub()}\n${closeBand({ title: "Need another tool?", lead: "We build custom integrations to any REST-based system, legacy ERPs, LMS and internal tools included.", say: "We can connect it!", card: "Missing something?", links: [["Request an integration", "/contact/?topic=Integration"]], small: "We reply within one business day." })}`
   });
 }
+
+
+/* ================= the contact page: the original content and form, in the new design ================= */
+const CCODES = [["+91", "🇮🇳 +91"], ["+971", "🇦🇪 +971"], ["+966", "🇸🇦 +966"], ["+974", "🇶🇦 +974"], ["+965", "🇰🇼 +965"], ["+968", "🇴🇲 +968"], ["+973", "🇧🇭 +973"], ["+44", "🇬🇧 +44"], ["+1", "🇺🇸 +1"]];
+const TOPICS = ["General question", "Sales", "Support", "Custom development", "Integration", "Partnership"];
+
+function contactSection() {
+  return `<section class="ctc" id="try" aria-label="Contact us" data-tip="Send us a message. We reply within one business day.">
+  <div class="cf__switch" aria-label="Other ways to reach us"><a href="/book-demo/"><i>${icon("play", "ic")}</i>Book a demo</a><a href="/get-pricing/"><i>${icon("wallet", "ic")}</i>Get pricing</a><a href="/contact/" aria-current="page"><i>${icon("message", "ic")}</i>Contact us</a></div>
+  <div class="cf__grid">
+    <div class="cf-card">
+      <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
+        <input type="hidden" name="intent" value="contact_sales">
+        <h2>Send us a message</h2><p class="cf__sub">We'll get back to you by email or phone.</p>
+        <div class="cf__fields">
+          <div class="cf-field" data-validate><label for="f-name">Your name <b>*</b></label><input id="f-name" name="name" required autocomplete="name" placeholder="Full name"><span class="cf-err">Please enter your name.</span></div>
+          <div class="cf-field" data-validate><label for="f-email">Work email <b>*</b></label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com"><span class="cf-err">Please enter a valid email.</span></div>
+          <div class="cf-field" data-validate><label for="f-phone">Phone <b>*</b></label><div class="cf-tel"><select name="cc" aria-label="Country code">${CCODES.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select><input id="f-phone" name="phone" type="tel" required autocomplete="tel-national" inputmode="tel" placeholder="98765 43210"></div><span class="cf-err">Please enter a valid phone number.</span></div>
+          <div class="cf-field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization" placeholder="Company name"></div>
+          <div class="cf-field cf-field--full"><span class="cf-lbl">Topic</span><div class="cf-topics">${TOPICS.map((tp, i) => `<label><input type="radio" name="topic" value="${tp}"${i === 0 ? " checked" : ""}><span>${tp}</span></label>`).join("")}</div></div>
+          <div class="cf-field cf-field--full" data-validate><label for="f-msg">Your message <b>*</b></label><textarea id="f-msg" name="message" required placeholder="How can we help?"></textarea><span class="cf-err">Please write a short message.</span></div>
+          <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        </div>
+        <div class="form-error" id="form-error" role="alert" tabindex="-1" hidden></div>
+        <button class="cf__send" type="submit"><span data-submit-label>Send message</span>${icon("send", "ic")}</button>
+        <p class="cf__hint" id="form-note">By submitting, you agree to our <a href="/privacy/">Privacy Policy</a>.</p>
+      </form>
+      <div class="cf-ok" id="form-success" role="status" aria-live="polite">
+        <span class="cf-ok__i">${icon("check", "ic")}</span>
+        <h2>You're all set! 🎉</h2>
+        <p id="success-msg">An HR specialist will reach out within 1 business day. We've also sent a confirmation to your email.</p>
+        <div class="cf-ok__a"><a class="cf__send" id="wa-followup" href="${site.whatsapp}" target="_blank" rel="noopener">Message us on WhatsApp${icon("message", "ic")}</a><a class="cf__alt" href="/">Back to home</a></div>
+      </div>
+    </div>
+    <aside class="cf__side">
+      <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
+      <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a>
+      <div class="cf__short"><p>Looking for something specific?</p><div>
+        <a href="/book-demo/"><i>${icon("play", "ic")}</i><b>Book a demo</b><small>30-min tour</small></a>
+        <a href="/get-pricing/"><i>${icon("wallet", "ic")}</i><b>Get pricing</b><small>Team quote</small></a>
+        <a href="/faq/"><i>${icon("message", "ic")}</i><b>FAQ</b><small>50 answers</small></a>
+      </div></div>
+    </aside>
+  </div>
+</section>
+<script src="/assets/js/form.js?v=${V}" defer></script>`;
+}
+
+export function contactModulePage(ldExtra = "") {
+  const m = {
+    slug: "contact", name: "Contact", icon: "message", tagline: "Let's talk.",
+    summary: "Questions, support, partnerships or anything else. We reply within 1 business day.",
+    features: ["Questions and support", "Sales and demos", "Partnerships", "Custom development"], benefits: ["We reply within 1 business day", "Chat instantly on WhatsApp", "Call us any working day"], useCases: [],
+    _hero: { who: ["HR", "SublimeHR team", "Replies within 1 business day"], cast: [["Aisha", "Support"], ["Priya", "HR partner"], ["Omar", "Sales"]], chips: [["clock", "Reply in 1 business day"], ["message", "Instant WhatsApp"], ["phone", "Call us"]] }
+  };
+  return modulePage(m, [], ldExtra, {
+    path: "/contact/", title: "Contact SublimeHR | SublimeHR",
+    description: "Contact SublimeHR for questions, support or partnerships. Call +91-7976117684 or chat on WhatsApp. We reply within 1 business day.",
+    menu: [["try", "message", "Write to us"]],
+    main: (mm) => `${hero(mm)}\n${contactSection()}`
+  });
+}

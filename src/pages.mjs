@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -575,6 +575,10 @@ export function getPricing() {
 }
 
 export function contact() {
+  const trail = [["Home", "/"], ["Contact", "/contact/"]];
+  return contactModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "ContactPage", name: "Contact SublimeHR", url: site.url + "/contact/" }] })}</script>`);
+}
+export function contactOld() {
   return formPage({
     kind: "contact", path: "/contact/", crumb: "Contact", eyebrow: "Contact us", tone: "peach", title: "Let's talk.",
     lead: "Questions, support, partnerships or anything else — we reply within 1 business day.",
