@@ -52,7 +52,7 @@ const leave = (d) => wrap(d, "leave", `
       <button type="button" data-k="Sick" aria-pressed="false"><small>Sick</small><b data-lb>6</b><span>days left</span><u><i data-lbar></i></u></button>
       <button type="button" data-k="Comp-off" aria-pressed="false"><small>Comp-off</small><b data-lb>2</b><span>days left</span><u><i data-lbar></i></u></button>
     </div>
-    <div class="dmx__sum">
+    <div class="dmx__lsum">
       <div><small data-s-type>Annual leave</small><b data-s-dates>No dates yet</b></div>
       <div class="dmx__nums"><span><b data-s-days>0</b>working days</span><span><b data-s-after>14</b>left after</span></div>
       <div class="dmx__sbar"><i data-sbar></i></div>
@@ -126,10 +126,9 @@ const roles = (d) => wrap(d, "roles", `
 const roster = (d) => wrap(d, "roster", `
   <div class="dmx__l dmx__rosterbox">
     <div class="dmx__legend"><span class="m">M</span>Morning<span class="e">E</span>Evening<span class="n">N</span>Night<span class="o">O</span>Off</div>
-    <div class="dmx__grid" data-grid></div>
-    <div class="dmx__cover" data-cover></div>
+    <div class="dmx__rgrid" data-grid></div>
   </div>
-  <div class="dmx__r dmx__insight"><b data-ctitle>Coverage is fine</b><p data-ctext>Every day has at least two people on the morning shift.</p><span class="dmx__live">${icon("repeat", "ic")}Linked to attendance and pay.</span></div>
+  <div class="dmx__r dmx__insight"><b data-ctitle>Coverage is fine</b><p data-ctext>Every day has at least two people on the morning shift.</p><div class="dmx__tiles" data-tiles></div><span class="dmx__live">${icon("repeat", "ic")}Linked to attendance and pay.</span></div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Swap?</span><div class="dmx__ppl">${who(byName["Omar"], 1, "")}</div></div>`);
 
 const visitor = (d) => wrap(d, "visitor", `
@@ -140,8 +139,8 @@ const visitor = (d) => wrap(d, "visitor", `
     <button class="dmx__send" type="button" data-checkin>Check in ${icon("check", "ic")}</button>
   </div>
   <div class="dmx__r dmx__badgebox">
-    <div class="dmx__badge2" data-badge2><div class="dmx__bhead"><span>VISITOR</span><em data-btime>09:12</em></div><div class="dmx__bphoto" data-bav>JL</div><b data-bname>Your visitor</b><small data-bhost>Host will be notified</small><div class="dmx__qr"></div></div>
-    <ul class="dmx__feed" data-vfeed></ul>
+    <div class="dmx__badge2" data-badge2><div class="dmx__bhead"><span>VISITOR</span><em data-btime>09:12</em></div><div class="dmx__bphoto" data-bav>JL</div><b data-bname>Your visitor</b><small data-bhost>Host will be notified</small><div class="dmx__vmeta"><span data-bwho>Priya Shah</span><span data-bwhy>Interview</span></div><div class="dmx__qr"></div><small class="dmx__valid">Valid today · Head Office</small></div>
+    <ul class="dmx__vsteps" data-vsteps><li><i>${icon("check", "ic")}</i>Photo taken</li><li><i>${icon("check", "ic")}</i>Host told</li><li><i>${icon("check", "ic")}</i>Badge printed</li></ul>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Welcome!</span><div class="dmx__ppl">${who(byName["Nadia"], 1, "ppl--wave")}</div></div>`);
 

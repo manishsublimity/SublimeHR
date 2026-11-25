@@ -200,32 +200,34 @@
 
   /* ---------- roster ---------- */
   function roster(box) {
-    var st = { taken: false }, grid = $("[data-grid]", box), cover = $("[data-cover]", box), ct = $("[data-ctitle]", box), cx = $("[data-ctext]", box);
-    var names = ["Karan", "Ravi", "Sara", "Nadia", "Omar"], dn = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], S = ["M", "E", "N", "O"];
-    var data = [[0, 0, 1, 1, 0, 3, 3], [1, 1, 0, 0, 0, 0, 3], [0, 3, 0, 0, 1, 1, 3], [3, 0, 1, 1, 0, 0, 0], [2, 2, 3, 0, 1, 1, 0]];
+    var st = { taken: false }, grid = $("[data-grid]", box), ct = $("[data-ctitle]", box), cx = $("[data-ctext]", box), tiles = $("[data-tiles]", box);
+    var names = ["Karan", "Ravi", "Sara", "Nadia", "Omar"], dn = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], S = ["M", "E", "N", "O"], full = ["Morning", "Evening", "Night", "Off"];
+    var data = [[0, 0, 1, 1, 0, 3, 3], [1, 1, 0, 0, 0, 0, 3], [0, 3, 0, 0, 1, 1, 3], [3, 0, 1, 1, 0, 0, 0], [2, 2, 3, 0, 1, 1, 0]], cells = [], covs = [];
+    var hd = document.createElement("div"); hd.className = "dmx__rrow"; hd.innerHTML = "<span></span>" + dn.map(function (d) { return "<small>" + d + "</small>"; }).join(""); grid.appendChild(hd);
+    data.forEach(function (r, i) { var row = document.createElement("div"); row.className = "dmx__rrow"; var b = document.createElement("b"); b.textContent = names[i]; row.appendChild(b); cells[i] = r.map(function (v, j) { var bt = document.createElement("button"); bt.type = "button"; bt.dataset.r = i; bt.dataset.c = j; row.appendChild(bt); return bt; }); grid.appendChild(row); });
+    var cr = document.createElement("div"); cr.className = "dmx__rrow"; var cl = document.createElement("small"); cl.textContent = "Morning crew"; cr.appendChild(cl); for (var j = 0; j < 7; j++) { var em = document.createElement("em"); cr.appendChild(em); covs.push(em); } grid.appendChild(cr);
     function paint() {
-      var h = "<span></span>" + dn.map(function (d) { return "<small>" + d + "</small>"; }).join("");
-      data.forEach(function (r, i) { h += "<b>" + names[i] + "</b>" + r.map(function (v, j) { return '<button type="button" class="' + S[v].toLowerCase() + '" data-r="' + i + '" data-c="' + j + '">' + S[v] + "</button>"; }).join(""); });
-      grid.innerHTML = h; var low = -1, ch = "<span></span>";
-      for (var j = 0; j < 7; j++) { var c = 0; data.forEach(function (r) { if (r[j] === 0) c++; }); if (c < 2 && low < 0) low = j; ch += '<em class="' + (c < 2 ? "low" : "ok") + '">' + c + "</em>"; }
-      cover.innerHTML = "<small>Morning crew</small>" + ch.replace("<span></span>", "");
+      data.forEach(function (r, i) { r.forEach(function (v, j) { cells[i][j].className = S[v].toLowerCase(); cells[i][j].textContent = S[v]; }); });
+      var low = -1; for (var j = 0; j < 7; j++) { var c = 0; data.forEach(function (r) { if (r[j] === 0) c++; }); if (c < 2 && low < 0) low = j; covs[j].className = c < 2 ? "low" : "ok"; covs[j].textContent = c; }
       ct.textContent = low < 0 ? "Coverage is fine" : dn[low] + " is understaffed"; cx.textContent = low < 0 ? "Every day has at least two people on the morning shift." : "Only one person on the morning shift on " + dn[low] + ". Rotate a shift to fix it.";
+      var n = [0, 0, 0, 0]; data.forEach(function (r) { r.forEach(function (v) { n[v]++; }); });
+      tiles.innerHTML = [0, 1, 2, 3].map(function (k) { return '<div class="' + S[k].toLowerCase() + '"><small><i></i>' + full[k] + "</small><b>" + n[k] + "</b><span>" + (k === 3 ? "days off this week" : "shifts this week") + "</span></div>"; }).join("");
     }
     grid.addEventListener("click", function (e) { var b = e.target.closest("[data-r]"); if (!b) return; var r = +b.dataset.r, c = +b.dataset.c; data[r][c] = (data[r][c] + 1) % 4; paint(); });
     paint(); var seq = [[2, 1], [0, 5], [3, 2], [1, 4], [4, 3]], k = 0;
-    drive(box, function () { var s = seq[k++ % seq.length]; data[s[0]][s[1]] = (data[s[0]][s[1]] + 1) % 4; paint(); var cell = $('[data-r="' + s[0] + '"][data-c="' + s[1] + '"]', grid); if (cell) cell.classList.add("flash"); say(box, names[s[0]] + " moved to " + ["morning", "evening", "night", "a day off"][data[s[0]][s[1]]] + "."); }, 2200, st);
+    drive(box, function () { var s = seq[k++ % seq.length]; data[s[0]][s[1]] = (data[s[0]][s[1]] + 1) % 4; paint(); var cell = cells[s[0]][s[1]]; cell.classList.remove("flash"); void cell.offsetWidth; cell.classList.add("flash"); say(box, names[s[0]] + " moved to " + ["morning", "evening", "night", "a day off"][data[s[0]][s[1]]] + "."); }, 2400, st);
   }
 
   /* ---------- visitor ---------- */
   function visitor(box) {
-    var st = { taken: false }, name = $('[data-v="name"]', box), host = $('[data-v="host"]', box), why = $('[data-v="why"]', box), btn = $("[data-checkin]", box), badge = $("[data-badge2]", box), bn = $("[data-bname]", box), bh = $("[data-bhost]", box), bt = $("[data-btime]", box), bav = $("[data-bav]", box), feed = $("[data-vfeed]", box);
+    var st = { taken: false }, name = $('[data-v="name"]', box), host = $('[data-v="host"]', box), why = $('[data-v="why"]', box), btn = $("[data-checkin]", box), badge = $("[data-badge2]", box), bn = $("[data-bname]", box), bh = $("[data-bhost]", box), bt = $("[data-btime]", box), bav = $("[data-bav]", box), vst = $$("[data-vsteps] li", box), bwho = $("[data-bwho]", box), bwhy = $("[data-bwhy]", box);
     var people = [["John Lewis", 0, 0], ["Meera Iyer", 1, 1], ["Daniel Reed", 2, 3]], k = 0, t = 9 * 60 + 12, running = false;
     function fmtT() { return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0"); }
     function ini(s) { return s.split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase(); }
     function checkin() {
-      var nm = name.value.trim() || "Guest"; t += 4; bn.textContent = nm; bh.textContent = "Here to see " + host.value + " · " + why.value; bt.textContent = fmtT(); bav.textContent = ini(nm);
+      var nm = name.value.trim() || "Guest"; t += 4; bn.textContent = nm; bh.textContent = "Here to see " + host.value; bt.textContent = fmtT(); bav.textContent = ini(nm); bwho.textContent = host.value; bwhy.textContent = why.value;
       badge.classList.remove("print"); void badge.offsetWidth; badge.classList.add("print");
-      var li = document.createElement("li"); li.innerHTML = "<i>" + ini(nm) + "</i><span><b>" + esc(nm) + "</b><small>" + esc(host.value) + " · " + esc(why.value) + "</small></span><em>" + fmtT() + "</em>"; feed.insertBefore(li, feed.firstChild); while (feed.children.length > 4) feed.removeChild(feed.lastChild);
+      vst.forEach(function (l, i) { l.classList.remove("on"); setTimeout(function () { l.classList.add("on"); }, 500 + i * 650); });
       say(box, nm.split(" ")[0] + " is checked in. " + host.value.split(" ")[0] + " has been told.");
     }
     btn.addEventListener("click", checkin);
