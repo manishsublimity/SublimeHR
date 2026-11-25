@@ -145,8 +145,33 @@ const visitor = (d) => wrap(d, "visitor", `
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Welcome!</span><div class="dmx__ppl">${who(byName["Nadia"], 1, "ppl--wave")}</div></div>`);
 
+const field = (d) => wrap(d, "field", `
+  <div class="dmx__l dmx__map">
+    <div class="dmx__mapbox">
+      <svg viewBox="0 0 600 290" role="img" aria-label="Ravi's route across three sites">
+        <defs><pattern id="fhatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="9" stroke="currentColor" stroke-width="2" opacity=".18"/></pattern></defs>
+        <g class="fmap-roads"><path d="M0 210H600M0 70H600M120 0V290M300 0V290M470 0V290"/><path d="M0 150C150 130 300 190 600 120" /></g>
+        <g data-zone class="fmap-zone"><ellipse cx="365" cy="160" rx="82" ry="58" fill="url(#fhatch)"/><text x="365" y="228" text-anchor="middle">No signal</text></g>
+        <path data-path class="fmap-route" d="M62 232C130 236 150 98 232 90S338 196 380 170 470 62 540 70"/>
+        <path data-trail class="fmap-trail" d="M62 232C130 236 150 98 232 90S338 196 380 170 470 62 540 70"/>
+        <g data-sites></g>
+        <g data-pin class="fmap-pin"><circle class="pulse" r="16"/><circle r="9"/><circle r="3.4" fill="#fff"/></g>
+      </svg>
+      <span class="dmx__nets" data-net-badge><i></i><i></i><i></i><i></i></span>
+    </div>
+    <div class="dmx__stops" data-stops role="group" aria-label="Stops of the day">${d.stops.map((s, i) => `<button type="button" data-st="${i}" aria-pressed="${i === 0}"><b>${esc(s[0])}</b><span>${esc(s[1])}</span></button>`).join("")}</div>
+  </div>
+  <div class="dmx__r dmx__fphone">
+    <div class="dmx__fscr"><div class="dmx__fbar"><b>SublimeHR</b><span class="dmx__sig" data-sig><i></i><i></i><i></i><i></i></span></div>
+      <h3 data-fh>Clocked in at the depot</h3>
+      <ul data-frows></ul>
+      <div class="dmx__fcta" data-fcta>Clocked in</div></div>
+    <div class="dmx__fcount"><span><b data-km>0</b>km</span><span><b data-vis>0</b>visits</span><span><b data-hrs>0:00</b>worked</span></div>
+  </div>
+  <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Off to the depot.</span><div class="dmx__ppl">${who(byName["Ravi"], 1, "ppl--wave")}</div></div>`);
+
 export function demoSection(m, d) {
   if (m.slug === "employee-self-service") return `<div class="cast mhome" id="try">${movieSection()}</div>`;
-  if (m.slug === "mobile-workforce") return `<div class="cast mhome" id="try">${daySection()}</div>`;
+  if (m.slug === "mobile-workforce") return field({ title: "Follow Ravi's day, stop by stop.", lead: "A field engineer, three sites and one phone. Tap a stop, or let it play. See what the app records when the signal drops and when it comes back.", stops: [["08:00", "Depot"], ["10:15", "Client visit"], ["12:30", "No signal"], ["13:10", "Back online"], ["16:00", "Approvals"], ["18:05", "Clock out"]] });
   return ({ punch, leave, payroll, chart, phone, roles, roster, visitor })[d.type](d);
 }

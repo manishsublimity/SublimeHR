@@ -237,6 +237,34 @@
     }, 6200, st);
   }
 
-  var map = { punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
+  /* ---------- field: one worker, three sites, a dead zone ---------- */
+  function field(box) {
+    var st = { taken: false }, path = $("[data-path]", box), trail = $("[data-trail]", box), pin = $("[data-pin]", box), sites = $("[data-sites]", box), chips = $$("[data-st]", box), sig = $("[data-sig]", box), badge = $("[data-net-badge]", box);
+    var fh = $("[data-fh]", box), rows = $("[data-frows]", box), cta = $("[data-fcta]", box), len = path.getTotalLength(), pos = 0, cur = -1, raf = 0, ns = "http://www.w3.org/2000/svg";
+    var S = [
+      { f: 0, h: "Clocked in at the depot", r: [["Punch", "Fingerprint and GPS"], ["Geofence", "Inside, 8 m"], ["Shift", "08:00 to 17:00"]], c: "Clocked in", s: 4, say: "Punching in at the depot.", k: 0, v: 0, w: "0:00" },
+      { f: .3, h: "Client visit logged", r: [["Visit", "Client office, Sharjah"], ["Check-in", "GPS verified"], ["Proof", "Site photo added"]], c: "Visit saved", s: 4, say: "Visit logged.", k: 14, v: 1, w: "2:15" },
+      { f: .55, h: "No signal. Nothing is lost.", r: [["Network", "No signal"], ["Punch", "Kept on the phone"], ["Queue", "3 items waiting"]], c: "Saved offline", s: 0, say: "No signal, no problem.", k: 22, v: 1, w: "4:30" },
+      { f: .68, h: "Back online. Synced.", r: [["Sent", "3 items"], ["Punch time", "Kept as 12:31"], ["Audit", "Logged"]], c: "Synced", s: 3, say: "All synced.", k: 22, v: 2, w: "5:10" },
+      { f: .86, h: "Approvals, from the road", r: [["Fuel claim", "Approved"], ["Friday leave", "Approved"], ["Site report", "Sent to HR"]], c: "Done", s: 4, say: "Approved from here.", k: 34, v: 3, w: "8:00" },
+      { f: 1, h: "Day closed at 18:05", r: [["Hours", "9 h 05"], ["Overtime", "1 h, sent for approval"], ["Payslip", "Updated"]], c: "Clocked out", s: 4, say: "Day done.", k: 41, v: 3, w: "9:05" }
+    ];
+    S.forEach(function (x, i) { var p = path.getPointAtLength(len * x.f), g = document.createElementNS(ns, "g"); g.setAttribute("class", "fmap-site"); g.setAttribute("transform", "translate(" + p.x + " " + p.y + ")"); g.innerHTML = '<circle class="fence" r="26"/><circle r="6"/><text y="-32" text-anchor="middle">' + ["Depot", "Client", "", "", "Site B", "Depot"][i] + "</text>"; if (i === 0 || i === 1 || i === 4) sites.appendChild(g); });
+    trail.style.strokeDasharray = len; trail.style.strokeDashoffset = len;
+    function place(f) { var p = path.getPointAtLength(len * f); pin.setAttribute("transform", "translate(" + p.x + " " + p.y + ")"); trail.style.strokeDashoffset = len * (1 - f); pos = f; }
+    function go(i) {
+      if (i === cur) return; cur = i; var x = S[i], from = pos, t0 = performance.now(), my = i; cancelAnimationFrame(raf);
+      chips.forEach(function (c, k) { c.setAttribute("aria-pressed", String(k === i)); });
+      (function step(now) { var p = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - p, 3); place(from + (x.f - from) * e); if (p < 1 && my === cur) raf = requestAnimationFrame(step); })(t0);
+      fh.textContent = x.h; rows.innerHTML = x.r.map(function (r) { return "<li><span>" + r[0] + "</span><em>" + r[1] + "</em></li>"; }).join(""); cta.textContent = x.c; cta.classList.remove("hit"); void cta.offsetWidth; cta.classList.add("hit");
+      sig.className = "dmx__sig s" + x.s; badge.className = "dmx__nets s" + x.s; box.classList.toggle("is-off", x.s === 0);
+      $("[data-km]", box).textContent = x.k; $("[data-vis]", box).textContent = x.v; $("[data-hrs]", box).textContent = x.w; say(box, x.say);
+    }
+    chips.forEach(function (c, i) { c.addEventListener("click", function () { go(i); }); });
+    place(0); go(0);
+    drive(box, function () { go((cur + 1) % S.length); }, 4300, st);
+  }
+
+  var map = { field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
   $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();
