@@ -672,3 +672,65 @@ export function faqModulePage(all, ldExtra = "") {
     main: (mm) => `${hero(mm)}\n${faqExplorer()}\n${closeBand({ title: "Still have questions?", lead: "Talk to a real HR expert. We usually reply within one business day, or instantly on WhatsApp.", say: "Ask away!", card: "We're here", links: [["Contact us", "/contact/"], ["Chat on WhatsApp", site.whatsapp, true]], small: "We reply within one business day." })}`
   });
 }
+
+
+/* ================= the book a demo page: the original content and form, in the new design ================= */
+const AGENDA = [["0–5", "Your goals & current process"], ["5–20", "Live tour tailored to your team"], ["20–25", "Pricing & rollout plan"], ["25–30", "Your questions, answered"]];
+function demoBookSection() {
+  return `<section class="ctc" id="try" aria-label="Book a demo" data-tip="Pick a day. We confirm the exact time by email or WhatsApp.">
+  <div class="cf__switch" aria-label="Other ways to reach us"><a href="/book-demo/" aria-current="page"><i>${icon("play", "ic")}</i>Book a demo</a><a href="/get-pricing/"><i>${icon("wallet", "ic")}</i>Get pricing</a><a href="/contact/"><i>${icon("message", "ic")}</i>Contact us</a></div>
+  <div class="cf__grid">
+    <div class="cf-card">
+      <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
+        <input type="hidden" name="intent" value="book_demo">
+        <h2>Book your demo</h2><p class="cf__sub">Pick a day. We'll confirm the exact time by email or WhatsApp.</p>
+        <div class="cf__fields">
+          <div class="cf-field" data-validate><label for="f-name">Your name <b>*</b></label><input id="f-name" name="name" required autocomplete="name" placeholder="Full name"><span class="cf-err">Please enter your name.</span></div>
+          <div class="cf-field" data-validate><label for="f-company">Company <b>*</b></label><input id="f-company" name="company" required autocomplete="organization" placeholder="Company name"><span class="cf-err">Please enter your company.</span></div>
+          <div class="cf-field" data-validate><label for="f-email">Work email <b>*</b></label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com"><span class="cf-err">Please enter a valid email.</span></div>
+          <div class="cf-field" data-validate><label for="f-phone">Phone <b>*</b></label><div class="cf-tel"><select name="cc" aria-label="Country code">${CCODES.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select><input id="f-phone" name="phone" type="tel" required autocomplete="tel-national" inputmode="tel" placeholder="98765 43210"></div><span class="cf-err">Please enter a valid phone number.</span></div>
+          <div class="cf-field"><label for="f-size">Employees</label><select id="f-size" name="size"><option value="">Select size</option>${["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"].map((v) => `<option>${v}</option>`).join("")}</select></div>
+          <div class="cf-field"><label for="f-industry">Industry</label><select id="f-industry" name="industry"><option value="">Select industry</option>${INDS.map((i) => `<option>${esc(i.name)}</option>`).join("")}<option>Other</option></select></div>
+          <div class="cf-field"><label for="f-date">Preferred date</label><input id="f-date" name="demo_date" type="date"></div>
+          <div class="cf-field"><span class="cf-lbl">Preferred time</span><div class="cf-topics" role="radiogroup" aria-label="Preferred time">${["Morning", "Afternoon", "Evening"].map((v, i) => `<label><input type="radio" name="slot" value="${v}"${i === 0 ? " checked" : ""}><span>${v}</span></label>`).join("")}</div></div>
+          <div class="cf-field cf-field--full"><span class="cf-lbl">What would you like to see? (optional)</span><div class="cf-topics">${modules.map((mm) => `<label><input type="checkbox" name="modules" value="${mm.slug}"><span>${esc(mm.name)}</span></label>`).join("")}</div></div>
+          <div class="cf-field cf-field--full"><label for="f-msg">Anything we should prepare? (optional)</label><textarea id="f-msg" name="message" placeholder="Locations, current HR software, special workflows…"></textarea></div>
+          <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        </div>
+        <div class="form-error" id="form-error" role="alert" tabindex="-1" hidden></div>
+        <button class="cf__send" type="submit"><span data-submit-label>Book my demo</span>${icon("send", "ic")}</button>
+        <p class="cf__hint" id="form-note">By submitting, you agree to our <a href="/privacy/">Privacy Policy</a>.</p>
+      </form>
+      <div class="cf-ok" id="form-success" role="status" aria-live="polite">
+        <span class="cf-ok__i">${icon("check", "ic")}</span>
+        <h2>You're all set! 🎉</h2>
+        <p id="success-msg">An HR specialist will reach out within 1 business day. We've also sent a confirmation to your email.</p>
+        <div class="cf-ok__a"><a class="cf__send" id="wa-followup" href="${site.whatsapp}" target="_blank" rel="noopener">Message us on WhatsApp${icon("message", "ic")}</a><a class="cf__alt" href="/">Back to home</a></div>
+      </div>
+    </div>
+    <aside class="cf__side">
+      <div class="cf__agenda"><p>Your 30 minutes</p><ol>${AGENDA.map(([tm, tx], i) => `<li style="--i:${i}"><b>${tm}</b><span>${esc(tx)}</span></li>`).join("")}</ol></div>
+      <div class="cf__incl"><p>Included on every plan</p><ul><li>${icon("check", "ic")}Free onboarding & data migration</li><li>${icon("check", "ic")}Admin & employee training</li><li>${icon("check", "ic")}No credit card to start</li></ul></div>
+      <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
+      <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a>
+    </aside>
+  </div>
+</section>
+<script src="/assets/js/form.js?v=${V}" defer></script>`;
+}
+
+export function demoModulePage(ldExtra = "") {
+  const m = {
+    slug: "book-demo", name: "Book a demo", icon: "play", tagline: "See SublimeHR live.",
+    summary: "A personalized 30-minute walkthrough with your policies, your shifts and your questions.",
+    features: ["Your goals and current process", "A live tour for your team", "Pricing and rollout plan", "Your questions, answered"], benefits: ["30 minutes", "Built around your policies", "No credit card to start"], useCases: [],
+    _cta: `<a class="btn btn--on btn--lg" href="#try">Book my demo</a><a class="link" href="/get-pricing/">Get pricing</a>`,
+    _hero: { who: ["30", "Your 30 minutes", "Tailored to your team"], cast: [["Priya", "HR partner"], ["Aisha", "Demo host"], ["Omar", "Product"]], chips: [["clock", "30-minute walkthrough"], ["check", "No credit card"], ["users", "Built around your team"]] }
+  };
+  return modulePage(m, [], ldExtra, {
+    path: "/book-demo/", title: "Book a Demo — See SublimeHR Live | SublimeHR",
+    description: "Book a free 30-minute SublimeHR demo tailored to your workforce: attendance, leave, payroll and self-service.",
+    menu: [["try", "play", "Book my demo"]],
+    main: (mm) => `${hero(mm)}\n${demoBookSection()}`
+  });
+}

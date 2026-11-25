@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -550,6 +550,10 @@ ${phero({ eyebrow, tone, title, lead, trail, extra: switcher(kind) })}
 }
 
 export function bookDemo() {
+  const trail = [["Home", "/"], ["Book a demo", "/book-demo/"]];
+  return demoModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "ContactPage", name: "Book a Demo — See SublimeHR Live", url: site.url + "/book-demo/" }] })}</script>`);
+}
+export function bookDemoOld() {
   return formPage({
     kind: "demo", path: "/book-demo/", crumb: "Book a demo", eyebrow: "Book a demo", tone: "", title: `See SublimeHR ${squiggle("live.")}`,
     lead: "A personalized 30-minute walkthrough with your policies, your shifts and your questions.",
