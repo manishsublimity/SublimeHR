@@ -511,3 +511,54 @@ export function contactModulePage(ldExtra = "") {
     main: (mm) => `${hero(mm)}\n${contactSection()}`
   });
 }
+
+
+/* ================= the about page: the original content, in the new design ================= */
+const OFFER = [["clock", "Attendance management"], ["calendar", "Leave & holidays"], ["repeat", "Shift scheduling"], ["users", "Employee directory"], ["wallet", "Payroll support"], ["chart", "Reports & analytics"], ["lock", "Role-based access"], ["phone", "Mobile accessibility"], ["cloud", "Secure cloud platform"]];
+const REASONS = ["Simple and intuitive user experience", "Designed for businesses of all sizes", "Secure cloud infrastructure", "Scalable as your organization grows", "Reliable customer support", "Continuous product improvements"];
+const OTONE = ["#3558F5", "#FF8A70", "#F5B500", "#45C4B0", "#7A5CF0"];
+
+function aboutStory() {
+  return `<section class="abt" id="try" aria-labelledby="h-abt" data-tip="Our story, in numbers.">
+  <div class="abt__copy"><span class="abt__tag"><i></i>Our story</span><h2 id="h-abt">One platform for the work behind your people.</h2>
+    <p class="abt__lead">SublimeHR helps businesses streamline attendance, leave, shift scheduling, employee records, payroll and day-to-day HR operations through a single, intuitive platform.</p>
+    <p>Whether you're a growing startup, a mid-sized business or a large enterprise, our goal is to eliminate manual processes, reduce admin overhead, and give your team more time for what matters most: growing your business.</p></div>
+  <div class="abt__stats" data-count-box>
+    <div class="abt__s abt__s--0"><strong data-count="70" data-suffix="+">70+</strong><span>Feature areas</span></div>
+    <div class="abt__s abt__s--1"><strong data-count="13">13</strong><span>Report types</span></div>
+    <div class="abt__s abt__s--2"><strong data-count="9">9</strong><span>Industries</span></div>
+    <div class="abt__s abt__s--3"><strong>EN·AR</strong><span>Languages</span></div>
+  </div>
+</section>
+<script>(function(){var b=document.querySelector('[data-count-box]');if(!b)return;var els=[].slice.call(b.querySelectorAll('[data-count]'));function run(){els.forEach(function(e){var to=+e.getAttribute('data-count'),sf=e.getAttribute('data-suffix')||'',t0=performance.now();(function s(n){var p=Math.min(1,(n-t0)/1400),v=Math.round(to*(1-Math.pow(1-p,3)));e.textContent=v+sf;if(p<1)requestAnimationFrame(s)})(t0)})}if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();run()}},{threshold:.4});io.observe(b)}})();</script>`;
+}
+
+function aboutOffer() {
+  return `<section class="aoff" aria-labelledby="h-aoff" data-tip="The essentials to run your workforce.">
+  <div class="aoff__head"><h2 id="h-aoff">The essentials to run your workforce.</h2></div>
+  <div class="aoff__grid">${OFFER.map(([ic, tt], i) => `<div class="aoff__c" style="--c:${OTONE[i % 5]}"><i>${icon(ic, "ic")}</i><b>${esc(tt)}</b></div>`).join("")}</div>
+</section>`;
+}
+
+function aboutWhy() {
+  return `<section class="awhy" aria-label="Why SublimeHR, our mission and our vision">
+  <article class="awhy__c awhy__c--why"><span class="abt__tag"><i></i>Why SublimeHR</span><h3>Built to help you move faster, with confidence.</h3><ul>${REASONS.map((r) => `<li>${icon("check", "ic")}${esc(r)}</li>`).join("")}</ul></article>
+  <article class="awhy__c awhy__c--mis"><span class="awhy__big" aria-hidden="true">${icon("target", "ic")}</span><i class="awhy__ic">${icon("target", "ic")}</i><h3>Our mission</h3><p>To simplify workforce management with reliable, secure and easy-to-use technology that improves productivity, transparency and operational efficiency.</p></article>
+  <article class="awhy__c awhy__c--vis"><span class="awhy__big" aria-hidden="true">${icon("eye", "ic")}</span><i class="awhy__ic">${icon("eye", "ic")}</i><h3>Our vision</h3><p>To become a trusted workforce management solution that empowers organizations worldwide to build more connected, efficient and productive workplaces.</p></article>
+</section>`;
+}
+
+export function aboutModulePage(ldExtra = "") {
+  const m = {
+    slug: "about", name: "About", icon: "users", tagline: "Workforce management, made simple.",
+    summary: "At SublimeHR, we believe managing your workforce should be simple, efficient, and accessible from anywhere.",
+    features: ["Attendance and leave", "Shift scheduling", "Employee records", "Payroll and reports"], benefits: ["Simple and intuitive", "Secure cloud platform", "Scalable as you grow"], useCases: [],
+    _hero: { who: ["SH", "SublimeHR team", "One platform for your workforce"], cast: [["Priya", "HR partner"], ["Omar", "Product"], ["Sara", "Support"]], chips: [["users", "70+ feature areas"], ["chart", "13 report types"], ["building", "9 industries"]] }
+  };
+  return modulePage(m, [], ldExtra, {
+    path: "/about/", title: "About SublimeHR — Our Mission & Vision | SublimeHR",
+    description: "SublimeHR is a modern workforce management platform that streamlines attendance, leave, shift scheduling, employee records and payroll. Learn about our mission and vision.",
+    menu: [["try", "users", "Read our story"]],
+    main: (mm) => `${hero(mm)}\n${aboutStory()}\n${aboutOffer()}\n${aboutWhy()}\n${closeBand({ title: "Let's talk about your workforce.", lead: "Interested in learning more or scheduling a demo? We reply within one business day.", say: "Let's talk!", card: "Ready when you are", links: [["Book a demo", "/book-demo/"], ["Contact us", "/contact/", true]], small: "We reply within one business day." })}`
+  });
+}

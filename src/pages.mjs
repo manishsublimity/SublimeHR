@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -422,6 +422,10 @@ ${cta({ title: "Tell us about the workflow you need.", lead: "Get a solution des
    ABOUT
    ===================================================================== */
 export function about() {
+  const trail = [["Home", "/"], ["About", "/about/"]];
+  return aboutModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "AboutPage", name: "About SublimeHR", url: site.url + "/about/", about: { "@id": site.url + "/#organization" } }] })}</script>`);
+}
+export function aboutOld() {
   const trail = [["Home", "/"], ["About", "/about/"]];
   const offer = [["clock", "Attendance management"], ["calendar", "Leave & holidays"], ["repeat", "Shift scheduling"], ["users", "Employee directory"], ["wallet", "Payroll support"], ["chart", "Reports & analytics"], ["lock", "Role-based access"], ["phone", "Mobile accessibility"], ["cloud", "Secure cloud platform"]];
   const reasons = ["Simple and intuitive user experience", "Designed for businesses of all sizes", "Secure cloud infrastructure", "Scalable as your organization grows", "Reliable customer support", "Continuous product improvements"];
