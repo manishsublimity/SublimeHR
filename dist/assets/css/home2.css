@@ -1845,5 +1845,11 @@ body[data-ft="3"] .footer__contact a:hover { background: rgba(255,255,255,.3); b
 @media (max-height: 780px) { .dock { top: calc(100vh - 70px); top: calc(100svh - 70px); bottom: auto; } }
 
 /* dark theme for the home page: the sections below the hero are flipped as a whole, the hero keeps its industry colour */
-html[data-theme="dark"] body.lo { background: #0B1226; color: #E8EDF8; }
+html[data-theme="dark"] body.lo { background: #0B1226; }
 html[data-theme="dark"] body.lo main > section:not(.hero), html[data-theme="dark"] body.lo .ticker, html[data-theme="dark"] body.lo footer { filter: invert(.93) hue-rotate(180deg); }
+/* dark mode: people keep their own colours, and the closing band keeps the industry colour */
+html[data-theme="dark"] body.lo .ppl { filter: invert(.93) hue-rotate(180deg); }
+html[data-theme="dark"] body.lo main > section.meet { filter: none; }
+html[data-theme="dark"] body.lo footer { filter: none; background: #0B1730; color: #B9C4D8; }
+html[data-theme="dark"] body.lo footer h2 { color: #fff; } html[data-theme="dark"] body.lo footer a { color: #B9C4D8; } html[data-theme="dark"] body.lo footer .footer__bar { border-color: rgba(255,255,255,.14); color: #8E9BB3; }
+html[data-theme="dark"] body.lo .meet .ppl { filter: none; }

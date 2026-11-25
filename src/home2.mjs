@@ -4,7 +4,7 @@
 import { site, modules, why, industries as siteInds } from "./data.mjs";
 import { homeFaqItems } from "./widgets.mjs";
 import { icon } from "./icons.mjs";
-import { navMenu } from "./navparts.mjs";
+import { navMenu, themeFab } from "./navparts.mjs";
 
 const V = Date.now().toString(36);
 const none = "none";
@@ -803,6 +803,7 @@ export function home2(path = "/home-v2/") {
 </div>
 <button class="fab" type="button" data-sound aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a8 8 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg><span>Sound off</span></button>
 <div class="nudge" data-nudge hidden>Turn the sound on for the full demo.</div>
+${themeFab()}
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>

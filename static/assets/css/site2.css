@@ -53,11 +53,11 @@ body.v2 .brand2:hover { color: var(--ink); }
 html[data-theme="dark"] body.v2 .brand2 { color: #fff; } html[data-theme="dark"] body.v2 .brand2 b { color: #8FB2FF; }
 
 /* ---------- page hero: the industry colour, big and round ---------- */
-body.v2 .phero { position: relative; margin: 14px clamp(10px, 1.6vw, 28px) 0; padding: 70px 0 64px; border-radius: 52px 52px 52px 14px; background: var(--world); color: var(--on); overflow: hidden; isolation: isolate; }
+body.v2 .phero { position: relative; margin: 0; padding: 104px 0 56px; border-radius: 0 0 56px 56px; background: var(--world); color: var(--on); overflow: hidden; isolation: isolate; }
 body.v2 .phero::before { content: ""; position: absolute; z-index: -1; right: -120px; top: -140px; width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,.14); }
 body.v2 .phero::after { content: ""; position: absolute; z-index: -1; left: -90px; bottom: -150px; width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.09); }
 body.v2 .phero.dots, body.v2 .phero.solo { background: var(--world); }
-body.v2 .phero h1 { color: var(--on); margin-bottom: 16px; } body.v2 .phero .lead { color: color-mix(in srgb, var(--on) 86%, transparent); max-width: 40em; }
+body.v2 .phero h1 { color: var(--on); margin-bottom: 16px; font-size: clamp(2.3rem, 1rem + 2.7vw, 3.6rem); } body.v2 .phero .lead { color: color-mix(in srgb, var(--on) 86%, transparent); max-width: 40em; }
 body.v2 .phero .crumbs, body.v2 .phero .crumbs a, body.v2 .phero .crumbs span { color: color-mix(in srgb, var(--on) 78%, transparent); } body.v2 .phero .crumbs a:hover { color: var(--on); }
 body.v2 .phero .eyebrow { background: rgba(255,255,255,.2); color: var(--on); } body.v2 .phero .eyebrow i { background: var(--on); }
 body.v2 .phero .btn { --bg: var(--on); --fg: var(--world); } body.v2 .phero .btn.alt { --bg: rgba(255,255,255,.18); --fg: var(--on); box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); }
@@ -106,10 +106,10 @@ html[data-theme="dark"] body.v2 .foot2 { background: #0B1730; color: #B9C4D8; bo
 html[data-theme="dark"] body.v2 .foot2__bar { border-color: rgba(255,255,255,.14); color: #8E9BB3; } html[data-theme="dark"] body.v2 .foot2__bar nav a { background: rgba(255,255,255,.07); color: #fff; box-shadow: none; }
 body.v2 .top-btn { background: var(--ink); color: #fff; }
 @media (max-width: 960px) { body.v2 .foot2__grid { grid-template-columns: 1fr 1fr; } body.v2 .foot2__about { grid-column: 1 / -1; } body.v2 .foot2__bar { padding-right: 0; } }
-@media (max-width: 560px) { body.v2 .foot2__grid { grid-template-columns: 1fr; } body.v2 .phero { border-radius: 32px 32px 32px 10px; padding: 48px 0 44px; } body.v2 .cta { border-radius: 32px 32px 32px 10px; } }
+@media (max-width: 560px) { body.v2 .foot2__grid { grid-template-columns: 1fr; } body.v2 .phero { border-radius: 0 0 32px 32px; padding: 96px 0 40px; } body.v2 .cta { border-radius: 32px 32px 32px 10px; } }
 
 /* legal pages: a calm white sheet, centred */
-body.v2 .prose { max-width: 860px; margin-inline: auto; padding: 44px clamp(22px, 4vw, 56px) 40px; border-radius: var(--r-lg) var(--r-lg) 10px var(--r-lg); background: #fff; box-shadow: var(--sh-2), inset 0 0 0 1px var(--line); }
+body.v2 .prose { max-width: 860px; margin-inline: auto; padding: 44px clamp(22px, 4vw, 56px) 40px; border-radius: var(--r-lg) var(--r-lg) 10px var(--r-lg); background: var(--paper); box-shadow: var(--sh-2), inset 0 0 0 1px var(--line); }
 body.v2 .prose h2 { font-size: var(--fs-h3); margin: 34px 0 10px; } body.v2 .prose h2:first-of-type { margin-top: 24px; }
 
 /* dark mode: buttons keep readable colours */
@@ -119,5 +119,32 @@ html[data-theme="dark"] body.v2 .phero .btn { --bg: var(--on); --fg: var(--world
 html[data-theme="dark"] body.v2 .cta .btn { --bg: var(--on); --fg: var(--world); } html[data-theme="dark"] body.v2 .cta .btn.alt { --bg: rgba(255,255,255,.18); --fg: var(--on); }
 
 /* the home-page header floats over the hero band */
-body.v2 .phero { margin-top: 14px; padding-top: 128px; }
+body.v2 .phero { margin-top: 0; padding-top: 108px; }
 body.v2 .nav .nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+/* ============ second pass: same layout language as the home page ============ */
+body.v2 { --fs-h2: clamp(2.1rem, 1rem + 2.7vw, 3.4rem); --fs-h1: clamp(2.4rem, 1.1rem + 3.1vw, 4rem); --section: 88px; }
+body.v2 h2 { font-weight: 600; letter-spacing: -.025em; line-height: 1.08; }
+/* section heads: big headline on the left, the explanation on the right behind a thin rule, no pill label */
+body.v2 .section .head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: 24px 56px; max-width: none; margin: 0 0 48px; text-align: left; }
+body.v2 .section .head .eyebrow { display: none; }
+body.v2 .section .head h2 { margin: 0; text-wrap: balance; }
+body.v2 .section .head .lead { margin: 0; max-width: none; padding-left: 22px; border-left: 3px solid color-mix(in srgb, var(--world) 45%, #fff); font-size: 1.08rem; color: var(--text); }
+body.v2 .section .head:not(:has(.lead)) { grid-template-columns: 1fr; }
+body.v2 .head-row .head { display: block; margin: 0; } body.v2 .head-row .head .lead { padding: 0; border: 0; }
+@media (max-width: 900px) { body.v2 .section .head { grid-template-columns: 1fr; } }
+/* icons: the solid industry-colour tile with a white glyph, like the home page cards */
+body.v2 main .ico, body.v2 main .ico.mint, body.v2 main .ico.peach, body.v2 main .ico.butter, body.v2 main .ico.lilac { background: var(--world); color: var(--on); border-radius: 16px; box-shadow: 0 10px 16px -10px color-mix(in srgb, var(--world) 70%, #000); }
+body.v2 main .ico.sm { border-radius: 12px; }
+body.v2 main .phero .ico, body.v2 main .cta .ico { background: var(--on); color: var(--world); }
+/* cards: white, soft, one sharp corner; no hairline border */
+body.v2 .card, body.v2 .w, body.v2 .plan, body.v2 .stat-card, body.v2 .form-card { background: var(--paper); box-shadow: 0 22px 34px -26px rgba(20,33,61,.45); }
+body.v2 .card { padding: 26px; border-radius: 26px 26px 8px 26px; }
+body.v2 .card h3 { font-size: 1.12rem; line-height: 1.2; letter-spacing: -.015em; } body.v2 .card p { font-size: .98rem; color: var(--text); }
+body.v2 .card:hover { box-shadow: 0 30px 40px -26px rgba(20,33,61,.5); }
+/* pills / tabs */
+body.v2 main .pill, body.v2 main .chip { border-radius: 999px; font-weight: 600; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line-2); }
+body.v2 main .pill:hover { box-shadow: inset 0 0 0 2px var(--world); }
+/* the band under the hero is tinted by the page colour, like the page background on the home page */
+body.v2 .cream { background: color-mix(in srgb, var(--world) 6%, #fff); }
+body.v2 .cta { border-radius: 52px 52px 52px 12px; }

@@ -1,6 +1,6 @@
 import { site, modules } from "./data.mjs";
 import { icon } from "./icons.mjs";
-import { navMenu } from "./navparts.mjs";
+import { navMenu, themeFab } from "./navparts.mjs";
 
 export const esc = (s = "") =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -120,6 +120,7 @@ function footer() {
   </div>
   <div class="foot2__word" aria-hidden="true">SublimeHR</div>
 </footer>
+${themeFab()}
 <button class="top-btn" type="button" aria-label="Back to top">${icon("arrow-up")}</button>
 <script src="/assets/js/main.js?v=${V}" defer></script>
 <script src="/assets/js/navhome.js?v=${V}" defer></script>`;
