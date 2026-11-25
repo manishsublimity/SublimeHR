@@ -265,6 +265,22 @@
     drive(box, function () { go((cur + 1) % S.length); }, 4300, st);
   }
 
-  var map = { field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
+  /* ---------- dial: one working day around a clock face ---------- */
+  function dial(box) {
+    var st = { taken: false }, items = $$("[data-di]", box), pin = $("[data-dpin]", box), arc = $("[data-darc]", box), dots = $$("[data-ddot]", box), icons = $$("[data-dic]", box), tm = $("[data-dtime]", box), ti = $("[data-dtitle]", box);
+    var say1 = ["Clocked in on time.", "Leave approved!", "Shift swapped.", "Overtime approved.", "Day closed.", "Payslip is ready."], C = 2 * Math.PI * 112, cur = -1, turns = 0;
+    arc.style.strokeDasharray = C; arc.style.strokeDashoffset = C;
+    function go(i, wrap) {
+      if (i === cur) return; if (wrap) turns++; cur = i;
+      var ang = i * 60 + turns * 360; pin.style.transform = "rotate(" + ang + "deg)"; $("[data-dface]", box).style.transform = "rotate(" + (-ang) + "deg)"; arc.style.strokeDashoffset = C * (1 - i / 6 * 360 / 360 * 1);
+      items.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); }); dots.forEach(function (d, k) { d.classList.toggle("on", k <= i); }); icons.forEach(function (e, k) { e.classList.toggle("on", k === i); });
+      tm.textContent = $("em", items[i]).textContent; ti.textContent = $("b", items[i]).textContent; say(box, say1[i]);
+    }
+    items.forEach(function (b, i) { b.addEventListener("click", function () { go(i, false); }); });
+    go(0, false);
+    drive(box, function () { var n = (cur + 1) % 6; go(n, n === 0); }, 3600, st);
+  }
+
+  var map = { dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
   $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();

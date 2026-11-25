@@ -170,8 +170,24 @@ const field = (d) => wrap(d, "field", `
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Off to the depot.</span><div class="dmx__ppl">${who(byName["Ravi"], 1, "ppl--wave")}</div></div>`);
 
+const DAY = [["08:45", "Clock in", "Selfie and GPS match, so the day starts on time.", "clock"], ["10:30", "Leave request", "Approved in one tap and the balance updates itself.", "calendar"], ["13:00", "Shift swap", "Two colleagues trade and the rota fixes itself.", "repeat"], ["16:00", "Overtime", "Logged and approved before it is worked.", "alert"], ["18:05", "Clock out", "Hours add up and nobody types anything.", "check"], ["Month end", "Payslip", "One run, and every phone has its payslip.", "wallet"]];
+const dial = (d) => wrap(d, "dial", `
+  <div class="dmx__l dmx__dialbox">
+    <div class="dmx__dial">
+      <svg viewBox="0 0 300 300" aria-hidden="true">
+        <circle class="ring" cx="150" cy="150" r="112"/>
+        <circle class="arc" data-darc cx="150" cy="150" r="112" transform="rotate(-90 150 150)"/>
+        ${DAY.map((s, i) => `<circle class="dot" data-ddot="${i}" cx="${(150 + 112 * Math.cos((i * 60 - 90) * Math.PI / 180)).toFixed(1)}" cy="${(150 + 112 * Math.sin((i * 60 - 90) * Math.PI / 180)).toFixed(1)}" r="7"/>`).join("")}
+        <g class="spin" data-dpin><g class="pface" data-dface><circle cx="150" cy="38" r="17"/><text x="150" y="42.5" text-anchor="middle">AK</text></g></g>
+      </svg>
+      <div class="dmx__dialc"><span class="dmx__dicon">${DAY.map((s, i) => `<i data-dic="${i}">${icon(s[3], "ic")}</i>`).join("")}</span><small data-dtime>08:45</small><b data-dtitle>Clock in</b></div>
+    </div>
+  </div>
+  <div class="dmx__r dmx__daylist" data-dlist>${DAY.map((s, i) => `<button type="button" data-di="${i}" aria-pressed="${i === 0}"><em>${esc(s[0])}</em><span><b>${esc(s[1])}</b><small>${esc(s[2])}</small></span></button>`).join("")}</div>
+  <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Good morning!</span><div class="dmx__ppl">${who(byName["Aisha"], 1, "ppl--wave")}</div></div>`);
+
 export function demoSection(m, d) {
   if (m.slug === "employee-self-service") return `<div class="cast mhome" id="try">${movieSection()}</div>`;
-  if (m.slug === "mobile-workforce") return `<div class="cast mhome" id="try">${daySection({ title: "One day on the road, from depot to payslip.", lead: "Follow a field engineer from the first punch to the last. Every stop is a moment where the phone replaces a call, a sheet or a trip back to the office.", stops: [[7, "08:00", "Depot punch-in", "Fingerprint and GPS, checked against the site fence."], [24, "10:15", "Client visit", "Check-in, a site photo and the visit is on record."], [41, "12:30", "No signal", "Punches are kept on the phone, nothing is lost."], [58, "13:10", "Back online", "Everything syncs with the original times."], [75, "16:00", "Approvals on the go", "Fuel claim and leave approved from the road."], [92, "18:05", "Clock out", "Hours, overtime and payslip update on their own."]] })}</div>`;
+  if (m.slug === "mobile-workforce") return dial({ title: "One day, from clock-in to payslip.", lead: "Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets." });
   return ({ punch, leave, payroll, chart, phone, roles, roster, visitor })[d.type](d);
 }
