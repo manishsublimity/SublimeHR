@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -387,6 +387,11 @@ ${phero({ eyebrow: "Integrations", tone: "mint", title: `Plays nicely with ${squ
    CUSTOM DEVELOPMENT
    ===================================================================== */
 export function customDev() {
+  const trail = [["Home", "/"], ["Custom Development", "/custom-development/"]];
+  const items = more8(faqs.find((g) => g.id === "custom-development").items, ["implementation", "mobile-integrations"]);
+  return customDevModulePage(items, `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(items)] })}</script>`);
+}
+export function customDevOld() {
   const trail = [["Home", "/"], ["Custom Development", "/custom-development/"]];
   const cf = faqs.find((g) => g.id === "custom-development").items;
   const art = `<div class="art t4" aria-hidden="true">

@@ -1,6 +1,6 @@
 // Module pages built from the home page itself: same shell, same head, same hero stage, same flip cards,
 // same module tiles, same "Ask Subi" chat, same closing crowd and footer. Only the content changes.
-import { site, modules, industries as INDS, plans, compare, integrations as INTS } from "./data.mjs";
+import { site, modules, industries as INDS, plans, compare, integrations as INTS, customAreas, process as PROC } from "./data.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
@@ -90,7 +90,7 @@ function hero(m) {
       <div class="hero__copy">
         <h1 id="h1">${esc(m.tagline)}</h1>
         <p class="hero__lead">${esc(m.summary)}</p>
-        <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/?module=${m.slug}">Book a free demo</a><a class="link" href="#try">Play with it live</a></div>
+        <div class="hero__cta">${m._cta ? m._cta : `<a class="btn btn--on btn--lg" href="/book-demo/?module=${m.slug}">Book a free demo</a><a class="link" href="#try">Play with it live</a>`}</div>
       </div>
       <div class="stage" data-stage aria-label="${esc(m.name)}: a small office showing what it does">
         <div class="stage__floor" aria-hidden="true"></div>
@@ -582,5 +582,61 @@ export function aboutModulePage(ldExtra = "") {
     description: "SublimeHR is a modern workforce management platform that streamlines attendance, leave, shift scheduling, employee records and payroll. Learn about our mission and vision.",
     menu: [["try", "users", "Read our story"]],
     main: (mm) => `${hero(mm)}\n${aboutStory()}\n${aboutOffer()}\n${aboutWhy()}\n${closeBand({ title: "Let's talk about your workforce.", lead: "Interested in learning more or scheduling a demo? We reply within one business day.", say: "Let's talk!", card: "Ready when you are", links: [["Book a demo", "/book-demo/"], ["Contact us", "/contact/", true]], small: "We reply within one business day." })}`
+  });
+}
+
+
+/* ================= the custom development page: the original content, in the new design ================= */
+const CDV = {
+  workflow: `<span class="cdv cdv-flow"><i></i><u></u><i></i><u></u><i></i></span>`,
+  form: `<span class="cdv cdv-form"><b></b><b></b><b class="s"></b></span>`,
+  dollar: `<span class="cdv cdv-rate"><b>+12%</b><b class="n">-3%</b><b>x1.5</b></span>`,
+  clock: `<span class="cdv cdv-time"><i>22:00</i><u></u><i>06:00</i></span>`,
+  repeat: `<span class="cdv cdv-cyc"><i></i><i></i><i></i></span>`,
+  plug: `<span class="cdv cdv-plug"><i></i><u></u><i></i></span>`,
+  dashboard: `<span class="cdv cdv-dash"><i></i><i></i><i></i><i></i></span>`,
+  split: `<span class="cdv cdv-split"><i></i><b></b><b></b><b></b></span>`,
+  cpu: `<span class="cdv cdv-ai"><i>Anomaly</i><i>Attrition</i></span>`
+};
+const CDTONE = ["#3558F5", "#FF8A70", "#F5B500", "#45C4B0", "#7A5CF0", "#3558F5", "#FF8A70", "#45C4B0", "#7A5CF0"];
+
+const CUSTOM_STAGE = `<div class="cdh" aria-hidden="true">
+  <svg class="cdh__w" viewBox="0 0 740 330" preserveAspectRatio="none"><path d="M150 70C250 70 250 150 330 150" /><path d="M330 150C430 150 430 80 520 80" /><path d="M330 150C400 150 420 230 520 230" /></svg>
+  <div class="cdh__n cdh__n--1"><i>${icon("workflow", "ic")}</i><b>Custom approvals</b></div>
+  <div class="cdh__n cdh__n--2"><i>${icon("code", "ic")}</i><b>Built for you</b></div>
+  <div class="cdh__n cdh__n--3"><i>${icon("dollar", "ic")}</i><b>Payroll rules</b></div>
+  <div class="cdh__n cdh__n--4"><i>${icon("plug", "ic")}</i><b>Legacy ERP sync</b></div>
+  <div class="cdh__fix"><small>How we work</small>Fixed price, demo every 2 weeks</div>
+</div>`;
+
+function cdAreas() {
+  return `<section class="cda" id="try" aria-labelledby="h-cda" data-tip="Nine places we customize.">
+  <div class="cda__head"><h2 id="h-cda">Built around how you actually work.</h2></div>
+  <div class="cda__grid">${customAreas.map(([ic, tt, d], i) => `<article class="cda__c" style="--c:${CDTONE[i]}"><div class="cda__v">${CDV[ic] || CDV.workflow}</div><i>${icon(ic, "ic")}</i><h3>${esc(tt)}</h3><p>${esc(d)}</p></article>`).join("")}</div>
+</section>`;
+}
+
+function cdProcess() {
+  return `<section class="cdp" aria-labelledby="h-cdp" data-tip="From idea to go-live, in four stops.">
+  <div class="cdp__head"><h2 id="h-cdp">From idea to go-live, in four stops.</h2><p>Fixed pricing, transparent milestones and a demo every two weeks.</p></div>
+  <ol class="cdp__road" data-road><i class="cdp__line" aria-hidden="true"><u></u></i>${PROC.map(([tt, d], i) => `<li><span class="cdp__pin">0${i + 1}</span><h3>${esc(tt)}</h3><p>${esc(d)}</p></li>`).join("")}</ol>
+</section>
+<script>(function(){var r=document.querySelector('[data-road]');if(!r)return;var li=[].slice.call(r.querySelectorAll('li')),bar=r.querySelector('.cdp__line u'),tm,vis=false,k=0;function step(){if(!vis)return;if(k>li.length){li.forEach(function(x){x.classList.remove('on')});bar.style.width='0%';k=0;tm=setTimeout(step,900);return}li.forEach(function(x,i){x.classList.toggle('on',i<k)});bar.style.width=(k<=0?0:(k-1)/(li.length-1)*100)+'%';k++;tm=setTimeout(step,k>li.length?2600:1300)}if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;clearTimeout(tm);if(vis)step()},{threshold:.4}).observe(r);else{vis=true;step()}})();</script>`;
+}
+
+export function customDevModulePage(faqItems, ldExtra = "") {
+  const m = {
+    slug: "custom-development", name: "Custom development", icon: "code", tagline: "Your HR is unique. So is ours.",
+    summary: "Every organization has quirks off-the-shelf software can't solve. We ship custom modules, workflows and integrations that fit, not force, your process.",
+    features: ["Custom approval workflows", "Bespoke forms", "Payroll rules", "Attendance policies"], benefits: ["Fixed pricing", "A demo every two weeks", "Fits your process"], useCases: [],
+    _stage: CUSTOM_STAGE, _pos: [[70, 334, .95], [300, 350, 1], [560, 334, 1]],
+    _cta: `<a class="btn btn--on btn--lg" href="/contact/?topic=Custom%20development">Request a custom feature</a><a class="link" href="/book-demo/">Book a consultation</a>`,
+    _hero: { who: ["C", "Custom build", "Fixed price"], cast: [["Ravi", "Engineer"], ["Priya", "HR partner"], ["Karan", "Finance"]], chips: [] }
+  };
+  return modulePage(m, faqItems, ldExtra, {
+    path: "/custom-development/", title: "Custom HRMS Development — Workflows, Payroll Rules & Integrations | SublimeHR",
+    description: "Custom HR software development by SublimeHR: approval workflows, payroll rules, attendance policies, dashboards, integrations and AI automation with fixed pricing.",
+    menu: [["try", "code", "See where we customize"], ["ask", "message", "Ask a question"]],
+    main: (mm) => `${hero(mm)}\n${cdAreas()}\n${cdProcess()}\n${ask(mm)}\n${closeBand({ title: "Tell us about the workflow you need.", lead: "Get a solution design with a timeline and fixed pricing.", say: "Let's design it!", card: "Start the conversation", links: [["Schedule a consultation", "/book-demo/"], ["Describe your workflow", "/contact/?topic=Custom%20development", true]], small: "We reply within one business day." })}`
   });
 }
