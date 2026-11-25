@@ -1,3 +1,4 @@
+import { icon } from "./icons.mjs";
 /* The home page characters, shared with the inner pages. */
 export const people = [
   { n: "Aisha", skin: "#E8B48C", hair: "#2B1B17", style: "long", shirt: "#E5566D", pants: "#33415F", bw: 80, bh: 98, lean: -2, x: 40, y: 344, s: 1 },
@@ -36,4 +37,27 @@ export function heroCast(cast, notes = [], clock = true) {
 /* a crowd for the closing band */
 export function crowd(names = ["Aisha", "Omar", "Sara", "Ravi", "Priya", "Karan", "Nadia"]) {
   return `<div class="cast ccrowd" aria-hidden="true">${names.map((n, i) => `<div class="cpal cp-${i}">${who(byName[n], i + 2)}</div>`).join("")}<span class="cground"></span></div>`;
+}
+
+
+/* before / after as one living card: a switch, a card that changes colour, and a person who is stressed and then relieved */
+export function baSwitch(m) {
+  const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
+  return `<div class="bax cast" data-bax data-state="before">
+  <div class="bax__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button><i aria-hidden="true"></i></div>
+  <div class="bax__stage">
+    <div class="bax__card">
+      <div class="bax__pane is-before"><h3>The old way</h3><p>${m.problem}</p><ul>${pains.map((x) => `<li>${icon("close")}<span>${x}</span></li>`).join("")}</ul></div>
+      <div class="bax__pane is-after"><h3>With SublimeHR</h3><p>${m.solution}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check")}<span>${x}</span></li>`).join("")}</ul></div>
+    </div>
+    <div class="bax__who" aria-hidden="true">
+      <span class="bax__say"><b class="b">Where is that file again?</b><b class="a">Found it. One click.</b></span>
+      <span class="bnote bn-0">Final_v7.xlsx</span><span class="bnote bn-1">Who has the form?</span><span class="bnote bn-2">Re-type it</span>
+      <span class="bspark bs-0"></span><span class="bspark bs-1"></span><span class="bspark bs-2"></span>
+      ${who(byName["Priya"], 3)}
+      <span class="bax__floor"></span>
+    </div>
+  </div>
+  <script>(function(){var r=document.currentScript.parentNode,t=r.querySelectorAll("[data-s]"),iv;function set(s){r.setAttribute("data-state",s);t.forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.s===s))})}t.forEach(function(b){b.addEventListener("click",function(){clearInterval(iv);set(b.dataset.s)})});if(!matchMedia("(prefers-reduced-motion: reduce)").matches)iv=setInterval(function(){set(r.getAttribute("data-state")==="before"?"after":"before")},4800)})();</script>
+</div>`;
 }

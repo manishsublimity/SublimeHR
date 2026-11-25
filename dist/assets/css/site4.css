@@ -1,0 +1,63 @@
+/* Inner pages, round 3. Loaded after site3.css. */
+
+/* ----- before / after: one living card with a switch and a person ----- */
+body.v2 .bax { position: relative; display: grid; gap: 26px; }
+body.v2 .bax__tabs { position: relative; justify-self: start; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 5px; border-radius: 999px; background: #fff; box-shadow: 0 16px 26px -18px color-mix(in srgb, var(--world) 55%, #14213D), inset 0 0 0 1.5px color-mix(in srgb, var(--world) 20%, #fff); }
+body.v2 .bax__tabs button { position: relative; z-index: 1; padding: 12px 26px; border-radius: 999px; font: 600 15px/1 var(--font); color: var(--ink); transition: color .3s; white-space: nowrap; }
+body.v2 .bax__tabs i { position: absolute; left: 5px; top: 5px; bottom: 5px; width: calc(50% - 5px); border-radius: 999px; background: #FFD05A; transition: transform .5s cubic-bezier(.34,1.4,.5,1), background .4s; }
+body.v2 .bax[data-state="after"] .bax__tabs i { transform: translateX(100%); background: var(--world); } body.v2 .bax[data-state="after"] .bax__tabs button[data-s="after"] { color: var(--on); }
+body.v2 .bax__stage { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 20px; align-items: stretch; }
+body.v2 .bax__card { position: relative; min-height: 380px; border-radius: 40px 40px 10px 40px; background: #FFD05A; color: #14213D; box-shadow: 0 36px 50px -34px color-mix(in srgb, var(--world) 60%, #14213D); overflow: hidden; transition: background .5s, color .5s; }
+body.v2 .bax[data-state="after"] .bax__card { background: var(--world); color: var(--on); }
+body.v2 .bax__pane { position: absolute; inset: 0; padding: 38px 40px; display: flex; flex-direction: column; opacity: 0; transform: translateY(18px); pointer-events: none; transition: opacity .45s, transform .55s cubic-bezier(.2,.75,.25,1); }
+body.v2 .bax[data-state="before"] .is-before, body.v2 .bax[data-state="after"] .is-after { opacity: 1; transform: none; pointer-events: auto; }
+body.v2 .bax__pane h3 { font: 600 1rem/1.2 var(--font-d); letter-spacing: -.01em; margin: 0 0 14px; color: inherit; opacity: .75; }
+body.v2 .bax__pane p { font: 600 1.25rem/1.38 var(--font-d); letter-spacing: -.02em; margin: 0 0 22px; color: inherit; max-width: 34em; }
+body.v2 .bax__pane ul { display: grid; gap: 9px; margin-top: auto; } body.v2 .bax__pane li { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-radius: 16px; background: rgba(255,255,255,.5); font-weight: 600; font-size: .95rem; color: inherit; }
+body.v2 .bax__pane.is-after li { background: rgba(255,255,255,.18); } body.v2 .bax__pane li svg { flex: none; width: 18px; height: 18px; stroke-width: 2.6; } body.v2 .is-before li svg { color: #D6336C; }
+body.v2 .bax__who { position: relative; min-height: 380px; border-radius: 40px 10px 40px 40px; background: color-mix(in srgb, var(--world) 12%, #fff); overflow: hidden; display: grid; place-items: end center; box-shadow: 0 36px 50px -34px color-mix(in srgb, var(--world) 60%, #14213D); }
+body.v2 .bax__who .ppl { margin-bottom: 44px; transform: scale(1.25); transform-origin: 50% 100%; z-index: 2; }
+body.v2 .bax__floor { position: absolute; left: -10%; right: -10%; bottom: -60px; height: 150px; border-radius: 50%; background: color-mix(in srgb, var(--world) 22%, #fff); }
+body.v2 .bax__say { position: absolute; z-index: 4; left: 50%; top: 26px; transform: translateX(-50%); padding: 10px 16px; border-radius: 16px 16px 16px 4px; background: #fff; color: #14213D; font: 600 13px/1.2 var(--font-d); letter-spacing: -.01em; white-space: nowrap; box-shadow: 0 12px 20px -12px rgba(20,33,61,.5); }
+body.v2 .bax__say .a, body.v2 .bax[data-state="after"] .bax__say .b { display: none; } body.v2 .bax[data-state="after"] .bax__say .a { display: inline; }
+body.v2 .bnote { position: absolute; z-index: 1; padding: 7px 12px; border-radius: 3px 3px 10px 3px; background: #FFD05A; color: #14213D; font: 600 11px/1.2 var(--font-d); box-shadow: 0 10px 16px -10px rgba(0,0,0,.4); transition: opacity .4s, transform .6s cubic-bezier(.34,1.5,.5,1); }
+body.v2 .bn-0 { left: 8%; top: 96px; transform: rotate(-8deg); } body.v2 .bn-1 { right: 6%; top: 138px; background: #FFB19B; transform: rotate(6deg); } body.v2 .bn-2 { left: 14%; top: 208px; background: #CBBBFF; transform: rotate(4deg); }
+body.v2 .bax[data-state="after"] .bnote { opacity: 0; transform: translateY(-30px) scale(.4); }
+body.v2 .bspark { position: absolute; z-index: 1; width: 14px; height: 14px; border-radius: 50%; background: var(--world); opacity: 0; transform: scale(0); transition: opacity .4s .15s, transform .5s .15s cubic-bezier(.34,1.8,.5,1); } body.v2 .bs-0 { left: 18%; top: 120px; } body.v2 .bs-1 { right: 16%; top: 100px; width: 20px; height: 20px; background: #FFD05A; } body.v2 .bs-2 { right: 22%; top: 230px; width: 10px; height: 10px; }
+body.v2 .bax[data-state="after"] .bspark { opacity: 1; transform: scale(1); }
+body.v2 .bax[data-state="before"] .mo { border-bottom: 0; border-top: 3px solid #5b2a23; border-radius: 16px 16px 0 0; top: 58px; }
+@media (max-width: 900px) { body.v2 .bax__stage { grid-template-columns: 1fr; } body.v2 .bax__pane { padding: 26px 24px; } body.v2 .bax__card { min-height: 440px; } }
+
+/* ----- questions: heading, blurb and pills on the left, Subi on the right, like the home page ----- */
+body.v2 .faqx { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); column-gap: 48px; align-items: start; }
+body.v2 .faqx > .head { grid-column: 1; grid-row: 1; display: block; margin: 0 0 22px; max-width: none; }
+body.v2 .faqx > .head h2 { margin-bottom: 14px; } body.v2 .faqx > .head .lead { padding: 0; border: 0; font-size: 1.02rem; color: var(--muted); }
+body.v2 .faqx > .chat { display: contents; }
+body.v2 .faqx > .chat > div:first-child { grid-column: 1; grid-row: 2; } body.v2 .faqx > .chat > .chat__win { grid-column: 2; grid-row: 1 / span 2; align-self: stretch; }
+body.v2 .faqx .chat__q { padding: 11px 18px; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 18%, #fff); margin-bottom: 8px; } body.v2 .faqx .chat__q .n { display: none; }
+body.v2 .chat__win .w__top { padding: 16px 22px; } body.v2 .chat__win .w__top b { font: 600 1.15rem/1 var(--font-d); }
+body.v2 .chat__win .w__top b .ico { position: relative; width: 44px; height: 44px; border-radius: 15px; background: #14213D; box-shadow: 0 0 0 3px rgba(255,255,255,.9); } body.v2 .chat__win .w__top b .ico svg { display: none; }
+body.v2 .chat__win .w__top b .ico::before, body.v2 .chat__win .w__top b .ico::after { content: ""; position: absolute; top: 16px; width: 7px; height: 12px; border-radius: 4px; background: #5CE6EE; } body.v2 .chat__win .w__top b .ico::before { left: 12px; } body.v2 .chat__win .w__top b .ico::after { right: 12px; }
+body.v2 .chat__win .chip.white { background: transparent; color: var(--on); box-shadow: none; }
+body.v2 .chat__log { min-height: 340px; background: #fff; } html[data-theme="dark"] body.v2 .chat__log { background: var(--paper); }
+@media (max-width: 900px) { body.v2 .faqx { grid-template-columns: 1fr; } body.v2 .faqx > .chat > div:first-child, body.v2 .faqx > .chat > .chat__win { grid-column: 1; grid-row: auto; } }
+
+/* ----- related modules: exactly the home page cards (white, world icon, colour panel slides up, others blur) ----- */
+body.v2 .mods > a.mod, body.v2 .mods > a.mod:nth-child(n) { background: var(--paper); border: 0; min-height: 214px; padding: 22px 20px; color: var(--ink); box-shadow: 0 20px 32px -26px color-mix(in srgb, var(--world) 55%, #14213D); transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .3s, filter .35s, opacity .35s; }
+body.v2 .mods > a.mod:nth-child(1) { border-radius: 28px 28px 8px 28px; } body.v2 .mods > a.mod:nth-child(2) { border-radius: 8px 28px 28px 28px; } body.v2 .mods > a.mod:nth-child(3) { border-radius: 28px; } body.v2 .mods > a.mod:nth-child(4) { border-radius: 28px 8px 28px 28px; } body.v2 .mods > a.mod:nth-child(5) { border-radius: 28px 28px 28px 8px; }
+body.v2 .mods > a.mod:hover, body.v2 .mods > a.mod:focus-visible { transform: translateY(-8px) rotate(-1deg); box-shadow: 0 32px 42px -26px color-mix(in srgb, var(--world) 65%, #14213D); }
+body.v2 .mods > a.mod .ico { background: var(--world); color: var(--on); width: 50px; height: 50px; border-radius: 17px; box-shadow: none; transition: transform .4s cubic-bezier(.34,1.56,.64,1); } body.v2 .mods > a.mod:hover .ico { transform: rotate(-10deg) scale(1.1); }
+body.v2 .mods > a.mod h3 { font: 600 15.5px/1.25 var(--font-d); letter-spacing: -.02em; color: var(--ink); } body.v2 .mods > a.mod p { font-size: 14px; line-height: 1.45; color: var(--text); opacity: 1; }
+body.v2 .mods > a.mod .more { background: var(--world); color: var(--on); padding: 16px 18px 18px; border-radius: 0; } body.v2 .mods > a.mod .more li { color: var(--on); font-size: 13px; font-weight: 600; } body.v2 .mods > a.mod .more li::before { color: var(--on); content: "\2022"; }
+body.v2 .mods > a.mod .more .link, body.v2 .mods > a.mod .more a { color: var(--on); }
+body.v2 .mods:has(.mod:hover) .mod:not(:hover) { filter: blur(3.5px) saturate(.8); opacity: .6; transform: scale(.97); }
+
+/* ----- closing band: text and buttons on the left, people on the right, nothing touching ----- */
+body.v2 .cta.has-crowd { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 56px 0 0 clamp(26px, 4vw, 60px); }
+body.v2 .cta.has-crowd .hero__cta { justify-content: flex-start; flex-wrap: wrap; margin: 0; padding: 6px 0 56px; }
+body.v2 .ccrowd { height: 290px; padding: 0; overflow: hidden; border-radius: 0; }
+body.v2 .cp-0 { left: 2%; } body.v2 .cp-1 { left: 22%; } body.v2 .cp-2 { left: 42%; } body.v2 .cp-3 { left: 62%; } body.v2 .cp-4 { left: 80%; }
+body.v2 .cpal { bottom: 14px; } body.v2 .cp-0, body.v2 .cp-2, body.v2 .cp-4 { transform: scale(.86); } body.v2 .cp-1, body.v2 .cp-3 { transform: scale(.78); bottom: 40px; }
+body.v2 .cground { left: 0; right: 0; bottom: -46px; height: 90px; }
+body.v2 .bax__tabs button { border: 0; background: transparent; box-shadow: none; }
+body.v2 .chat__win { display: flex; flex-direction: column; } body.v2 .chat__win .chat__log { flex: 1 1 auto; } body.v2 .chat__win .chat__foot { margin-top: auto; }

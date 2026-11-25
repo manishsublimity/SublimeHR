@@ -78,6 +78,7 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <link rel="stylesheet" href="/assets/css/styles.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/site2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/site3.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/site4.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navhome.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/cast.css?v=${V}">

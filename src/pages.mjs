@@ -1,6 +1,6 @@
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
-import { heroCast, crowd } from "./cast.mjs";
+import { heroCast, crowd, baSwitch } from "./cast.mjs";
 import { clockW, leaveW, payrollW, permW, hereW, rosterW, letterW, visitorW, storyW, chatW, homeFaqItems, vsCompare, heroArt, moduleWidget } from "./widgets.mjs";
 
 const more8 = (base, ids) => { const out = [...base], seen = new Set(out.map(([q]) => q)); for (const id of ids) for (const qa of faqs.find((g) => g.id === id).items) { if (out.length >= 8) break; if (!seen.has(qa[0])) { seen.add(qa[0]); out.push(qa); } } return out; };
@@ -266,7 +266,7 @@ ${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][i
 <section class="section cream">
   <div class="container">
     ${sHead({ eyebrow: "Before & after", tone: "peach", title: "What actually changes for your HR team" })}
-    ${vsCompare(m)}
+    ${baSwitch(m)}
   </div>
 </section>
 
@@ -285,9 +285,9 @@ ${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][i
 </section>
 
 <section class="section">
-  <div class="container">
-    ${sHead({ eyebrow: "Quick answers", tone: "mint", title: `${m.name}, answered.` })}
-    ${chatW(moduleFaqs(m), { title: `${m.name} assistant`, suggest: 8 })}
+  <div class="container faqx">
+    <div class="head rv"><h2>Ask Subi about ${m.name.toLowerCase()}.</h2><p class="lead">Pick a question or type your own. Subi answers instantly, and a real person replies within one business day.</p></div>
+    ${chatW(moduleFaqs(m), { title: "Subi", suggest: 8 })}
   </div>
 </section>
 
