@@ -64,6 +64,7 @@ function head(m, path, description) {
 <link rel="stylesheet" href="/assets/css/mod4.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod5.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod6.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mod7.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -129,6 +130,7 @@ function before(m) {
   const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
   const fixes = [["Final_v7.xlsx", "One employee record"], ["Who has the form?", "On her profile"], ["Re-type it", "Filled in for her"], ["Wrong salary?", "Checked, correct"], ["Lost the letter", "Found, signed"], ["Duplicate entry", "No duplicates"], ["No audit trail", "Every change logged"]];
   return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Watch Subi come over and fix her day.">
+  <div class="mba__pin" data-pin><div class="mba__sticky">
   <div class="mba__head"><h2 id="h-ba">What changes for your HR team.</h2>
     <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button></div></div>
   <div class="mba__stage">
@@ -147,6 +149,7 @@ function before(m) {
       <span class="mba__floor"></span>
     </div>
   </div>
+  </div></div>
 </section>`;
 }
 

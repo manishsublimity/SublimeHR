@@ -186,43 +186,57 @@
   };
   $$("[data-show]", gMenu).forEach(function (b) { b.addEventListener("click", async function () { menu(false); if (gBusy) return; gBusy = true; var f = shows[b.getAttribute("data-show")]; try { if (f) await f(); } catch (e) {} gBusy = false; }); });
 
-  /* ================= before / after: she asks Subi for help, Subi goes through the problems one by one, then she relaxes ================= */
+  /* ================= before / after: pinned on screen; scrolling plays the story (Subi comes, goes through every problem, she relaxes) ================= */
   (function () {
     var r = $("[data-mba]"); if (!r) return;
-    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), lady = $(".mba__lady .ppl", r), cards = $$(".mba__cards li", r), prog = $("[data-prog]", r), auto = true, token = 0, shown = false;
+    var pin = $("[data-pin]", r), tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), ladyBox = $(".mba__lady", r), lady = $(".ppl", ladyBox), cards = $$(".mba__cards li", r), prog = $("[data-prog]", r);
+    var order = [0, 3, 1, 4, 2, 5, 6], lastStage = "", lastFixed = -1, active = false, STICKY = 72, ticking = false;
+    function pose(step) { lady.setAttribute("data-pose", { before: "rest", ask: "point", work: "hips", after: "wave" }[step] || "rest"); lady.classList.toggle("ppl--wave", step === "after"); }
     function set(step) {
-      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step);
+      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step); pose(step);
       tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(step === "after" ? b.dataset.s === "after" : b.dataset.s === "before")); });
-      if (lady) { lady.setAttribute("data-pose", { before: "rest", ask: "point", work: "hips", after: "wave" }[step] || "rest"); lady.classList.toggle("ppl--wave", step === "after"); }
-      if (step === "after") Snd.chime();
     }
-    function lsay(text, ms) { bsay.textContent = text; bsay.classList.remove("on"); void bsay.offsetWidth; bsay.classList.add("on"); talk(lady, ms || 2200); }
-    function resetCards() { cards.forEach(function (c) { c.classList.remove("fixed"); }); prog.textContent = "Waiting for the file…"; prog.classList.remove("done"); }
-    function alive(t) { return t === token; }
-    function atCard(c) { var rc = c.getBoundingClientRect(); return { x: rc.left + rc.width * .5, y: rc.top + rc.height * .5 }; }
-    async function visit(c) { var pt = atCard(c); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, pt.x - 22)), Math.max(70, Math.min(window.innerHeight - 140, pt.y - 40))); await wait(850); c.classList.add("fixed"); Snd.tick(); }
-    async function play(manual) {
-      var t = ++token;
-      if (gBusy && !manual) return;
-      gBusy = true; menu(false); resetCards(); set("before"); guide.classList.add("mplay"); lsay("Where is that file again?", 2200); await wait(1800); if (!alive(t)) return;
-      await flyTo(scene, .84, .1); if (!alive(t)) return; guide.classList.add("mhi"); setTimeout(function () { guide.classList.remove("mhi"); }, 1400); Snd.pop();
-      guideSay("Hi, I'm Subi. Need a hand?", 2200); await wait(1900); if (!alive(t)) return;
-      set("ask"); lsay("Subi, find Sara's signed offer letter, please!", 3200); await wait(3400); if (!alive(t)) return;
-      guideSay("On it! Fixing it all.", 1800); set("work"); guide.classList.add("msearch");
-      var order = [0, 3, 1, 4, 2]; var done = 0;
-      for (var i = 0; i < order.length; i++) { if (!alive(t)) return; prog.textContent = "Subi is on it · " + (done + 1) + " of " + cards.length; await visit(cards[order[i]]); done++; }
-      cards.forEach(function (c) { c.classList.add("fixed"); }); prog.textContent = "All " + cards.length + " fixed"; prog.classList.add("done"); guide.classList.remove("msearch");
-      await wait(600); if (!alive(t)) return;
-      var lr = $(".mba__lady", r).getBoundingClientRect(); gFly = true; gPlace(Math.max(8, lr.left + lr.width + 6), Math.max(70, lr.top + 6)); await wait(1100); if (!alive(t)) return;
-      set("after"); guideSay("All done. Everything is on her record.", 3000); lsay("Found it. Thank you, Subi!", 3000); await wait(3600); if (!alive(t)) return;
-      gHome(); guide.classList.remove("mplay", "msearch", "mhi"); await wait(900); gBusy = false;
+    function lsay(text) { bsay.textContent = text; bsay.classList.remove("on"); void bsay.offsetWidth; bsay.classList.add("on"); talk(lady, 2400); }
+    function syncCards(n) { if (n === lastFixed) return; cards.forEach(function (c, i) { c.classList.toggle("fixed", order.indexOf(i) < n); }); if (n > lastFixed && n > 0) Snd.tick(); lastFixed = n; prog.textContent = n === 0 ? "Waiting for the file…" : n >= cards.length ? "All " + cards.length + " fixed" : "Subi is on it · " + n + " of " + cards.length; prog.classList.toggle("done", n >= cards.length); }
+    function near(el, fx, fy, dx, dy) { var rc = el.getBoundingClientRect(); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, rc.left + rc.width * fx + (dx || 0))), Math.max(70, Math.min(window.innerHeight - 140, rc.top + rc.height * fy + (dy || 0)))); }
+    function enter(stage) {
+      if (stage === lastStage) return; lastStage = stage;
+      if (stage === "s0") { set("before"); lsay("Where is that file again?"); }
+      if (stage === "s1") { set("before"); guide.classList.add("mhi"); setTimeout(function () { guide.classList.remove("mhi"); }, 1400); Snd.pop(); guideSay("Hi, I'm Subi. Need a hand?", 2600); }
+      if (stage === "s2") { set("ask"); lsay("Subi, find Sara's signed offer letter, please!"); }
+      if (stage === "s3") { set("work"); guideSay("On it! Fixing every one of these.", 2200); }
+      if (stage === "s4") { set("work"); guide.classList.remove("msearch"); }
+      if (stage === "s5") { set("after"); guideSay("All done. Everything is on her record.", 3000); lsay("Found it. Thank you, Subi!"); }
     }
-    tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; token++; guide.classList.remove("mplay", "msearch", "mhi"); if (b.dataset.s === "after") { gBusy = false; play(true); } else { resetCards(); set("before"); lsay("Where is that file again?", 2000); if (gBusy) { gHome(); gBusy = false; } } }); });
-    mbaApi = { play: function () { auto = false; return play(true); } };
+    function render() {
+      ticking = false;
+      var rc = pin.getBoundingClientRect(), total = pin.offsetHeight - window.innerHeight + STICKY, p = total > 0 ? Math.max(0, Math.min(1, (STICKY - rc.top) / total)) : 1;
+      var inView = rc.bottom > 0 && rc.top < window.innerHeight, on = inView && p > 0 && p < 1;
+      if (!on) {
+        if (active) { active = false; guide.classList.remove("mplay", "msearch", "mhi"); gBusy = false; gHome(); }
+        if (inView && p <= 0) { enter("s0"); syncCards(0); } else if (inView && p >= 1) { enter("s5"); syncCards(cards.length); }
+        return;
+      }
+      if (!active) { active = true; gBusy = true; menu(false); guide.classList.add("mplay"); }
+      if (p < .06) { enter("s0"); syncCards(0); gHome(); return; }
+      if (p < .16) { enter("s1"); syncCards(0); near(scene, .86, .1); return; }
+      if (p < .26) { enter("s2"); syncCards(0); near(scene, .5, .46); return; }
+      if (p < .76) {
+        enter("s3"); guide.classList.add("msearch");
+        var n = Math.max(1, Math.min(cards.length, Math.floor((p - .26) / .5 * cards.length) + 1)); syncCards(n);
+        near(cards[order[n - 1]], .5, .5, -22, -44); return;
+      }
+      if (p < .86) { enter("s4"); syncCards(cards.length); near(ladyBox, 1.15, .62); return; }
+      if (p < .97) { enter("s5"); syncCards(cards.length); near(ladyBox, 1.15, .62); return; }
+      enter("s5"); syncCards(cards.length); gHome();
+    }
+    function queue() { if (!ticking) { ticking = true; requestAnimationFrame(render); } }
+    window.addEventListener("scroll", queue, { passive: true }); window.addEventListener("resize", queue);
+    function goTo(p) { var rc = pin.getBoundingClientRect(), total = pin.offsetHeight - window.innerHeight + STICKY, y = window.scrollY + rc.top - STICKY + p * total; window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" }); }
+    tabs.forEach(function (b) { b.addEventListener("click", function () { if (b.dataset.s === "after") goTo(.92); else goTo(.01); }); });
+    mbaApi = { play: function () { var rc = pin.getBoundingClientRect(); window.scrollTo({ top: window.scrollY + rc.top - STICKY + 2, behavior: reduce ? "auto" : "smooth" }); setTimeout(function () { goTo(.97); }, reduce ? 0 : 900); return wait(1500); } };
     if (reduce) { cards.forEach(function (c) { c.classList.add("fixed"); }); set("after"); return; }
-    var loopTimer;
-    function cycle() { clearTimeout(loopTimer); if (!auto || !shown) return; play(false).then(function () { loopTimer = setTimeout(function () { if (auto && shown) { resetCards(); set("before"); loopTimer = setTimeout(cycle, 2600); } }, 5200); }); }
-    vis(r, function (on) { shown = on; if (on && auto) { setTimeout(cycle, 900); } else { clearTimeout(loopTimer); if (!on && gBusy && auto) { token++; gHome(); guide.classList.remove("mplay", "msearch", "mhi"); gBusy = false; } } }, .5);
+    set("before"); render();
   })();
 
   /* ================= closing band: pick a time ================= */
