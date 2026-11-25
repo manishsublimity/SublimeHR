@@ -4,6 +4,7 @@
 import { site, modules, why, industries as siteInds } from "./data.mjs";
 import { homeFaqItems } from "./widgets.mjs";
 import { icon } from "./icons.mjs";
+import { navMenu } from "./navparts.mjs";
 
 const V = Date.now().toString(36);
 const none = "none";
@@ -321,6 +322,8 @@ export function home2(path = "/home-v2/") {
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
+<script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
 <body class="lo" data-w="${industries[0].key}" data-clk="15" data-ft="3">
 <script type="application/json" id="lo-data">${JSON.stringify({ industries, people: people.map((p) => p.n), icons: iconSet, faq }).replace(/</g, "\\u003c")}</script>
@@ -328,8 +331,7 @@ export function home2(path = "/home-v2/") {
 
 <header class="nav" data-nav>
   <a class="nav__brand" href="/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
-  <nav class="nav__links" aria-label="Main"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></nav>
-  <a class="btn btn--on" href="/book-demo/">Book a demo</a>
+  ${navMenu()}
 </header>
 
 <main>
@@ -803,6 +805,7 @@ export function home2(path = "/home-v2/") {
 <div class="nudge" data-nudge hidden>Turn the sound on for the full demo.</div>
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
+<script src="/assets/js/navmenu.js?v=${V}" defer></script>
 </body>
 </html>`;
 }

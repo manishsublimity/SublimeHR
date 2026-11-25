@@ -1,5 +1,6 @@
 import { site, modules } from "./data.mjs";
 import { icon } from "./icons.mjs";
+import { navMenu } from "./navparts.mjs";
 
 export const esc = (s = "") =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -77,6 +78,7 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <link rel="stylesheet" href="/assets/css/styles.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/site2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navhome.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
 <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
 <script>try{if(sessionStorage.getItem("shr-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-skip")}catch(e){}</script>
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
@@ -92,8 +94,7 @@ export function nav2(active) {
   return `<a class="skip" href="#main">Skip to content</a>
 <header class="nav onhero" data-nav>
   <a class="nav__brand" href="/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
-  <nav class="nav__links" aria-label="Main"><a href="/features/"${cur("features")}>Product</a><a href="/industries/"${cur("industries")}>Industries</a><a href="/pricing/"${cur("pricing")}>Pricing</a><a href="/about/"${cur("company")}>Company</a></nav>
-  <a class="btn btn--on" href="/book-demo/">Book a demo</a>
+  ${navMenu(active)}
 </header>
 <div class="bar-progress" aria-hidden="true"></div>`;
 }
