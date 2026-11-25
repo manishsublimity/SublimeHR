@@ -735,3 +735,14 @@
 .cf__cmp { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; color: var(--world); text-decoration: none; font: 700 14.5px/1 var(--f); } .cf__cmp .ic { width: 17px; height: 17px; transition: transform .3s var(--spring); } .cf__cmp:hover .ic { transform: translateX(5px); }
 @media (max-width: 1180px) { .ctc { padding-top: 60px; } .cf__who { display: none; } .cf-plans { grid-template-columns: 1fr; } }
 .cf-field .cf-plans label b { color: inherit; }
+
+
+/* the character lives in the side column now, the card sits where it used to */
+.ctc { padding-top: 50px; padding-bottom: 130px; }
+.cf-card { overflow: hidden; } .cf-card::before { border-radius: 0; }
+.cf__who { display: none; }
+.cf__stage { position: relative; height: 300px; border-radius: 28px; background: linear-gradient(180deg, color-mix(in srgb, var(--world) 6%, #fff), color-mix(in srgb, var(--world) 20%, #fff)); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 12%, #fff); overflow: hidden; }
+.cf__stage .cf__ppl { position: absolute; left: 50%; bottom: 22px; margin-left: -52px; }
+.cf__stage .cf__say { position: absolute; left: 20px; top: 22px; right: auto; max-width: 240px; }
+.cf__stage::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 16px; height: 14px; border-radius: 50%; background: rgba(20,33,61,.14); filter: blur(5px); }
+@media (max-width: 1180px) { .ctc { padding-top: 40px; } .cf__stage { display: none; } }

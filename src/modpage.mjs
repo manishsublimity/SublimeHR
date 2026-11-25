@@ -453,7 +453,7 @@ export function integrationsModulePage(ldExtra = "") {
 
 
 
-const cfWho = (say) => `<div class="cf__who cast" aria-hidden="true"><span class="cf__say" data-cfsay data-def="${esc(say)}">${esc(say)}</span><div class="cf__ppl">${who(byName["Aisha"], 3, "ppl--wave")}</div></div>`;
+const cfWho = (say) => `<div class="cf__stage cast" aria-hidden="true"><span class="cf__say" data-cfsay data-def="${esc(say)}">${esc(say)}</span><div class="cf__ppl">${who(byName["Aisha"], 3, "ppl--wave")}</div></div>`;
 
 /* ================= the contact page: the original content and form, in the new design ================= */
 const CCODES = [["+91", "🇮🇳 +91"], ["+971", "🇦🇪 +971"], ["+966", "🇸🇦 +966"], ["+974", "🇶🇦 +974"], ["+965", "🇰🇼 +965"], ["+968", "🇴🇲 +968"], ["+973", "🇧🇭 +973"], ["+44", "🇬🇧 +44"], ["+1", "🇺🇸 +1"]];
@@ -462,7 +462,7 @@ const TOPICS = ["General question", "Sales", "Support", "Custom development", "I
 function contactSection() {
   return `<section class="ctc" id="try" aria-label="Contact us" data-tip="Send us a message. We reply within one business day.">
   <div class="cf__grid">
-    <div class="cf-card">${cfWho("How can we help?")}
+    <div class="cf-card">
       <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
         <input type="hidden" name="intent" value="contact_sales">
         <h2>Send us a message</h2><p class="cf__sub">We'll get back to you by email or phone.</p>
@@ -494,6 +494,7 @@ function contactSection() {
         <a href="/get-pricing/"><i>${icon("wallet", "ic")}</i><b>Get pricing</b><small>Team quote</small></a>
         <a href="/faq/"><i>${icon("message", "ic")}</i><b>FAQ</b><small>50 answers</small></a>
       </div></div>
+      ${cfWho("How can we help?")}
     </aside>
   </div>
 </section>
@@ -681,7 +682,7 @@ const AGENDA = [["0–5", "Your goals & current process"], ["5–20", "Live tour
 function demoBookSection() {
   return `<section class="ctc" id="try" aria-label="Book a demo" data-tip="Pick a day. We confirm the exact time by email or WhatsApp.">
   <div class="cf__grid">
-    <div class="cf-card">${cfWho("Let's book your demo!")}
+    <div class="cf-card">
       <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
         <input type="hidden" name="intent" value="book_demo">
         <h2>Book your demo</h2><p class="cf__sub">Pick a day. We'll confirm the exact time by email or WhatsApp.</p>
@@ -714,6 +715,7 @@ function demoBookSection() {
       <div class="cf__incl"><p>Included on every plan</p><ul><li>${icon("check", "ic")}Free onboarding & data migration</li><li>${icon("check", "ic")}Admin & employee training</li><li>${icon("check", "ic")}No credit card to start</li></ul></div>
       <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
       <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a>
+      ${cfWho("Let's book your demo!")}
     </aside>
   </div>
 </section>
@@ -742,7 +744,7 @@ function quoteSection() {
   const sel = (id, name, label, opts, ph, req) => `<div class="cf-field"${req ? " data-validate" : ""}><label for="${id}">${label}${req ? " <b>*</b>" : ""}</label><select id="${id}" name="${name}"${req ? " required" : ""}><option value="">${ph}</option>${opts.map((v) => `<option>${esc(v)}</option>`).join("")}</select>${req ? `<span class="cf-err">Please choose your team size.</span>` : ""}</div>`;
   return `<section class="ctc" id="try" aria-label="Get pricing" data-tip="Tell us your team size and modules. We send a clear quote.">
   <div class="cf__grid">
-    <div class="cf-card">${cfWho("Let's get you a quote!")}
+    <div class="cf-card">
       <form id="contact-form" novalidate data-endpoint="${site.formEndpoint}" aria-describedby="form-note">
         <input type="hidden" name="intent" value="request_quote">
         <h2>Request your quote</h2><p class="cf__sub">Takes about a minute. No commitment, no spam.</p>
@@ -775,6 +777,7 @@ function quoteSection() {
       <div class="cf__incl"><p>Every quote includes</p><ul><li>${icon("check", "ic")}Pay only for active employees</li><li>${icon("check", "ic")}Free onboarding & data migration</li><li>${icon("check", "ic")}Monthly or annual billing</li></ul></div>
       <a class="cf__line cf__line--call" href="${site.phoneHref}"><i>${icon("phone", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span>${icon("arrow", "ic")}</a>
       <a class="cf__line cf__line--wa" href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>Chat with us</small><b>WhatsApp</b></span>${icon("arrow", "ic")}</a>
+      ${cfWho("Let's get you a quote!")}
     </aside>
   </div>
 </section>

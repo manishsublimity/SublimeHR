@@ -46,7 +46,7 @@
     btn.disabled = true; btn.setAttribute("aria-busy", "true"); lbl.textContent = "Sending…";
     var endpoint = (form.getAttribute("data-endpoint") || "").trim();
     function done(viaWa) {
-      card.classList.add("sent"); var s = $("#form-success"); sayIt("Thank you! Talk soon."); var pp = card.querySelector(".cf__ppl"); if (pp) pp.classList.add("cheer"); confetti(card);
+      card.classList.add("sent"); var s = $("#form-success"); sayIt("Thank you! Talk soon."); var pp = $(".cf__ppl"); if (pp) pp.classList.add("cheer"); confetti(card);
       if (viaWa) $("#success-msg").textContent = "Please press send in WhatsApp to deliver your details to our team. We'll reply within 1 business day.";
       var wa = $("#wa-followup"); if (wa) wa.href = waLink(payload); s.setAttribute("tabindex", "-1"); s.focus();
     }
