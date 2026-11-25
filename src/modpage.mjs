@@ -60,6 +60,7 @@ function head(m, path, description) {
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod2.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mod3.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -82,6 +83,7 @@ function hero(m) {
         <div class="stage__floor" aria-hidden="true"></div>
         <div class="mwin" data-mwin>
           <div class="mwin__top"><i>${icon(m.icon, "ic")}</i><b>${esc(m.name)}</b><em><span></span>Live</em></div>
+          <div class="mwin__who"><span class="mwin__av">SN</span><span><b>Sara Nasser</b><small>New joiner · Senior Accountant</small></span><strong data-pct>25%</strong></div>
           <ul>${rows.map((f, i) => `<li data-row="${i}"><i>${icon("check", "ic")}</i><span>${esc(f)}</span></li>`).join("")}</ul>
           <div class="mwin__bar"><i data-bar></i></div>
         </div>
@@ -94,11 +96,11 @@ function hero(m) {
 </section>`;
 }
 
-/* a full-width demo that plays by itself */
+/* a full-width demo that plays by itself, inside one panel */
 function letterDemo() {
   return `<section class="mdemo" id="try" aria-labelledby="h-try" data-tip="This letter writes itself. Take over any time.">
   <div class="mdemo__head"><h2 id="h-try">An offer letter, written while you watch.</h2><p>Pick a person and the letter fills in from their record. It then goes out for e-signature. Nobody types it twice.</p></div>
-  <div class="mdemo__grid" data-letter>
+  <div class="mdemo__panel cast" data-letter>
     <div class="mform">
       <div class="mform__tabs" data-tpl role="group" aria-label="Letter type"><button type="button" data-t="offer" aria-pressed="true">Offer letter</button><button type="button" data-t="exp" aria-pressed="false">Experience</button><button type="button" data-t="warn" aria-pressed="false">Warning</button></div>
       <label>Employee name<input data-in="name" value="Sara Nasser" maxlength="40" autocomplete="off"></label>
@@ -111,26 +113,30 @@ function letterDemo() {
       <div class="mpaper__body"><h3 data-title>Offer of employment</h3><div data-body></div><p class="mpaper__sig">— People Team</p><span class="mpaper__stamp">SENT ✓</span></div>
       <div class="mpaper__toast" data-toast>${icon("check", "ic")}<span>Sent for e-signature</span></div>
     </div>
-    <div class="mdemo__who cast" aria-hidden="true">${who(byName["Priya"], 1, "ppl--wave")}<span class="mdemo__say" data-dsay>Writing the letter…</span></div>
+    <div class="mdemo__who" aria-hidden="true"><span class="mdemo__say" data-dsay>Writing the letter…</span>${who(byName["Priya"], 1, "ppl--wave")}<span class="mdemo__floor"></span></div>
   </div>
 </section>`;
 }
 
 function before(m) {
   const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
-  return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Tap the switch. The same office, before and after.">
+  const tags = ["Profile", "Offer letter", "Salary", "Documents", "Timeline"];
+  return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Watch her call Subi HR. The same office, before and after.">
   <div class="mba__head"><h2 id="h-ba">What changes for your HR team.</h2>
-    <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button><i aria-hidden="true"></i></div></div>
+    <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button></div></div>
   <div class="mba__stage">
     <div class="mba__card">
       <div class="mba__pane is-b"><small>The old way</small><p>${esc(m.problem)}</p><ul>${pains.map((x) => `<li>${icon("close", "ic")}${x}</li>`).join("")}</ul></div>
       <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul></div>
     </div>
-    <div class="mba__who cast" aria-hidden="true">
-      <span class="mba__say"><b class="b">Where is that file again?</b><b class="a">Found it. One click.</b></span>
-      <span class="bnote bn-0">Final_v7.xlsx</span><span class="bnote bn-1">Who has the form?</span><span class="bnote bn-2">Re-type it</span>
-      ${who(byName["Priya"], 3)}
-      <span class="mba__bot"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><em>Subi HR: I'll take it from here.</em></span>
+    <div class="mba__scene cast">
+      <span class="mba__glow" aria-hidden="true"></span><span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="mba__say" data-bsay>Where is that file again?</span>
+      <span class="bnote bn-0" aria-hidden="true">Final_v7.xlsx</span><span class="bnote bn-1" aria-hidden="true">Who has the form?</span><span class="bnote bn-2" aria-hidden="true">Re-type it</span>
+      <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
+      <ul class="mba__tags" aria-hidden="true">${tags.map((x, i) => `<li style="--d:${i * 0.18}s">${icon("check", "ic")}${x}</li>`).join("")}</ul>
+      <div class="mba__app" aria-hidden="true"><div class="mba__apptop"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span>Subi HR</div><div class="mba__search">${icon("search", "ic")}Sara Nasser, offer letter</div><div class="mba__hit">${icon("file", "ic")}<span>Offer letter, signed 4 May</span><em>Found</em></div></div>
+      <button class="mba__subi" type="button" data-call aria-label="Call Subi HR"><span class="mba__rings" aria-hidden="true"><i></i><i></i></span><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="mba__subibody" aria-hidden="true"></span><em>Call Subi HR</em></button>
       <span class="mba__floor"></span>
     </div>
   </div>
@@ -139,13 +145,14 @@ function before(m) {
 
 function caps(m) {
   const ex = EXTRA[m.slug]?.caps;
-  const list = m.features.map((f, i) => ex ? ex[i] || [f, "", "tablet", "point"] : [f, "", "tablet", "point"]);
+  const list = m.features.map((f, i) => ex ? ex[i] || [f, "", "file", "hold"] : [f, "", "file", "hold"]);
   return `<section class="mcap" aria-labelledby="h-cap" data-mcap data-tip="One capability at a time. Hover any tile to jump to it.">
   <div class="mcap__head"><h2 id="h-cap">${m.features.length} things it does for you.</h2><p>Configured to your policies. No code, no add-ons.</p></div>
   <div class="mcap__grid">
     <div class="mcap__stage cast">
-      <span class="mcap__ring"></span><span class="mcap__ring r2"></span>
-      <div class="mcap__card" data-card><i data-ic></i><b data-t>${esc(list[0][0])}</b><p data-d>${esc(list[0][1])}</p></div>
+      <span class="mcap__grid2" aria-hidden="true"></span><span class="mcap__ring"></span><span class="mcap__ring r2"></span>
+      <span class="mcap__float f1">${icon("users", "ic")}</span><span class="mcap__float f2">${icon("file", "ic")}</span><span class="mcap__float f3">${icon("shield", "ic")}</span><span class="mcap__float f4">${icon("chart", "ic")}</span><span class="mcap__float f5">${icon("clock", "ic")}</span><span class="mcap__float f6">${icon("check", "ic")}</span>
+      <div class="mcap__card" data-card><b data-t>${esc(list[0][0])}</b><p data-d>${esc(list[0][1])}</p></div>
       ${who(byName["Aisha"], 4, "")}
       <span class="mcap__floor"></span>
     </div>
@@ -154,11 +161,11 @@ function caps(m) {
 </section>`;
 }
 
-function peek(m) {
-  const items = EXTRA[m.slug]?.peeks || m.useCases.map((u, i) => [u, m.features[(i * 3 + 1) % m.features.length], m.name, ["sun", "lilac", "mint"][i]]);
-  return `<section class="peek" aria-labelledby="h-peek" data-tip="Flip a card. The curious ones learn the most.">
-  <div class="peek__head"><h2 id="h-peek">Things you didn't know ${esc(m.name.toLowerCase())} could do.</h2><p>Each of these is a question your team asks. Turn a card over for the answer.</p></div>
-  <div class="peek__grid">${items.map(([q, a, d, c], i) => `<button class="pk pk--${c} pk--${i + 1}" type="button" aria-pressed="false"><span class="pk__in"><span class="pk__f"><span class="pk__q">${esc(q)}</span><i class="pk__m" aria-hidden="true">?</i></span><span class="pk__b"><span class="pk__a">${esc(a)}</span><span class="pk__d">${esc(d)}</span></span></span></button>`).join("")}</div>
+function scen(m) {
+  const ic = ["building", "users", "zap"];
+  return `<section class="msc" aria-labelledby="h-sc" data-tip="Where this module earns its keep.">
+  <div class="msc__head"><h2 id="h-sc">Where ${esc(m.name.toLowerCase())} shines.</h2><p>Three situations where teams reach for it first.</p></div>
+  <div class="msc__grid">${m.useCases.slice(0, 3).map((u, i) => `<article class="msc__c msc__c--${i}"><span class="msc__n" aria-hidden="true">0${i + 1}</span><i class="msc__ic">${icon(ic[i], "ic")}</i><p>${esc(u)}</p><ul>${[m.features[(i * 4) % m.features.length], m.features[(i * 4 + 2) % m.features.length]].map((f) => `<li>${icon("check", "ic")}${esc(f)}</li>`).join("")}</ul></article>`).join("")}</div>
 </section>`;
 }
 
@@ -210,7 +217,7 @@ export function modulePage(m, faqItems, ldExtra = "") {
 <body class="lo mpage" data-w="it">
 <script>try{var w=localStorage.getItem("shr-world");if(w)document.body.setAttribute("data-w",w)}catch(e){}</script>
 <script type="application/json" id="mod-story">${JSON.stringify([m.benefits[0], m.benefits[1], m.benefits[2], m.features[3] || m.features[0]].filter(Boolean)).replace(/</g, "\u003c")}</script>
-<script type="application/json" id="mod-data">${JSON.stringify({ faq: faqItems.map(([q, a]) => [q, a]) }).replace(/</g, "\\u003c")}</script>
+<script type="application/json" id="mod-data">${JSON.stringify({ faq: faqItems.map(([q, a]) => [q, a]), icons: Object.fromEntries(["file", "folder", "users", "clock", "shield", "calendar", "wallet", "repeat", "chart", "lock", "fingerprint", "camera", "layers", "send", "search", "bot", "dollar", "sparkles", "check", "message", "call", "pin", "dashboard", "alert"].map((k) => [k, icon(k, "ic")])) }).replace(/</g, "\\u003c")}</script>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav onhero" data-nav>
   <a class="nav__brand" href="/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
@@ -221,12 +228,23 @@ ${hero(m)}
 ${m.slug === "employee-management" ? letterDemo() : ""}
 ${before(m)}
 ${caps(m)}
-${peek(m)}
+${scen(m)}
 ${mods(m)}
 ${ask(m)}
 ${meet(m)}
 </main>
 ${homeFooter()}
+<div class="guide" data-guide>
+  <div class="guide__say" data-guide-say aria-live="polite"></div>
+  <div class="guide__menu" data-guide-menu hidden role="menu" aria-label="Ask Subi to show you something">
+    <b>What should I show you?</b>
+    ${[["try", "file", "Watch a letter write itself"], ["ba", "repeat", "Before and after"], ["cap", "layers", "What it does"], ["ask", "message", "Ask a question"]].map(([k, ic, tt]) => `<button type="button" role="menuitem" data-show="${k}">${icon(ic, "ic")}${tt}</button>`).join("")}
+  </div>
+  <button class="subi__bot" type="button" data-guide-bot aria-label="Ask Subi, the page helper" aria-expanded="false"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="s-body"><i class="s-core"></i></span><i class="s-ar l"></i><i class="s-ar r"></i><i class="s-jet"></i></button>
+  <span class="subi__lbl">Ask Subi</span>
+</div>
+<button class="fab" type="button" data-sound aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a8 8 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg><span>Sound off</span></button>
+<div class="nudge" data-nudge hidden>Turn the sound on for the full demo.</div>
 ${themeFab()}
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 ${ldExtra}
