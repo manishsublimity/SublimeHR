@@ -789,3 +789,4 @@
 .cf__ch--l .cf__say { left: 62%; }
 .cf__ch .cf__say { bottom: 214px; }
 .cf__ch--l .cf__say { left: 74%; }
+.cf__ch .cf__say { top: auto; height: auto; }
