@@ -285,37 +285,48 @@ ${ldExtra}
 }
 
 
-/* ================= the industries page ================= */
-const SAYS = { manufacturing: "Three shifts, one roster.", healthcare: "Every ward is covered.", "it-software": "Clock in from anywhere.", education: "Leave follows the term.", hospitality: "Split shifts, sorted.", retail: "Every store, every shift.", logistics: "Drivers punch on the road." };
+/* ================= the industries page: the original content, in the new design ================= */
+const bySlugM = Object.fromEntries(modules.map((x) => [x.slug, x]));
+const TONE = ["yellow", "blue", "dark", "mint", "coral"];
 
-function indExplorer() {
-  const data = INDS.map((i) => ({ id: i.id, name: i.name, blurb: i.blurb, how: i.how, mods: i.modules.map((s) => { const mm = modules.find((x) => x.slug === s); return mm ? [mm.name, mm.slug] : null; }).filter(Boolean), say: SAYS[i.id] || "Built for your teams." }));
-  return `<section class="mdemo" id="try" aria-labelledby="h-try" data-tip="Pick an industry to see what changes for it.">
-  <div class="mdemo__head"><h2 id="h-try">Pick your industry.</h2><p>Every workforce runs a little differently. Choose yours and see the shifts, rules and modules that fit it. It plays by itself until you take over.</p></div>
-  <div class="dmx cast" data-dm="ind" data-ind="${esc(JSON.stringify(data)).replace(/"/g, "&quot;")}">
-    <div class="dmx__l dmx__indgrid" role="tablist" aria-label="Industries">${INDS.map((i, k) => `<button type="button" role="tab" data-in="${k}" aria-selected="${k === 0}"><i>${icon(i.icon, "ic")}</i><b>${esc(i.name)}</b></button>`).join("")}</div>
-    <div class="dmx__r dmx__indcard">
-      <small data-it>${esc(INDS[0].name)}</small>
-      <h3 data-ib>${esc(INDS[0].blurb)}</h3>
-      <ul data-ih></ul>
-      <div class="dmx__imods"><small>Modules it leans on</small><div data-im></div></div>
-      <a class="dmx__send dmx__send--s" data-ibook href="/book-demo/?industry=${encodeURIComponent(INDS[0].name)}">Get a demo for ${esc(INDS[0].name)}</a>
-    </div>
-    <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Built for your teams.</span><div class="dmx__ppl">${who(byName["Priya"], 1, "ppl--wave")}</div></div>
-  </div>
+function indStack() {
+  return `<section class="istk" id="try" aria-labelledby="h-istk" data-tip="Pick your industry. Each card shows what fits it.">
+  <div class="istk__head"><h2 id="h-istk">HR software for every kind of workforce.</h2></div>
+  <nav class="istk__nav" data-spy aria-label="Industries">${INDS.map((i, k) => `<a href="#${i.id}"${k === 0 ? ' aria-current="true"' : ""}><i>${icon(i.icon, "ic")}</i>${esc(i.name)}</a>`).join("")}</nav>
+  <div class="istk__cards">${INDS.map((i, k) => `<article class="istk__c istk__c--${TONE[k % 5]}" id="${i.id}" style="--k:${k}" aria-label="${esc(i.name)}">
+    <div class="istk__copy"><span class="istk__tag"><i>${icon(i.icon, "ic")}</i>${esc(i.name)}</span><h3>HR software for ${esc(/^[A-Z]{2}/.test(i.name) ? i.name : i.name.toLowerCase())}</h3><p>${esc(i.blurb)}</p>
+      <ul>${i.how.map((h) => `<li>${icon("check", "ic")}${esc(h)}</li>`).join("")}</ul>
+      <a class="istk__go" href="/book-demo/?industry=${encodeURIComponent(i.name)}">Get a ${esc(i.name)} demo ${icon("arrow", "ic")}</a></div>
+    <div class="istk__scene"><span class="istk__big" aria-hidden="true">${icon(i.icon, "ic")}</span><small>Recommended modules</small>
+      ${i.modules.map((s) => `<a class="istk__mod" href="/software/${s}/"><i>${icon(bySlugM[s].icon, "ic")}</i><span><b>${esc(bySlugM[s].name)}</b><em>${esc(bySlugM[s].short)}</em></span>${icon("arrow", "ic")}</a>`).join("")}</div>
+  </article>`).join("")}</div>
 </section>`;
 }
 
-function indShared() {
-  const cards = [
-    ["zap", "Shift, leave and pay rules are set per industry, per site and per team.", ["Rules engine for policies", "Branch-level settings"]],
-    ["users", "We set it up around how your teams already work, and bring your data across.", ["Guided setup and data import", "Training for HR and managers"]],
-    ["building", "Something unusual about your workforce? Custom development covers almost any case.", ["Custom workflows and forms", "Integrations with your systems"]]
-  ];
-  return `<section class="msc" aria-labelledby="h-sc" data-tip="What every industry gets.">
-  <div class="msc__head"><h2 id="h-sc">What every industry gets.</h2><p>The same foundation under every team, however different the work.</p></div>
-  <div class="msc__grid">${cards.map(([ic, tx, li], i) => `<article class="msc__c msc__c--${i}"><span class="msc__n" aria-hidden="true">0${i + 1}</span><i class="msc__ic">${icon(ic, "ic")}</i><p>${esc(tx)}</p><ul>${li.map((f) => `<li>${icon("check", "ic")}${esc(f)}</li>`).join("")}</ul></article>`).join("")}</div>
+function indGlance() {
+  return `<section class="iglance" aria-labelledby="h-ig" data-tip="Nine industries. One platform.">
+  <div class="iglance__head"><h2 id="h-ig">Nine industries. One platform.</h2></div>
+  <div class="iglance__grid">${INDS.map((i, k) => `<a class="iglance__c iglance__c--${k % 5}" href="#${i.id}"><i>${icon(i.icon, "ic")}</i><b>${esc(i.name)}</b><p>${esc(i.blurb)}</p><em>See how ${icon("arrow", "ic")}</em></a>`).join("")}</div>
 </section>`;
+}
+
+function indCta() {
+  return `<section class="mbk" aria-labelledby="h-meet" data-tip="Tell us how your teams work.">
+  <div class="mbk__wrap">
+    <div class="mbk__in">
+      <h2 id="h-meet">Don't see your industry?</h2>
+      <p>Our rules engine and custom development cover almost any workforce. Tell us how your teams work.</p>
+    </div>
+    <div class="mbk__who cast" aria-hidden="true"><span class="mbk__say">Tell us about your teams!</span><div class="mbk__ppl" data-bkppl>${who(byName["Aisha"], 5, "ppl--wave")}</div></div>
+    <div class="mbk__card">
+      <b>Let's talk</b>
+      <a class="mbk__go" href="/contact/">Talk to an HR expert ${icon("arrow", "ic")}</a>
+      <a class="mbk__go mbk__go--alt" href="/custom-development/">Custom development ${icon("arrow", "ic")}</a>
+      <small>We reply within one business day.</small>
+    </div>
+  </div>
+</section>
+<script>(function(){var l=[].slice.call(document.querySelectorAll('[data-spy] a')),s=l.map(function(a){return document.querySelector(a.getAttribute('href'))});if(!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=s.indexOf(e.target);l.forEach(function(a,k){if(k===i)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});var a=l[i];if(a&&a.parentNode.scrollTo)a.parentNode.scrollTo({left:a.offsetLeft-24,behavior:'smooth'})}})},{rootMargin:'-35% 0px -55% 0px'});s.forEach(function(x){if(x)io.observe(x)})})();</script>`;
 }
 
 export function industriesModulePage(faqItems, ldExtra = "") {
@@ -323,12 +334,12 @@ export function industriesModulePage(faqItems, ldExtra = "") {
     slug: "industries", name: "Industries", icon: "building", tagline: "Built for the way you work.",
     summary: "From shop floors to hospital wards, SublimeHR adapts to your shifts, sites and policies.",
     features: INDS.map((i) => i.name), benefits: ["Shift rosters that fit each plant and ward", "Leave and pay rules set per industry", "Live in days, not months"], useCases: [],
-    _hero: { who: ["PS", "Priya Shah", "HR partner · Nine industries"], cast: [["Karan", "Plant manager"], ["Nadia", "Ward nurse"], ["Ravi", "Field engineer"]], chips: [["factory", "3-shift plants"], ["health", "24/7 wards"], ["truck", "Field crews"]] }
+    _hero: { who: ["9", "9 industries", "One platform, configured for each"], cast: [["Karan", "Plant manager"], ["Nadia", "Ward nurse"], ["Ravi", "Field engineer"]], chips: [["factory", "3-shift plants"], ["health", "24/7 wards"], ["truck", "Field crews"]] }
   };
   return modulePage(m, faqItems, ldExtra, {
     path: "/industries/", title: "HR Software by Industry — Manufacturing, Healthcare, Retail & More | SublimeHR",
-    description: "SublimeHR for manufacturing, healthcare, IT, education, hospitality, retail, logistics and more. Shifts, leave and payroll shaped around how your industry works.",
-    menu: [["try", "building", "Explore an industry"], ["ask", "message", "Ask a question"]],
-    main: (mm) => `${hero(mm)}\n${indExplorer()}\n${indShared()}\n${ask(mm)}\n${meet(mm)}`
+    description: "SublimeHR for manufacturing, healthcare, IT, education, hospitality, retail, logistics, professional services and construction.",
+    menu: [["try", "building", "Browse the industries"]],
+    main: (mm) => `${hero(mm)}\n${indStack()}\n${indGlance()}\n${indCta()}`
   });
 }

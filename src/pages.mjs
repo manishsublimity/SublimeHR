@@ -264,9 +264,8 @@ export function moduleDetail(m) {
    ===================================================================== */
 export function industriesPage() {
   const trail = [["Home", "/"], ["Industries", "/industries/"]];
-  const items = ["getting-started", "implementation"].flatMap((id) => faqs.find((g) => g.id === id).items).slice(0, 7);
-  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(items)] })}</script>`;
-  return industriesModulePage(items, ld);
+  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail)] })}</script>`;
+  return industriesModulePage([], ld);
 }
 export function industriesPageOld() {
   const trail = [["Home", "/"], ["Industries", "/industries/"]];
