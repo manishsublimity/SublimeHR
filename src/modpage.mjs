@@ -351,8 +351,7 @@ const PHREF = { Starter: "/get-pricing/?plan=Starter", Professional: "/book-demo
 const PICON = ["rocket", "zap", "building"];
 
 function priceCalc() {
-  return `<section class="pcalc" id="try" aria-labelledby="h-pc" data-price data-tip="Slide your team size. Every plan below updates.">
-  <div class="pcalc__head"><h2 id="h-pc">Pay only for the people you have.</h2></div>
+  return `<section class="pcalc" id="try" aria-label="Estimate your monthly cost" data-price data-tip="Slide your team size. Every plan below updates.">
   <div class="pcalc__card">
     <div class="pcalc__l"><small>Your team size</small><div class="pcalc__num"><output data-pn>120</output><span>employees</span></div><div class="pcalc__avs" data-avs aria-hidden="true"></div></div>
     <div class="pcalc__r">

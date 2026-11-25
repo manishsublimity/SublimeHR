@@ -458,3 +458,22 @@
 .ptab td.yes .ic { width: 24px; height: 24px; padding: 5px; border-radius: 50%; background: #1FBF75; color: #fff; stroke-width: 3.4; } .ptab td.no { color: #B6BECF; } .ptab td.txt { font-weight: 600; }
 .ptab tbody tr:last-child th, .ptab tbody tr:last-child td { border-bottom: 0; }
 @media (max-width: 1180px) { .pcalc__card { grid-template-columns: 1fr; } .pplans { grid-template-columns: 1fr; } .pplan--pop { transform: none; } }
+
+
+/* pricing: a slim full-width calculator, room above the plans, a centred and clearer table */
+.pcalc { max-width: 1560px; padding-top: 34px; padding-bottom: 20px; }
+.pcalc__card { grid-template-columns: auto minmax(0, 1fr); gap: 44px; margin: 0 0 56px; padding: 18px 34px; border-radius: 28px 28px 8px 28px; }
+.pcalc__l { display: flex; align-items: center; gap: 22px; } .pcalc__l small { display: none; }
+.pcalc__num { margin: 0; } .pcalc__num output { font-size: 54px; } .pcalc__num span { font-size: 16px; }
+.pcalc__avs i { width: 34px; height: 34px; font-size: 12px; }
+.pcalc__r { grid-template-columns: minmax(0, 1fr) auto; gap: 10px 30px; align-items: center; } .pcalc__r input[type="range"] { grid-column: 1; grid-row: 1; } .pcalc__quick { grid-column: 2; grid-row: 1; flex-wrap: nowrap; } .pcalc__note { grid-column: 1 / -1; }
+.pcalc__quick button { padding: 8px 14px; font-size: 13px; }
+.pplans { padding-top: 14px; }
+.ptab { max-width: 1560px; padding-top: 70px; } .ptab__head { text-align: center; } .ptab__head h2 { margin: 0 auto; max-width: none; }
+.ptab__wrap { margin-top: 30px; }
+.ptab th, .ptab td { padding: 18px 24px; height: 60px; border-bottom: 1.5px solid color-mix(in srgb, var(--world) 16%, #fff); }
+.ptab tbody tr:nth-child(even) th, .ptab tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--world) 4%, #fff); }
+.ptab tbody tr:nth-child(odd) td[data-hl] { background: color-mix(in srgb, var(--world) 8%, #fff); } .ptab tbody tr:nth-child(even) td[data-hl] { background: color-mix(in srgb, var(--world) 12%, #fff); }
+.ptab thead th { border-bottom: 2px solid color-mix(in srgb, var(--world) 24%, #fff); }
+.ptab tbody tr:hover th, .ptab tbody tr:hover td { background: color-mix(in srgb, var(--world) 14%, #fff); }
+@media (max-width: 1180px) { .pcalc__card { grid-template-columns: 1fr; } .pcalc__r { grid-template-columns: 1fr; } .pcalc__quick, .pcalc__r input[type="range"] { grid-column: 1; grid-row: auto; } .pcalc__quick { flex-wrap: wrap; } }
