@@ -417,16 +417,24 @@ const SHORTN = { "Google Workspace": "Google", "Microsoft 365": "Microsoft 365",
 
 function intgHub() {
   const groups = [...new Set(ALLI.map((x) => x[3]))];
-  const ring = (arr, off) => arr.map(([, name, , g], i) => { const a = (i / arr.length) * Math.PI * 2 - Math.PI / 2 + (off ? Math.PI / 6 : 0); return `<span class="ihub__n" data-g="${g}" data-nm="${esc(name)}" style="left:${(50 + 50 * Math.cos(a)).toFixed(2)}%;top:${(50 + 50 * Math.sin(a)).toFixed(2)}%"><i style="background:${ICOL[(i + off) % ICOL.length]}">${icon(GICON[g], "ic")}</i><b>${esc(SHORTN[name] || name)}</b></span>`; }).join("");
-  return `<section class="ihub" id="try" aria-labelledby="h-ih" data-intg data-tip="Pick a category. The hub lights up the tools that belong to it.">
-  <div class="ihub__head"><h2 id="h-ih">12 native integrations + an open REST API</h2></div>
-  <div class="ihub__filter" role="group" aria-label="Filter integrations"><button type="button" data-f="all" aria-pressed="true">All</button>${groups.map((g) => `<button type="button" data-f="${g}" aria-pressed="false">${g}</button>`).join("")}</div>
-  <div class="ihub__body">
-    <div class="ihub__orbit" aria-hidden="true"><div class="ihub__ring ihub__ring--1">${ring(ALLI.slice(0, 6), 0)}</div><div class="ihub__ring ihub__ring--2">${ring(ALLI.slice(6, 12), 6)}</div><div class="ihub__core"><img src="${site.logo}" alt="" width="54" height="48"><small>Your HR hub</small></div></div>
-    <div class="ihub__grid">${ALLI.map(([, n, d, g], i) => `<article class="ihub__c" data-g="${g}" data-nm="${esc(n)}"><i style="background:${ICOL[i % ICOL.length]}">${icon(GICON[g], "ic")}</i><div><h3>${esc(n)}</h3><p>${esc(d)}</p><span>${g}</span></div></article>`).join("")}</div>
+  const tool = ([, n, d, g], i) => `<button type="button" class="ig__t" data-t="${i}" data-g="${g}" aria-pressed="false" style="--c:${ICOL[i % ICOL.length]}"><i>${icon(GICON[g], "ic")}</i><span><b>${esc(n)}</b><em>${esc(d)}</em><small>${g}</small></span><u aria-hidden="true">${icon("check", "ic")}</u></button>`;
+  return `<section class="ig" id="try" data-dm="intg" aria-labelledby="h-ig" data-tip="Tap a tool to plug it into the hub, or watch them connect one by one.">
+  <div class="ig__head"><h2 id="h-ig">12 native integrations + an open REST API</h2><p>Tap a tool to plug it into your HR hub, or pick a category and plug in the whole group. It plays by itself until you take over.</p></div>
+  <div class="ig__filter" role="group" aria-label="Filter integrations"><button type="button" data-f="all" aria-pressed="false">All</button>${groups.map((g) => `<button type="button" data-f="${g}" aria-pressed="false">${g}</button>`).join("")}</div>
+  <div class="ig__scene" data-scene>
+    <svg class="ig__wires" aria-hidden="true"></svg>
+    <div class="ig__col ig__col--l">${ALLI.slice(0, 6).map((x, i) => tool(x, i)).join("")}</div>
+    <div class="ig__hub" aria-live="polite">
+      <div class="ig__logo"><img src="${site.logo}" alt="" width="54" height="48"></div>
+      <b>Your HR hub</b>
+      <div class="ig__count"><strong data-cn>0</strong><span>/ 12</span><small>tools connected</small></div>
+      <div class="ig__bar"><i data-cb></i></div>
+      <ul class="ig__groups">${groups.map((g) => `<li data-gi="${g}">${g}</li>`).join("")}</ul>
+      <p>Anything else plugs in through the open REST API.</p>
+    </div>
+    <div class="ig__col ig__col--r">${ALLI.slice(6, 12).map((x, i) => tool(x, i + 6)).join("")}</div>
   </div>
-</section>
-<script>(function(){var s=document.querySelector('[data-intg]');if(!s)return;var fs=[].slice.call(s.querySelectorAll('[data-f]')),cs=[].slice.call(s.querySelectorAll('.ihub__c')),ns=[].slice.call(s.querySelectorAll('.ihub__n'));fs.forEach(function(b){b.addEventListener('click',function(){var f=b.getAttribute('data-f');fs.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});cs.forEach(function(c){c.hidden=!(f==='all'||c.getAttribute('data-g')===f)});ns.forEach(function(n){n.classList.toggle('dim',!(f==='all'||n.getAttribute('data-g')===f))})})});function on(nm,v){ns.forEach(function(n){if(n.getAttribute('data-nm')===nm)n.classList.toggle('hot',v)})}cs.forEach(function(c){var nm=c.getAttribute('data-nm');c.addEventListener('mouseenter',function(){on(nm,true)});c.addEventListener('mouseleave',function(){on(nm,false)})})})();</script>`;
+</section>`;
 }
 
 export function integrationsModulePage(ldExtra = "") {

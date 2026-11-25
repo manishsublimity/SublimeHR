@@ -341,6 +341,33 @@
     r.addEventListener("input", draw); draw();
   });
 
-  var map = { ind: ind, flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
+  /* ---------- integrations: plug tools into the hub ---------- */
+  function intg(box) {
+    var st = { taken: false }, scene = $("[data-scene]", box), svg = $("svg", scene), tools = $$(".ig__t", box), hub = $(".ig__hub", scene), fs = $$("[data-f]", box), cn = $("[data-cn]", box), cb = $("[data-cb]", box), gi = $$("[data-gi]", box), paths = [], on = tools.map(function () { return false; }), hold = 0, ns = "http://www.w3.org/2000/svg";
+    tools.forEach(function (t) { var p = document.createElementNS(ns, "path"); p.setAttribute("class", "w"); p.style.setProperty("--c", t.style.getPropertyValue("--c")); svg.appendChild(p); paths.push(p); });
+    function layout() {
+      var sr = scene.getBoundingClientRect(), hr = hub.getBoundingClientRect(); svg.setAttribute("viewBox", "0 0 " + sr.width + " " + sr.height);
+      tools.forEach(function (t, i) { var r = t.getBoundingClientRect(), left = !!t.closest(".ig__col--l"), x1 = (left ? r.right : r.left) - sr.left, y1 = r.top + r.height / 2 - sr.top, x2 = (left ? hr.left : hr.right) - sr.left, y2 = Math.min(hr.bottom - sr.top - 28, Math.max(hr.top - sr.top + 28, y1)), dx = (x2 - x1) * .5; paths[i].setAttribute("d", "M" + x1 + " " + y1 + "C" + (x1 + dx) + " " + y1 + " " + (x2 - dx) + " " + y2 + " " + x2 + " " + y2); });
+    }
+    function paint() {
+      tools.forEach(function (t, i) { t.setAttribute("aria-pressed", String(on[i])); paths[i].classList.toggle("on", on[i]); });
+      var n = on.filter(Boolean).length; cn.textContent = n; cb.style.width = (n / tools.length * 100) + "%";
+      gi.forEach(function (g) { var k = g.dataset.gi; g.classList.toggle("on", tools.some(function (t, i) { return on[i] && t.dataset.g === k; })); });
+      say1(n);
+    }
+    function say1(n) { hub.classList.toggle("full", n === tools.length); }
+    function setF(f) { fs.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.f === f)); }); }
+    tools.forEach(function (t, i) { t.addEventListener("click", function () { on[i] = !on[i]; setF(""); paint(); }); });
+    fs.forEach(function (b) { b.addEventListener("click", function () { var f = b.dataset.f; on = tools.map(function (t) { return f === "all" || t.dataset.g === f; }); setF(f); paint(); }); });
+    layout(); paint(); window.addEventListener("resize", layout); if (window.ResizeObserver) new ResizeObserver(layout).observe(scene); setTimeout(layout, 400); if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    drive(box, function () {
+      var idle = on.indexOf(false);
+      if (idle < 0) { hold++; if (hold >= 4) { on = on.map(function () { return false; }); hold = 0; setF(""); } }
+      else { on[idle] = true; if (on.indexOf(false) < 0) setF("all"); }
+      paint();
+    }, 1000, st);
+  }
+
+  var map = { intg: intg, ind: ind, flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
   $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();
