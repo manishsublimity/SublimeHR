@@ -1,6 +1,6 @@
 // Module pages built from the home page itself: same shell, same head, same hero stage, same flip cards,
 // same module tiles, same "Ask Subi" chat, same closing crowd and footer. Only the content changes.
-import { site, modules, industries as INDS, plans, compare } from "./data.mjs";
+import { site, modules, industries as INDS, plans, compare, integrations as INTS } from "./data.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
@@ -405,5 +405,41 @@ export function pricingModulePage(faqItems, ldExtra = "") {
     description: "SublimeHR pricing: Starter $4/user/month, Professional $8/user/month, Enterprise custom. Estimate your cost instantly. Free onboarding and migration.",
     menu: [["try", "wallet", "Estimate my cost"], ["ask", "message", "Ask about pricing"]],
     main: (mm) => `${hero(mm)}\n${priceCalc()}\n${priceTable()}\n${ask(mm)}\n${closeBand({ title: "Start with the plan that fits today.", lead: "Upgrade any time as your team grows. Your data and settings move with you.", say: "Pick a plan!", card: "Ready when you are", links: [["Get a custom quote", "/get-pricing/"], ["Chat on WhatsApp", site.whatsapp, true]], small: "We reply within one business day." })}`
+  });
+}
+
+
+/* ================= the integrations page: the original content, in the new design ================= */
+const GICON = { Productivity: "layers", Communication: "message", Hardware: "fingerprint", Developer: "code", Accounting: "wallet", ERP: "building", Security: "lock" };
+const ICOL = ["#2F72B8", "#2A9C93", "#E9805F", "#7A6FD0", "#D9A21B", "#4A86C8", "#C2577A", "#4C9A5B", "#5F7389", "#3FBDB3", "#245C97", "#8F6BD6"];
+const ALLI = INTS.flatMap((g) => g.items.map((it) => [...it, g.group]));
+const SHORTN = { "Google Workspace": "Google", "Microsoft 365": "Microsoft 365", "Microsoft Teams": "Teams", "Biometric Devices": "Biometrics", "REST APIs": "REST API", "Okta / SAML SSO": "Okta SSO", "SAP ERP": "SAP", "Oracle ERP": "Oracle" };
+
+function intgHub() {
+  const groups = [...new Set(ALLI.map((x) => x[3]))];
+  const ring = (arr, off) => arr.map(([, name, , g], i) => { const a = (i / arr.length) * Math.PI * 2 - Math.PI / 2 + (off ? Math.PI / 6 : 0); return `<span class="ihub__n" data-g="${g}" data-nm="${esc(name)}" style="left:${(50 + 50 * Math.cos(a)).toFixed(2)}%;top:${(50 + 50 * Math.sin(a)).toFixed(2)}%"><i style="background:${ICOL[(i + off) % ICOL.length]}">${icon(GICON[g], "ic")}</i><b>${esc(SHORTN[name] || name)}</b></span>`; }).join("");
+  return `<section class="ihub" id="try" aria-labelledby="h-ih" data-intg data-tip="Pick a category. The hub lights up the tools that belong to it.">
+  <div class="ihub__head"><h2 id="h-ih">12 native integrations + an open REST API</h2></div>
+  <div class="ihub__filter" role="group" aria-label="Filter integrations"><button type="button" data-f="all" aria-pressed="true">All</button>${groups.map((g) => `<button type="button" data-f="${g}" aria-pressed="false">${g}</button>`).join("")}</div>
+  <div class="ihub__body">
+    <div class="ihub__orbit" aria-hidden="true"><div class="ihub__ring ihub__ring--1">${ring(ALLI.slice(0, 6), 0)}</div><div class="ihub__ring ihub__ring--2">${ring(ALLI.slice(6, 12), 6)}</div><div class="ihub__core"><img src="${site.logo}" alt="" width="54" height="48"><small>Your HR hub</small></div></div>
+    <div class="ihub__grid">${ALLI.map(([, n, d, g], i) => `<article class="ihub__c" data-g="${g}" data-nm="${esc(n)}"><i style="background:${ICOL[i % ICOL.length]}">${icon(GICON[g], "ic")}</i><div><h3>${esc(n)}</h3><p>${esc(d)}</p><span>${g}</span></div></article>`).join("")}</div>
+  </div>
+</section>
+<script>(function(){var s=document.querySelector('[data-intg]');if(!s)return;var fs=[].slice.call(s.querySelectorAll('[data-f]')),cs=[].slice.call(s.querySelectorAll('.ihub__c')),ns=[].slice.call(s.querySelectorAll('.ihub__n'));fs.forEach(function(b){b.addEventListener('click',function(){var f=b.getAttribute('data-f');fs.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});cs.forEach(function(c){c.hidden=!(f==='all'||c.getAttribute('data-g')===f)});ns.forEach(function(n){n.classList.toggle('dim',!(f==='all'||n.getAttribute('data-g')===f))})})});function on(nm,v){ns.forEach(function(n){if(n.getAttribute('data-nm')===nm)n.classList.toggle('hot',v)})}cs.forEach(function(c){var nm=c.getAttribute('data-nm');c.addEventListener('mouseenter',function(){on(nm,true)});c.addEventListener('mouseleave',function(){on(nm,false)})})})();</script>`;
+}
+
+export function integrationsModulePage(ldExtra = "") {
+  const m = {
+    slug: "integrations", name: "Integrations", icon: "layers", tagline: "Plays nicely with your stack.",
+    summary: "SublimeHR sits at the centre of your HR stack, syncing with the chat, identity, accounting and ERP tools your team already uses.",
+    features: ["Google Workspace and Microsoft 365", "Slack, Teams and Zoom", "QuickBooks, Tally, SAP and Oracle", "Biometric devices and an open REST API"], benefits: ["Sync with the tools you already use", "Single sign-on with Okta and SAML", "An open REST API for the rest"], useCases: [],
+    _hero: { who: ["HR", "Your HR hub", "At the centre of your stack"], cast: [["Ravi", "IT admin"], ["Priya", "HR partner"], ["Karan", "Finance"]], chips: [["message", "Slack alerts"], ["fingerprint", "Biometric devices"], ["code", "Open REST API"]] }
+  };
+  return modulePage(m, [], ldExtra, {
+    path: "/integrations/", title: "Integrations — Slack, Teams, Google, Microsoft 365, Tally, SAP & More | SublimeHR",
+    description: "SublimeHR integrates with Google Workspace, Microsoft 365, Slack, Teams, Zoom, biometric devices, QuickBooks, Tally, SAP, Oracle, Okta/SAML SSO and any system via REST API.",
+    menu: [["try", "layers", "Browse the integrations"]],
+    main: (mm) => `${hero(mm)}\n${intgHub()}\n${closeBand({ title: "Need another tool?", lead: "We build custom integrations to any REST-based system, legacy ERPs, LMS and internal tools included.", say: "We can connect it!", card: "Missing something?", links: [["Request an integration", "/contact/?topic=Integration"]], small: "We reply within one business day." })}`
   });
 }

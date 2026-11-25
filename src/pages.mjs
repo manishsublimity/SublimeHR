@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -357,6 +357,10 @@ ${cta({ title: "Start with the plan that fits today.", lead: "Upgrade any time a
    INTEGRATIONS
    ===================================================================== */
 export function integrationsPage() {
+  const trail = [["Home", "/"], ["Integrations", "/integrations/"]];
+  return integrationsModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail)] })}</script>`);
+}
+export function integrationsPageOld() {
   const trail = [["Home", "/"], ["Integrations", "/integrations/"]];
   const groups = [...new Set(allInts.map((x) => x[3]))];
   const short = { "Google Workspace": "Google", "Microsoft 365": "Microsoft 365", "Microsoft Teams": "Teams", "Biometric Devices": "Biometrics", "REST APIs": "REST API", "Okta / SAML SSO": "Okta SSO", "SAP ERP": "SAP", "Oracle ERP": "Oracle" };
