@@ -306,14 +306,16 @@ const clockDots = Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI /
 const col = (t, links) => `<div><h2>${t}</h2><ul>${links.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join("")}</ul></div>`;
 const showBtns = [["clock", "fingerprint", "Clock in with a thumb"], ["selfie", "camera", "Check in with a selfie"], ["gps", "pin", "Test the GPS fence"], ["leave", "calendar", "Request some leave"], ["pay", "wallet", "Run payroll"], ["roster", "repeat", "Fix a shift roster"], ["ask", "bot", "Ask a question"]];
 
-export function home2() {
+export function home2(path = "/home-v2/") {
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SublimeHR: HR that is alive</title>
-<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="${site.description}">
+<link rel="canonical" href="${site.url}${path}">
+<meta name="robots" content="${path === "/" ? "index, follow, max-image-preview:large, max-snippet:-1" : "noindex, nofollow"}">
 <meta name="theme-color" content="${industries[0].color}">
 <link rel="icon" type="image/png" href="${site.logo}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -326,7 +328,7 @@ export function home2() {
 
 <header class="nav" data-nav>
   <a class="nav__brand" href="/home-v2/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
-  <nav class="nav__links" aria-label="Main"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/about/">Company</a></nav>
+  <nav class="nav__links" aria-label="Main"><a href="/features/">Product</a><a href="/industries/">Industries</a><a href="/pricing/">Pricing</a><a href="/integrations/">Integrations</a><a href="/about/">Company</a></nav>
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>
 </header>
 
@@ -780,7 +782,7 @@ export function home2() {
       ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
       ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
       ${col("Industries", [["Manufacturing", "/industries/#manufacturing"], ["Healthcare", "/industries/#healthcare"], ["IT &amp; Software", "/industries/#it-software"], ["Retail", "/industries/#retail"], ["Hospitality", "/industries/#hospitality"]])}
-      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"], ["Current home page", "/"]])}
+      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"], ["Home", "/"]])}
     </div>
     <div class="footer__bar"><span>&copy; ${new Date().getFullYear()} SublimeHR. All rights reserved.</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div>
   </div>

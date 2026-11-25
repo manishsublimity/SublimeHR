@@ -73,8 +73,9 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="/assets/css/styles.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/site2.css?v=${V}">
 <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
 <script>try{if(sessionStorage.getItem("shr-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-skip")}catch(e){}</script>
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
@@ -83,20 +84,21 @@ function head({ title, description, path, ld = [], noindex = false }) {
 
 /* ---------------- Header ---------------- */
 const TONES = ["", "mint", "butter", "peach", "lilac"];
+const WORLD = { "/": "it", "/features/": "it", "/industries/": "school", "/pricing/": "it", "/integrations/": "hotel", "/custom-development/": "logistics", "/about/": "school", "/faq/": "it", "/contact/": "hospital", "/book-demo/": "it", "/get-pricing/": "retail", "/privacy/": "bank", "/terms/": "bank", "/404.html": "it",
+  "/software/attendance-management/": "hospital", "/software/employee-management/": "it", "/software/leave-management/": "logistics", "/software/payroll/": "retail", "/software/shift-scheduling/": "school", "/software/reports-analytics/": "bank", "/software/employee-self-service/": "hotel", "/software/visitor-management/": "restaurant", "/software/security-access/": "bank", "/software/mobile-workforce/": "it" };
 function header(active) {
   const cur = (k) => (active === k ? ' aria-current="page"' : "");
   return `<a class="skip" href="#main">Skip to content</a>
-<div class="intro" aria-hidden="true"><div class="intro__in"><span class="intro__logo"><img src="${site.logo}" alt="" width="84" height="75"></span><span class="intro__word">${[..."Sublime"].map((c, i) => `<span style="animation-delay:${0.45 + i * 0.04}s">${c}</span>`).join("")}${[..."HR"].map((c, i) => `<span class="t" style="animation-delay:${0.75 + i * 0.05}s">${c}</span>`).join("")}</span></div></div>
 <div class="bar-progress" aria-hidden="true"></div>
 <header class="header" id="header">
   <div class="container header__in">
-    <a class="brand" href="/" aria-label="SublimeHR home"><span class="lgo" role="img" aria-label="SublimeHR logo"><img class="lp l" src="/assets/img/logo-parts/l.png" alt="" width="717" height="639"><img class="lp r" src="/assets/img/logo-parts/r.png" alt="" width="717" height="639"><span class="lp sg"><img class="lp s" src="/assets/img/logo-parts/s.png" alt="" width="717" height="639"><img class="lp arm" src="/assets/img/logo-parts/arm.png" alt="" width="717" height="639"></span><img class="lp dot" src="/assets/img/logo-parts/dot.png" alt="" width="717" height="639"></span><span>Sublime<span class="hr">HR</span></span></a>
+    <a class="brand2" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="" width="38" height="34"><span>Sublime<b>HR</b></span></a>
     <nav class="menu" aria-label="Primary">
       <div class="m-item">
         <a class="menu-link" href="/features/"${cur("features")}>Product ${icon("chevron", "chev")}</a>
         <div class="mega">
           ${modules.map((m, i) => `<a href="/software/${m.slug}/"><span class="ico sm ${TONES[i % 5]}">${icon(m.icon)}</span><span><strong>${m.name}</strong><small>${m.short}</small></span></a>`).join("")}
-          <div class="mega-foot"><span>✨ Every module has a live demo you can play with.</span><a class="link" href="/features/">All features ${icon("arrow")}</a></div>
+          <div class="mega-foot"><span>Every module has a live demo you can play with.</span><a class="link" href="/features/">All features ${icon("arrow")}</a></div>
         </div>
       </div>
       <a class="menu-link" href="/industries/"${cur("industries")}>Industries</a>
@@ -131,31 +133,31 @@ function header(active) {
 /* ---------------- Footer ---------------- */
 function footer() {
   const col = (t, links) => `<div><h2>${t}</h2><ul>${links.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join("")}</ul></div>`;
-  return `<footer class="footer">
-  <span class="footer__glow g1" aria-hidden="true"></span><span class="footer__glow g2" aria-hidden="true"></span>
+  return `<footer class="foot2">
   <div class="container">
-    <div class="footer__grid">
-      <div class="footer__about">
-        <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34" loading="lazy"><span>Sublime<span class="hr">HR</span></span></a>
-        <p>Powering your worklife — attendance, leave, payroll and self-service in one friendly platform.</p>
-        <div class="footer__contact"><a href="${site.phoneHref}">${icon("call")} ${site.phone}</a><a href="${site.whatsapp}" target="_blank" rel="noopener">${icon("message")} Chat on WhatsApp</a></div>
+    <div class="foot2__grid">
+      <div class="foot2__about">
+        <a class="brand2" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34" loading="lazy"><span>Sublime<b>HR</b></span></a>
+        <p>Powering your worklife: attendance, leave, payroll and self-service in one friendly platform.</p>
+        <div class="foot2__contact"><a href="${site.phoneHref}"><i>${icon("call")}</i><span><small>Call us</small><b>${site.phone}</b></span></a><a href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message")}</i><span><small>WhatsApp</small><b>Chat with us</b></span></a></div>
       </div>
       ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
       ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
       ${col("Industries", [["Manufacturing", "/industries/#manufacturing"], ["Healthcare", "/industries/#healthcare"], ["IT &amp; Software", "/industries/#it-software"], ["Retail", "/industries/#retail"], ["Hospitality", "/industries/#hospitality"]])}
-      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"]])}
+      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"], ["Home", "/"]])}
     </div>
-    <div class="footer__bar"><span>&copy; <span data-year>2026</span> SublimeHR. All rights reserved.</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div>
+    <div class="foot2__bar"><span>&copy; <span data-year>2026</span> SublimeHR. All rights reserved.</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div>
   </div>
-  <div class="footer__word" aria-hidden="true">SublimeHR</div>
+  <div class="foot2__word" aria-hidden="true">SublimeHR</div>
 </footer>
 <button class="top-btn" type="button" aria-label="Back to top">${icon("arrow-up")}</button>
 <script src="/assets/js/main.js?v=${V}" defer></script>`;
 }
 
-export function page({ title, description, path, active, ld, noindex, body }) {
+export function page({ title, description, path, active, ld, noindex, body, world }) {
+  const w = world || WORLD[path] || "it";
   return `${head({ title, description, path, ld, noindex })}
-<body>
+<body class="v2" data-w="${w}">
 ${header(active)}
 <main id="main">
 ${body}
