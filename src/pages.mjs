@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -474,6 +474,11 @@ ${cta({ title: "Let's talk about your workforce.", lead: "Interested in learning
    FAQ (topic rail + assistant)
    ===================================================================== */
 export function faqPage() {
+  const trail = [["Home", "/"], ["FAQ", "/faq/"]];
+  const all = faqs.flatMap((g) => g.items.map(([q, a]) => [q, a, g.id]));
+  return faqModulePage(all, `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(all.map(([q, a]) => [q, a]))] })}</script>`);
+}
+export function faqPageOld() {
   const trail = [["Home", "/"], ["FAQ", "/faq/"]];
   const all = faqs.flatMap((g) => g.items.map(([q, a]) => [q, a, g.id]));
   const body = `

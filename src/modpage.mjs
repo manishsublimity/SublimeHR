@@ -1,6 +1,6 @@
 // Module pages built from the home page itself: same shell, same head, same hero stage, same flip cards,
 // same module tiles, same "Ask Subi" chat, same closing crowd and footer. Only the content changes.
-import { site, modules, industries as INDS, plans, compare, integrations as INTS, customAreas, process as PROC } from "./data.mjs";
+import { site, modules, industries as INDS, plans, compare, integrations as INTS, customAreas, process as PROC, faqs as FAQG } from "./data.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
@@ -638,5 +638,37 @@ export function customDevModulePage(faqItems, ldExtra = "") {
     description: "Custom HR software development by SublimeHR: approval workflows, payroll rules, attendance policies, dashboards, integrations and AI automation with fixed pricing.",
     menu: [["try", "code", "See where we customize"], ["ask", "message", "Ask a question"]],
     main: (mm) => `${hero(mm)}\n${cdAreas()}\n${cdProcess()}\n${ask(mm)}\n${closeBand({ title: "Tell us about the workflow you need.", lead: "Get a solution design with a timeline and fixed pricing.", say: "Let's design it!", card: "Start the conversation", links: [["Schedule a consultation", "/book-demo/"], ["Describe your workflow", "/contact/?topic=Custom%20development", true]], small: "We reply within one business day." })}`
+  });
+}
+
+
+/* ================= the FAQ page: the original content, in the new design ================= */
+function faqExplorer() {
+  const data = FAQG.map((g) => ({ id: g.id, title: g.title, items: g.items.map(([q, a]) => [q, a]) }));
+  return `<section class="fqx" id="try" data-dm="faq" data-faq="${esc(JSON.stringify(data)).replace(/"/g, "&quot;")}" aria-label="Frequently asked questions" data-tip="Pick a topic, then ask. Subi answers.">
+  <div class="fqx__grid">
+    <nav class="fqx__rail" aria-label="FAQ topics">${FAQG.map((g, i) => `<button type="button" data-ft="${i}" aria-pressed="${i === 0}"><i>${icon(g.icon, "ic")}</i><b>${esc(g.title)}</b><em>${g.items.length}</em></button>`).join("")}</nav>
+    <div class="fqx__qs"><small data-ftitle>${esc(FAQG[0].title)}</small><ul data-fq></ul></div>
+    <div class="chat fqx__chat">
+      <div class="chat__top"><span class="chat__av"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span></span><b>Subi</b><em>Online</em></div>
+      <div class="chat__log" data-flog aria-live="polite"><div class="msg bot">Hi, I'm Subi. Pick a topic, then a question, or type your own.</div></div>
+      <form class="chat__foot" data-fform><label class="vh" for="fq-in">Ask a question</label><input id="fq-in" placeholder="For example: How quickly can we go live?" autocomplete="off"><button type="submit" aria-label="Send">${icon("send", "ic")}</button></form>
+    </div>
+  </div>
+</section>`;
+}
+
+export function faqModulePage(all, ldExtra = "") {
+  const m = {
+    slug: "faq", name: "FAQ", icon: "message", tagline: "Ask us anything.",
+    summary: `${all.length} answers on features, security, pricing and more. Pick a topic, then ask our HR assistant.`,
+    features: FAQG.slice(0, 4).map((g) => g.title), benefits: ["Answers on every module", "Ask in your own words", "A real person replies within one business day"], useCases: [],
+    _hero: { who: ["?", "Frequently asked", `${all.length} answers`], cast: [["Aisha", "Support"], ["Priya", "HR partner"], ["Omar", "Product"]], chips: [["message", "Pick a topic"], ["bot", "Ask Subi"], ["check", `${all.length} answers`]] }
+  };
+  return modulePage(m, [], ldExtra, {
+    path: "/faq/", title: "FAQ — SublimeHR Questions & Answers | SublimeHR",
+    description: `Answers to ${all.length} questions about SublimeHR: getting started, attendance, leave, payroll, reports, security, custom development, pricing, implementation, mobile and integrations.`,
+    menu: [["try", "message", "Browse the answers"]],
+    main: (mm) => `${hero(mm)}\n${faqExplorer()}\n${closeBand({ title: "Still have questions?", lead: "Talk to a real HR expert. We usually reply within one business day, or instantly on WhatsApp.", say: "Ask away!", card: "We're here", links: [["Contact us", "/contact/"], ["Chat on WhatsApp", site.whatsapp, true]], small: "We reply within one business day." })}`
   });
 }

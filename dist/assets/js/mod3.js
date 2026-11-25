@@ -374,6 +374,28 @@
     }, 1000, st);
   }
 
-  var map = { intg: intg, ind: ind, flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
+  /* ---------- faq: topics, questions, and a chat that answers ---------- */
+  function faq(box) {
+    var st = { taken: false }, data = JSON.parse(box.dataset.faq), topics = $$("[data-ft]", box), list = $("[data-fq]", box), ttl = $("[data-ftitle]", box), log = $("[data-flog]", box), form = $("[data-fform]", box), input = $("#fq-in", box), cur = -1, qi = 0, replyTok = 0;
+    function msg(cls, html) { var m = document.createElement("div"); m.className = "msg " + cls; m.innerHTML = html; log.appendChild(m); log.scrollTop = log.scrollHeight; return m; }
+    function reply(q, a) { var tok = ++replyTok; msg("me", esc(q)); var tp = msg("bot typing", "<i></i><i></i><i></i>"); setTimeout(function () { tp.remove(); if (tok === replyTok || true) msg("bot", esc(a)); while (log.children.length > 8) log.removeChild(log.firstChild); }, reduce ? 0 : 800 + Math.min(900, a.length * 3)); }
+    function showTopic(i) {
+      cur = i; topics.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); }); ttl.textContent = data[i].title;
+      list.innerHTML = data[i].items.map(function (it, k) { return '<li><button type="button" data-qi="' + k + '">' + esc(it[0]) + "</button></li>"; }).join("");
+    }
+    function ask(k) { var it = data[cur].items[k]; $$("[data-qi]", list).forEach(function (b, n) { b.classList.toggle("on", n === k); }); reply(it[0], it[1]); }
+    topics.forEach(function (b, i) { b.addEventListener("click", function () { showTopic(i); }); });
+    list.addEventListener("click", function (e) { var b = e.target.closest("[data-qi]"); if (b) ask(+b.dataset.qi); });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); var qq = input.value.trim(); if (!qq) return; input.value = "";
+      var words = qq.toLowerCase().replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter(function (w) { return w.length > 3; }), best = null, bs = 0;
+      data.forEach(function (g) { g.items.forEach(function (it) { var hay = (it[0] + " " + it[1]).toLowerCase(), s = 0; words.forEach(function (w) { if (hay.indexOf(w) > -1) s++; }); if (s > bs) { bs = s; best = it; } }); });
+      if (best) reply(qq, best[1]); else { msg("me", esc(qq)); msg("bot", 'I do not have a ready answer for that yet. A teammate replies within one business day: <a class="link" href="/contact/">send us your question</a>.'); }
+    });
+    showTopic(0);
+    drive(box, function () { var n = cur < 0 ? 0 : (qi % 2 === 0 ? cur : (cur + 1) % data.length); if (n !== cur) showTopic(n); ask(Math.min(qi % 3, data[cur].items.length - 1)); qi++; }, 6500, st);
+  }
+
+  var map = { faq: faq, intg: intg, ind: ind, flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
   $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();
