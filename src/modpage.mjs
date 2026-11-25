@@ -134,8 +134,8 @@ function letterDemo() {
 }
 
 function before(m) {
-  const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
   const bc = CONF[m.slug]?.before;
+  const pains = bc ? bc.problems.slice(0, 3) : ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
   const fixes = bc ? bc.problems : ["Final_v7.xlsx", "Who has the form?", "Re-type it", "Wrong salary?", "Lost the letter", "Duplicate entry", "No audit trail"];
   const rec = bc ? bc.rec.rows : ["Profile", "Offer letter", "Salary", "Documents", "Timeline", "Access card", "Audit log"];
   const L = bc ? { say: bc.say, ask: bc.ask, done: bc.done, doneG: bc.doneG, av: bc.rec.av, name: bc.rec.name, sub: bc.rec.sub } : { say: "Where is that file again?", ask: "Subi, can you find Sara's offer letter?", done: "Found it. Thank you, Subi!", doneG: "All done. Everything is on her record.", av: "SN", name: "Sara Nasser", sub: "Employee record" };
