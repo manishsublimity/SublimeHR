@@ -345,17 +345,22 @@
   function intg(box) {
     var st = { taken: false }, scene = $("[data-scene]", box), svg = $("svg", scene), tools = $$(".ig__t", box), hub = $(".ig__hub", scene), fs = $$("[data-f]", box), cn = $("[data-cn]", box), rg = $("[data-ring]", box), RC = 2 * Math.PI * 68, paths = [], on = tools.map(function () { return false; }), hold = 0, ns = "http://www.w3.org/2000/svg";
     tools.forEach(function (t) { var p = document.createElementNS(ns, "path"); p.setAttribute("class", "w"); p.style.setProperty("--c", t.style.getPropertyValue("--c")); svg.appendChild(p); paths.push(p); });
+    var packs = [];
+    tools.forEach(function (t, i) { for (var k = 0; k < 2; k++) { var c = document.createElementNS(ns, "circle"); c.setAttribute("class", "pk"); c.setAttribute("r", "5.5"); c.style.setProperty("--c", t.style.getPropertyValue("--c")); var m = document.createElementNS(ns, "animateMotion"); m.setAttribute("dur", "1.8s"); m.setAttribute("repeatCount", "indefinite"); m.setAttribute("begin", (k * -.9) + "s"); c.appendChild(m); svg.appendChild(c); (packs[i] = packs[i] || []).push([c, m]); } });
     function layout() {
-      var sr = scene.getBoundingClientRect(), hr = hub.getBoundingClientRect(); svg.setAttribute("viewBox", "0 0 " + sr.width + " " + sr.height);
-      tools.forEach(function (t, i) { var r = t.getBoundingClientRect(), left = !!t.closest(".ig__col--l"), x1 = (left ? r.right : r.left) - sr.left, y1 = r.top + r.height / 2 - sr.top, x2 = (left ? hr.left : hr.right) - sr.left, y2 = Math.min(hr.bottom - sr.top - 28, Math.max(hr.top - sr.top + 28, y1)), dx = (x2 - x1) * .5; paths[i].setAttribute("d", "M" + x1 + " " + y1 + "C" + (x1 + dx) + " " + y1 + " " + (x2 - dx) + " " + y2 + " " + x2 + " " + y2); });
+      var sr = scene.getBoundingClientRect(), orb = $(".ig__orb", scene).getBoundingClientRect(), ox = orb.left + orb.width / 2 - sr.left, oy = orb.top + orb.height / 2 - sr.top, rr = orb.width / 2 - 6; svg.setAttribute("viewBox", "0 0 " + sr.width + " " + sr.height);
+      tools.forEach(function (t, i) {
+        var r = t.getBoundingClientRect(), left = !!t.closest(".ig__col--l"), x1 = (left ? r.right : r.left) - sr.left, y1 = r.top + r.height / 2 - sr.top, y2 = Math.max(oy - rr * .8, Math.min(oy + rr * .8, y1 * .35 + oy * .65)), x2 = ox + (left ? -1 : 1) * Math.sqrt(Math.max(0, rr * rr - (y2 - oy) * (y2 - oy))), dx = Math.abs(x2 - x1) * .5, sg = left ? 1 : -1;
+        var d = "M" + x1 + " " + y1 + "C" + (x1 + sg * dx) + " " + y1 + " " + (x2 - sg * dx) + " " + y2 + " " + x2 + " " + y2; paths[i].setAttribute("d", d); packs[i].forEach(function (pm) { pm[1].setAttribute("path", d); });
+      });
     }
     function paint() {
-      tools.forEach(function (t, i) { t.setAttribute("aria-pressed", String(on[i])); paths[i].classList.toggle("on", on[i]); });
+      tools.forEach(function (t, i) { t.setAttribute("aria-pressed", String(on[i])); paths[i].classList.toggle("on", on[i]); packs[i].forEach(function (pm) { pm[0].classList.toggle("on", on[i]); }); });
       var n = on.filter(Boolean).length; cn.textContent = n; rg.style.strokeDashoffset = RC * (1 - n / tools.length);
       fs.forEach(function (b) { var k = b.dataset.f; if (k !== "all") b.classList.toggle("lit", tools.some(function (t, i) { return on[i] && t.dataset.g === k; })); });
       say1(n);
     }
-    function say1(n) { hub.classList.toggle("full", n === tools.length); }
+    function say1(n) { hub.classList.toggle("full", n === tools.length); hub.classList.add("bump"); setTimeout(function () { hub.classList.remove("bump"); }, 260); }
     function setF(f) { fs.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.f === f)); }); }
     tools.forEach(function (t, i) { t.addEventListener("click", function () { on[i] = !on[i]; setF(""); paint(); }); });
     fs.forEach(function (b) { b.addEventListener("click", function () { var f = b.dataset.f; on = tools.map(function (t) { return f === "all" || t.dataset.g === f; }); setF(f); paint(); }); });
