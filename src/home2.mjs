@@ -341,6 +341,10 @@ export function home2() {
                 <div class="tally" aria-label="Today at a glance">
                   <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
                 </div>
+        <div class="dock">
+          <p class="dock__lbl" id="pick-lbl">Pick your industry and watch the office change.</p>
+          <div class="chips" role="group" aria-labelledby="pick-lbl" data-chips>${industries.map(chip).join("")}</div>
+        </div>
       </div>
       <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
         <div class="stage__floor" aria-hidden="true"></div>
@@ -354,10 +358,6 @@ export function home2() {
         ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}</div>`).join("")}
         ${people.map((p, i) => `<span class="tagx" data-tagx="${i}" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s}"><b>${p.n}</b><em data-role></em></span>`).join("")}
       </div>
-    </div>
-    <div class="dock">
-      <p class="dock__lbl" id="pick-lbl">Pick your industry and watch the office change.</p>
-      <div class="chips" role="group" aria-labelledby="pick-lbl" data-chips>${industries.map(chip).join("")}</div>
     </div>
   </div>
 </section>

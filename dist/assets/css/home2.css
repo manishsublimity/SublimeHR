@@ -1794,3 +1794,18 @@ body[data-ft="3"] .footer__contact a:hover { background: rgba(255,255,255,.3); b
 .ckl li b { padding-top: 1px; font-size: 12.5px; } .ckl li span { font-size: 11px; }
 .ckl li:not(.on) b, .ckl li:not(.on) span { opacity: .55; }
 .ckl li { min-height: 38px; padding-left: 30px; } .ckl li b { font-size: 12px; letter-spacing: -.01em; } .ckl li span { font-size: 10.5px; } .ckp { margin: 6px 0 10px; }
+
+/* industry picker lives in the hero copy, right under the numbers, so it is always on screen */
+.hero__copy { flex: 0 0 480px; }
+.dock { margin-top: 26px; padding: 16px 16px 18px; border-radius: 28px 28px 28px 8px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+.dock__lbl { margin: 0 0 12px; font: 600 15px/1.25 var(--f-d); letter-spacing: -.01em; }
+.dock .chips { gap: 8px; }
+.dock .chip { height: 36px; padding: 0 14px 0 10px; gap: 6px; border-width: 1.5px; font-size: 13.5px; }
+.dock .chip .ic { font-size: 16px; }
+.hero__wrap { padding-bottom: 36px; }
+@media (max-height: 780px) {
+  .hero { padding-top: 78px; }
+  .hero__lead { margin-top: 10px; } .hero__cta { margin-top: 18px; } .tally { margin-top: 18px; } .tally b { font-size: 26px; }
+  .dock { margin-top: 14px; padding: 12px 12px 14px; } .dock__lbl { margin-bottom: 9px; font-size: 14px; }
+  .dock .chip { height: 32px; font-size: 13px; } .dock .chips { gap: 6px; }
+}
