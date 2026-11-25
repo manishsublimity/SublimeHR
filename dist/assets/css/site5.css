@@ -59,3 +59,12 @@ html[data-theme="dark"] body.v2 .foot2__word { opacity: .07; background: linear-
 html[data-theme="dark"] body.v2 .foot2__about .brand2, html[data-theme="dark"] body.v2 .foot2__about .brand2 b { color: var(--on); }
 body.v2 .mods > a.mod { min-height: 252px; } body.v2 .mods > a.mod .more { top: 124px; }
 body.v2 .cnote { max-width: 200px; }
+
+/* Subi: the same white-framed robot head as the home page, and plain tinted message bubbles with no logo avatar */
+body.v2 .chat__win .w__top b .ico { width: 54px; height: 46px; border-radius: 16px; background: #fff; box-shadow: 0 8px 14px -8px rgba(0,0,0,.45); flex: none; }
+body.v2 .chat__win .w__top b .ico::before { content: ""; position: absolute; inset: 5px; width: auto; height: auto; top: 5px; left: 5px; border-radius: 12px; background: #14213D; animation: none; }
+body.v2 .chat__win .w__top b .ico::after { content: ""; position: absolute; left: calc(50% - 14px); right: auto; top: 16px; width: 8px; height: 13px; border-radius: 5px; background: #5CE6EE; box-shadow: 20px 0 0 #5CE6EE; animation: none; }
+body.v2 .chat__win .w__top { align-items: center; } body.v2 .chat__win .w__top b { gap: 14px; }
+body.v2 .chat__win .msg.bot { margin-left: 0; background: color-mix(in srgb, var(--world) 9%, #fff); box-shadow: none; color: var(--ink); border-radius: 20px; padding: 12px 18px; }
+body.v2 .chat__win .msg.bot::before { display: none; }
+html[data-theme="dark"] body.v2 .chat__win .msg.bot { background: rgba(255,255,255,.07); color: var(--ink); }

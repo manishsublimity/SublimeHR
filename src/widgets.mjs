@@ -227,7 +227,7 @@ export function chatW(items, { title = "Ask SublimeHR", suggest = 6, inline = fa
   const more = items.length > suggest ? `<button class="btn text sm" type="button" data-more>Show more questions</button>` : "";
   const win = (extra) => `<div class="chat__win">
     <div class="w__top"><b><span class="ico">${icon("bot")}</span>${title}</b><span class="chip white"><span style="width:8px;height:8px;border-radius:50%;background:var(--teal)"></span>Online</span></div>
-    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi! 👋 ${inline ? "Pick a topic on the left — I'll suggest questions right here" : "Pick a question on the left"}, or type your own.</div></div>
+    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">${inline ? "Hi! 👋 Pick a topic on the left — I'll suggest questions right here, or type your own." : "Hi, I'm Subi. Pick a question on the left or type your own."}</div></div>
     ${extra}
     <form class="chat__foot" data-ask><label class="vh" for="ask-{{id}}">Ask a question</label><input class="input" id="ask-{{id}}" placeholder="e.g. Do you support biometric devices?" autocomplete="off"><button class="btn sm no-bub" type="submit" aria-label="Send">${icon("send")}</button></form>
   </div>`;
