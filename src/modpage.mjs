@@ -463,8 +463,8 @@ const CCODES = [["+91", "🇮🇳 +91"], ["+971", "🇦🇪 +971"], ["+966", "�
 const TOPICS = ["General question", "Sales", "Support", "Custom development", "Integration", "Partnership"];
 
 function contactSection() {
-  return `<section class="ctc" id="try" aria-label="Contact us" data-tip="Send us a message. We reply within one business day.">
-  <div class="cfh"><h1>Let's talk.</h1><p>Questions, support, partnerships or anything else — we reply within 1 business day.</p></div>
+  return `<section class="ctc" id="try" aria-label="Contact us">
+  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("message", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("phone", "ic")}</i><h1>Let's <span class="cfh__sq">talk.</span></h1><p>Questions, support, partnerships or anything else — we reply within 1 business day.</p><div class="cfh__chips"><span><i>${icon("clock", "ic")}</i>Reply in 1 business day</span><span><i>${icon("message", "ic")}</i>Instant on WhatsApp</span><span><i>${icon("phone", "ic")}</i>Call us</span></div></div>
   <div class="cf__wrap">
     ${cfSide("L", "How can we help?")}
     <div class="cf-card">
@@ -683,8 +683,8 @@ export function faqModulePage(all, ldExtra = "") {
 /* ================= the book a demo page: the original content and form, in the new design ================= */
 const AGENDA = [["0–5", "Your goals & current process"], ["5–20", "Live tour tailored to your team"], ["20–25", "Pricing & rollout plan"], ["25–30", "Your questions, answered"]];
 function demoBookSection() {
-  return `<section class="ctc" id="try" aria-label="Book a demo" data-tip="Pick a day. We confirm the exact time by email or WhatsApp.">
-  <div class="cfh"><h1>See SublimeHR live.</h1><p>A personalized 30-minute walkthrough with your policies, your shifts and your questions.</p></div>
+  return `<section class="ctc" id="try" aria-label="Book a demo">
+  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("play", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("clock", "ic")}</i><h1>See SublimeHR <span class="cfh__sq">live.</span></h1><p>A personalized 30-minute walkthrough with your policies, your shifts and your questions.</p><div class="cfh__chips"><span><i>${icon("clock", "ic")}</i>30-minute walkthrough</span><span><i>${icon("check", "ic")}</i>No credit card</span><span><i>${icon("users", "ic")}</i>Built around your team</span></div></div>
   <div class="cf__wrap">
     ${cfSide("L", "Let's book your demo!")}
     <div class="cf-card">
@@ -745,8 +745,8 @@ export function demoModulePage(ldExtra = "") {
 /* ================= the get pricing page: the original content and form, in the new design ================= */
 function quoteSection() {
   const sel = (id, name, label, opts, ph, req) => `<div class="cf-field"${req ? " data-validate" : ""}><label for="${id}">${label}${req ? " <b>*</b>" : ""}</label><select id="${id}" name="${name}"${req ? " required" : ""}><option value="">${ph}</option>${opts.map((v) => `<option>${esc(v)}</option>`).join("")}</select>${req ? `<span class="cf-err">Please choose your team size.</span>` : ""}</div>`;
-  return `<section class="ctc" id="try" aria-label="Get pricing" data-tip="Tell us your team size and modules. We send a clear quote.">
-  <div class="cfh"><h1>Get a quote for your team.</h1><p>Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.</p></div>
+  return `<section class="ctc" id="try" aria-label="Get pricing">
+  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("wallet", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("check", "ic")}</i><h1>Get a quote for <span class="cfh__sq">your team.</span></h1><p>Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.</p><div class="cfh__chips"><span><i>${icon("check", "ic")}</i>No commitment</span><span><i>${icon("lock", "ic")}</i>No spam</span><span><i>${icon("clock", "ic")}</i>Takes a minute</span></div></div>
   <div class="cf__wrap">
     ${cfSide("L", "Let's get you a quote!")}
     <div class="cf-card">

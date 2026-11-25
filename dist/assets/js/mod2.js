@@ -59,12 +59,12 @@
 
   /* ================= hero: the stage scales to the space, and the people act out the module ================= */
   var stage = $("[data-stage]");
-  function fit() { var w = Math.min(hero.clientWidth, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)))); }
+  function fit() { if (!hero || !stage) return; var w = Math.min(hero.clientWidth, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)))); }
   fit(); window.addEventListener("resize", fit);
-  var slots = $$("[data-slot]", stage), rows = $$("[data-row]", stage), bar = $("[data-bar]", stage), pct = $("[data-pct]", stage), lines = [];
+  var slots = stage ? $$("[data-slot]", stage) : [], rows = stage ? $$("[data-row]", stage) : [], bar = stage ? $("[data-bar]", stage) : null, pct = stage ? $("[data-pct]", stage) : null, lines = [];
   try { lines = JSON.parse($("#mod-story").textContent); } catch (e) {}
   (function story() {
-    if (!lines.length) return;
+    if (!lines.length || !stage) return;
     var i = 0, timer;
     function beat() {
       var k = i % rows.length, who = [1, 0, 2, 1][i % 4], s = slots[who];
@@ -160,7 +160,7 @@
   /* ================= Subi, the page guide: the same floating robot as the home page ================= */
   var guide = $("[data-guide]"), gSay = $("[data-guide-say]"), gMenu = $("[data-guide-menu]"), gBot = $("[data-guide-bot]"), gBusy = false, gFly = false;
   function gPlace(x, y) { guide.style.setProperty("--gx", Math.round(x) + "px"); guide.style.setProperty("--gy", Math.round(y) + "px"); }
-  function gHome() { gFly = false; gPlace(window.innerWidth - 24 - 70, window.innerHeight - 92 - 124); }
+  function gHome() { gFly = false; gPlace(window.innerWidth - 24 - 70, document.body.classList.contains("nohero") ? 150 : window.innerHeight - 92 - 124); }
   guide.style.transition = "none"; gHome(); void guide.offsetWidth; guide.style.transition = "";
   window.addEventListener("resize", function () { if (!gFly) gHome(); });
   function guideSay(t, ms) { say(gSay, t, ms || 3600, 540); }
