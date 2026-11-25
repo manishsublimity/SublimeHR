@@ -1,4 +1,4 @@
-import { industriesModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -294,6 +294,12 @@ ${cta({ title: "Don't see your industry?", lead: "Our rules engine and custom de
    PRICING
    ===================================================================== */
 export function pricing() {
+  const trail = [["Home", "/"], ["Pricing", "/pricing/"]];
+  const items = more8(faqs.find((g) => g.id === "pricing").items, ["implementation", "getting-started"]);
+  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(items)] })}</script>`;
+  return pricingModulePage(items, ld);
+}
+export function pricingOld() {
   const trail = [["Home", "/"], ["Pricing", "/pricing/"]];
   const pf = faqs.find((g) => g.id === "pricing").items;
   const cell = (v, hl) => `<td class="c${hl ? " hl" : ""}${v === 1 ? " yes" : v === 0 ? " no" : ""}">${v === 1 ? "✓<span class=\"vh\">Included</span>" : v === 0 ? "—<span class=\"vh\">Not included</span>" : v}</td>`;

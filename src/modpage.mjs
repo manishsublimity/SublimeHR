@@ -1,6 +1,6 @@
 // Module pages built from the home page itself: same shell, same head, same hero stage, same flip cards,
 // same module tiles, same "Ask Subi" chat, same closing crowd and footer. Only the content changes.
-import { site, modules, industries as INDS } from "./data.mjs";
+import { site, modules, industries as INDS, plans, compare } from "./data.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
@@ -341,5 +341,70 @@ export function industriesModulePage(faqItems, ldExtra = "") {
     description: "SublimeHR for manufacturing, healthcare, IT, education, hospitality, retail, logistics, professional services and construction.",
     menu: [["try", "building", "Browse the industries"]],
     main: (mm) => `${hero(mm)}\n${indStack()}\n${indGlance()}\n${indCta()}`
+  });
+}
+
+
+/* ================= the pricing page: the original content, in the new design ================= */
+const PRATE = { Starter: 4, Professional: 8 };
+const PHREF = { Starter: "/get-pricing/?plan=Starter", Professional: "/book-demo/?plan=Professional", Enterprise: "/get-pricing/?plan=Enterprise" };
+const PICON = ["rocket", "zap", "building"];
+
+function priceCalc() {
+  return `<section class="pcalc" id="try" aria-labelledby="h-pc" data-price data-tip="Slide your team size. Every plan below updates.">
+  <div class="pcalc__head"><h2 id="h-pc">Pay only for the people you have.</h2></div>
+  <div class="pcalc__card">
+    <div class="pcalc__l"><small>Your team size</small><div class="pcalc__num"><output data-pn>120</output><span>employees</span></div><div class="pcalc__avs" data-avs aria-hidden="true"></div></div>
+    <div class="pcalc__r">
+      <label class="vh" for="emp">Number of employees</label><input id="emp" type="range" data-r="emp" min="5" max="1000" step="5" value="120">
+      <div class="pcalc__quick" role="group" aria-label="Quick pick">${[10, 50, 100, 250, 500, 1000].map((n) => `<button type="button" data-n="${n}" aria-pressed="false">${n === 1000 ? "1000+" : n}</button>`).join("")}</div>
+      <p class="pcalc__note">${icon("arrow", "ic")}Estimated monthly cost updates on every plan below</p>
+    </div>
+  </div>
+  <div class="pplans">${plans.map((pl, i) => `<article class="pplan${pl.featured ? " pplan--pop" : ""}" style="--i:${i}">
+    ${pl.featured ? `<span class="pplan__rib">★ Most loved</span>` : ""}
+    <h3><i>${icon(PICON[i], "ic")}</i>${esc(pl.name)}</h3>
+    <p class="pplan__desc">${esc(pl.desc)}</p>
+    <div class="pplan__price"><strong>${esc(pl.price)}</strong><span>${esc(pl.unit)}</span></div>
+    <div class="pplan__est" data-est="${PRATE[pl.name] || 0}" data-cap="${pl.name === "Starter" ? 50 : 0}">${PRATE[pl.name] ? "" : "Tailored quote for your team"}</div>
+    <a class="pplan__go" href="${PHREF[pl.name]}">${esc(pl.cta[0])} ${icon("arrow", "ic")}</a>
+    <p class="pplan__inc">${esc(pl.includes || "What's included")}</p>
+    <ul>${pl.items.map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul>
+  </article>`).join("")}</div>
+  <p class="pcalc__fine">Prices in USD per active user per month. Local currency and annual billing available on request.</p>
+</section>`;
+}
+
+function priceTable() {
+  const cell = (v) => v === 1 ? `<td class="yes" aria-label="Included">${icon("check", "ic")}</td>` : v === 0 ? `<td class="no" aria-label="Not included">—</td>` : `<td class="txt">${esc(v)}</td>`;
+  return `<section class="ptab" aria-labelledby="h-pt" data-tip="Every detail, side by side.">
+  <div class="ptab__head"><h2 id="h-pt">Every detail, side by side.</h2></div>
+  <div class="ptab__wrap"><table><thead><tr><th>Feature</th><th>Starter</th><th class="hl">Professional<em>Most loved</em></th><th>Enterprise</th></tr></thead>
+  <tbody>${compare.map(([f, a, b, c]) => `<tr><th scope="row">${esc(f)}</th>${cell(a)}${cell(b).replace("<td ", '<td data-hl="1" ')}${cell(c)}</tr>`).join("")}</tbody></table></div>
+</section>`;
+}
+
+function closeBand(o) {
+  return `<section class="mbk" aria-labelledby="h-meet" data-tip="${esc(o.title)}">
+  <div class="mbk__wrap">
+    <div class="mbk__in"><h2 id="h-meet">${esc(o.title)}</h2><p>${esc(o.lead)}</p></div>
+    <div class="mbk__who cast" aria-hidden="true"><span class="mbk__say">${esc(o.say)}</span><div class="mbk__ppl" data-bkppl>${who(byName["Aisha"], 5, "ppl--wave")}</div></div>
+    <div class="mbk__card"><b>${esc(o.card)}</b>${o.links.map(([tx, href, alt]) => `<a class="mbk__go${alt ? " mbk__go--alt" : ""}" href="${href}">${esc(tx)} ${icon("arrow", "ic")}</a>`).join("")}<small>${esc(o.small)}</small></div>
+  </div>
+</section>`;
+}
+
+export function pricingModulePage(faqItems, ldExtra = "") {
+  const m = {
+    slug: "pricing", name: "Pricing", icon: "wallet", tagline: "Simple pricing. No surprises.",
+    summary: "Pay only for active employees. Free onboarding and data migration on every plan. Cancel anytime.",
+    features: ["Starter, $4 per user", "Professional, $8 per user", "Enterprise, tailored to you", "Free onboarding and migration"], benefits: ["Pay only for active employees", "Free onboarding and data migration", "Cancel anytime"], useCases: [],
+    _hero: { who: ["$", "Your estimate", "Updates with your team size"], cast: [["Karan", "Finance"], ["Priya", "HR partner"], ["Sara", "Founder"]], chips: [["check", "Free onboarding"], ["repeat", "Free data migration"], ["lock", "Cancel anytime"]] }
+  };
+  return modulePage(m, faqItems, ldExtra, {
+    path: "/pricing/", title: "Pricing — HR & Payroll Software from $4 per User | SublimeHR",
+    description: "SublimeHR pricing: Starter $4/user/month, Professional $8/user/month, Enterprise custom. Estimate your cost instantly. Free onboarding and migration.",
+    menu: [["try", "wallet", "Estimate my cost"], ["ask", "message", "Ask about pricing"]],
+    main: (mm) => `${hero(mm)}\n${priceCalc()}\n${priceTable()}\n${ask(mm)}\n${closeBand({ title: "Start with the plan that fits today.", lead: "Upgrade any time as your team grows. Your data and settings move with you.", say: "Pick a plan!", card: "Ready when you are", links: [["Get a custom quote", "/get-pricing/"], ["Chat on WhatsApp", site.whatsapp, true]], small: "We reply within one business day." })}`
   });
 }

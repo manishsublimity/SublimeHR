@@ -326,6 +326,21 @@
     go(0); drive(box, function () { go((cur + 1) % data.length); }, 4200, st);
   }
 
+  /* ---------- pricing: team size drives every plan ---------- */
+  $$("[data-price]").forEach(function (box) {
+    var r = $('[data-r="emp"]', box), out = $("[data-pn]", box), avs = $("[data-avs]", box), quick = $$("[data-n]", box), ests = $$("[data-est]", box), cols = ["#3558F5", "#45C4B0", "#FF8A70", "#7A5CF0", "#F5B500", "#4A86C8", "#C2577A"];
+    function draw() {
+      var n = +r.value, show = Math.min(7, Math.max(1, Math.ceil(n / 40))), h = "";
+      out.textContent = n; for (var i = 0; i < show; i++) h += '<i style="background:' + cols[i] + '">' + String.fromCharCode(65 + i) + "</i>";
+      if (n > show) h += '<i class="more">+' + (n - show) + "</i>"; avs.innerHTML = h;
+      quick.forEach(function (q) { q.setAttribute("aria-pressed", String(+q.getAttribute("data-n") === n)); });
+      ests.forEach(function (el) { var rate = +el.getAttribute("data-est"), cap = +el.getAttribute("data-cap"); if (!rate) return; if (cap && n > cap) { el.classList.add("na"); el.textContent = "Starter covers up to " + cap + " employees"; } else { el.classList.remove("na"); el.innerHTML = "<b>≈ $" + fmt(rate * n) + "</b> / month for " + n + " people"; } });
+      var pct = (n - 5) / 995 * 100; r.style.setProperty("--p", pct + "%");
+    }
+    quick.forEach(function (q) { q.addEventListener("click", function () { r.value = q.getAttribute("data-n"); draw(); }); });
+    r.addEventListener("input", draw); draw();
+  });
+
   var map = { ind: ind, flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
   $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();
