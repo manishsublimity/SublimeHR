@@ -1,5 +1,6 @@
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
+import { heroCast, crowd } from "./cast.mjs";
 import { clockW, leaveW, payrollW, permW, hereW, rosterW, letterW, visitorW, storyW, chatW, homeFaqItems, vsCompare, heroArt, moduleWidget } from "./widgets.mjs";
 
 const more8 = (base, ids) => { const out = [...base], seen = new Set(out.map(([q]) => q)); for (const id of ids) for (const qa of faqs.find((g) => g.id === id).items) { if (out.length >= 8) break; if (!seen.has(qa[0])) { seen.add(qa[0]); out.push(qa); } } return out; };
@@ -236,6 +237,16 @@ function moduleFaqs(m) {
   return out;
 }
 const WIDE = ["leave-management", "payroll", "security-access", "employee-management", "visitor-management", "employee-self-service", "mobile-workforce"];
+const CASTS = [
+  [["Priya", "HR partner"], ["Sara", "QA lead"], ["Omar", "Designer"]],
+  [["Aisha", "Developer"], ["Ravi", "Team manager"], ["Nadia", "Intern"]],
+  [["Karan", "Finance"], ["Priya", "HR partner"], ["Omar", "Designer"]],
+  [["Sara", "QA lead"], ["Aisha", "Developer"], ["Karan", "Finance"]]
+];
+function moduleCast(m, idx) {
+  const notes = [m.features[0], m.features[1]].map((f) => f.length > 34 ? f.slice(0, 32).replace(/[\s,&-]+\S*$/, "") + "…" : f);
+  return heroCast(CASTS[idx % CASTS.length], notes);
+}
 export function moduleDetail(m) {
   const path = `/software/${m.slug}/`;
   const trail = [["Home", "/"], ["Features", "/features/"], [m.name, path]];
@@ -244,7 +255,7 @@ export function moduleDetail(m) {
   const isStory = m.slug === "employee-self-service" || m.slug === "mobile-workforce";
   const tryHead = sHead({ eyebrow: "Try it yourself", tone: "mint", title: `Go on — <span class="mark mint">take it for a spin.</span>`, lead: "A working mini version of the real thing. No sign-up needed.", left: isStory });
   const body = `
-${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][idx % 4], title: m.tagline, lead: m.summary, trail, actions: btn("Book a demo", `/book-demo/?module=${m.slug}`) + btn("Try it live", "#try", { alt: true, ic: "play" }), aside: heroArt(m, idx) })}
+${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][idx % 4], title: m.tagline, lead: m.summary, trail, actions: btn("Book a demo", `/book-demo/?module=${m.slug}`) + btn("Try it live", "#try", { alt: true, ic: "play" }), aside: moduleCast(m, idx) })}
 
 <section class="section" id="try">
   <div class="container">
@@ -286,7 +297,7 @@ ${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][i
     <div class="mods">${rel.map((r) => modCard(r, modules.indexOf(r))).join("")}</div>
   </div>
 </section>
-${cta({ title: `See ${m.name} with your own data.`, lead: "A personalized 30-minute demo, tailored to your workforce and policies.", primary: ["Book a demo", `/book-demo/?module=${m.slug}`] })}
+${cta({ title: `See ${m.name} with your own data.`, lead: "A personalized 30-minute demo, tailored to your workforce and policies.", primary: ["Book a demo", `/book-demo/?module=${m.slug}`], aside: crowd() })}
 `;
   return page({
     title: `${m.name} Software — ${m.tagline}`,

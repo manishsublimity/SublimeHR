@@ -77,8 +77,10 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="/assets/css/styles.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/site2.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/site3.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navhome.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/cast.css?v=${V}">
 <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
 <script>try{if(sessionStorage.getItem("shr-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-skip")}catch(e){}</script>
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
@@ -129,7 +131,8 @@ ${themeFab()}
 export function page({ title, description, path, active, ld, noindex, body, world }) {
   const w = world || WORLD[path] || "it";
   return `${head({ title, description, path, ld, noindex })}
-<body class="v2" data-w="${w}">
+<body class="v2" data-w="it">
+<script>try{var w=localStorage.getItem("shr-world");if(w)document.body.setAttribute("data-w",w)}catch(e){}</script>
 ${header(active)}
 <main id="main">
 ${body}
@@ -197,13 +200,14 @@ export function cta({
   title = "Give your HR team hours back — every week.",
   lead = "See how SublimeHR automates attendance, leave and payroll for your workforce. A 30-minute demo is all it takes.",
   primary = ["Book a demo", "/book-demo/"],
-  secondary = ["Get pricing", "/get-pricing/"]
+  secondary = ["Get pricing", "/get-pricing/"],
+  aside = ""
 } = {}) {
   return `<section class="section tight">
   <div class="container">
-    <div class="cta rv pop">
+    <div class="cta rv pop${aside ? " has-crowd" : ""}">
       <span class="deco d1" aria-hidden="true"></span>
-      <div><h2>${title}</h2><p>${lead}</p></div>
+      <div><h2>${title}</h2><p>${lead}</p></div>${aside}
       <div class="hero__cta">${btn(primary[0], primary[1])}${btn(secondary[0], secondary[1], { alt: true, ic: secondary[1].startsWith("http") ? "message" : "arrow", blank: secondary[1].startsWith("http") })}</div>
     </div>
   </div>

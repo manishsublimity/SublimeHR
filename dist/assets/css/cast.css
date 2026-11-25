@@ -1,0 +1,164 @@
+/* The home page characters (people, faces, outfits), scoped under .cast so any page can use them.
+   Generated from home2.css. Wrap a scene in <div class="cast"> and use the same markup as the home page. */
+.cast { --ink: #14213D; --spring: cubic-bezier(.34,1.56,.64,1); --ease: cubic-bezier(.2,.75,.25,1); font-family: "Figtree", system-ui, sans-serif; }
+.cast i, .cast span { font-style: normal; }
+.cast .ppl { filter: none; }
+.cast .s-ant {position: absolute; left: 33px; top: -4px; width: 4px; height: 14px; background: #fff;}
+.cast .s-ant::after {content: ""; position: absolute; left: -4px; top: -8px; width: 12px; height: 12px; border-radius: 50%; background: #FFD05A; box-shadow: 0 0 12px #FFD05A; animation: cast-glow 1.6s ease-in-out infinite;}
+.cast .s-head {position: absolute; left: 8px; top: 8px; width: 54px; height: 44px; border-radius: 18px; background: #fff; box-shadow: 0 10px 16px -8px rgba(0,0,0,.4), inset 0 -5px 0 rgba(20,33,61,.1);}
+.cast .s-scr {position: absolute; left: 7px; right: 7px; top: 9px; bottom: 12px; border-radius: 11px; background: var(--ink); display: flex; align-items: center; justify-content: center; gap: 9px;}
+.cast .s-scr b {width: 8px; height: 11px; border-radius: 50%; background: #6BF3D2; animation: cast-blink 4.2s ease-in-out infinite; transition: transform .2s;}
+.cast .s-body {position: absolute; left: 15px; top: 54px; width: 40px; height: 32px; border-radius: 12px 12px 16px 16px; background: #fff; box-shadow: inset 0 -5px 0 rgba(20,33,61,.1);}
+.cast .s-core {position: absolute; left: 14px; top: 9px; width: 12px; height: 12px; border-radius: 50%; background: #FFD05A; box-shadow: 0 0 10px #FFD05A; animation: cast-glow 1.6s ease-in-out -.6s infinite;}
+.cast .s-ar {position: absolute; top: 56px; width: 9px; height: 24px; border-radius: 6px; background: #fff; box-shadow: inset 0 -4px 0 rgba(20,33,61,.1); transform-origin: 50% 4px;}
+.cast .s-ar.l {left: 3px; animation: cast-wiggle 2.8s ease-in-out infinite;}
+.cast .s-ar.r {right: 3px; animation: cast-wiggle 2.8s ease-in-out -1s infinite;}
+.cast .s-jet {position: absolute; left: 24px; top: 86px; width: 22px; height: 16px; border-radius: 50% 50% 60% 60%; background: radial-gradient(circle at 50% 20%, #FFF3B0, #FFB020 55%, rgba(255,120,40,0) 72%); animation: cast-flicker .18s linear infinite alternate;}
+.cast .ppl {position: relative; width: 104px; height: 190px; --lu: -6; --lf: 10; --ru: -6; --rf: 10;}
+.cast .ppl__fig {position: absolute; inset: 0; transform-origin: 50% 100%; animation: cast-breathe 3.4s ease-in-out var(--d, 0s) infinite;}
+.cast .ppl__head {position: absolute; z-index: 3; left: 17px; top: 0; width: 70px; height: 72px; transition: transform .4s var(--spring);}
+.cast .fc {position: absolute; z-index: 2; inset: 0; border-radius: 50% 50% 46% 46% / 52% 52% 48% 48%; background: var(--skin);}
+.cast .hr {position: absolute; z-index: 4;}
+.cast .eye {position: absolute; top: 29px; width: 15px; height: 17px; border-radius: 50%; background: #fff; overflow: hidden; animation: cast-blink 4.8s ease-in-out var(--d, 0s) infinite;}
+.cast .eye.l {left: 13px;}
+.cast .eye.r {right: 13px;}
+.cast .eye b {position: absolute; left: 3.5px; top: 5px; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); transform: translate(var(--ex, 0px), var(--ey, 0px)); transition: transform .12s linear;}
+.cast .gl {display: none; position: absolute; z-index: 3; left: 5px; right: 5px; top: 26px; height: 22px; pointer-events: none;}
+.cast .has-gl .gl {display: block;}
+.cast .gl::before, .cast .gl::after {content: ""; position: absolute; top: 0; width: 24px; height: 22px; border: 2.5px solid #1F2A44; border-radius: 9px; background: rgba(255,255,255,.18);}
+.cast .gl::before {left: 0;}
+.cast .gl::after {right: 0;}
+.cast .ck {position: absolute; top: 45px; width: 11px; height: 7px; border-radius: 50%; background: rgba(255,90,90,.3);}
+.cast .ck.l {left: 5px;}
+.cast .ck.r {right: 5px;}
+.cast .bd {display: none; position: absolute; z-index: 1; left: -1px; right: -1px; bottom: -1px; height: 27px; background: var(--hair); border-radius: 0 0 50% 50% / 0 0 100% 100%;}
+.cast .has-bd .bd {display: block;}
+.cast .has-bd .mo {border-color: #F2D6C4;}
+.cast .mo {position: absolute; z-index: 2; left: 50%; top: 53px; width: 16px; height: 8px; margin-left: -8px; border-bottom: 3px solid #5b2a23; border-radius: 0 0 16px 16px; transition: all .2s;}
+.cast .talk .mo {animation: cast-talk .26s ease-in-out infinite alternate;}
+.cast .ppl__body {position: absolute; z-index: 2; left: calc((104px - var(--bw, 84px)) / 2); top: 68px; width: var(--bw, 84px); height: var(--bh, 96px); border-radius: 38px 38px 12px 12px; background: var(--shirt);}
+.cast .ppl__body::before {content: ""; position: absolute; z-index: -1; top: -8px; left: calc(50% - 8px); width: 16px; height: 16px; border-radius: 5px; background: var(--skin);}
+.cast .chest {position: absolute; left: 50%; top: 28px; width: 30px; height: 30px; margin-left: -15px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.92); color: var(--ink); font-size: 17px; z-index: 2;}
+.cast .arm {position: absolute; z-index: 4; top: 76px; width: 17px; height: 42px; border-radius: 9px; background: var(--sleeve, var(--shirt)); transform-origin: 50% 8px; transition: transform .55s var(--spring);}
+.cast .arm.l {left: calc((104px - var(--bw, 84px)) / 2 - 10px); transform: rotate(calc(var(--lu) * -1deg));}
+.cast .arm.r {right: calc((104px - var(--bw, 84px)) / 2 - 10px); transform: rotate(calc(var(--ru) * 1deg));}
+.cast .fa {position: absolute; left: 1px; top: 33px; width: 15px; height: 36px; border-radius: 8px; background: var(--fore, var(--skin)); transform-origin: 50% 7px; transition: transform .55s var(--spring);}
+.cast .arm.l .fa {transform: rotate(calc(var(--lf) * -1deg));}
+.cast .arm.r .fa {transform: rotate(calc(var(--rf) * 1deg));}
+.cast .fa::after {content: ""; position: absolute; left: 0; bottom: -7px; width: 15px; height: 15px; border-radius: 50%; background: var(--skin);}
+.cast .ppl__legs {position: absolute; z-index: 1; left: 24px; top: calc(62px + var(--bh, 96px)); width: 56px; height: calc(190px - 62px - var(--bh, 96px)); display: flex; gap: 10px;}
+.cast .ppl__legs i {position: relative; width: 23px; height: 100%; border-radius: 4px 4px 0 0; background: var(--pants, #2A3556); transform-origin: 50% 0;}
+.cast .ppl__legs i::after {content: ""; position: absolute; left: -2px; bottom: 0; width: 28px; height: 8px; border-radius: 6px 8px 3px 3px; background: var(--ink);}
+.cast [data-pose="rest"] {--lu: -6; --lf: 10; --ru: -6; --rf: 10;}
+.cast [data-pose="hold"] {--lu: -16; --lf: 88; --ru: -16; --rf: 88;}
+.cast [data-pose="type"] {--lu: -12; --lf: 94; --ru: -12; --rf: 94;}
+.cast [data-pose="point"] {--lu: -8; --lf: 14; --ru: -104; --rf: -10;}
+.cast [data-pose="hips"] {--lu: -40; --lf: 122; --ru: -40; --rf: 122;}
+.cast [data-pose="think"] {--lu: -10; --lf: 18; --ru: 46; --rf: 134;}
+.cast [data-pose="type"] .arm.l .fa {animation: cast-tapl .26s ease-in-out infinite alternate;}
+.cast [data-pose="type"] .arm.r .fa {animation: cast-tapr .26s ease-in-out .13s infinite alternate;}
+.cast .s-cap .hr {left: -4px; top: -7px; width: 78px; height: 35px; border-radius: 40px 40px 9px 9px; background: var(--hair);}
+.cast .s-long .hr {z-index: 1; left: -10px; top: -7px; width: 90px; height: 98px; border-radius: 45px 45px 24px 24px; background: var(--hair);}
+.cast .s-long .fc::before {content: ""; position: absolute; top: -1px; left: 0; width: 100%; height: 24px; background: var(--hair); border-radius: 50% 50% 0 0 / 100% 100% 0 0;}
+.cast .s-bun .hr {left: -4px; top: -7px; width: 78px; height: 33px; border-radius: 40px 40px 12px 12px; background: var(--hair);}
+.cast .s-bun .hr::after {content: ""; position: absolute; left: 27px; top: -17px; width: 25px; height: 25px; border-radius: 50%; background: var(--hair);}
+.cast .s-curls .hr {left: -7px; top: -12px; width: 84px; height: 40px; border-radius: 50% 50% 30% 30%; background: var(--hair); box-shadow: -14px 14px 0 -3px var(--hair), 14px 14px 0 -3px var(--hair), 0 -6px 0 3px var(--hair);}
+.cast .s-hijab .hr {z-index: 1; left: -12px; top: -9px; width: 94px; height: 102px; border-radius: 47px 47px 38px 38px; background: var(--hijab);}
+.cast .s-hijab .hr::after {content: ""; position: absolute; left: 14px; top: 74px; width: 66px; height: 40px; border-radius: 0 0 34px 34px; background: var(--hijab);}
+.cast [data-hat="hard"] .hat {display: block; left: -6px; top: -16px; width: 82px; height: 34px; border-radius: 41px 41px 5px 5px; background: #FFC400; box-shadow: inset 0 -5px 0 rgba(0,0,0,.1);}
+.cast [data-hat="hard"] .hat::before {content: ""; position: absolute; left: 33px; top: -4px; width: 16px; height: 36px; border-radius: 5px 5px 0 0; background: #E6A800;}
+.cast [data-hat="hard"] .hat::after {content: ""; position: absolute; left: -9px; bottom: -6px; width: 100px; height: 9px; border-radius: 5px; background: #E6A800;}
+.cast [data-hat="chef"] .hat {display: block; left: -2px; top: -36px; width: 74px; height: 46px; border-radius: 28px 28px 5px 5px; background: #fff; box-shadow: -20px 8px 0 -8px #fff, 20px 8px 0 -8px #fff, inset 0 -6px 0 rgba(20,33,61,.08);}
+.cast [data-hat="nurse"] .hat {display: block; left: 8px; top: -10px; width: 54px; height: 20px; border-radius: 10px 10px 4px 4px; background: #fff; box-shadow: 0 2px 0 rgba(20,33,61,.12);}
+.cast [data-hat="nurse"] .hat::after {content: ""; position: absolute; left: 22px; top: 4px; width: 10px; height: 10px; background: linear-gradient(#E03131, #E03131) center / 10px 3px no-repeat, linear-gradient(#E03131, #E03131) center / 3px 10px no-repeat;}
+.cast [data-hat="scrub"] .hat {display: block; left: -5px; top: -12px; width: 80px; height: 32px; border-radius: 40px 40px 14px 14px; background: #39B3A3; box-shadow: inset 0 -5px 0 rgba(0,0,0,.1);}
+.cast [data-hat="grad"] .hat {display: block; left: -14px; top: -18px; width: 98px; height: 12px; background: #1B1B2F; transform: rotate(-5deg); border-radius: 2px;}
+.cast [data-hat="grad"] .hat::before {content: ""; position: absolute; left: 24px; top: 8px; width: 50px; height: 14px; background: #1B1B2F; border-radius: 0 0 14px 14px;}
+.cast [data-hat="grad"] .hat::after {content: ""; position: absolute; right: 6px; top: 3px; width: 3px; height: 30px; background: #FFC400; border-radius: 2px;}
+.cast [data-hat="headset"] .hat {display: block; left: -5px; top: -10px; width: 80px; height: 66px; border: 5px solid #2B2B3A; border-bottom: 0; border-radius: 40px 40px 0 0;}
+.cast [data-hat="headset"] .hat::before {content: ""; position: absolute; left: -10px; top: 26px; width: 14px; height: 26px; border-radius: 8px; background: #2B2B3A;}
+.cast [data-hat="headset"] .hat::after {content: ""; position: absolute; left: -7px; top: 48px; width: 32px; height: 4px; border-radius: 2px; background: #2B2B3A; transform: rotate(18deg); transform-origin: 0 50%;}
+.cast [data-hat="visor"] .hat {display: block; left: -4px; top: -9px; width: 78px; height: 26px; border-radius: 40px 40px 5px 5px; background: #1F2A44;}
+.cast [data-hat="visor"] .hat::after {content: ""; position: absolute; left: 36px; bottom: -3px; width: 48px; height: 9px; border-radius: 5px; background: #1F2A44;}
+.cast [data-hat="tie"] .ppl__body::after {content: ""; position: absolute; z-index: 1; left: calc(50% - 6px); top: 4px; width: 13px; height: 46px; background: #C92A2A; clip-path: polygon(20% 0, 80% 0, 70% 14%, 100% 88%, 50% 100%, 0 88%, 30% 14%);}
+.cast [data-outfit="coat"] {--sleeve: #F4F7FB; --fore: #F4F7FB;}
+.cast [data-outfit="coat"] .ppl__body {background: #F4F7FB; box-shadow: inset 0 -3px 0 rgba(20,33,61,.06);}
+.cast [data-outfit="coat"] .ofit {background: linear-gradient(#D5DDEA, #D5DDEA) 50% 0 / 2px 100% no-repeat, linear-gradient(#D5DDEA, #D5DDEA) 14px 60% / 16px 2px no-repeat;}
+.cast [data-outfit="vest"] {--fore: var(--shirt);}
+.cast [data-outfit="vest"] .ofit {left: 9px; right: 9px; border-radius: 30px 30px 6px 6px; background: linear-gradient(transparent 52%, #EEF3F8 52% 62%, transparent 62%), linear-gradient(#E85D00, #E85D00) 50% 0 / 2px 100% no-repeat, #FF7A1A;}
+.cast [data-outfit="apron"] .ofit {left: 12px; right: 12px; top: 26px; border-radius: 14px 14px 5px 5px; background: #F6F4EF; box-shadow: inset 0 0 0 2px #DDD6C8;}
+.cast [data-outfit="blazer"] {--sleeve: #243050; --fore: #243050;}
+.cast [data-outfit="blazer"] .ppl__body {background: #243050;}
+.cast [data-outfit="blazer"] .ofit {left: 50%; width: 32px; height: 38px; margin-left: -16px; background: #F4F6FA; clip-path: polygon(0 0, 100% 0, 50% 100%); border-radius: 0;}
+.cast [data-outfit="vest"], .cast [data-outfit="apron"], .cast [data-outfit="blazer"]) .chest {left: 13px; top: 34px; margin-left: 0; width: 20px; height: 20px; font-size: 12px;}
+.cast [data-item="laptop"] .item {display: block; width: 48px; height: 28px; margin-left: -24px; top: 44px; border-radius: 4px; background: linear-gradient(#2B3550 76%, #AEB8CC 76%); box-shadow: inset 0 0 0 3px #2B3550;}
+.cast [data-item="laptop"] .item::before {content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 11px; background: repeating-linear-gradient(#6BF3D2 0 2px, transparent 2px 5px); opacity: .85; animation: cast-glow 1.4s ease-in-out infinite;}
+.cast [data-item="tablet"] .item {display: block; width: 28px; height: 36px; margin-left: -14px; border-radius: 5px; background: #1F2A44; box-shadow: inset 0 0 0 3px #C7D0E0;}
+.cast [data-item="tablet"] .item::before {content: ""; position: absolute; left: 6px; right: 6px; top: 7px; bottom: 7px; border-radius: 2px; background: linear-gradient(135deg, #6BF3D2, #7FB4FF);}
+.cast [data-item="clipboard"] .item {display: block; width: 28px; height: 36px; margin-left: -14px; border-radius: 4px; background: #C9A26B;}
+.cast [data-item="clipboard"] .item::before {content: ""; position: absolute; left: 8px; top: -4px; width: 12px; height: 7px; border-radius: 2px; background: #8E949E;}
+.cast [data-item="clipboard"] .item::after {content: ""; position: absolute; left: 4px; right: 4px; top: 8px; bottom: 4px; background: repeating-linear-gradient(#fff 0 2px, transparent 2px 6px);}
+.cast [data-item="wrench"] .item {display: block; width: 9px; height: 46px; margin-left: -4px; top: 30px; border-radius: 5px; background: #9AA5B5; transform: rotate(32deg);}
+.cast [data-item="wrench"] .item::before {content: ""; position: absolute; left: -6px; top: -8px; width: 21px; height: 18px; border-radius: 50% 50% 4px 4px; background: #9AA5B5; clip-path: polygon(0 0, 35% 0, 50% 40%, 65% 0, 100% 0, 100% 100%, 0 100%);}
+.cast [data-item="pan"] .item {display: block; width: 34px; height: 12px; margin-left: -17px; top: 50px; border-radius: 50%; background: #2B2B2B; box-shadow: 0 3px 0 #444;}
+.cast [data-item="pan"] .item::after {content: ""; position: absolute; left: 30px; top: 3px; width: 26px; height: 6px; border-radius: 3px; background: #2B2B2B;}
+.cast [data-item="bag"] .item {display: block; width: 26px; height: 30px; margin-left: -13px; top: 46px; border-radius: 3px 3px 5px 5px; background: #FF8A70;}
+.cast [data-item="bag"] .item::before {content: ""; position: absolute; left: 6px; top: -10px; width: 14px; height: 14px; border: 3px solid #FF8A70; border-bottom: 0; border-radius: 8px 8px 0 0;}
+.cast [data-item="phone"] .item {display: block; width: 15px; height: 26px; margin-left: -7px; top: 36px; border-radius: 4px; background: #14213D;}
+.cast [data-item="phone"] .item::before {content: ""; position: absolute; left: 2px; right: 2px; top: 3px; bottom: 3px; border-radius: 2px; background: #6BF3D2; opacity: .85;}
+.cast [data-item="coffee"] .item {display: block; width: 18px; height: 20px; margin-left: -9px; top: 44px; border-radius: 2px 2px 6px 6px; background: #fff; box-shadow: inset 0 -4px 0 #C9A26B;}
+.cast [data-item="coffee"] .item::after {content: ""; position: absolute; right: -7px; top: 4px; width: 8px; height: 10px; border: 3px solid #fff; border-left: 0; border-radius: 0 6px 6px 0;}
+.cast [data-item="coffee"] .item::before {content: ""; position: absolute; left: 6px; top: -12px; width: 3px; height: 10px; border-radius: 3px; background: rgba(255,255,255,.7); animation: cast-steam 1.6s ease-in-out infinite;}
+.cast [data-item="box"] .item {display: block; width: 38px; height: 28px; margin-left: -19px; top: 46px; border-radius: 3px; background: #C89B5F; box-shadow: inset 0 -4px 0 rgba(0,0,0,.12);}
+.cast [data-item="box"] .item::before {content: ""; position: absolute; left: 14px; top: 0; width: 10px; bottom: 0; background: #E5C58F;}
+.cast [data-item="tray"] .item {display: block; width: 52px; height: 7px; margin-left: -26px; top: 50px; border-radius: 4px; background: #CBD5E1;}
+.cast [data-item="tray"] .item::before {content: ""; position: absolute; left: 12px; top: -15px; width: 28px; height: 16px; border-radius: 14px 14px 0 0; background: #E9EEF5; box-shadow: inset 0 -3px 0 rgba(20,33,61,.08);}
+.cast [data-item="folder"] .item {display: block; width: 32px; height: 24px; margin-left: -16px; top: 46px; border-radius: 3px 5px 5px 5px; background: #F6C453;}
+.cast [data-item="folder"] .item::before {content: ""; position: absolute; left: 0; top: -5px; width: 14px; height: 7px; border-radius: 3px 5px 0 0; background: #F6C453;}
+.cast .ppl.talk .ppl__head {transform: rotate(-4deg);}
+.cast .ppl--wave {--ru: -150; --rf: -14;}
+.cast .ppl--wave .arm.r .fa {animation: cast-wavefa .5s ease-in-out infinite alternate;}
+.cast .ppl--wave .ppl__head {animation: cast-nod 1.4s ease-in-out infinite;}
+.cast .chest {left: 13px; top: 26px; width: 24px; height: 31px; margin-left: 0; border-radius: 5px; background: #fff; color: var(--ink); font-size: 12px; align-items: flex-end; padding-bottom: 4px; display: flex; justify-content: center; box-shadow: 0 2px 0 rgba(20,33,61,.14);}
+.cast .chest:empty {display: none;}
+.cast .chest::before {content: ""; position: absolute; left: 0; right: 0; top: 0; height: 9px; border-radius: 5px 5px 0 0; background: var(--world);}
+.cast .chest::after {content: ""; position: absolute; left: -1px; top: -22px; width: 26px; height: 23px; background: linear-gradient(to top right, transparent 46%, rgba(20,33,61,.5) 48% 54%, transparent 56%) left / 50% 100% no-repeat, linear-gradient(to top left, transparent 46%, rgba(20,33,61,.5) 48% 54%, transparent 56%) right / 50% 100% no-repeat;}
+.cast [data-outfit="vest"], .cast [data-outfit="apron"], .cast [data-outfit="blazer"]) .chest {left: 13px; top: 26px; width: 24px; height: 31px; margin-left: 0; font-size: 12px;}
+.cast [data-hat="tie"] .chest {left: 12px;}
+.cast .ppl--wave .chest {display: none;}
+.cast [data-pose="wave"] {--ru: -150; --rf: -14;}
+.cast [data-pose="wave"] .arm.r .fa {animation: cast-wavefa .5s ease-in-out infinite alternate;}
+.cast .ppl .ppl__fig > .chest {position: absolute; z-index: 7; left: calc(50% - 14px); top: 93px; width: 28px; height: 36px; margin: 0; padding-bottom: 5px; display: flex; align-items: flex-end; justify-content: center; border-radius: 6px; background: #fff; color: var(--ink); font-size: 14px; box-shadow: 0 3px 0 rgba(20,33,61,.16), 0 0 0 1.5px rgba(20,33,61,.1);}
+.cast .ppl .ppl__fig > .chest::before {height: 10px; border-radius: 6px 6px 0 0;}
+.cast .ppl .ppl__fig > .chest::after {left: 50%; top: -24px; width: 34px; height: 24px; margin-left: -17px; background: linear-gradient(to top right, transparent 44%, #14213D 46% 58%, transparent 60%) left / 50% 100% no-repeat, linear-gradient(to top left, transparent 44%, #14213D 46% 58%, transparent 60%) right / 50% 100% no-repeat; filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);}
+.cast .ppl .ppl__fig > .chest .ic {width: 1em; height: 1em;}
+.cast .ppl--wave .ppl__fig > .chest {display: none;}
+.cast .ppl[data-outfit="none"] {--sleeve: color-mix(in srgb, var(--shirt) 84%, #14213D);}
+.cast .fa::after {box-shadow: inset 0 -2px 0 rgba(20,33,61,.14), 0 0 0 1.5px color-mix(in srgb, var(--skin) 72%, #3B2418);}
+.cast .fa {box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--fore, var(--skin)) 76%, #3B2418);}
+.cast [data-pose="reach"] {--lu: -88; --lf: -6; --ru: -6; --rf: 10;}
+.cast .ppl .ppl__fig > .chest::after {display: none;}
+.cast .ppl__body::after {content: ""; position: absolute; left: 50%; top: 0; width: 34px; height: 26px; margin-left: -17px; background: linear-gradient(to top right, transparent 44%, #14213D 46% 58%, transparent 60%) left / 50% 100% no-repeat, linear-gradient(to top left, transparent 44%, #14213D 46% 58%, transparent 60%) right / 50% 100% no-repeat; pointer-events: none;}
+.cast .ppl__fig:has(.chest:empty) .ppl__body::after, .cast .ppl--wave .ppl__body::after {display: none;}
+.cast .fa, .cast .fa::after {box-shadow: none;}
+.cast .ppl[data-outfit="none"] {--sleeve: var(--shirt);}
+.cast .ppl .ppl__fig > .chest:empty {display: none;}
+.cast .ppl__body::after {width: 36px; margin-left: -18px; background: linear-gradient(to top right, transparent 40%, #14213D 42% 62%, transparent 64%) left / 50% 100% no-repeat, linear-gradient(to top left, transparent 40%, #14213D 42% 62%, transparent 64%) right / 50% 100% no-repeat; filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);}
+.cast [data-outfit="blazer"] .ofit {background: color-mix(in srgb, var(--shirt) 30%, #fff);}
+.cast .arm {box-shadow: inset 0 0 0 1.5px rgba(20,33,61,.14); filter: drop-shadow(0 1.5px 1px rgba(20,33,61,.22));}
+.cast .fa {box-shadow: inset 0 0 0 1.5px rgba(20,33,61,.12);}
+.cast .fa::after {width: 17px; height: 17px; left: -1px; bottom: -8px; box-shadow: inset 0 -2px 0 rgba(20,33,61,.12), 0 1px 1px rgba(20,33,61,.2);}
+.cast .ppl__fig {overflow: visible;}
+.cast .ppl {overflow: visible;}
+
+@keyframes cast-breathe { 0%, 100% { transform: rotate(var(--lean, 0deg)) scale(1, 1); } 50% { transform: rotate(var(--lean, 0deg)) scale(1.018, 1.03); } }
+@keyframes cast-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.08); } }
+@keyframes cast-talk { from { height: 3px; border-radius: 4px; } to { height: 12px; border-radius: 50%; } }
+@keyframes cast-nod { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg) translateY(-2px); } }
+@keyframes cast-wiggle { 0%, 88%, 100% { transform: rotate(0); } 92% { transform: rotate(-14deg) scale(1.1); } 96% { transform: rotate(10deg) scale(1.1); } }
+@keyframes cast-glow { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+@keyframes cast-wavefa { from { transform: rotate(-10deg); } to { transform: rotate(-52deg); } }
+@keyframes cast-tapl { from { transform: rotate(calc(var(--lf) * -1deg)); } to { transform: rotate(calc(var(--lf) * -1deg + 7deg)); } }
+@keyframes cast-tapr { from { transform: rotate(calc(var(--rf) * 1deg)); } to { transform: rotate(calc(var(--rf) * 1deg - 7deg)); } }
+@keyframes cast-steam { 0% { transform: translateY(4px); opacity: 0; } 40% { opacity: .8; } 100% { transform: translateY(-8px); opacity: 0; } }
+@keyframes cast-flicker { from { transform: scaleY(.8); opacity: .8; } to { transform: scaleY(1.15); opacity: 1; } }

@@ -214,7 +214,7 @@
   }
   function setIndustry(i, fromUser) {
     cur = i; var d = inds[i];
-    body.setAttribute("data-w", d.key); var meta = $('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", d.color);
+    body.setAttribute("data-w", d.key); try { localStorage.setItem("shr-world", d.key); } catch (e) {} var meta = $('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", d.color);
     chipBtns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === d.key ? "true" : "false"); });
     leads.forEach(function (l) { if (l) setText(l, d.lead); });
     allPpl.forEach(function (p) { dress(p, d); });
