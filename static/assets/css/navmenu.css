@@ -162,3 +162,7 @@ html[data-theme="dark"] .gen__tip { background: #E6ECFF; color: #14213D; } html[
 
 /* the hanging lamp: bulb clear of the mouth, a slightly taller shade */
 .lamp__shade { height: 38px; } .lamp__bulb { top: 112px; }
+
+/* the lamp hangs at the right edge */
+.lamp { left: auto; right: 2px; } .lamp__tip { left: auto; right: 60px; transform: translateX(8px); } .lamp:hover .lamp__tip, .lamp:focus-visible .lamp__tip { transform: none; }
+@media (max-width: 760px) { .lamp { right: 0; left: auto; } }
