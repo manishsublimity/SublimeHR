@@ -1,6 +1,6 @@
 // Module pages built from the home page itself: same shell, same head, same hero stage, same flip cards,
 // same module tiles, same "Ask Subi" chat, same closing crowd and footer. Only the content changes.
-import { site, modules } from "./data.mjs";
+import { site, modules, industries as INDS } from "./data.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
@@ -45,13 +45,13 @@ const EXTRA = {
 
 const lineFor = (m, i) => [m.benefits[0], m.benefits[1], m.benefits[2], m.features[3] || m.features[0]][i % 4];
 
-function head(m, path, description) {
+function head(m, path, description, title) {
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(m.name)} Software — ${esc(m.tagline)} | SublimeHR</title>
+<title>${esc(title || `${m.name} Software — ${m.tagline} | SublimeHR`)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${site.url}${path}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -79,7 +79,7 @@ const tagx = (name, role, i, x, y, s) => `<span class="tagx" style="--x:${x}px;-
 
 function hero(m) {
   const rows = m.features.slice(0, 4);
-  const hc = CONF[m.slug]?.hero;
+  const hc = m._hero || CONF[m.slug]?.hero;
   const pos = [[60, 116, .84], [250, 344, 1], [560, 330, 1]];
   const cast = (hc ? hc.cast : [["Omar", "HR manager"], ["Priya", "HR partner"], ["Sara", "New joiner"]]).map(([n, r], i) => [n, r, ...pos[i]]);
   const who3 = hc ? hc.who : ["SN", "Sara Nasser", "New joiner · Senior Accountant"];
@@ -237,10 +237,10 @@ function meet(m) {
 </section>`;
 }
 
-export function modulePage(m, faqItems, ldExtra = "") {
-  const path = `/software/${m.slug}/`;
-  const description = `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300);
-  return `${head(m, path, description)}
+export function modulePage(m, faqItems, ldExtra = "", o = {}) {
+  const path = o.path || `/software/${m.slug}/`;
+  const description = o.description || `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300);
+  return `${head(m, path, description, o.title)}
 <body class="lo mpage" data-w="it" data-ft="3">
 <script>try{var w=localStorage.getItem("shr-world");if(w)document.body.setAttribute("data-w",w)}catch(e){}</script>
 <script type="application/json" id="mod-story">${JSON.stringify([m.benefits[0], m.benefits[1], m.benefits[2], m.features[3] || m.features[0]].filter(Boolean)).replace(/</g, "\u003c")}</script>
@@ -251,21 +251,21 @@ export function modulePage(m, faqItems, ldExtra = "") {
   ${navMenu("features")}
 </header>
 <main id="main">
-${hero(m)}
+${o.main ? o.main(m) : `${hero(m)}
 ${m.slug === "employee-management" ? letterDemo() : CONF[m.slug]?.demo ? demoSection(m, CONF[m.slug].demo) : ""}
 ${before(m)}
 ${caps(m)}
 ${scen(m)}
 ${mods(m)}
 ${ask(m)}
-${meet(m)}
+${meet(m)}`}
 </main>
 ${homeFooter()}
 <div class="guide" data-guide>
   <div class="guide__say" data-guide-say aria-live="polite"></div>
   <div class="guide__menu" data-guide-menu hidden role="menu" aria-label="Ask Subi to show you something">
     <b>What should I show you?</b>
-    ${[["try", "file", "Watch a letter write itself"], ["ba", "repeat", "Before and after"], ["cap", "layers", "What it does"], ["ask", "message", "Ask a question"]].map(([k, ic, tt]) => `<button type="button" role="menuitem" data-show="${k}">${icon(ic, "ic")}${tt}</button>`).join("")}
+    ${(o.menu || [["try", "file", m.slug === "employee-management" ? "Watch a letter write itself" : "Try the live demo"], ["ba", "repeat", "Before and after"], ["cap", "layers", "What it does"], ["ask", "message", "Ask a question"]]).map(([k, ic, tt]) => `<button type="button" role="menuitem" data-show="${k}">${icon(ic, "ic")}${tt}</button>`).join("")}
   </div>
   <button class="subi__bot" type="button" data-guide-bot aria-label="Ask Subi, the page helper" aria-expanded="false"><i class="s-ant"></i><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="s-body"><i class="s-core"></i></span><i class="s-ar l"></i><i class="s-ar r"></i><i class="s-jet"></i></button>
   <span class="subi__lbl">Ask Subi</span>
@@ -282,4 +282,53 @@ ${ldExtra}
 </body>
 </html>
 `;
+}
+
+
+/* ================= the industries page ================= */
+const SAYS = { manufacturing: "Three shifts, one roster.", healthcare: "Every ward is covered.", "it-software": "Clock in from anywhere.", education: "Leave follows the term.", hospitality: "Split shifts, sorted.", retail: "Every store, every shift.", logistics: "Drivers punch on the road." };
+
+function indExplorer() {
+  const data = INDS.map((i) => ({ id: i.id, name: i.name, blurb: i.blurb, how: i.how, mods: i.modules.map((s) => { const mm = modules.find((x) => x.slug === s); return mm ? [mm.name, mm.slug] : null; }).filter(Boolean), say: SAYS[i.id] || "Built for your teams." }));
+  return `<section class="mdemo" id="try" aria-labelledby="h-try" data-tip="Pick an industry to see what changes for it.">
+  <div class="mdemo__head"><h2 id="h-try">Pick your industry.</h2><p>Every workforce runs a little differently. Choose yours and see the shifts, rules and modules that fit it. It plays by itself until you take over.</p></div>
+  <div class="dmx cast" data-dm="ind" data-ind="${esc(JSON.stringify(data)).replace(/"/g, "&quot;")}">
+    <div class="dmx__l dmx__indgrid" role="tablist" aria-label="Industries">${INDS.map((i, k) => `<button type="button" role="tab" data-in="${k}" aria-selected="${k === 0}"><i>${icon(i.icon, "ic")}</i><b>${esc(i.name)}</b></button>`).join("")}</div>
+    <div class="dmx__r dmx__indcard">
+      <small data-it>${esc(INDS[0].name)}</small>
+      <h3 data-ib>${esc(INDS[0].blurb)}</h3>
+      <ul data-ih></ul>
+      <div class="dmx__imods"><small>Modules it leans on</small><div data-im></div></div>
+      <a class="dmx__send dmx__send--s" data-ibook href="/book-demo/?industry=${encodeURIComponent(INDS[0].name)}">Get a demo for ${esc(INDS[0].name)}</a>
+    </div>
+    <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Built for your teams.</span><div class="dmx__ppl">${who(byName["Priya"], 1, "ppl--wave")}</div></div>
+  </div>
+</section>`;
+}
+
+function indShared() {
+  const cards = [
+    ["zap", "Shift, leave and pay rules are set per industry, per site and per team.", ["Rules engine for policies", "Branch-level settings"]],
+    ["users", "We set it up around how your teams already work, and bring your data across.", ["Guided setup and data import", "Training for HR and managers"]],
+    ["building", "Something unusual about your workforce? Custom development covers almost any case.", ["Custom workflows and forms", "Integrations with your systems"]]
+  ];
+  return `<section class="msc" aria-labelledby="h-sc" data-tip="What every industry gets.">
+  <div class="msc__head"><h2 id="h-sc">What every industry gets.</h2><p>The same foundation under every team, however different the work.</p></div>
+  <div class="msc__grid">${cards.map(([ic, tx, li], i) => `<article class="msc__c msc__c--${i}"><span class="msc__n" aria-hidden="true">0${i + 1}</span><i class="msc__ic">${icon(ic, "ic")}</i><p>${esc(tx)}</p><ul>${li.map((f) => `<li>${icon("check", "ic")}${esc(f)}</li>`).join("")}</ul></article>`).join("")}</div>
+</section>`;
+}
+
+export function industriesModulePage(faqItems, ldExtra = "") {
+  const m = {
+    slug: "industries", name: "Industries", icon: "building", tagline: "Built for the way you work.",
+    summary: "From shop floors to hospital wards, SublimeHR adapts to your shifts, sites and policies.",
+    features: INDS.map((i) => i.name), benefits: ["Shift rosters that fit each plant and ward", "Leave and pay rules set per industry", "Live in days, not months"], useCases: [],
+    _hero: { who: ["PS", "Priya Shah", "HR partner · Nine industries"], cast: [["Karan", "Plant manager"], ["Nadia", "Ward nurse"], ["Ravi", "Field engineer"]], chips: [["factory", "3-shift plants"], ["health", "24/7 wards"], ["truck", "Field crews"]] }
+  };
+  return modulePage(m, faqItems, ldExtra, {
+    path: "/industries/", title: "HR Software by Industry — Manufacturing, Healthcare, Retail & More | SublimeHR",
+    description: "SublimeHR for manufacturing, healthcare, IT, education, hospitality, retail, logistics and more. Shifts, leave and payroll shaped around how your industry works.",
+    menu: [["try", "building", "Explore an industry"], ["ask", "message", "Ask a question"]],
+    main: (mm) => `${hero(mm)}\n${indExplorer()}\n${indShared()}\n${ask(mm)}\n${meet(mm)}`
+  });
 }

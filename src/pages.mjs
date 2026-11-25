@@ -1,3 +1,4 @@
+import { industriesModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -262,6 +263,12 @@ export function moduleDetail(m) {
    INDUSTRIES
    ===================================================================== */
 export function industriesPage() {
+  const trail = [["Home", "/"], ["Industries", "/industries/"]];
+  const items = ["getting-started", "implementation"].flatMap((id) => faqs.find((g) => g.id === id).items).slice(0, 7);
+  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(items)] })}</script>`;
+  return industriesModulePage(items, ld);
+}
+export function industriesPageOld() {
   const trail = [["Home", "/"], ["Industries", "/industries/"]];
   const art = `<div class="art t1" aria-hidden="true">
     ${sticker("a1", "var(--blue)", "factory", "3-shift plants")}

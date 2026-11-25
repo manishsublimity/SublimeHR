@@ -312,6 +312,20 @@
     go(0); drive(box, function () { go((cur + 1) % 6); }, 4400, st);
   }
 
-  var map = { flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
+  /* ---------- industries: pick one, see what fits ---------- */
+  function ind(box) {
+    var st = { taken: false }, data = JSON.parse(box.dataset.ind), tabs = $$("[data-in]", box), it = $("[data-it]", box), ib = $("[data-ib]", box), ih = $("[data-ih]", box), im = $("[data-im]", box), bk = $("[data-ibook]", box), cur = -1;
+    function go(i) {
+      if (i === cur) return; cur = i; var d = data[i];
+      tabs.forEach(function (b, k) { b.setAttribute("aria-selected", String(k === i)); });
+      it.textContent = d.name; ib.textContent = d.blurb; ih.innerHTML = d.how.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("");
+      im.innerHTML = d.mods.map(function (m) { return '<a href="/software/' + m[1] + '/">' + esc(m[0]) + "</a>"; }).join(""); bk.href = "/book-demo/?industry=" + encodeURIComponent(d.name); bk.textContent = "Get a demo for " + d.name; say(box, d.say);
+      var card = $(".dmx__indcard", box); card.classList.remove("swap"); void card.offsetWidth; card.classList.add("swap");
+    }
+    tabs.forEach(function (b, i) { b.addEventListener("click", function () { go(i); }); });
+    go(0); drive(box, function () { go((cur + 1) % data.length); }, 4200, st);
+  }
+
+  var map = { ind: ind, flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
   $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();
