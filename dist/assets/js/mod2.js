@@ -189,7 +189,7 @@
   /* ================= before / after: when you reach it, Subi comes over, hears the problems and fixes them, all by itself ================= */
   (function () {
     var r = $("[data-mba]"); if (!r) return;
-    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), ladyBox = $(".mba__lady", r), lady = $(".ppl", ladyBox), cards = $$(".mba__cards li", r), prog = $("[data-prog]", r);
+    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), ladyBox = $(".mba__lady", r), lady = $(".ppl", ladyBox), cards = $$(".mba__cards li", r), prog = $("[data-prog]", r), recRows = $$(".mba__record li", r), recPct = $("[data-recpct]", r), pile = $(".mba__cards", r);
     var order = [0, 3, 1, 4, 2, 5, 6], token = 0, running = false, auto = true, dwell, lastFixed = -1;
     function pose(step) { lady.setAttribute("data-pose", { before: "rest", ask: "point", work: "hips", after: "wave" }[step] || "rest"); lady.classList.toggle("ppl--wave", step === "after"); }
     function set(step) {
@@ -198,7 +198,7 @@
       if (step === "after") Snd.chime();
     }
     function lsay(text, ms) { bsay.textContent = text; bsay.classList.remove("on"); void bsay.offsetWidth; bsay.classList.add("on"); talk(lady, ms || 2200); }
-    function syncCards(n) { if (n === lastFixed) return; cards.forEach(function (c, i) { c.classList.toggle("fixed", order.indexOf(i) < n); }); if (n > lastFixed && n > 0) Snd.tick(); lastFixed = n; prog.textContent = n === 0 ? "Waiting for the file…" : n >= cards.length ? "All " + cards.length + " fixed" : "Subi is on it · " + n + " of " + cards.length; prog.classList.toggle("done", n >= cards.length); }
+    function syncCards(n) { if (n === lastFixed) return; cards.forEach(function (c, i) { c.classList.toggle("fixed", order.indexOf(i) < n); }); recRows.forEach(function (x, i) { x.classList.toggle("done", i < n); }); if (recPct) recPct.textContent = Math.round(n / cards.length * 100) + "%"; if (n > lastFixed && n > 0) Snd.tick(); lastFixed = n; prog.textContent = n === 0 ? "Waiting for the file…" : n >= cards.length ? "All " + cards.length + " fixed" : "Subi is on it · " + n + " of " + cards.length; prog.classList.toggle("done", n >= cards.length); }
     function near(el, fx, fy, dx, dy) { var rc = el.getBoundingClientRect(); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, rc.left + rc.width * fx + (dx || 0))), Math.max(70, Math.min(window.innerHeight - 140, rc.top + rc.height * fy + (dy || 0)))); }
     function alive(t) { return t === token; }
     function release() { guide.classList.remove("mplay", "msearch", "mhi", "mfast"); }
@@ -206,9 +206,10 @@
       var t = ++token; if (gBusy && !manual) return;
       running = true; gBusy = true; menu(false); guide.classList.add("mplay", "mfast"); syncCards(0); set("before"); lsay("Where is that file again?", 1800); await wait(900); if (!alive(t)) return;
       near(scene, .86, .1); await wait(650); if (!alive(t)) return; guide.classList.add("mhi"); setTimeout(function () { guide.classList.remove("mhi"); }, 1200); Snd.pop(); guideSay("Hi, I'm Subi. Need a hand?", 1800); await wait(1500); if (!alive(t)) return;
-      set("ask"); lsay("Subi, find Sara's signed offer letter, please!", 2600); await wait(2700); if (!alive(t)) return;
+      set("ask"); lsay("Subi, can you find Sara's offer letter?", 2600); await wait(2700); if (!alive(t)) return;
       guideSay("On it!", 1200); set("work"); guide.classList.add("msearch");
-      for (var i = 0; i < order.length; i++) { if (!alive(t)) return; syncCards(i + 1); near(cards[order[i]], .5, .5, -22, -44); await wait(520); }
+      near(pile, .36, .5); await wait(700); if (!alive(t)) return;
+      for (var i = 0; i < order.length; i++) { if (!alive(t)) return; syncCards(i + 1); await wait(560); }
       guide.classList.remove("msearch"); await wait(250); if (!alive(t)) return;
       near(ladyBox, 1.15, .62); await wait(700); if (!alive(t)) return;
       set("after"); guideSay("All done. Everything is on her record.", 2800); lsay("Found it. Thank you, Subi!", 2800); await wait(3000); if (!alive(t)) return;

@@ -66,6 +66,7 @@ function head(m, path, description) {
 <link rel="stylesheet" href="/assets/css/mod6.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod7.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod8.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mod9.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -129,7 +130,8 @@ function letterDemo() {
 
 function before(m) {
   const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
-  const fixes = [["Final_v7.xlsx", "One employee record"], ["Who has the form?", "On her profile"], ["Re-type it", "Filled in for her"], ["Wrong salary?", "Checked, correct"], ["Lost the letter", "Found, signed"], ["Duplicate entry", "No duplicates"], ["No audit trail", "Every change logged"]];
+  const fixes = ["Final_v7.xlsx", "Who has the form?", "Re-type it", "Wrong salary?", "Lost the letter", "Duplicate entry", "No audit trail"];
+  const rec = ["Profile", "Offer letter", "Salary", "Documents", "Timeline", "Access card", "Audit log"];
   return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Watch Subi come over and fix her day.">
   <div class="mba__pin" data-pin><div class="mba__sticky">
   <div class="mba__head"><h2 id="h-ba">What changes for your HR team.</h2>
@@ -145,7 +147,8 @@ function before(m) {
       <span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
       <span class="mba__say" data-bsay>Where is that file again?</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
-      <ul class="mba__cards" aria-hidden="true">${fixes.map(([bad, good], i) => `<li class="k${i}" style="--d:${i * 0.16}s"><span class="bf"><i>${icon("close", "ic")}</i>${bad}</span><span class="af"><i>${icon("check", "ic")}</i>${good}</span></li>`).join("")}</ul>
+      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>SN</i><span><b>Sara Nasser</b><small>Employee record</small></span><em data-recpct>0%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i>${x}</li>`).join("")}</ul></div>
+      <ul class="mba__cards" aria-hidden="true">${fixes.map((bad, i) => `<li class="k${i}"><span class="bf"><i></i>${bad}</span></li>`).join("")}</ul>
       <span class="mba__prog" data-prog aria-hidden="true">Waiting for the file…</span>
       <span class="mba__floor"></span>
     </div>
