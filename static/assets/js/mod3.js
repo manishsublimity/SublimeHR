@@ -343,7 +343,7 @@
 
   /* ---------- integrations: plug tools into the hub ---------- */
   function intg(box) {
-    var st = { taken: false }, scene = $("[data-scene]", box), svg = $("svg", scene), tools = $$(".ig__t", box), hub = $(".ig__hub", scene), fs = $$("[data-f]", box), cn = $("[data-cn]", box), cb = $("[data-cb]", box), gi = $$("[data-gi]", box), paths = [], on = tools.map(function () { return false; }), hold = 0, ns = "http://www.w3.org/2000/svg";
+    var st = { taken: false }, scene = $("[data-scene]", box), svg = $("svg", scene), tools = $$(".ig__t", box), hub = $(".ig__hub", scene), fs = $$("[data-f]", box), cn = $("[data-cn]", box), rg = $("[data-ring]", box), RC = 2 * Math.PI * 68, paths = [], on = tools.map(function () { return false; }), hold = 0, ns = "http://www.w3.org/2000/svg";
     tools.forEach(function (t) { var p = document.createElementNS(ns, "path"); p.setAttribute("class", "w"); p.style.setProperty("--c", t.style.getPropertyValue("--c")); svg.appendChild(p); paths.push(p); });
     function layout() {
       var sr = scene.getBoundingClientRect(), hr = hub.getBoundingClientRect(); svg.setAttribute("viewBox", "0 0 " + sr.width + " " + sr.height);
@@ -351,14 +351,15 @@
     }
     function paint() {
       tools.forEach(function (t, i) { t.setAttribute("aria-pressed", String(on[i])); paths[i].classList.toggle("on", on[i]); });
-      var n = on.filter(Boolean).length; cn.textContent = n; cb.style.width = (n / tools.length * 100) + "%";
-      gi.forEach(function (g) { var k = g.dataset.gi; g.classList.toggle("on", tools.some(function (t, i) { return on[i] && t.dataset.g === k; })); });
+      var n = on.filter(Boolean).length; cn.textContent = n; rg.style.strokeDashoffset = RC * (1 - n / tools.length);
+      fs.forEach(function (b) { var k = b.dataset.f; if (k !== "all") b.classList.toggle("lit", tools.some(function (t, i) { return on[i] && t.dataset.g === k; })); });
       say1(n);
     }
     function say1(n) { hub.classList.toggle("full", n === tools.length); }
     function setF(f) { fs.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.f === f)); }); }
     tools.forEach(function (t, i) { t.addEventListener("click", function () { on[i] = !on[i]; setF(""); paint(); }); });
     fs.forEach(function (b) { b.addEventListener("click", function () { var f = b.dataset.f; on = tools.map(function (t) { return f === "all" || t.dataset.g === f; }); setF(f); paint(); }); });
+    rg.style.strokeDasharray = RC; rg.style.strokeDashoffset = RC;
     layout(); paint(); window.addEventListener("resize", layout); if (window.ResizeObserver) new ResizeObserver(layout).observe(scene); setTimeout(layout, 400); if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
     drive(box, function () {
       var idle = on.indexOf(false);

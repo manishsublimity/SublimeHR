@@ -425,15 +425,13 @@ function intgHub() {
     <svg class="ig__wires" aria-hidden="true"></svg>
     <div class="ig__col ig__col--l">${ALLI.slice(0, 6).map((x, i) => tool(x, i)).join("")}</div>
     <div class="ig__hub" aria-live="polite">
-      <div class="ig__logo"><img src="${site.logo}" alt="" width="54" height="48"></div>
-      <b>Your HR hub</b>
-      <div class="ig__count"><strong data-cn>0</strong><span>/ 12</span><small>tools connected</small></div>
-      <div class="ig__bar"><i data-cb></i></div>
-      <ul class="ig__groups">${groups.map((g) => `<li data-gi="${g}">${g}</li>`).join("")}</ul>
-      <p>Anything else plugs in through the open REST API.</p>
+      <div class="ig__orb"><svg viewBox="0 0 160 160" aria-hidden="true"><circle class="ig__rb" cx="80" cy="80" r="68"/><circle class="ig__rp" data-ring cx="80" cy="80" r="68" transform="rotate(-90 80 80)"/></svg>
+        <div class="ig__core"><img src="${site.logo}" alt="" width="40" height="36"><div class="ig__count"><strong data-cn>0</strong><span>/ 12</span></div></div></div>
+      <b>Your HR hub</b><small>tools connected</small>
     </div>
     <div class="ig__col ig__col--r">${ALLI.slice(6, 12).map((x, i) => tool(x, i + 6)).join("")}</div>
   </div>
+  <p class="ig__note">${icon("code", "ic")}Anything else plugs in through the open REST API.</p>
 </section>`;
 }
 
