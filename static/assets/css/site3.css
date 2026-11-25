@@ -82,3 +82,53 @@ body.v2 .cground { position: absolute; left: -4%; right: -10%; bottom: -34px; he
 @media (max-width: 900px) { body.v2 .cta.has-crowd { grid-template-columns: 1fr; padding: 40px 26px 0; } body.v2 .cta.has-crowd .ccrowd { grid-column: 1; grid-row: 3; } }
 body.v2 .cta.has-crowd h2 { font-size: clamp(1.7rem, 1rem + 1.5vw, 2.4rem); }
 body.v2 .ba2__arrow { font-size: 0; } body.v2 .ba2__arrow svg { display: none; } body.v2 .ba2__arrow::before { content: "\2192"; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: #14213D; color: #fff; font: 600 22px/1 var(--font); box-shadow: 0 12px 20px -10px rgba(20,33,61,.6); }
+
+/* ============ clean-up pass: one colour system (the page colour + white + one warm accent) ============ */
+/* the teal / mint of the old palette now follow the page colour, so nothing clashes in any industry */
+html:not([data-theme="dark"]) body.v2 { --teal: var(--world); --teal-d: var(--blue-d); --teal-ink: var(--blue-ink); --mint: var(--sky); --mint-2: var(--sky-2); }
+/* a single continuous tint behind the page, like the home page: no alternating bands */
+body.v2 .cream { background: transparent; }
+body.v2 .section { background: transparent; }
+/* shadows carry the page colour instead of grey, so they never look muddy */
+body.v2 { --sh-2: 0 24px 38px -28px color-mix(in srgb, var(--world) 50%, #14213D); --sh-3: 0 30px 46px -28px color-mix(in srgb, var(--world) 55%, #14213D); }
+body.v2 .card, body.v2 .w, body.v2 .plan, body.v2 .stat-card, body.v2 .form-card, body.v2 .caps li, body.v2 .chat__win, body.v2 .mods > a { box-shadow: 0 26px 40px -30px color-mix(in srgb, var(--world) 55%, #14213D); }
+/* demo frames: white, a clean hairline under the header, no tinted bars */
+body.v2 .w { background: #fff; box-shadow: 0 34px 50px -34px color-mix(in srgb, var(--world) 60%, #14213D); }
+body.v2 .w__top { background: #fff; border-bottom: 1px solid color-mix(in srgb, var(--world) 14%, #fff); }
+html[data-theme="dark"] body.v2 .w, html[data-theme="dark"] body.v2 .w__top { background: var(--paper); }
+body.v2 .w__top b { display: flex; align-items: center; gap: 12px; }
+body.v2 .w__top b .ico { flex: none; margin: 0; background: var(--world); color: var(--on); }
+body.v2 .w > .steps, body.v2 .w .stepper, body.v2 .w .w__steps { background: color-mix(in srgb, var(--world) 6%, #fff); }
+body.v2 main .input, body.v2 main select, body.v2 main textarea { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); background: #fff; }
+html[data-theme="dark"] body.v2 main .input, html[data-theme="dark"] body.v2 main select { background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--line-2); }
+body.v2 main .pill, body.v2 main .chip { background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); }
+body.v2 main .pill[aria-pressed="true"], body.v2 main .pill.on, body.v2 main .pill[aria-selected="true"] { background: var(--world); color: var(--on); box-shadow: none; }
+body.v2 .paper { box-shadow: 0 18px 30px -22px color-mix(in srgb, var(--world) 50%, #14213D), inset 0 0 0 1px color-mix(in srgb, var(--world) 14%, #fff); }
+body.v2 .paper__head { background: color-mix(in srgb, var(--world) 10%, #fff); }
+body.v2 .hl, body.v2 .paper mark, body.v2 .paper .tok { background: color-mix(in srgb, var(--world) 16%, #fff); color: var(--ink); }
+
+/* before / after: tape and arrow fixed */
+body.v2 .ba2__note::before, body.v2 .ba2__note::after { display: none; }
+body.v2 .ba2 { grid-template-columns: 1fr 72px 1fr; }
+body.v2 .ba2__arrow { z-index: 2; } body.v2 .ba2__arrow span { display: none; }
+body.v2 .ba2__app, body.v2 .ba2__note { margin: 0; }
+body.v2 .ba2__app::before, body.v2 .ba2__app::after { display: none; }
+
+/* chat header: icon and title no longer touch */
+body.v2 .chat__win .w__top { padding: 14px 20px; } body.v2 .chat__win .w__top b { gap: 12px; }
+body.v2 .chat__win .w__top b .ico { width: 38px; height: 38px; border-radius: 12px; }
+body.v2 .chat__q .n { font-weight: 700; }
+
+/* related modules: bold flat colours like the home question cards, white icon tile, ink text */
+body.v2 .mods > a.mod { border: 0; min-height: 230px; padding: 24px 22px; border-radius: 28px 28px 8px 28px; color: #14213D; }
+body.v2 .mods > a.mod:nth-child(5n+1) { background: #A9EBD8; } body.v2 .mods > a.mod:nth-child(5n+2) { background: #FFD05A; } body.v2 .mods > a.mod:nth-child(5n+3) { background: #FFB19B; } body.v2 .mods > a.mod:nth-child(5n+4) { background: #CBBBFF; } body.v2 .mods > a.mod:nth-child(5n+5) { background: #9FD0FF; }
+body.v2 .mods > a.mod:nth-child(even) { border-radius: 8px 28px 28px 28px; }
+body.v2 .mods > a.mod .ico { background: #fff; color: #14213D; box-shadow: 0 10px 16px -10px rgba(20,33,61,.5); }
+body.v2 .mods > a.mod h3 { font: 600 1.05rem/1.2 var(--font-d); letter-spacing: -.015em; color: #14213D; } body.v2 .mods > a.mod p { color: #14213D; opacity: .8; font-size: .85rem; }
+body.v2 .mods > a.mod .more { background: #fff; color: #14213D; } body.v2 .mods > a.mod .more li::before { color: var(--world); }
+html[data-theme="dark"] body.v2 .mods > a.mod { filter: saturate(.8) brightness(.88); }
+
+/* closing crowd: five people with room to breathe */
+body.v2 .ccrowd { height: 300px; overflow: visible; }
+body.v2 .cp-0 { left: 4%; transform: scale(.88); } body.v2 .cp-1 { left: 24%; bottom: 36px; transform: scale(.8); } body.v2 .cp-2 { left: 42%; transform: scale(.94); } body.v2 .cp-3 { left: 62%; bottom: 36px; transform: scale(.8); } body.v2 .cp-4 { left: 80%; transform: scale(.88); }
+body.v2 .cp-5, body.v2 .cp-6 { display: none; }
