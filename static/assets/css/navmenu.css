@@ -117,3 +117,22 @@ html[data-theme="dark"] .ecl__moon { transform: translateX(0); }
 html[data-theme="dark"] .ecl__sun .disc { background: #FFE9A0; box-shadow: 0 0 0 4px rgba(255,226,130,.6), 0 0 26px 10px rgba(255,214,90,.75); } html[data-theme="dark"] .ecl__sun .rays { opacity: .5; }
 html[data-theme="dark"] .ecl__tip { background: #FFE9A8; color: #14213D; } html[data-theme="dark"] .ecl__tip .d { display: none; } html[data-theme="dark"] .ecl__tip .n { display: inline; }
 @media (max-width: 760px) { .ecl { transform: scale(.82); transform-origin: 0 100%; left: 8px; bottom: 12px; } }
+
+/* ---------- day / night: an Edison bulb ---------- */
+.ecl, .lamp, .tg2 { display: none !important; }
+.edi { position: fixed; z-index: 72; left: 16px; bottom: 12px; width: 76px; height: 128px; padding: 0; border: 0; background: none; cursor: pointer; transition: transform .35s cubic-bezier(.34,1.56,.64,1); -webkit-tap-highlight-color: transparent; }
+.edi:hover { transform: translateY(-4px) rotate(-2deg); } .edi:active { transform: scale(.95); }
+.edi svg { position: relative; display: block; overflow: visible; filter: drop-shadow(0 8px 8px rgba(20,33,61,.35)); }
+.edi .glass { fill: rgba(255,255,255,.72); stroke: #7283AB; stroke-width: 2.5; transition: fill .6s, stroke .6s; }
+.edi .fil { fill: none; stroke: #8993AD; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .4s, filter .5s; }
+.edi__halo { position: absolute; left: 50%; top: 56px; width: 260px; height: 260px; margin: -130px; border-radius: 50%; background: radial-gradient(circle, rgba(255,205,80,.55), rgba(255,205,80,.18) 45%, transparent 68%); opacity: 0; transition: opacity .7s; pointer-events: none; }
+.edi__tip { position: absolute; left: 80px; top: 52px; padding: 8px 14px; border-radius: 999px; background: #14213D; color: #fff; font: 700 13px/1 "Figtree", sans-serif; white-space: nowrap; box-shadow: 0 10px 16px -8px rgba(0,0,0,.5); opacity: 0; transform: translateX(-8px); transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1); pointer-events: none; } .edi__tip .n { display: none; }
+.edi:hover .edi__tip, .edi:focus-visible .edi__tip { opacity: 1; transform: none; }
+html[data-theme="dark"] .edi .glass { fill: rgba(255,214,102,.3); stroke: #E6C36A; }
+html[data-theme="dark"] .edi .fil { stroke: #FFD24A; filter: drop-shadow(0 0 5px #FFB81F) drop-shadow(0 0 16px #FFB81F); animation: edfl 3.2s ease-in-out infinite; }
+html[data-theme="dark"] .edi svg { filter: drop-shadow(0 0 12px rgba(255,200,70,.6)); }
+html[data-theme="dark"] .edi__halo { opacity: 1; }
+html[data-theme="dark"] .edi__tip { background: #FFE9A8; color: #14213D; } html[data-theme="dark"] .edi__tip .d { display: none; } html[data-theme="dark"] .edi__tip .n { display: inline; }
+@keyframes edfl { 0%, 100% { opacity: 1; } 45% { opacity: .85; } 50% { opacity: 1; } 78% { opacity: .92; } }
+@media (prefers-reduced-motion: reduce) { html[data-theme="dark"] .edi .fil { animation: none; } }
+@media (max-width: 760px) { .edi { transform: scale(.78); transform-origin: 0 100%; left: 8px; } }

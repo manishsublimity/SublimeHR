@@ -24,12 +24,16 @@ export function navMenu(active = "") {
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>`;
 }
 
-/* Day / night switch: a small eclipse. In the day the sun shines; flip it and the moon slides across, the sun turns into a glowing ring and the stars come out. */
+/* Day / night switch: an Edison bulb on a little base. Tap it and the filament glows and the page goes to night. */
 export function themeFab() {
-  return `<button class="ecl" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night">
-  <span class="ecl__in" aria-hidden="true"><span class="ecl__sky"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i></span>
-  <span class="ecl__sun"><i class="rays"></i><i class="disc"></i></span>
-  <span class="ecl__moon"><i class="cr c1"></i><i class="cr c2"></i></span></span>
-  <span class="ecl__tip" aria-hidden="true"><b class="d">Switch to night</b><b class="n">Switch to day</b></span>
+  return `<button class="edi" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night">
+  <span class="edi__halo" aria-hidden="true"></span>
+  <svg viewBox="0 0 76 128" width="76" height="128" aria-hidden="true" focusable="false">
+    <rect x="18" y="112" width="40" height="11" rx="5" fill="#7D87A2"/><rect x="31" y="92" width="14" height="22" rx="3" fill="#8E98B2"/><path d="M31 99h14M31 105h14" stroke="#6C7691" stroke-width="2"/>
+    <path class="glass" d="M38 94C16 94 8 76 12 56 15 38 24 26 38 26s23 12 26 30c4 20-4 38-26 38z"/>
+    <path class="hl" d="M20 52c2-12 8-20 14-22" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+    <path class="fil" d="M30 90V58l8 11 8-11v32M38 69v20"/>
+  </svg>
+  <span class="edi__tip" aria-hidden="true"><b class="d">Switch to night</b><b class="n">Switch to day</b></span>
 </button>`;
 }
