@@ -1830,3 +1830,12 @@ body[data-ft="3"] .footer__contact a:hover { background: rgba(255,255,255,.3); b
 @media (max-width: 1180px) { .dock__lbl { display: none; } .dock { padding-left: 10px; } }
 @media (max-height: 780px) { .hero { padding-bottom: 96px; padding-top: 78px; } .dock { bottom: 14px; padding-top: 6px; padding-bottom: 6px; } .dock .chip { height: 40px; min-width: 40px; } }
 .hero__wrap { position: static; }
+
+/* hero back to its original size and widths; only the industry picker is new, pinned to the screen bottom */
+.hero { height: auto; min-height: 0; justify-content: flex-start; padding: 92px 0 112px; }
+.hero__wrap { position: static; padding-bottom: 0; }
+.hero__copy { flex: 0 0 440px; }
+.dock { position: fixed; bottom: 22px; transition: opacity .35s, transform .35s var(--ease); }
+.dock.off { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(20px); }
+@media (max-height: 780px) { .hero { padding: 92px 0 96px; } .dock { bottom: 14px; } }
+.dock { bottom: 12px; padding-top: 7px; padding-bottom: 7px; } .dock .chip { height: 42px; min-width: 42px; }
