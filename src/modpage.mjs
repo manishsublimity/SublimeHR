@@ -80,7 +80,7 @@ const tagx = (name, role, i, x, y, s) => `<span class="tagx" style="--x:${x}px;-
 function hero(m) {
   const rows = m.features.slice(0, 4);
   const hc = m._hero || CONF[m.slug]?.hero;
-  const pos = [[60, 116, .84], [250, 344, 1], [560, 330, 1]];
+  const pos = m._pos || [[60, 116, .84], [250, 344, 1], [560, 330, 1]];
   const cast = (hc ? hc.cast : [["Omar", "HR manager"], ["Priya", "HR partner"], ["Sara", "New joiner"]]).map(([n, r], i) => [n, r, ...pos[i]]);
   const who3 = hc ? hc.who : ["SN", "Sara Nasser", "New joiner · Senior Accountant"];
   const chips = hc ? hc.chips : [["users", "3 joined today"], ["file", "Offer letter sent"], ["check", "All records in sync"]];
@@ -94,7 +94,7 @@ function hero(m) {
       </div>
       <div class="stage" data-stage aria-label="${esc(m.name)}: a small office showing what it does">
         <div class="stage__floor" aria-hidden="true"></div>
-        <div class="mwin" data-mwin>
+        ${m._stage ? m._stage : `        <div class="mwin" data-mwin>
           <div class="mwin__top"><i>${icon(m.icon, "ic")}</i><b>${esc(m.name)}</b><em><span></span>Live</em></div>
           <div class="mwin__who"><span class="mwin__av">${esc(who3[0])}</span><span><b>${esc(who3[1])}</b><small>${esc(who3[2])}</small></span><strong data-pct>25%</strong></div>
           <ul>${rows.map((f, i) => `<li data-row="${i}"><i>${icon("check", "ic")}</i><span>${esc(f)}</span></li>`).join("")}</ul>
@@ -103,6 +103,7 @@ function hero(m) {
         <div class="mchips" aria-hidden="true">
           ${chips.map(([ic, tx], i) => `<span class="mchip mc-${i + 1}"><i>${icon(ic, "ic")}</i><b>${esc(tx)}</b></span>`).join("")}
         </div>
+`}
         ${cast.map(([n, r, x, y, s], i) => slot(n, i, x, y, s, i === 1 ? "ppl--wave" : "")).join("")}
         ${cast.map(([n, r, x, y, s]) => tagx(n, r, 0, x, y, s)).join("")}
       </div>
@@ -533,14 +534,33 @@ function aboutStory() {
 <script>(function(){var b=document.querySelector('[data-count-box]');if(!b)return;var els=[].slice.call(b.querySelectorAll('[data-count]'));function run(){els.forEach(function(e){var to=+e.getAttribute('data-count'),sf=e.getAttribute('data-suffix')||'',t0=performance.now();(function s(n){var p=Math.min(1,(n-t0)/1400),v=Math.round(to*(1-Math.pow(1-p,3)));e.textContent=v+sf;if(p<1)requestAnimationFrame(s)})(t0)})}if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();run()}},{threshold:.4});io.observe(b)}})();</script>`;
 }
 
+const VIS = [
+  `<span class="v-feed"><b><i></i><u></u><em>On time</em></b><b><i></i><u></u><em>On time</em></b><b><i></i><u></u><em class="l">Late</em></b></span>`,
+  `<span class="v-cal">${Array.from({ length: 14 }, (_, k) => `<i class="${k === 8 || k === 9 ? "s" : ""}"></i>`).join("")}</span>`,
+  `<span class="v-ros">${["M", "E", "N", "E", "M", "O", "M", "N", "E"].map((x) => `<i class="${x.toLowerCase()}">${x}</i>`).join("")}</span>`,
+  `<span class="v-av"><i style="background:#FF8A70">A</i><i style="background:#45C4B0">R</i><i style="background:#7A5CF0">S</i><i style="background:#F5B500">+</i></span>`,
+  `<span class="v-pay"><b>4,940</b><u></u><u></u><u></u></span>`,
+  `<span class="v-bars"><i style="--h:40%"></i><i style="--h:62%"></i><i style="--h:48%"></i><i style="--h:84%"></i><i style="--h:70%"></i></span>`,
+  `<span class="v-sw"><i class="on"></i><i class="on"></i><i></i></span>`,
+  `<span class="v-ph"><i></i><b></b><b></b></span>`,
+  `<span class="v-cl"><i></i><i></i><i></i></span>`
+];
 const OFFER_HREF = ["/software/attendance-management/", "/software/leave-management/", "/software/shift-scheduling/", "/software/employee-management/", "/software/payroll/", "/software/reports-analytics/", "/software/security-access/", "/software/mobile-workforce/", "/features/"];
 const OFFER_BG = ["#3558F5", "#FFD05A", "#CFF3E4", "#FFD9CC", "#14213D", "#E4DEFF", "#CFE3FF", "#FFE9A8", "#3558F5"];
 function aboutOffer() {
   return `<section class="aoff" aria-labelledby="h-aoff" data-tip="The essentials to run your workforce. Each one opens its page.">
   <div class="aoff__head"><h2 id="h-aoff">The essentials to run your workforce.</h2></div>
-  <div class="aoff__bento">${OFFER.map(([ic, tt], i) => `<a class="aoff__t aoff__t--${i}" href="${OFFER_HREF[i]}" style="--bg:${OFFER_BG[i]}"><span class="aoff__w" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><b>${esc(tt)}</b><em>${icon("arrow", "ic")}</em></a>`).join("")}</div>
+  <div class="aoff__bento">${OFFER.map(([ic, tt], i) => `<a class="aoff__t aoff__t--${i}" href="${OFFER_HREF[i]}" style="--bg:${OFFER_BG[i]}"><span class="aoff__v" aria-hidden="true">${VIS[i]}</span><i>${icon(ic, "ic")}</i><b>${esc(tt)}</b><em>${icon("arrow", "ic")}</em></a>`).join("")}</div>
 </section>`;
 }
+
+const ABOUT_STAGE = `<div class="abh" aria-hidden="true">
+  <div class="abh__orb"><i class="abh__r1"></i><i class="abh__r2"></i><span><img src="${site.logo}" alt="" width="64" height="58"></span></div>
+  <div class="abh__st abh__st--1"><strong>70+</strong><span>feature areas</span></div>
+  <div class="abh__st abh__st--2"><strong>13</strong><span>report types</span></div>
+  <div class="abh__st abh__st--3"><strong>9</strong><span>industries</span></div>
+  <div class="abh__st abh__st--4"><strong>EN·AR</strong><span>languages</span></div>
+</div>`;
 
 function aboutWhy() {
   return `<section class="awhy" aria-label="Why SublimeHR, our mission and our vision">
@@ -555,7 +575,7 @@ export function aboutModulePage(ldExtra = "") {
     slug: "about", name: "About", icon: "users", tagline: "Workforce management, made simple.",
     summary: "At SublimeHR, we believe managing your workforce should be simple, efficient, and accessible from anywhere.",
     features: ["Attendance and leave", "Shift scheduling", "Employee records", "Payroll and reports"], benefits: ["Simple and intuitive", "Secure cloud platform", "Scalable as you grow"], useCases: [],
-    _hero: { who: ["SH", "SublimeHR team", "One platform for your workforce"], cast: [["Priya", "HR partner"], ["Omar", "Product"], ["Sara", "Support"]], chips: [["users", "70+ feature areas"], ["chart", "13 report types"], ["building", "9 industries"]] }
+    _stage: ABOUT_STAGE, _pos: [[70, 334, .95], [300, 350, 1], [560, 334, 1]], _hero: { who: ["SH", "SublimeHR team", "One platform for your workforce"], cast: [["Priya", "HR partner"], ["Omar", "Product"], ["Sara", "Support"]], chips: [["target", "Our mission"], ["eye", "Our vision"], ["building", "Businesses of all sizes"]] }
   };
   return modulePage(m, [], ldExtra, {
     path: "/about/", title: "About SublimeHR — Our Mission & Vision | SublimeHR",
