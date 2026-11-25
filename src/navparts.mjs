@@ -24,16 +24,29 @@ export function navMenu(active = "") {
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>`;
 }
 
-/* Day / night switch: an Edison bulb on a little base. Tap it and the filament glows and the page goes to night. */
+/* Day / night switch: a little magic lamp. Rub it and a smiling sun or moon puffs out of the spout. */
 export function themeFab() {
-  return `<button class="edi" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night">
-  <span class="edi__halo" aria-hidden="true"></span>
-  <svg viewBox="0 0 76 128" width="76" height="128" aria-hidden="true" focusable="false">
-    <rect x="18" y="112" width="40" height="11" rx="5" fill="#7D87A2"/><rect x="31" y="92" width="14" height="22" rx="3" fill="#8E98B2"/><path d="M31 99h14M31 105h14" stroke="#6C7691" stroke-width="2"/>
-    <path class="glass" d="M38 94C16 94 8 76 12 56 15 38 24 26 38 26s23 12 26 30c4 20-4 38-26 38z"/>
-    <path class="hl" d="M20 52c2-12 8-20 14-22" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
-    <path class="fil" d="M30 90V58l8 11 8-11v32M38 69v20"/>
+  return `<button class="gen" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Rub the lamp: day or night">
+  <span class="gen__glow" aria-hidden="true"></span>
+  <svg viewBox="0 0 150 156" width="132" height="138" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset=".55" stop-color="#F0B53A"/><stop offset="1" stop-color="#B9741A"/></linearGradient>
+      <linearGradient id="gs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C98C22"/><stop offset=".5" stop-color="#FFD66B"/><stop offset="1" stop-color="#C98C22"/></linearGradient>
+    </defs>
+    <g class="gen__smoke"><circle cx="22" cy="58" r="3.4"/><circle cx="27" cy="50" r="2.6"/><circle cx="33" cy="44" r="2"/></g>
+    <g class="gen__puff gen__sun" transform="translate(-4 -2)"><g class="rays" fill="#FFB81F"><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(0 38.5 22)"/><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(45 38.5 22)"/><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(90 38.5 22)"/><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(135 38.5 22)"/><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(180 38.5 22)"/><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(225 38.5 22)"/><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(270 38.5 22)"/><rect x="37" y="-2" width="3" height="7" rx="1.5" transform="rotate(315 38.5 22)"/></g><circle cx="38.5" cy="22" r="15" fill="#FFCF3E" stroke="#E69A00" stroke-width="2"/><circle class="eye" cx="32" cy="21" r="2.4" fill="#14213D"/><circle class="eye" cx="44" cy="21" r="2.4" fill="#14213D"/><path d="M32.5 28q5.5 5 11 0" stroke="#14213D" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="27" cy="26" r="2.2" fill="#FF8E7A" opacity=".55"/><circle cx="49" cy="26" r="2.2" fill="#FF8E7A" opacity=".55"/></g>
+    <g class="gen__puff gen__moon" transform="translate(-4 -2)"><circle cx="38.5" cy="22" r="16" fill="#EEF2FF" stroke="#A9B6EE" stroke-width="2"/><circle cx="47" cy="14" r="3.4" fill="#D3DAFA"/><circle cx="29" cy="31" r="2.6" fill="#D3DAFA"/><circle class="eye" cx="32" cy="21" r="2.4" fill="#14213D"/><circle class="eye" cx="44" cy="21" r="2.4" fill="#14213D"/><path d="M32.5 28q5.5 5 11 0" stroke="#14213D" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="27" cy="26" r="2.2" fill="#FF8E7A" opacity=".55"/><circle cx="49" cy="26" r="2.2" fill="#FF8E7A" opacity=".55"/><path class="zz" d="M58 6h8l-8 8h8" stroke="#BFD0FF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <g class="gen__lamp">
+      <path d="M52 140h46l-7-12H59z" fill="#A9681A"/>
+      <path d="M22 102c0-22 24-32 53-32s53 10 53 32c0 15-13 25-31 27H53c-18-2-31-12-31-27z" fill="url(#gb)" stroke="#9A6215" stroke-width="2.5"/>
+      <path d="M40 76c8-4 22-6 35-6" stroke="#fff" stroke-opacity=".6" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M45 78c0-8 13-14 30-14s30 6 30 14" fill="url(#gs)" stroke="#9A6215" stroke-width="2.2"/>
+      <rect x="70" y="56" width="10" height="10" rx="3" fill="#C98C22"/><circle cx="75" cy="52" r="6.5" fill="url(#gs)" stroke="#9A6215" stroke-width="2"/>
+      <path d="M28 96C10 92 6 72 17 60" stroke="url(#gs)" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M28 96C10 92 6 72 17 60" stroke="#9A6215" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+      <path d="M126 96c22-6 26 14 14 26-4 4-9 5-14 4" stroke="url(#gs)" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M56 104c6 7 14 10 22 8" stroke="#fff" stroke-opacity=".45" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
   </svg>
-  <span class="edi__tip" aria-hidden="true"><b class="d">Switch to night</b><b class="n">Switch to day</b></span>
+  <span class="gen__tip" aria-hidden="true"><b class="d">Rub for night</b><b class="n">Rub for day</b></span>
 </button>`;
 }

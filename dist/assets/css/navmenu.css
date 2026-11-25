@@ -136,3 +136,26 @@ html[data-theme="dark"] .edi__tip { background: #FFE9A8; color: #14213D; } html[
 @keyframes edfl { 0%, 100% { opacity: 1; } 45% { opacity: .85; } 50% { opacity: 1; } 78% { opacity: .92; } }
 @media (prefers-reduced-motion: reduce) { html[data-theme="dark"] .edi .fil { animation: none; } }
 @media (max-width: 760px) { .edi { transform: scale(.78); transform-origin: 0 100%; left: 8px; } }
+
+/* ---------- day / night: a magic lamp ---------- */
+.edi { display: none !important; }
+.gen { position: fixed; z-index: 72; left: 10px; bottom: 6px; width: 132px; height: 138px; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.gen svg { position: relative; display: block; overflow: visible; filter: drop-shadow(0 10px 8px rgba(20,33,61,.35)); }
+.gen:hover { transform: translateY(-4px); } .gen:active .gen__lamp { animation: genrub .35s ease-in-out; }
+@keyframes genrub { 20% { transform: translate(2px, -3px) rotate(4deg); } 50% { transform: translate(-2px, 1px) rotate(-4deg); } 80% { transform: translate(1px, -1px) rotate(2deg); } }
+.gen__lamp { transform-box: fill-box; transform-origin: 50% 100%; animation: genbob 4s ease-in-out infinite; } @keyframes genbob { 50% { transform: translateY(-3px); } }
+.gen__glow { position: absolute; left: 24px; top: 4px; width: 90px; height: 90px; border-radius: 50%; opacity: 0; background: radial-gradient(circle, rgba(150,170,255,.55), transparent 66%); transition: opacity .7s; pointer-events: none; }
+.gen__smoke circle { fill: #fff; opacity: .8; animation: gensm 2.4s ease-in-out infinite; } .gen__smoke circle:nth-child(2) { animation-delay: -.8s; opacity: .6; } .gen__smoke circle:nth-child(3) { animation-delay: -1.6s; opacity: .45; }
+@keyframes gensm { 50% { transform: translate(-3px, -4px) scale(1.2); } }
+.gen__puff { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .9s cubic-bezier(.34,1.6,.5,1), opacity .5s; }
+.gen__sun .rays { transform-box: fill-box; transform-origin: 50% 50%; animation: genspin 16s linear infinite; } @keyframes genspin { to { transform: rotate(360deg); } }
+.gen__moon { opacity: 0; transform: translate(-4px, -2px) scale(.3) rotate(-70deg); } .gen__moon .zz { animation: genzz 2.6s ease-in-out infinite; } @keyframes genzz { 50% { transform: translate(2px, -3px); opacity: .5; } }
+.gen .eye { transform-box: fill-box; transform-origin: center; animation: genbl 5s infinite; } @keyframes genbl { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+.gen__tip { position: absolute; left: 118px; top: 74px; padding: 8px 14px; border-radius: 999px; background: #14213D; color: #fff; font: 700 13px/1 "Figtree", sans-serif; white-space: nowrap; box-shadow: 0 10px 16px -8px rgba(0,0,0,.5); opacity: 0; transform: translateX(-8px); transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1); pointer-events: none; } .gen__tip .n { display: none; }
+.gen:hover .gen__tip, .gen:focus-visible .gen__tip { opacity: 1; transform: none; }
+html[data-theme="dark"] .gen__sun { opacity: 0; transform: translate(-4px, -2px) scale(.3) rotate(70deg); }
+html[data-theme="dark"] .gen__moon { opacity: 1; transform: translate(-4px, -2px); }
+html[data-theme="dark"] .gen__glow { opacity: 1; } html[data-theme="dark"] .gen svg { filter: drop-shadow(0 0 10px rgba(150,170,255,.55)); }
+html[data-theme="dark"] .gen__tip { background: #E6ECFF; color: #14213D; } html[data-theme="dark"] .gen__tip .d { display: none; } html[data-theme="dark"] .gen__tip .n { display: inline; }
+@media (prefers-reduced-motion: reduce) { .gen__lamp, .gen__sun .rays, .gen .eye, .gen__smoke circle, .gen__moon .zz { animation: none; } }
+@media (max-width: 760px) { .gen { transform: scale(.75); transform-origin: 0 100%; left: 4px; } }
