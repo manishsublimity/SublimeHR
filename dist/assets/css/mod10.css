@@ -1,5 +1,5 @@
 /* Live demos on the module pages. One shared panel, eight kinds of content. */
-.dmx { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) 250px; border-radius: 38px 38px 10px 38px; background: #fff; box-shadow: 0 36px 54px -36px color-mix(in srgb, var(--world) 60%, #14213D); overflow: hidden; color: var(--ink); }
+.dmx { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) 220px; border-radius: 38px 38px 10px 38px; background: #fff; box-shadow: 0 36px 54px -36px color-mix(in srgb, var(--world) 60%, #14213D); overflow: hidden; color: var(--ink); }
 .dmx button { font-family: inherit; }
 .dmx__l { padding: 30px 30px 32px; display: grid; align-content: start; gap: 18px; min-width: 0; }
 .dmx__r { padding: 30px; background: color-mix(in srgb, var(--world) 5%, #fff); border-left: 1px solid color-mix(in srgb, var(--world) 14%, #fff); display: grid; align-content: start; gap: 14px; min-width: 0; }
@@ -79,14 +79,13 @@
 
 
 /* attendance: the home clock-in card, plus a live board */
-.dmx[data-dm="punch"] { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 250px; }
+.dmx[data-dm="punch"] { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 210px; }
 .dmx[data-dm="punch"] .dmx__l { padding: 26px 28px; align-content: center; }
 .mlc { box-shadow: none !important; background: none !important; padding: 0 !important; border-radius: 0 !important; gap: 16px !important; }
 .mlc .clk { grid-template-columns: 170px minmax(0, 1fr); gap: 26px; }
 .mlc .hist ul { grid-template-columns: repeat(4, 1fr); }
 .dmx__boardhead { display: flex; align-items: center; justify-content: space-between; } .dmx__boardhead b { font: 600 18px/1 var(--f-d); letter-spacing: -.02em; }
 .dmx[data-dm="punch"] .dmx__r { align-content: center; }
-.dmx[data-dm="punch"] .dmx__who { min-height: 0; }
 
 /* leave: a calendar that fills its side, and a right side that says what happens next */
 .dmx[data-dm="leave"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) 250px; }
@@ -143,21 +142,36 @@
 .dmx__acts button.done { background: #E7F8EF; } .dmx__acts button.done i { background: #1FBF75; color: #fff; } .dmx__acts button.done em { background: #1FBF75; color: #fff; }
 .dmx__acts button.done em::after { content: " ✓"; }
 
-/* the character column: no empty strip above or below */
-.dmx .dmx__who { place-items: center; align-content: center; gap: 26px; min-height: 0; padding: 24px 12px; }
-.dmx .dmx__say { position: relative; left: auto; top: auto; transform: none; order: -1; max-width: 170px; }
-.dmx .dmx__ppl { margin: 52px 0 46px; transform: scale(1.55); transform-origin: 50% 50%; }
-.dmx[data-dm="punch"] .dmx__who, .dmx[data-dm="leave"] .dmx__who { min-height: 0; }
 
-/* fill each side to the panel height */
-.dmx[data-dm="payroll"] .dmx__l { align-content: space-between; }
-.dmx[data-dm="punch"] .dmx__l { display: flex; flex-direction: column; } .dmx[data-dm="punch"] .mlc { flex: 1; justify-content: space-between; }
-.dmx[data-dm="chart"] .dmx__r { align-content: space-between; } .dmx__acts button { padding: 13px 14px; }
-
-
-/* the character fills its column: bubble on top, the person as tall as the panel allows */
-.dmx .dmx__who { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 14px; padding: 22px 8px 0; overflow: hidden; }
-.dmx .dmx__say { order: 0; flex: none; }
-.dmx .dmx__ppl { --s: 1.6; order: 1; flex: none; margin: calc(190px * (var(--s) - 1)) 0 0; width: 104px; height: 190px; transform: scale(var(--s)); transform-origin: 50% 100%; }
-.dmx[data-dm="chart"] .dmx__l { display: flex; flex-direction: column; } .dmx[data-dm="chart"] .dmx__chart { flex: 1; min-height: 240px; height: auto; }
-.dmx[data-dm="punch"] .dmx__l { padding-top: 22px; padding-bottom: 22px; }
+/* compact panels: the character keeps its original size and every section is built to its height */
+.dmx__chart { transition: none; }
+/* attendance */
+.dmx[data-dm="punch"] .dmx__l { padding: 24px 26px; align-content: center; display: grid; }
+.mlc { gap: 14px !important; } .mlc .hist { display: none; }
+.dmx[data-dm="punch"] .dmx__r { padding: 24px 26px; gap: 12px; align-content: center; }
+.dmx[data-dm="punch"] .dmx__feed li { padding: 8px 12px 8px 8px; }
+/* leave */
+.dmx[data-dm="leave"] .dmx__l, .dmx[data-dm="leave"] .dmx__r { padding: 22px 26px; gap: 10px; align-content: start; }
+.dmx__lcal { display: grid; gap: 10px; } .dmx__calhead > b { font-size: 22px; }
+.dmx__lcal .dmx__cal { flex: none; grid-template-rows: none; grid-auto-rows: 33px; gap: 5px; } .dmx__lcal .dmx__cal button { height: 33px; min-height: 0; font-size: 13.5px; border-radius: 10px; } .dmx__lcal .dmx__cal small { padding-bottom: 2px; }
+.dmx__types { gap: 8px; } .dmx__types button { padding: 9px 12px 9px; border-radius: 14px; } .dmx__types b { font-size: 24px; } .dmx__types span { display: none; } .dmx__types u { margin-top: 4px; height: 4px; }
+.dmx__sum { grid-template-columns: 1fr auto; align-items: center; gap: 6px 16px; padding: 11px 16px; border-radius: 16px; } .dmx__sum > div:first-child b { font-size: 17px; } .dmx__sbar { grid-column: 1 / -1; height: 6px; } .dmx__nums { gap: 16px; } .dmx__nums b { font-size: 22px; }
+.dmx__chain { gap: 6px; } .dmx__chain li { grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 8px; align-items: center; padding: 8px 10px; border-radius: 12px; } .dmx__chain li i { grid-row: 1 / 3; width: 26px; height: 26px; margin: 0; } .dmx__chain li b { font-size: 13px; } .dmx__chain small { font-size: 11px; }
+.dmx__lv .dmx__stamp { display: none; }
+.dmx__lcal .dmx__away { margin-top: 2px; } .dmx__away li { padding: 5px 12px 5px 5px; } .dmx__away i { width: 26px; height: 26px; } .dmx__away span { font-size: 12.5px; }
+.dmx__sendrow .dmx__msg { font-size: 13px; }
+.dmx__send--s { height: 42px; padding: 0 20px; font-size: 14.5px; }
+/* payroll */
+.dmx[data-dm="payroll"] .dmx__sliders { gap: 14px; align-content: start; }
+.dmx__run { gap: 10px; padding: 12px 14px; border-radius: 16px; } .dmx__run ol { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.dmx__run li { flex-direction: column; text-align: center; gap: 5px; font-size: 12px; } .dmx__run li i { width: 20px; height: 20px; }
+.dmx[data-dm="payroll"] .dmx__r { gap: 12px; }
+.dmx__slip ul { gap: 7px; } .dmx__slip li { padding-bottom: 7px; font-size: 14px; } .dmx__net b { font-size: 34px; }
+/* reports */
+.dmx[data-dm="chart"] .dmx__l { gap: 12px; } .dmx[data-dm="chart"] .dmx__pills button { padding: 8px 14px; font-size: 13px; }
+.dmx[data-dm="chart"] .dmx__chart { height: 170px; padding-top: 18px; } .dmx[data-dm="chart"] .dmx__chart .bar b { font-size: 12.5px; }
+.dmx__kpis div { padding: 10px 12px; gap: 3px; border-radius: 14px; } .dmx__kpis b { font-size: 17px; } .dmx__kpis small, .dmx__kpis span { font-size: 11px; }
+.dmx[data-dm="chart"] .dmx__r { gap: 10px; padding: 24px 26px; } .dmx__insight b { font-size: 18px; } .dmx__insight p { font-size: 14px; line-height: 1.5; }
+.dmx__acts { gap: 6px; } .dmx__acts > small { font-size: 12px; margin-top: 0; } .dmx__acts button { padding: 8px 10px; border-radius: 13px; } .dmx__acts i { width: 28px; height: 28px; font-size: 14px; } .dmx__acts span { font-size: 13px; } .dmx__acts em { font-size: 11px; padding: 5px 10px; }
+.dmx__insighthead { display: flex; align-items: center; justify-content: space-between; gap: 10px; } .dmx__insighthead .dmx__live { font-size: 12px; white-space: nowrap; }
+.dmx[data-dm="leave"] .dmx__r { align-content: space-between; }

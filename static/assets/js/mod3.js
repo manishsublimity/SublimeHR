@@ -55,7 +55,7 @@
     function stats() { $$("[data-n]", box).forEach(function (e) { e.textContent = n[e.dataset.n]; }); }
     function addFeed(nm, how, time, cls, txt) {
       var li = document.createElement("li"); li.innerHTML = "<i>" + nm.slice(0, 2).toUpperCase() + "</i><span><b>" + nm + "</b><small>" + how + "</small></span><em>" + time + '</em><u class="' + cls + '">' + txt + "</u>";
-      feed.insertBefore(li, feed.firstChild); while (feed.children.length > 5) feed.removeChild(feed.lastChild);
+      feed.insertBefore(li, feed.firstChild); while (feed.children.length > 4) feed.removeChild(feed.lastChild);
     }
     function runScan() {
       if (busy) return; busy = true; var m = +arr.value, inside = geo.getAttribute("aria-checked") === "true", selfie = mode === "selfie", d = selfie ? 1500 : 0, who = names[ni++ % names.length];
@@ -85,7 +85,7 @@
     geo.addEventListener("click", function () { var on = geo.getAttribute("aria-checked") !== "true"; geo.setAttribute("aria-checked", on ? "true" : "false"); c1.textContent = on ? "GPS 12 m, inside Head Office" : "GPS 340 m away, outside the fence"; });
     sample.addEventListener("click", function () { img.src = sampleFace(); has = true; scanner.classList.add("has-img"); runScan(); });
     scanner.addEventListener("click", press);
-    addFeed("Karan", "Selfie", "09:11", "late", "Late"); addFeed("Nadia", "GPS", "08:58", "ok", "On time"); addFeed("Priya", "Fingerprint", "08:47", "ok", "On time"); stats();
+    addFeed("Nadia", "GPS", "08:58", "ok", "On time"); addFeed("Priya", "Fingerprint", "08:47", "ok", "On time"); stats();
     var plan = [["fp", 532, 1], ["selfie", 541, 1], ["gps", 531, 1], ["gps", 548, 0], ["fp", 566, 1]], pi = 0;
     drive(box, async function () {
       if (busy) return; var p = plan[pi++ % plan.length]; setMode(p[0]); arr.value = p[1]; arrOut.textContent = hm(p[1]);
@@ -99,7 +99,9 @@
     var st = { taken: false }, cal = $("[data-cal]", box), cards = $$("[data-k]", box), msg = $("[data-lmsg]", box), apply = $("[data-apply]", box), stamp = $("[data-stamp]", box), chain = $$("[data-ch]", box);
     var sT = $("[data-s-type]", box), sD = $("[data-s-dates]", box), sN = $("[data-s-days]", box), sA = $("[data-s-after]", box), sB = $("[data-sbar]", box);
     var days = [], a = null, b = null, typeIdx = 0, names = ["Annual", "Sick", "Comp-off"], bals = [14, 6, 2], tots = [14, 8, 4], timers = [];
-    var wd = ["S", "M", "T", "W", "T", "F", "S"], off = 3, N = 30, hol = { 10: 1 };
+    var now = new Date(), off = new Date(now.getFullYear(), now.getMonth(), 1).getDay(), N = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(), mon = now.toLocaleString("en-US", { month: "short" }), hol = {}, wd = ["S", "M", "T", "W", "T", "F", "S"];
+    for (var h = 10; h < 20; h++) if ((off + h - 1) % 7 !== 0 && (off + h - 1) % 7 !== 6) { hol[h] = 1; break; }
+    $(".dmx__calhead > b", box).textContent = now.toLocaleString("en-US", { month: "long" }); $$(".dmx__away em", box).forEach(function (e) { e.textContent = e.textContent.replace("Apr", mon); });
     var html = wd.map(function (w) { return "<small>" + w + "</small>"; }).join("");
     for (var i = 0; i < off; i++) html += "<i></i>";
     for (var d = 1; d <= N; d++) { var dow = (off + d - 1) % 7; html += '<button type="button" data-d="' + d + '" class="' + (dow === 0 || dow === 6 ? "we" : hol[d] ? "ho" : "") + '">' + d + "</button>"; }
@@ -109,7 +111,7 @@
       days.forEach(function (e) { var d = +e.dataset.d, on = a && b ? d >= a && d <= b : a === d; e.classList.toggle("sel", !!on); });
       var w = a && b ? working(a, b) : 0, after = Math.max(0, bals[typeIdx] - w);
       cards.forEach(function (c, k) { var left = k === typeIdx ? after : bals[k]; $("[data-lb]", c).textContent = left; $("[data-lbar]", c).style.width = (left / tots[k] * 100) + "%"; });
-      sT.textContent = names[typeIdx] + " leave"; sD.textContent = !a ? "No dates yet" : !b ? a + " Apr, then pick the last day" : (a === b ? a + " Apr" : a + " to " + b + " Apr"); sN.textContent = w; sA.textContent = after; sB.style.width = (after / tots[typeIdx] * 100) + "%";
+      sT.textContent = names[typeIdx] + " leave"; sD.textContent = !a ? "No dates yet" : !b ? a + " " + mon + ", then pick the last day" : (a === b ? a + " " + mon : a + " to " + b + " " + mon); sN.textContent = w; sA.textContent = after; sB.style.width = (after / tots[typeIdx] * 100) + "%";
       msg.textContent = !a ? "Pick a start and an end date." : !b ? "Now pick the last day." : w + " working day" + (w === 1 ? "" : "s") + ". Weekends and holidays are skipped.";
       apply.disabled = !(a && b);
     }
@@ -136,9 +138,9 @@
     var st = { taken: false }, sl = $$("[data-s]", box), out = $$("[data-o]", box), lines = $("[data-lines]", box), net = $("[data-net]", box), split = $$("[data-split] i", box);
     var run = $$("[data-run] li", box), runTxt = $("[data-runtxt]", box), runBar = $("[data-runbar]", box), ri = 0;
     function calc() {
-      var basic = +sl[0].value, ot = +sl[1].value, ul = +sl[2].value, bonus = +sl[3].value, adv = +sl[4].value, allow = basic * .25, otp = basic / 160 * 1.25 * ot, ded = basic / 26 * ul, total = basic + allow + otp + bonus - ded - adv;
-      out[0].textContent = fmt(basic); out[1].textContent = ot + " h"; out[2].textContent = ul + " d"; out[3].textContent = fmt(bonus); out[4].textContent = fmt(adv);
-      lines.innerHTML = [["Basic", fmt(basic)], ["Allowances (25%)", "+" + fmt(allow)], ["Overtime " + ot + " h", "+" + fmt(otp)], ["Bonus", "+" + fmt(bonus)], ["Unpaid leave " + ul + " d", "-" + fmt(ded)], ["Advance recovery", "-" + fmt(adv)]].map(function (r, i) { return '<li class="' + (i > 3 ? "neg" : "") + '"><span>' + r[0] + "</span><b>" + r[1] + "</b></li>"; }).join("");
+      var basic = +sl[0].value, ot = +sl[1].value, ul = +sl[2].value, bonus = 0, adv = 0, allow = basic * .25, otp = basic / 160 * 1.25 * ot, ded = basic / 26 * ul, total = basic + allow + otp + bonus - ded - adv;
+      out[0].textContent = fmt(basic); out[1].textContent = ot + " h"; out[2].textContent = ul + " d";
+      lines.innerHTML = [["Basic", fmt(basic)], ["Allowances (25%)", "+" + fmt(allow)], ["Overtime " + ot + " h", "+" + fmt(otp)], ["Unpaid leave " + ul + " d", "-" + fmt(ded)]].map(function (r, i) { return '<li class="' + (i > 2 ? "neg" : "") + '"><span>' + r[0] + "</span><b>" + r[1] + "</b></li>"; }).join("");
       net.textContent = fmt(total); var sum = basic + allow + otp + bonus; split[0].style.width = (basic / sum * 100) + "%"; split[1].style.width = (allow / sum * 100) + "%"; split[2].style.width = ((otp + bonus) / sum * 100) + "%";
     }
     function runTo(k) { ri = k; run.forEach(function (l, i) { l.classList.toggle("on", i < k); }); runBar.style.width = (k / 4 * 100) + "%"; runTxt.textContent = k >= 4 ? "412 payslips sent" : "Step " + k + " of 4"; }
@@ -236,5 +238,5 @@
   }
 
   var map = { punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
-  $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); fitWho(b); } catch (e) { console.error(e); } } });
+  $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();

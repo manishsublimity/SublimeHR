@@ -44,6 +44,7 @@ const leave = (d) => wrap(d, "leave", `
   <div class="dmx__l dmx__lcal">
     <div class="dmx__calhead"><b>April</b><span><i class="we"></i>Weekend<i class="ho"></i>Holiday<i class="sel"></i>Your leave</span></div>
     <div class="dmx__cal" data-cal></div>
+    <div class="dmx__away"><small>Also away this month</small><ul><li><i>OM</i><span>Omar<em>3 to 4 Apr</em></span></li><li><i>RA</i><span>Ravi<em>14 Apr</em></span></li><li><i>NA</i><span>Nadia<em>28 to 29 Apr</em></span></li></ul></div>
   </div>
   <div class="dmx__r dmx__lv">
     <div class="dmx__types" role="group" aria-label="Leave type">
@@ -61,7 +62,6 @@ const leave = (d) => wrap(d, "leave", `
       <li data-ch><i>${icon("check", "ic")}</i><b>Approved</b><small>Priya, manager</small></li>
       <li data-ch><i>${icon("wallet", "ic")}</i><b>Synced</b><small>Payroll and calendar</small></li>
     </ol>
-    <div class="dmx__away"><small>Also away this month</small><ul><li><i>OM</i><span>Omar<em>3 to 4 Apr</em></span></li><li><i>RA</i><span>Ravi<em>14 Apr</em></span></li><li><i>NA</i><span>Nadia<em>28 to 29 Apr</em></span></li></ul></div>
     <div class="dmx__sendrow"><p class="dmx__msg" data-lmsg>Pick a start and an end date.</p><button class="dmx__send dmx__send--s" type="button" data-apply>Send request ${icon("send", "ic")}</button></div>
     <div class="dmx__stamp" data-stamp>APPROVED ✓</div>
   </div>
@@ -72,8 +72,6 @@ const payroll = (d) => wrap(d, "payroll", `
     <label>Basic salary <output data-o="0"></output><input type="range" data-s="0" min="2000" max="9000" step="100" value="4200"></label>
     <label>Overtime hours <output data-o="1"></output><input type="range" data-s="1" min="0" max="30" step="1" value="6"></label>
     <label>Unpaid leave days <output data-o="2"></output><input type="range" data-s="2" min="0" max="6" step="1" value="1"></label>
-    <label>Bonus <output data-o="3"></output><input type="range" data-s="3" min="0" max="1500" step="50" value="0"></label>
-    <label>Advance recovery <output data-o="4"></output><input type="range" data-s="4" min="0" max="1000" step="50" value="0"></label>
     <p class="dmx__hint">Allowances are 25% of basic. Overtime is paid at 1.25 times.</p>
     <div class="dmx__run"><div class="dmx__runhead"><b>Payroll run, April</b><span data-runtxt>Step 0 of 4</span></div>
       <ol data-run><li><i>${icon("check", "ic")}</i>Attendance locked</li><li><i>${icon("check", "ic")}</i>Overtime approved</li><li><i>${icon("check", "ic")}</i>Deductions checked</li><li><i>${icon("check", "ic")}</i>Payslips released</li></ol>
@@ -97,7 +95,7 @@ const chart = (d) => wrap(d, "chart", `
     <div class="dmx__kpis" data-kpis></div>
   </div>
   <div class="dmx__r dmx__insight">
-    <b data-ititle>Late arrivals by weekday</b>
+    <div class="dmx__insighthead"><b data-ititle>Late arrivals by weekday</b><span class="dmx__live">${icon("check", "ic")}Live data</span></div>
     <p data-itext>Mondays and Fridays are the worst. Share the report with department heads.</p>
     <div class="dmx__chips" data-ichips></div>
     <div class="dmx__acts"><small>What do you want to do with it?</small>
@@ -105,8 +103,6 @@ const chart = (d) => wrap(d, "chart", `
       <button type="button" data-act><i>${icon("repeat", "ic")}</i><span>Email it every Monday</span><em>Schedule</em></button>
       <button type="button" data-act><i>${icon("file", "ic")}</i><span>Download as PDF or Excel</span><em>Export</em></button>
     </div>
-    <div class="dmx__acts"><small>Also ready to run</small><div class="dmx__chips"><em>Attendance summary</em><em>Leave balances</em><em>Payroll register</em><em>Headcount trend</em></div></div>
-    <span class="dmx__live">${icon("check", "ic")}Live data. Tamper-proof history.</span>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>What do the numbers say?</span><div class="dmx__ppl">${who(byName["Karan"], 1, "")}</div></div>`);
 
