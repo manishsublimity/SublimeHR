@@ -265,20 +265,26 @@
     drive(box, function () { go((cur + 1) % S.length); }, 4300, st);
   }
 
-  /* ---------- dial: one working day around a clock face ---------- */
+  /* ---------- day: the sun crosses the sky while the phone lights up ---------- */
   function dial(box) {
-    var st = { taken: false }, items = $$("[data-di]", box), pin = $("[data-dpin]", box), arc = $("[data-darc]", box), dots = $$("[data-ddot]", box), icons = $$("[data-dic]", box), tm = $("[data-dtime]", box), ti = $("[data-dtitle]", box);
-    var say1 = ["Clocked in on time.", "Leave approved!", "Shift swapped.", "Overtime approved.", "Day closed.", "Payslip is ready."], C = 2 * Math.PI * 112, cur = -1, turns = 0;
-    arc.style.strokeDasharray = C; arc.style.strokeDashoffset = C;
-    function go(i, wrap) {
-      if (i === cur) return; if (wrap) turns++; cur = i;
-      var ang = i * 60 + turns * 360; pin.style.transform = "rotate(" + ang + "deg)"; $("[data-dface]", box).style.transform = "rotate(" + (-ang) + "deg)"; arc.style.strokeDashoffset = C * (1 - i / 6 * 360 / 360 * 1);
-      items.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); }); dots.forEach(function (d, k) { d.classList.toggle("on", k <= i); }); icons.forEach(function (e, k) { e.classList.toggle("on", k === i); });
-      tm.textContent = $("em", items[i]).textContent; ti.textContent = $("b", items[i]).textContent; say(box, say1[i]);
+    var st = { taken: false }, sky = $("[data-sky]", box), path = $("[data-spath]", box), trail = $("[data-strail]", box), sun = $("[data-ssun]", box), mk = $("[data-smk]", box), cards = $$("[data-sc]", box), ns = "http://www.w3.org/2000/svg";
+    var len = path.getTotalLength(), F = [.07, .24, .41, .58, .75, .93], times = cards.map(function (c) { return $("small", c).textContent.split("· ")[1]; });
+    var skies = [["#FFE2C6", "#CFE0FF"], ["#D6E6FF", "#EEF5FF"], ["#DDEBFF", "#FFF1CF"], ["#FFE3BC", "#FFC9A6"], ["#4A4F8F", "#8A6FA8"], ["#222C5C", "#3D4E8C"]];
+    var say1 = ["Clocked in on time.", "Leave approved!", "Shift swapped.", "Overtime approved.", "Day closed.", "Payslip is ready."], cur = -1, pos = F[0], col = skies[0].slice(), raf = 0;
+    function hx(h) { return [1, 3, 5].map(function (i) { return parseInt(h.substr(i, 2), 16); }); }
+    function mix(a, b, e) { var x = hx(a), y = hx(b); return "rgb(" + x.map(function (v, i) { return Math.round(v + (y[i] - v) * e); }).join(",") + ")"; }
+    F.forEach(function (f, i) { var p = path.getPointAtLength(len * f), g = document.createElementNS(ns, "g"); g.setAttribute("class", "sk-mk"); g.setAttribute("transform", "translate(" + p.x + " " + p.y + ")"); g.innerHTML = '<circle r="6"/><text y="' + (i === 0 || i === 5 ? -34 : 24) + '" text-anchor="middle">' + times[i] + "</text>"; g.addEventListener("click", function () { go(i); }); mk.appendChild(g); });
+    trail.style.strokeDasharray = len; trail.style.strokeDashoffset = len;
+    function place(f) { var p = path.getPointAtLength(len * f); sun.setAttribute("transform", "translate(" + p.x + " " + p.y + ")"); trail.style.strokeDashoffset = len * (1 - f); pos = f; }
+    function go(i) {
+      if (i === cur) return; var prev = cur < 0 ? 0 : cur, from = pos, c0 = col.slice(), t0 = performance.now(); cur = i; var my = i; cancelAnimationFrame(raf);
+      (function step(now) { var p = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - p, 3); place(from + (F[i] - from) * e); sky.style.setProperty("--s1", mix(c0[0], skies[i][0], e)); sky.style.setProperty("--s2", mix(c0[1], skies[i][1], e)); if (p < 1 && my === cur) raf = requestAnimationFrame(step); else col = skies[i].slice(); })(t0);
+      cards.forEach(function (c, k) { c.setAttribute("aria-pressed", String(k === i)); c.classList.toggle("lit", k <= i); }); sky.classList.toggle("night", i >= 4); $$(".sk-mk", mk).forEach(function (m, k) { m.classList.toggle("on", k <= i); });
+      say(box, say1[i]);
     }
-    items.forEach(function (b, i) { b.addEventListener("click", function () { go(i, false); }); });
-    go(0, false);
-    drive(box, function () { var n = (cur + 1) % 6; go(n, n === 0); }, 3600, st);
+    cards.forEach(function (c, i) { c.addEventListener("click", function () { go(i); }); });
+    place(F[0]); sky.style.setProperty("--s1", skies[0][0]); sky.style.setProperty("--s2", skies[0][1]); go(0);
+    drive(box, function () { go((cur + 1) % 6); }, 3600, st);
   }
 
   var map = { dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };

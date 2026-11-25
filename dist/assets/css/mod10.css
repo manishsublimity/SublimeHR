@@ -225,3 +225,21 @@
 .dmx__daylist em { font: 700 13px/1 var(--f); font-style: normal; color: var(--world); } .dmx__daylist b { display: block; font: 600 15px/1.2 var(--f-d); } .dmx__daylist small { display: block; max-height: 0; overflow: hidden; font: 500 13px/1.35 var(--f); color: var(--ink2); transition: max-height .4s var(--ease), margin .3s; }
 .dmx__daylist button[aria-pressed="true"] { background: var(--world); color: var(--on); box-shadow: 0 16px 22px -14px var(--world); } .dmx__daylist button[aria-pressed="true"] em, .dmx__daylist button[aria-pressed="true"] small { color: inherit; } .dmx__daylist button[aria-pressed="true"] small { max-height: 3.5em; margin-top: 3px; opacity: .92; }
 .dmx__dial .pface { transform-origin: 150px 38px; transition: transform .9s var(--spring); }
+
+
+/* a day in the sky: the sun crosses, the phone lights up */
+.dmx[data-dm="dial"] { grid-template-columns: minmax(0, 1fr) 220px; }
+.dmx__skybox { display: grid; gap: 14px; align-content: start; padding: 22px 26px; }
+.dmx__sky { --s1: #FFE2C6; --s2: #CFE0FF; position: relative; border-radius: 22px; overflow: hidden; background: linear-gradient(180deg, var(--s1), var(--s2)); color: #14213D; }
+.dmx__sky svg { display: block; width: 100%; height: auto; }
+.sk-ground { fill: rgba(20,33,61,.12); } .sk-path { fill: none; stroke: rgba(20,33,61,.22); stroke-width: 3; stroke-dasharray: 2 9; stroke-linecap: round; } .sk-trail { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; opacity: .9; }
+.sk-mk circle { fill: rgba(255,255,255,.55); stroke: rgba(20,33,61,.3); stroke-width: 2; cursor: pointer; transition: fill .3s; } .sk-mk.on circle { fill: #fff; stroke: var(--world); stroke-width: 3; } .sk-mk text { font: 700 12px/1 var(--f); fill: currentColor; opacity: .75; }
+.dmx__sky.night { color: #fff; } .dmx__sky.night .sk-path { stroke: rgba(255,255,255,.35); } .dmx__sky.night .sk-ground { fill: rgba(0,0,0,.25); }
+.sk-sun .halo { fill: rgba(255,208,90,.4); animation: fpulse 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; } .sk-sun .core { fill: #FFD05A; stroke: #fff; stroke-width: 3; filter: drop-shadow(0 4px 8px rgba(255,150,40,.5)); transition: fill .6s; }
+.dmx__sky.night .sk-sun .core { fill: #F4F7FF; }
+.dmx__notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.dmx__notes button { display: flex; align-items: flex-start; gap: 11px; padding: 12px 14px; border-radius: 18px; background: color-mix(in srgb, var(--world) 6%, #fff); text-align: left; opacity: .5; box-shadow: inset 0 0 0 1.5px transparent; transition: opacity .4s, transform .4s var(--spring), background .3s, box-shadow .3s; }
+.dmx__notes button.lit { opacity: 1; background: #fff; box-shadow: 0 10px 16px -12px rgba(20,33,61,.45); }
+.dmx__notes button[aria-pressed="true"] { transform: translateY(-4px); box-shadow: 0 0 0 2px var(--world), 0 18px 24px -14px var(--world); }
+.dmx__notes i { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--world); color: var(--on); font-size: 19px; }
+.dmx__notes span { display: grid; gap: 2px; min-width: 0; } .dmx__notes small { font: 600 11px/1 var(--f); color: var(--ink2); } .dmx__notes b { font: 600 14.5px/1.2 var(--f-d); } .dmx__notes em { font: 500 12px/1.3 var(--f); font-style: normal; color: var(--ink2); }
