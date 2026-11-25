@@ -1839,3 +1839,7 @@ body[data-ft="3"] .footer__contact a:hover { background: rgba(255,255,255,.3); b
 .dock.off { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(20px); }
 @media (max-height: 780px) { .hero { padding: 92px 0 96px; } .dock { bottom: 14px; } }
 .dock { bottom: 12px; padding-top: 7px; padding-bottom: 7px; } .dock .chip { height: 42px; min-width: 42px; }
+
+/* industry dock sits on the hero itself, a little higher, and fades out as soon as you scroll */
+.dock { position: absolute; top: calc(100vh - 80px); top: calc(100svh - 80px); bottom: auto; transition: none; }
+@media (max-height: 780px) { .dock { top: calc(100vh - 70px); top: calc(100svh - 70px); bottom: auto; } }
