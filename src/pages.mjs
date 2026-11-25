@@ -1,6 +1,7 @@
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
+import { modulePage } from "./modpage.mjs";
 import { clockW, leaveW, payrollW, permW, hereW, rosterW, letterW, visitorW, storyW, chatW, homeFaqItems, vsCompare, heroArt, moduleWidget } from "./widgets.mjs";
 
 const more8 = (base, ids) => { const out = [...base], seen = new Set(out.map(([q]) => q)); for (const id of ids) for (const qa of faqs.find((g) => g.id === id).items) { if (out.length >= 8) break; if (!seen.has(qa[0])) { seen.add(qa[0]); out.push(qa); } } return out; };
@@ -231,7 +232,7 @@ ${cta({ title: "Have a workflow we don't cover yet?", lead: "We build custom mod
    MODULE DETAIL
    ===================================================================== */
 const FAQ_MAP = { "employee-management": ["getting-started", "security"], "attendance-management": ["attendance"], "leave-management": ["leave"], payroll: ["payroll"], "reports-analytics": ["reports"], "employee-self-service": ["mobile-integrations", "getting-started"], "mobile-workforce": ["mobile-integrations"], "security-access": ["security"], "shift-scheduling": ["attendance", "implementation"], "visitor-management": ["security", "implementation"] };
-function moduleFaqs(m) {
+export function moduleFaqs(m) {
   const out = [...m.faqs], seen = new Set(out.map(([q]) => q));
   for (const id of [...(FAQ_MAP[m.slug] || []), "getting-started", "implementation", "security"]) for (const qa of faqs.find((g) => g.id === id).items) { if (out.length >= 8) break; if (!seen.has(qa[0])) { seen.add(qa[0]); out.push(qa); } }
   return out;
@@ -251,62 +252,10 @@ function moduleCast(m, idx) {
 export function moduleDetail(m) {
   const path = `/software/${m.slug}/`;
   const trail = [["Home", "/"], ["Features", "/features/"], [m.name, path]];
-  const idx = modules.indexOf(m);
-  const rel = [1, 2, 3, 4, 5].map((k) => modules[(idx + k) % modules.length]);
-  const isStory = m.slug === "employee-self-service" || m.slug === "mobile-workforce";
-  const tryHead = sHead({ eyebrow: "Try it yourself", tone: "mint", title: `Go on — <span class="mark mint">take it for a spin.</span>`, lead: "A working mini version of the real thing. No sign-up needed.", left: isStory });
-  const body = `
-${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][idx % 4], title: m.tagline, lead: m.summary, trail, actions: btn("Book a demo", `/book-demo/?module=${m.slug}`) + btn("Try it live", "#try", { alt: true, ic: "play" }), aside: moduleCast(m, idx) })}
-
-<section class="section" id="try">
-  <div class="container">
-    ${isStory ? storyW({ intro: tryHead }) : `${tryHead}<div class="rv pop" style="max-width:${WIDE.includes(m.slug) ? "1000px" : "620px"};margin-inline:auto">${moduleWidget[m.slug]()}</div>`}
-  </div>
-</section>
-
-<section class="section cream">
-  <div class="container">
-    ${sHead({ eyebrow: "Before & after", tone: "peach", title: "What actually changes for your HR team" })}
-    ${baSwitch(m)}
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    ${sHead({ eyebrow: "Everything included", title: `${m.features.length} capabilities, ready on day one`, lead: "Configured to your policies — no code, no add-ons." })}
-    ${capSpot(m)}
-  </div>
-</section>
-
-<section class="section cream">
-  <div class="container">
-    ${sHead({ eyebrow: "Real-world scenarios", tone: "butter", title: `Where ${m.name.toLowerCase()} shines` })}
-    ${flipCards(m)}
-  </div>
-</section>
-
-<section class="section">
-  <div class="container faqx">
-    <div class="head rv"><h2>Ask Subi about ${m.name.toLowerCase()}.</h2><p class="lead">Pick a question or type your own. Subi answers instantly, and a real person replies within one business day.</p></div>
-    ${chatW(moduleFaqs(m), { title: "Subi", suggest: 8 })}
-  </div>
-</section>
-
-<section class="section cream">
-  <div class="container">
-    <div class="head-row">${sHead({ eyebrow: "Works better together", title: "Related modules", left: true })}${btn("All features", "/features/", { alt: true })}</div>
-    <div class="mods">${rel.map((r) => modCard(r, modules.indexOf(r))).join("")}</div>
-  </div>
-</section>
-${cta({ title: `See ${m.name} with your own data.`, lead: "A personalized 30-minute demo, tailored to your workforce and policies.", primary: ["Book a demo", `/book-demo/?module=${m.slug}`], aside: crowd() })}
-`;
-  return page({
-    title: `${m.name} Software — ${m.tagline}`,
-    description: `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300),
-    path, active: "features",
-    ld: [crumbLd(trail), faqLd(moduleFaqs(m)), { "@type": "Service", name: `${m.name} Software`, serviceType: m.name, provider: { "@id": site.url + "/#organization" }, description: m.summary, url: site.url + path }],
-    body
-  });
+  const faqItems = moduleFaqs(m);
+  const graph = [crumbLd(trail), faqLd(faqItems), { "@type": "Service", name: `${m.name} Software`, serviceType: m.name, provider: { "@id": site.url + "/#organization" }, description: m.summary, url: site.url + path }];
+  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
+  return modulePage(m, faqItems, ld);
 }
 
 /* =====================================================================

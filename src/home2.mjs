@@ -6,7 +6,7 @@ import { homeFaqItems } from "./widgets.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 
-const V = Date.now().toString(36);
+export const V = Date.now().toString(36);
 const none = "none";
 
 // ---- content: one entry per industry -------------------------------------------------------------
@@ -306,6 +306,27 @@ const clockT = Array.from({ length: 60 }, (_, i) => { if (i % 5 === 0) return ""
 const clockDots = Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI / 6; return i % 3 ? `<circle cx="${(60 + 46 * Math.sin(a)).toFixed(1)}" cy="${(60 - 46 * Math.cos(a)).toFixed(1)}" r="1.7"/>` : ""; }).join("");
 const col = (t, links) => `<div><h2>${t}</h2><ul>${links.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join("")}</ul></div>`;
 const showBtns = [["clock", "fingerprint", "Clock in with a thumb"], ["selfie", "camera", "Check in with a selfie"], ["gps", "pin", "Test the GPS fence"], ["leave", "calendar", "Request some leave"], ["pay", "wallet", "Run payroll"], ["roster", "repeat", "Fix a shift roster"], ["ask", "bot", "Ask a question"]];
+
+export function homeFooter() {
+  return `<footer class="footer">
+  <span class="footer__glow g1" aria-hidden="true"></span><span class="footer__glow g2" aria-hidden="true"></span>
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34"><span>Sublime<span class="hr">HR</span></span></a>
+        <p>Powering your worklife — attendance, leave, payroll and self-service in one friendly platform.</p>
+        <div class="footer__contact"><a href="${site.phoneHref}"><i>${icon("call", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span></a><a href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>WhatsApp</small><b>Chat with us</b></span></a></div>
+      </div>
+      ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
+      ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
+      ${col("Industries", [["Manufacturing", "/industries/#manufacturing"], ["Healthcare", "/industries/#healthcare"], ["IT &amp; Software", "/industries/#it-software"], ["Retail", "/industries/#retail"], ["Hospitality", "/industries/#hospitality"]])}
+      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"], ["Home", "/"]])}
+    </div>
+    <div class="footer__bar"><span>&copy; ${new Date().getFullYear()} SublimeHR. All rights reserved.</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div>
+  </div>
+  <div class="footer__word" aria-hidden="true">SublimeHR</div>
+</footer>`;
+}
 
 export function home2(path = "/home-v2/") {
   return `<!doctype html>
@@ -773,24 +794,7 @@ export function home2(path = "/home-v2/") {
 </section>
 </main>
 
-<footer class="footer">
-  <span class="footer__glow g1" aria-hidden="true"></span><span class="footer__glow g2" aria-hidden="true"></span>
-  <div class="container">
-    <div class="footer__grid">
-      <div class="footer__about">
-        <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34"><span>Sublime<span class="hr">HR</span></span></a>
-        <p>Powering your worklife — attendance, leave, payroll and self-service in one friendly platform.</p>
-        <div class="footer__contact"><a href="${site.phoneHref}"><i>${icon("call", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span></a><a href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>WhatsApp</small><b>Chat with us</b></span></a></div>
-      </div>
-      ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
-      ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
-      ${col("Industries", [["Manufacturing", "/industries/#manufacturing"], ["Healthcare", "/industries/#healthcare"], ["IT &amp; Software", "/industries/#it-software"], ["Retail", "/industries/#retail"], ["Hospitality", "/industries/#hospitality"]])}
-      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"], ["Home", "/"]])}
-    </div>
-    <div class="footer__bar"><span>&copy; ${new Date().getFullYear()} SublimeHR. All rights reserved.</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div>
-  </div>
-  <div class="footer__word" aria-hidden="true">SublimeHR</div>
-</footer>
+${homeFooter()}
 
 <div class="guide" data-guide>
   <div class="guide__say" data-guide-say aria-live="polite"></div>
