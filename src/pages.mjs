@@ -476,11 +476,6 @@ ${cta({ title: "Let's talk about your workforce.", lead: "Interested in learning
 export function faqPage() {
   const trail = [["Home", "/"], ["FAQ", "/faq/"]];
   const all = faqs.flatMap((g) => g.items.map(([q, a]) => [q, a, g.id]));
-  return faqModulePage(all, `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(all.map(([q, a]) => [q, a]))] })}</script>`);
-}
-export function faqPageOld() {
-  const trail = [["Home", "/"], ["FAQ", "/faq/"]];
-  const all = faqs.flatMap((g) => g.items.map(([q, a]) => [q, a, g.id]));
   const body = `
 ${phero({ eyebrow: "FAQ", tone: "peach", title: `Ask us ${squiggle("anything.")}`, lead: `${all.length} answers on features, security, pricing and more — pick a topic, then ask our HR assistant.`, trail })}
 <section class="section">

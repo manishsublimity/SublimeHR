@@ -68,3 +68,14 @@ body.v2 .chat__win .w__top { align-items: center; } body.v2 .chat__win .w__top b
 body.v2 .chat__win .msg.bot { margin-left: 0; background: color-mix(in srgb, var(--world) 9%, #fff); box-shadow: none; color: var(--ink); border-radius: 20px; padding: 12px 18px; }
 body.v2 .chat__win .msg.bot::before { display: none; }
 html[data-theme="dark"] body.v2 .chat__win .msg.bot { background: rgba(255,255,255,.07); color: var(--ink); }
+
+/* FAQ page: the assistant fills the whole right side and the questions are easy to hit */
+body.v2 .faq-wrap { align-items: stretch; }
+body.v2 .faq-wrap > div.rv { display: flex; } body.v2 .faq-wrap .chat--inline { flex: 1; display: flex; min-width: 0; } body.v2 .faq-wrap .chat--inline .chat__win { flex: 1; min-width: 0; }
+body.v2 .faq-wrap .chat__win .chat__log { max-height: none; min-height: 0; padding: 26px 26px 18px; gap: 12px; }
+body.v2 .faq-wrap .qchips { display: grid; gap: 10px; margin: 6px 0 4px 0; }
+body.v2 .faq-wrap .qchips button { justify-content: space-between; gap: 14px; width: 100%; min-height: 54px; padding: 14px 20px; border-radius: 18px; background: #fff; box-shadow: 0 10px 16px -12px rgba(20,33,61,.4), inset 0 0 0 1.5px color-mix(in srgb, var(--world) 16%, #fff); color: var(--ink); font-size: 1rem; font-weight: 600; text-align: left; transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .2s, color .2s, box-shadow .2s; }
+body.v2 .faq-wrap .qchips button::after { content: "\2192"; flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--world) 12%, #fff); color: var(--world); transition: background .2s, color .2s, transform .3s; }
+body.v2 .faq-wrap .qchips button:hover { transform: translateX(4px); background: var(--world); color: var(--on); box-shadow: 0 16px 22px -14px var(--world); } body.v2 .faq-wrap .qchips button:hover::after { background: rgba(255,255,255,.25); color: inherit; transform: rotate(-45deg); }
+body.v2 .faq-wrap .chat__win .msg { max-width: 92%; font-size: 1rem; }
+@media (max-width: 900px) { body.v2 .faq-wrap > div.rv { display: block; } }
