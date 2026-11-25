@@ -7,7 +7,8 @@
   var params = new URLSearchParams(location.search);
   var topic = params.get("topic"); if (topic) { var tr = $$('input[name="topic"]', form).filter(function (r) { return r.value === topic; })[0]; if (tr) tr.checked = true; }
   var mod = params.get("module"); if (mod) { var mb = $('input[name="modules"][value="' + mod + '"]', form); if (mb) mb.checked = true; }
-  ["industry", "size"].forEach(function (k) { var v = params.get(k), el = $('[name="' + k + '"]', form); if (v && el) el.value = v; });
+  ["industry", "size", "customization"].forEach(function (k) { var v = params.get(k), el = $('[name="' + k + '"]', form); if (v && el) el.value = v; });
+  var plan = params.get("plan"); if (plan) { var pr = $$('input[name="plan"]', form).filter(function (r) { return r.value.toLowerCase() === plan.toLowerCase(); })[0]; if (pr) pr.checked = true; }
   var di = $('input[type="date"]', form); if (di) { var tm = new Date(); tm.setDate(tm.getDate() + 1); di.min = tm.toISOString().slice(0, 10); }
   function ctl(f) { return $("input[required], textarea[required], select[required]", f) || $("input, select, textarea", f); }
   function validate(f) {
@@ -18,8 +19,16 @@
   $$(".cf-field", form).forEach(function (f) { var i = ctl(f); if (!i) return; i.addEventListener("blur", function () { if (i.value && f.hasAttribute("data-validate")) validate(f); }); i.addEventListener("input", function () { if (f.classList.contains("invalid")) validate(f); }); });
   function waLink(p) {
     var names = { book_demo: "Book a demo", request_quote: "Get pricing", contact_sales: "Contact message" };
-    var lines = ["Hi SublimeHR, new enquiry from the website:", "Request: " + (names[p.intent] || "-"), "Name: " + (p.name || "-"), "Company: " + (p.company || "-"), "Email: " + (p.email || "-"), "Phone: " + (p.phone || "-"), p.size ? "Employees: " + p.size : "", p.industry ? "Industry: " + p.industry : "", p.demo_date ? "Preferred demo: " + p.demo_date : "", p.modules ? "Modules: " + p.modules : "", p.message ? "Message: " + p.message : ""].filter(Boolean);
+    var lines = ["Hi SublimeHR, new enquiry from the website:", "Request: " + (names[p.intent] || "-"), "Name: " + (p.name || "-"), "Company: " + (p.company || "-"), "Email: " + (p.email || "-"), "Phone: " + (p.phone || "-"), p.size ? "Employees: " + p.size : "", p.industry ? "Industry: " + p.industry : "", p.demo_date ? "Preferred demo: " + p.demo_date : "", p.modules ? "Modules: " + p.modules : "", p.plan ? "Plan: " + p.plan : "", p.customization ? "Customization: " + p.customization : "", p.message ? "Message: " + p.message : ""].filter(Boolean);
     return "https://wa.me/917976117684?text=" + encodeURIComponent(lines.join("\n"));
+  }
+  var say = $("[data-cfsay]"), says = { "f-name": "Hi! What is your name?", "f-company": "Which company are you with?", "f-email": "Your work email, please.", "f-phone": "A number we can call.", "f-size": "How big is your team?", "f-industry": "What industry are you in?", "f-date": "Pick a day that suits you.", "f-msg": "Tell me a little more.", "f-custom": "Any special needs?" };
+  function sayIt(tx) { if (!say) return; say.classList.remove("on"); void say.offsetWidth; say.textContent = tx; say.classList.add("on"); }
+  form.addEventListener("focusin", function (e) { var id = e.target.id, nm = e.target.name; if (says[id]) sayIt(says[id]); else if (nm === "topic") sayIt("What is it about?"); else if (nm === "modules") sayIt("Pick the modules you like."); else if (nm === "slot") sayIt("Morning, afternoon or evening?"); else if (nm === "plan") sayIt("Which plan sounds right?"); });
+  function confetti(card) {
+    var cols = ["#3558F5", "#FFD05A", "#45C4B0", "#FF8A70", "#7A5CF0", "#1FBF75"], box = document.createElement("div"); box.className = "cf-conf"; card.appendChild(box);
+    for (var i = 0; i < 36; i++) { var c = document.createElement("i"); c.style.background = cols[i % cols.length]; c.style.setProperty("--x", (Math.random() * 520 - 260) + "px"); c.style.setProperty("--y", (-Math.random() * 260 - 40) + "px"); c.style.setProperty("--r", (Math.random() * 720 - 360) + "deg"); c.style.left = "50%"; c.style.top = "55%"; c.style.animationDelay = (Math.random() * .25) + "s"; box.appendChild(c); }
+    setTimeout(function () { box.remove(); }, 2600);
   }
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
@@ -37,7 +46,7 @@
     btn.disabled = true; btn.setAttribute("aria-busy", "true"); lbl.textContent = "Sending…";
     var endpoint = (form.getAttribute("data-endpoint") || "").trim();
     function done(viaWa) {
-      card.classList.add("sent"); var s = $("#form-success");
+      card.classList.add("sent"); var s = $("#form-success"); sayIt("Thank you! Talk soon."); var pp = card.querySelector(".cf__ppl"); if (pp) pp.classList.add("cheer"); confetti(card);
       if (viaWa) $("#success-msg").textContent = "Please press send in WhatsApp to deliver your details to our team. We'll reply within 1 business day.";
       var wa = $("#wa-followup"); if (wa) wa.href = waLink(payload); s.setAttribute("tabindex", "-1"); s.focus();
     }

@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage, quoteModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -571,6 +571,10 @@ export function bookDemoOld() {
 }
 
 export function getPricing() {
+  const trail = [["Home", "/"], ["Get pricing", "/get-pricing/"]];
+  return quoteModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "ContactPage", name: "Get Pricing — Request a SublimeHR Quote", url: site.url + "/get-pricing/" }] })}</script>`);
+}
+export function getPricingOld() {
   return formPage({
     kind: "pricing", path: "/get-pricing/", crumb: "Get pricing", eyebrow: "Get pricing", tone: "mint", title: `Get a quote ${squiggle("for your team.")}`,
     lead: "Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.",
