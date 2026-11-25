@@ -202,14 +202,14 @@
     async function play(manual) {
       var t = ++token;
       if (gBusy && !manual) return;
-      gBusy = true; menu(false); set("before"); await wait(500); if (!alive(t)) return;
-      await flyTo(scene, .86, .08); if (!alive(t)) return;
+      gBusy = true; menu(false); set("before"); guide.classList.add("mplay"); await wait(500); if (!alive(t)) return;
+      await flyTo(scene, .86, .08); if (!alive(t)) return; guide.classList.add("mhi"); setTimeout(function () { guide.classList.remove("mhi"); }, 1400); Snd.pop();
       guideSay("Hi, I'm Subi. What's the trouble?", 2600); await wait(1900); if (!alive(t)) return;
       bsay.textContent = "Where is that file again?"; talk(lady, 2000); await wait(2300); if (!alive(t)) return;
       await flyTo(scene, .47, .52); if (!alive(t)) return;
-      set("fix"); guideSay("Let me find it. One moment…", 2200); await wait(2300); if (!alive(t)) return;
+      set("fix"); guide.classList.add("msearch"); guideSay("Let me find it. One moment…", 2200); await wait(2300); if (!alive(t)) return; guide.classList.remove("msearch");
       set("after"); guideSay("Found it. Everything is on her record now.", 3000); await wait(3400); if (!alive(t)) return;
-      gHome(); await wait(900); gBusy = false;
+      gHome(); guide.classList.remove("mplay", "msearch", "mhi"); await wait(900); gBusy = false;
     }
     tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; token++; if (b.dataset.s === "after") { gBusy = false; play(true); } else { set("before"); if (gBusy) { gHome(); gBusy = false; } } }); });
     mbaApi = { play: function () { auto = false; return play(true); } };

@@ -62,6 +62,7 @@ function head(m, path, description) {
 <link rel="stylesheet" href="/assets/css/mod2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod3.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod4.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mod5.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -125,7 +126,7 @@ function letterDemo() {
 
 function before(m) {
   const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
-  const fixes = [["Final_v7.xlsx, final_FINAL.xlsx", "One employee record"], ["Who has the signed form?", "Every document on the profile"], ["Re-typing the same details", "Filled in automatically"], ["No idea who changed what", "Every change logged"]];
+  const fixes = [["Final_v7.xlsx", "One employee record"], ["Who has the form?", "On her profile"], ["Re-type it", "Filled in for her"], ["Wrong salary?", "Checked, correct"], ["Lost the letter", "Found, signed"], ["Duplicate entry", "No duplicates"], ["No audit trail", "Every change logged"]];
   return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Watch Subi come over and fix her day.">
   <div class="mba__head"><h2 id="h-ba">What changes for your HR team.</h2>
     <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button></div></div>
@@ -135,10 +136,12 @@ function before(m) {
       <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul></div>
     </div>
     <div class="mba__scene cast">
-      <span class="mba__glow" aria-hidden="true"></span><span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="mba__dots" aria-hidden="true"></span><span class="mba__glow" aria-hidden="true"></span><span class="mba__beam" aria-hidden="true"></span>
+      <span class="mba__cloud" aria-hidden="true"><i></i><u></u><u></u><u></u><u></u></span>
+      <span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
       <span class="mba__say" data-bsay>Where is that file again?</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
-      <ul class="mba__cards" aria-hidden="true">${fixes.map(([bad, good], i) => `<li style="--d:${i * 0.22}s"><span class="bf"><i>${icon("close", "ic")}</i>${bad}</span><span class="af"><i>${icon("check", "ic")}</i>${good}</span></li>`).join("")}</ul>
+      <ul class="mba__cards" aria-hidden="true">${fixes.map(([bad, good], i) => `<li class="k${i}" style="--d:${i * 0.16}s"><span class="bf"><i>${icon("close", "ic")}</i>${bad}</span><span class="af"><i>${icon("check", "ic")}</i>${good}</span></li>`).join("")}</ul>
       <span class="mba__floor"></span>
     </div>
   </div>
