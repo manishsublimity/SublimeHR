@@ -76,6 +76,7 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="/assets/css/styles.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/site2.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/nav2.css?v=${V}">
 <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
 <script>try{if(sessionStorage.getItem("shr-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-skip")}catch(e){}</script>
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
@@ -86,49 +87,18 @@ function head({ title, description, path, ld = [], noindex = false }) {
 const TONES = ["", "mint", "butter", "peach", "lilac"];
 const WORLD = { "/": "it", "/features/": "it", "/industries/": "school", "/pricing/": "it", "/integrations/": "hotel", "/custom-development/": "logistics", "/about/": "school", "/faq/": "it", "/contact/": "hospital", "/book-demo/": "it", "/get-pricing/": "retail", "/privacy/": "bank", "/terms/": "bank", "/404.html": "it",
   "/software/attendance-management/": "hospital", "/software/employee-management/": "it", "/software/leave-management/": "logistics", "/software/payroll/": "retail", "/software/shift-scheduling/": "school", "/software/reports-analytics/": "bank", "/software/employee-self-service/": "hotel", "/software/visitor-management/": "restaurant", "/software/security-access/": "bank", "/software/mobile-workforce/": "it" };
-function header(active) {
+export function nav2(active) {
   const cur = (k) => (active === k ? ' aria-current="page"' : "");
   return `<a class="skip" href="#main">Skip to content</a>
-<div class="bar-progress" aria-hidden="true"></div>
-<header class="header" id="header">
-  <div class="container header__in">
-    <a class="brand2" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="" width="38" height="34"><span>Sublime<b>HR</b></span></a>
-    <nav class="menu" aria-label="Primary">
-      <div class="m-item">
-        <a class="menu-link" href="/features/"${cur("features")}>Product ${icon("chevron", "chev")}</a>
-        <div class="mega">
-          ${modules.map((m, i) => `<a href="/software/${m.slug}/"><span class="ico sm ${TONES[i % 5]}">${icon(m.icon)}</span><span><strong>${m.name}</strong><small>${m.short}</small></span></a>`).join("")}
-          <div class="mega-foot"><span>Every module has a live demo you can play with.</span><a class="link" href="/features/">All features ${icon("arrow")}</a></div>
-        </div>
-      </div>
-      <a class="menu-link" href="/industries/"${cur("industries")}>Industries</a>
-      <a class="menu-link" href="/pricing/"${cur("pricing")}>Pricing</a>
-      <a class="menu-link" href="/integrations/"${cur("integrations")}>Integrations</a>
-      <div class="m-item">
-        <a class="menu-link" href="/about/"${cur("company")}>Company ${icon("chevron", "chev")}</a>
-        <div class="mega sm">
-          <a href="/about/"><span class="ico sm">${icon("building")}</span><span><strong>About us</strong><small>Mission &amp; vision</small></span></a>
-          <a href="/custom-development/"><span class="ico sm mint">${icon("code")}</span><span><strong>Custom development</strong><small>Built around your workflow</small></span></a>
-          <a href="/faq/"><span class="ico sm butter">${icon("message")}</span><span><strong>FAQ</strong><small>Ask our HR assistant</small></span></a>
-          <a href="/contact/"><span class="ico sm peach">${icon("call")}</span><span><strong>Contact</strong><small>We reply within 1 business day</small></span></a>
-        </div>
-      </div>
-    </nav>
-    <button class="theme-tg" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Toggle dark theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
-    <div class="header__cta">
-      <a class="btn alt sm no-bub" href="/get-pricing/">Get pricing</a>
-      <a class="btn sm" href="/book-demo/">Book a demo <span class="bub">${icon("arrow")}</span></a>
-    </div>
-    <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><span class="i-open">${icon("menu")}</span><span class="i-close" hidden>${icon("close")}</span></button>
-  </div>
+<header class="nav onhero" data-nav id="header">
+  <a class="nav__brand" href="/" aria-label="SublimeHR home"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
+  <nav class="nav__links" aria-label="Main"><a href="/features/"${cur("features")}>Product</a><a href="/industries/"${cur("industries")}>Industries</a><a href="/pricing/"${cur("pricing")}>Pricing</a><a href="/integrations/"${cur("integrations")}>Integrations</a><a href="/about/"${cur("company")}>Company</a></nav>
+  <button class="nav__tg" type="button" data-nav-theme aria-label="Switch to dark theme" title="Light / dark"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  <a class="btn" href="/book-demo/">Book a demo</a>
 </header>
-<nav class="drawer" id="drawer" aria-label="Mobile">
-  <details><summary>Product ${icon("chevron")}</summary><div class="sub">${modules.map((m) => `<a href="/software/${m.slug}/"><span class="ico sm">${icon(m.icon)}</span><span>${m.name}</span></a>`).join("")}</div></details>
-  <a class="d" href="/industries/">Industries</a><a class="d" href="/pricing/">Pricing</a><a class="d" href="/integrations/">Integrations</a><a class="d" href="/custom-development/">Custom development</a><a class="d" href="/about/">About</a><a class="d" href="/faq/">FAQ</a><a class="d" href="/contact/">Contact</a>
-  <button class="d theme-row" type="button" data-theme-toggle aria-label="Switch to dark theme"><span>Dark mode</span><span class="sw" aria-hidden="true"><i></i></span></button>
-  <div class="drawer__cta"><a class="btn alt no-bub" href="/get-pricing/">Get pricing</a><a class="btn" href="/book-demo/">Book a demo <span class="bub">${icon("arrow")}</span></a></div>
-</nav>`;
+<div class="bar-progress" aria-hidden="true"></div>`;
 }
+const header = nav2;
 
 /* ---------------- Footer ---------------- */
 function footer() {
@@ -151,7 +121,8 @@ function footer() {
   <div class="foot2__word" aria-hidden="true">SublimeHR</div>
 </footer>
 <button class="top-btn" type="button" aria-label="Back to top">${icon("arrow-up")}</button>
-<script src="/assets/js/main.js?v=${V}" defer></script>`;
+<script src="/assets/js/main.js?v=${V}" defer></script>
+<script src="/assets/js/nav2.js?v=${V}" defer></script>`;
 }
 
 export function page({ title, description, path, active, ld, noindex, body, world }) {
