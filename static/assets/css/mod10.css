@@ -1,5 +1,5 @@
 /* Live demos on the module pages. One shared panel, eight kinds of content. */
-.dmx { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) 220px; border-radius: 38px 38px 10px 38px; background: #fff; box-shadow: 0 36px 54px -36px color-mix(in srgb, var(--world) 60%, #14213D); overflow: hidden; color: var(--ink); }
+.dmx { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) 250px; border-radius: 38px 38px 10px 38px; background: #fff; box-shadow: 0 36px 54px -36px color-mix(in srgb, var(--world) 60%, #14213D); overflow: hidden; color: var(--ink); }
 .dmx button { font-family: inherit; }
 .dmx__l { padding: 30px 30px 32px; display: grid; align-content: start; gap: 18px; min-width: 0; }
 .dmx__r { padding: 30px; background: color-mix(in srgb, var(--world) 5%, #fff); border-left: 1px solid color-mix(in srgb, var(--world) 14%, #fff); display: grid; align-content: start; gap: 14px; min-width: 0; }
@@ -79,7 +79,7 @@
 
 
 /* attendance: the home clock-in card, plus a live board */
-.dmx[data-dm="punch"] { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 210px; }
+.dmx[data-dm="punch"] { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 250px; }
 .dmx[data-dm="punch"] .dmx__l { padding: 26px 28px; align-content: center; }
 .mlc { box-shadow: none !important; background: none !important; padding: 0 !important; border-radius: 0 !important; gap: 16px !important; }
 .mlc .clk { grid-template-columns: 170px minmax(0, 1fr); gap: 26px; }
@@ -89,7 +89,7 @@
 .dmx[data-dm="punch"] .dmx__who { min-height: 0; }
 
 /* leave: a calendar that fills its side, and a right side that says what happens next */
-.dmx[data-dm="leave"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) 210px; }
+.dmx[data-dm="leave"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) 250px; }
 .dmx__lcal { display: flex; flex-direction: column; gap: 14px; }
 .dmx__calhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; } .dmx__calhead > b { font: 600 24px/1 var(--f-d); letter-spacing: -.02em; }
 .dmx__calhead span { display: inline-flex; align-items: center; gap: 6px; font: 600 12.5px/1 var(--f); color: var(--ink2); } .dmx__calhead i { width: 12px; height: 12px; border-radius: 4px; margin-left: 8px; background: #E3E7F0; } .dmx__calhead i.ho { background: #FFD05A; } .dmx__calhead i.sel { background: var(--world); }
@@ -153,3 +153,11 @@
 .dmx[data-dm="payroll"] .dmx__l { align-content: space-between; }
 .dmx[data-dm="punch"] .dmx__l { display: flex; flex-direction: column; } .dmx[data-dm="punch"] .mlc { flex: 1; justify-content: space-between; }
 .dmx[data-dm="chart"] .dmx__r { align-content: space-between; } .dmx__acts button { padding: 13px 14px; }
+
+
+/* the character fills its column: bubble on top, the person as tall as the panel allows */
+.dmx .dmx__who { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 14px; padding: 22px 8px 0; overflow: hidden; }
+.dmx .dmx__say { order: 0; flex: none; }
+.dmx .dmx__ppl { --s: 1.6; order: 1; flex: none; margin: calc(190px * (var(--s) - 1)) 0 0; width: 104px; height: 190px; transform: scale(var(--s)); transform-origin: 50% 100%; }
+.dmx[data-dm="chart"] .dmx__l { display: flex; flex-direction: column; } .dmx[data-dm="chart"] .dmx__chart { flex: 1; min-height: 240px; height: auto; }
+.dmx[data-dm="punch"] .dmx__l { padding-top: 22px; padding-bottom: 22px; }

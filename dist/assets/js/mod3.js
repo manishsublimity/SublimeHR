@@ -19,6 +19,18 @@
   }
   function say(box, t) { var b = $("[data-dsay]", box); if (b) b.textContent = t; }
 
+  /* the person in each demo grows to fill the height of its column */
+  function fitWho(box) {
+    var who = $(".dmx__who", box), pp = $(".dmx__ppl", box), sy = $(".dmx__say", box); if (!who || !pp) return;
+    function fit() {
+      if (getComputedStyle(who).display === "none") return;
+      pp.style.setProperty("--s", 1);
+      var h = Math.max.apply(null, $$(".dmx__l, .dmx__r", box).map(function (e) { return e.offsetHeight; })), avail = h - sy.offsetHeight - 36, w = who.clientWidth - 24;
+      pp.style.setProperty("--s", Math.max(1, Math.min(avail / 190, w / 120, 2.4)).toFixed(3));
+    }
+    fit(); if (window.ResizeObserver) new ResizeObserver(fit).observe(box); window.addEventListener("resize", fit); setTimeout(fit, 600);
+  }
+
   /* ---------- punch: the home clock-in card, playing by itself ---------- */
   function punch(box) {
     var st = { taken: false }, scanner = $("[data-scan]", box), lbl = $("[data-scan-lbl]", box), img = $("[data-scan-img]", box), cntEl = $("[data-cnt]", box), flash = $(".flash", scanner);
@@ -224,5 +236,5 @@
   }
 
   var map = { punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
-  $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
+  $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); fitWho(b); } catch (e) { console.error(e); } } });
 })();
