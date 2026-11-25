@@ -80,6 +80,7 @@
   (function () {
     var w = $("[data-letter]"); if (!w) return;
     var name = $('[data-in="name"]', w), pos = $('[data-in="pos"]', w), sal = $('[data-in="sal"]', w), date = $('[data-in="date"]', w), send = $("[data-send]", w), tpls = $$("[data-t]", w);
+    var holder = $("[data-hold] .ppl", w); if (holder) { holder.setAttribute("data-pose", "hold"); var hc = $(".chest", holder); if (hc) hc.innerHTML = icons.file || ""; }
     var title = $("[data-title]", w), body = $("[data-body]", w), paper = $(".mpaper", w), toast = $("[data-toast]", w), dsay = $("[data-dsay]", w), tpl = "offer";
     var fmtD = function (v) { try { return new Date(v + "T00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }); } catch (e) { return v; } };
     var tok = function (t) { return "<mark>" + esc(t) + "</mark>"; };
@@ -105,11 +106,11 @@
       while (live) {
         var p = people[k % people.length]; k++;
         var t = tpls.filter(function (b) { return b.dataset.t === p[3]; })[0]; if (t) t.click();
-        dsay.textContent = "Writing the letter…"; await wait(500); if (!live) break;
+        dsay.textContent = "Reading my offer…"; await wait(500); if (!live) break;
         await typeInto(name, p[0]); await wait(400); if (!live) break;
         pos.selectedIndex = p[1]; fire(pos, "change"); await wait(600); if (!live) break;
         sal.value = p[2]; fire(sal, "input"); await wait(900); if (!live) break;
-        send.click(); dsay.textContent = "Sent for e-signature ✓"; await wait(2800);
+        send.click(); dsay.textContent = "Signed. Thank you!"; await wait(2800);
       }
       running = false;
     }
@@ -118,32 +119,7 @@
     vis(w, function (on) { shown = on; if (on && !taken) { live = true; loop(); } else live = false; }, .35);
   })();
 
-  /* ================= before / after: she calls Subi HR, finds it, and relaxes ================= */
   var mbaApi = null;
-  (function () {
-    var r = $("[data-mba]"); if (!r) return;
-    var tabs = $$("[data-s]", r), callBtn = $("[data-call]", r), bsay = $("[data-bsay]", r), lady = $(".mba__lady .ppl", r), timers = [], auto = true;
-    var lines = { before: "Where is that file again?", call: "Calling Subi HR…", after: "Found it. One click." };
-    function set(step) {
-      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step);
-      tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(step === "after" ? b.dataset.s === "after" : b.dataset.s === "before")); });
-      bsay.textContent = lines[step];
-      if (lady) { lady.setAttribute("data-pose", step === "call" ? "hold" : step === "after" ? "wave" : "rest"); lady.setAttribute("data-item", step === "call" ? "phone" : "none"); lady.classList.toggle("ppl--wave", step === "after"); talk(lady, 2400); }
-      if (step === "call") Snd.pop(); if (step === "after") Snd.chime();
-    }
-    function clear() { timers.forEach(clearTimeout); timers = []; }
-    function play() { clear(); set("call"); timers.push(setTimeout(function () { set("after"); }, 2600)); }
-    function cycle() {
-      clear(); set("before");
-      timers.push(setTimeout(function () { if (auto) play(); }, 2800));
-      timers.push(setTimeout(function () { if (auto) cycle(); }, 2800 + 2600 + 6200));
-    }
-    tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; clear(); if (b.dataset.s === "after") play(); else set("before"); }); });
-    callBtn.addEventListener("click", function () { auto = false; clear(); play(); });
-    mbaApi = { set: set, play: play };
-    if (reduce) { set("after"); return; }
-    vis(r, function (on) { clear(); if (on && auto) cycle(); }, .4);
-  })();
 
   /* ================= capabilities: the person holds the thing in her hands ================= */
   (function () {
@@ -209,4 +185,57 @@
     ask: async function () { var el = $("[data-ask]"); await toEl(el, "center"); await flyTo($(".chat", el), .92, .1); guideSay("Ask me anything. I answer from this module.", 3600); await finish("A real person follows up within a day."); }
   };
   $$("[data-show]", gMenu).forEach(function (b) { b.addEventListener("click", async function () { menu(false); if (gBusy) return; gBusy = true; var f = shows[b.getAttribute("data-show")]; try { if (f) await f(); } catch (e) {} gBusy = false; }); });
+
+  /* ================= before / after: the floating Subi flies over, listens, fixes it, and she relaxes ================= */
+  (function () {
+    var r = $("[data-mba]"); if (!r) return;
+    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), lady = $(".mba__lady .ppl", r), auto = true, token = 0, shown = false;
+    var lines = { before: "Where is that file again?", fix: "Oh, thank you!", after: "Found it. One click." };
+    function set(step) {
+      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step);
+      tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(step === "after" ? b.dataset.s === "after" : b.dataset.s === "before")); });
+      bsay.textContent = lines[step] || lines.before;
+      if (lady) { lady.setAttribute("data-pose", step === "after" ? "wave" : "rest"); lady.classList.toggle("ppl--wave", step === "after"); talk(lady, 2400); }
+      if (step === "after") Snd.chime();
+    }
+    function alive(t) { return t === token; }
+    async function play(manual) {
+      var t = ++token;
+      if (gBusy && !manual) return;
+      gBusy = true; menu(false); set("before"); await wait(500); if (!alive(t)) return;
+      await flyTo(scene, .86, .08); if (!alive(t)) return;
+      guideSay("Hi, I'm Subi. What's the trouble?", 2600); await wait(1900); if (!alive(t)) return;
+      bsay.textContent = "Where is that file again?"; talk(lady, 2000); await wait(2300); if (!alive(t)) return;
+      await flyTo(scene, .47, .52); if (!alive(t)) return;
+      set("fix"); guideSay("Let me find it. One moment…", 2200); await wait(2300); if (!alive(t)) return;
+      set("after"); guideSay("Found it. Everything is on her record now.", 3000); await wait(3400); if (!alive(t)) return;
+      gHome(); await wait(900); gBusy = false;
+    }
+    tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; token++; if (b.dataset.s === "after") { gBusy = false; play(true); } else { set("before"); if (gBusy) { gHome(); gBusy = false; } } }); });
+    mbaApi = { play: function () { auto = false; return play(true); } };
+    if (reduce) { set("after"); return; }
+    var loopTimer;
+    function cycle() { clearTimeout(loopTimer); if (!auto || !shown) return; play(false).then(function () { loopTimer = setTimeout(function () { if (auto && shown) { set("before"); loopTimer = setTimeout(cycle, 2600); } }, 5200); }); }
+    vis(r, function (on) { shown = on; if (on && auto) { setTimeout(cycle, 900); } else { clearTimeout(loopTimer); if (!on && gBusy && auto) { token++; gHome(); gBusy = false; } } }, .5);
+  })();
+
+  /* ================= closing band: pick a time ================= */
+  (function () {
+    var box = $("[data-bk]"); if (!box) return;
+    var dayBox = $("[data-days]", box), times = $$("[data-time]", box), go = $("[data-go]", box), say = $(".mbk__say"), ppl = $("[data-bkppl] .ppl"), chest = ppl && $(".chest", ppl);
+    var now = new Date(), days = [], d = new Date(now);
+    while (days.length < 5) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0 && d.getDay() !== 6) days.push(new Date(d)); }
+    dayBox.innerHTML = days.map(function (x, i) { return '<button type="button" data-day="' + i + '" aria-pressed="' + (i === 0) + '">' + x.toLocaleDateString("en", { weekday: "short" }) + "<strong>" + x.getDate() + "</strong></button>"; }).join("");
+    if (ppl) { ppl.setAttribute("data-pose", "hold"); if (chest) chest.innerHTML = icons.calendar || ""; }
+    var dayBtns = $$("[data-day]", box), di = 0, ti = 1, timer, user = false;
+    function paint() {
+      dayBtns.forEach(function (b, i) { b.setAttribute("aria-pressed", String(i === di)); }); times.forEach(function (b, i) { b.setAttribute("aria-pressed", String(i === ti)); });
+      var dd = days[di], label = dd.toLocaleDateString("en", { weekday: "short", day: "numeric", month: "short" }) + ", " + times[ti].dataset.time;
+      if (say) say.textContent = "See you " + label + "!"; go.setAttribute("href", go.getAttribute("href").split("&slot=")[0] + "&slot=" + encodeURIComponent(label));
+    }
+    dayBtns.forEach(function (b, i) { b.addEventListener("click", function () { user = true; di = i; paint(); Snd.tick(); }); });
+    times.forEach(function (b, i) { b.addEventListener("click", function () { user = true; ti = i; paint(); Snd.tick(); }); });
+    paint(); if (reduce) return;
+    vis(box, function (on) { clearInterval(timer); if (on && !user) timer = setInterval(function () { if (user) return; ti = (ti + 1) % times.length; if (ti === 0) di = (di + 1) % days.length; paint(); }, 2400); }, .4);
+  })();
 })();

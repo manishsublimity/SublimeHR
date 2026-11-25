@@ -61,6 +61,7 @@ function head(m, path, description) {
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod3.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mod4.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -87,7 +88,11 @@ function hero(m) {
           <ul>${rows.map((f, i) => `<li data-row="${i}"><i>${icon("check", "ic")}</i><span>${esc(f)}</span></li>`).join("")}</ul>
           <div class="mwin__bar"><i data-bar></i></div>
         </div>
-        <div class="deco" aria-hidden="true"><div class="sticky s1"><b>${esc((m.benefits[0] || "").split(" ").slice(0, 3).join(" "))}</b><i></i></div></div>
+        <div class="mchips" aria-hidden="true">
+          <span class="mchip mc-1"><i>${icon("users", "ic")}</i><b>3 joined today</b></span>
+          <span class="mchip mc-2"><i>${icon("file", "ic")}</i><b>Offer letter sent</b></span>
+          <span class="mchip mc-3"><i>${icon("check", "ic")}</i><b>All records in sync</b></span>
+        </div>
         ${cast.map(([n, r, x, y, s], i) => slot(n, i, x, y, s, i === 1 ? "ppl--wave" : "")).join("")}
         ${cast.map(([n, r, x, y, s]) => tagx(n, r, 0, x, y, s)).join("")}
       </div>
@@ -110,18 +115,18 @@ function letterDemo() {
     </div>
     <div class="mpaper" aria-live="polite">
       <div class="mpaper__head"><span><img src="${site.logo}" alt="" width="22" height="20">ACME INDUSTRIES · HR</span><em>REF-2026-0142</em></div>
-      <div class="mpaper__body"><h3 data-title>Offer of employment</h3><div data-body></div><p class="mpaper__sig">— People Team</p><span class="mpaper__stamp">SENT ✓</span></div>
+      <div class="mpaper__body"><h3 data-title>Offer of employment</h3><div data-body></div><p class="mpaper__sig">— People Team</p><svg class="mpaper__ink" viewBox="0 0 160 50" aria-hidden="true"><path d="M6 34c14-26 22-26 18-6-3 14 10 10 20-6 8-12 12-4 8 6-3 8 8 8 22-6 8-8 10 0 12 4 4 6 16 0 36-8" pathLength="100"/></svg><span class="mpaper__stamp">SENT ✓</span></div>
       <div class="mpaper__toast" data-toast>${icon("check", "ic")}<span>Sent for e-signature</span></div>
     </div>
-    <div class="mdemo__who" aria-hidden="true"><span class="mdemo__say" data-dsay>Writing the letter…</span>${who(byName["Priya"], 1, "ppl--wave")}<span class="mdemo__floor"></span></div>
+    <div class="mdemo__who" aria-hidden="true"><span class="mdemo__say" data-dsay>Writing the letter…</span><div class="mdemo__ppl" data-hold>${who(byName["Sara"], 1, "")}</div><span class="mdemo__floor"></span></div>
   </div>
 </section>`;
 }
 
 function before(m) {
   const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
-  const tags = ["Profile", "Offer letter", "Salary", "Documents", "Timeline"];
-  return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Watch her call Subi HR. The same office, before and after.">
+  const fixes = [["Final_v7.xlsx, final_FINAL.xlsx", "One employee record"], ["Who has the signed form?", "Every document on the profile"], ["Re-typing the same details", "Filled in automatically"], ["No idea who changed what", "Every change logged"]];
+  return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Watch Subi come over and fix her day.">
   <div class="mba__head"><h2 id="h-ba">What changes for your HR team.</h2>
     <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button></div></div>
   <div class="mba__stage">
@@ -132,11 +137,8 @@ function before(m) {
     <div class="mba__scene cast">
       <span class="mba__glow" aria-hidden="true"></span><span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
       <span class="mba__say" data-bsay>Where is that file again?</span>
-      <span class="bnote bn-0" aria-hidden="true">Final_v7.xlsx</span><span class="bnote bn-1" aria-hidden="true">Who has the form?</span><span class="bnote bn-2" aria-hidden="true">Re-type it</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
-      <ul class="mba__tags" aria-hidden="true">${tags.map((x, i) => `<li style="--d:${i * 0.18}s">${icon("check", "ic")}${x}</li>`).join("")}</ul>
-      <div class="mba__app" aria-hidden="true"><div class="mba__apptop"><span class="s-head"><span class="s-scr"><b></b><b></b></span></span>Subi HR</div><div class="mba__search">${icon("search", "ic")}Sara Nasser, offer letter</div><div class="mba__hit">${icon("file", "ic")}<span>Offer letter, signed 4 May</span><em>Found</em></div></div>
-      <button class="mba__subi" type="button" data-call aria-label="Call Subi HR"><span class="mba__rings" aria-hidden="true"><i></i><i></i></span><span class="s-head"><span class="s-scr"><b></b><b></b></span></span><span class="mba__subibody" aria-hidden="true"></span><em>Call Subi HR</em></button>
+      <ul class="mba__cards" aria-hidden="true">${fixes.map(([bad, good], i) => `<li style="--d:${i * 0.22}s"><span class="bf"><i>${icon("close", "ic")}</i>${bad}</span><span class="af"><i>${icon("check", "ic")}</i>${good}</span></li>`).join("")}</ul>
       <span class="mba__floor"></span>
     </div>
   </div>
@@ -151,7 +153,7 @@ function caps(m) {
   <div class="mcap__grid">
     <div class="mcap__stage cast">
       <span class="mcap__grid2" aria-hidden="true"></span><span class="mcap__ring"></span><span class="mcap__ring r2"></span>
-      <span class="mcap__float f1">${icon("users", "ic")}</span><span class="mcap__float f2">${icon("file", "ic")}</span><span class="mcap__float f3">${icon("shield", "ic")}</span><span class="mcap__float f4">${icon("chart", "ic")}</span><span class="mcap__float f5">${icon("clock", "ic")}</span><span class="mcap__float f6">${icon("check", "ic")}</span>
+      <span class="mcap__float f1"><i>${icon("check", "ic")}</i>Profile</span><span class="mcap__float f2"><b>SN</b></span><span class="mcap__float f3"><em></em><em></em><em></em></span><span class="mcap__float f4"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="5"/><circle cx="18" cy="18" r="14" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="64 100" stroke-linecap="round" transform="rotate(-90 18 18)"/></svg></span><span class="mcap__float f5">${icon("sparkles", "ic")}</span><span class="mcap__float f6">New</span>
       <div class="mcap__card" data-card><b data-t>${esc(list[0][0])}</b><p data-d>${esc(list[0][1])}</p></div>
       ${who(byName["Aisha"], 4, "")}
       <span class="mcap__floor"></span>
@@ -173,7 +175,7 @@ function mods(m) {
   const idx = modules.indexOf(m), rel = [1, 2, 3, 4, 5].map((k) => modules[(idx + k) % modules.length]);
   return `<section class="mods" aria-labelledby="h-mods" data-tip="Works better together.">
   <div class="mods__head"><h2 id="h-mods">Works better together.</h2><a class="link link--ink" href="/features/">See all features</a></div>
-  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
+  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><em class="md__go">Try the demo ${icon("arrow", "ic")}</em><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
 </section>`;
 }
 
@@ -194,18 +196,23 @@ function ask(m) {
 }
 
 function meet(m) {
-  return `<section class="meet" aria-labelledby="h-meet" data-tip="Ready? Book a walkthrough.">
-  <div class="meet__wrap">
-    <div class="meet__in">
+  const times = ["10:00", "11:30", "14:00", "16:30"];
+  return `<section class="mbk" aria-labelledby="h-meet" data-tip="Pick a time. It takes thirty minutes.">
+  <div class="mbk__wrap">
+    <div class="mbk__in">
       <h2 id="h-meet">See ${esc(m.name)} with your own data.</h2>
-      <p>A 30-minute walkthrough, built around how your industry really works.</p>
-      <ul class="meet__pts"><li>${icon("check", "ic")}Free, no commitment</li><li>${icon("check", "ic")}Built around your industry</li><li>${icon("check", "ic")}Live in days</li></ul>
-      <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/?module=${m.slug}">Book a free demo</a><a class="link" href="/pricing/">See pricing</a></div>
-      <p class="meet__alt">Different industry? <a class="link" href="/contact/">Tell us how your team works</a>.</p>
+      <p>A 30-minute walkthrough, built around your workforce and your policies.</p>
+      <ul class="mbk__pts"><li>${icon("check", "ic")}Free, no commitment</li><li>${icon("check", "ic")}Built around your industry</li><li>${icon("check", "ic")}Live in days</li></ul>
+      <p class="mbk__alt">Prefer to talk first? <a class="link" href="/contact/">Contact us</a> or see <a class="link" href="/pricing/">pricing</a>.</p>
     </div>
-    <div class="crowd" aria-hidden="true"><i class="crowd__floor"></i>
-      <span class="pop pop1">${icon("check", "ic")}Leave approved</span><span class="pop pop2">${icon("wallet", "ic")}412 payslips sent</span><span class="pop pop3">${icon("clock", "ic")}98% on time</span>
-      ${people.map((p, i) => `<div class="crowd__p" style="--i:${i};--cx:${[4, 15, 27, 61, 73, 38, 50][i]}%;--cy:${[0, 78, 0, 78, 0, 78, 0][i]}px;--cs:${[1.2, 1, 1.2, 1, 1.2, 1, 1.2][i]};--cz:${[2, 1, 2, 1, 2, 1, 2][i]}">${who(p, i, "ppl--wave")}</div>`).join("")}</div>
+    <div class="mbk__who cast" aria-hidden="true"><span class="mbk__say">See you at ${times[1]}!</span><div class="mbk__ppl" data-bkppl>${who(byName["Aisha"], 5, "ppl--wave")}</div></div>
+    <div class="mbk__card" data-bk>
+      <b>Pick a time</b>
+      <div class="mbk__days" data-days></div>
+      <div class="mbk__times" data-times>${times.map((x, i) => `<button type="button" data-time="${x}"${i === 1 ? ' aria-pressed="true"' : ' aria-pressed="false"'}>${x}</button>`).join("")}</div>
+      <a class="mbk__go" href="/book-demo/?module=${m.slug}" data-go>Book this slot ${icon("arrow", "ic")}</a>
+      <small>Your local time. We confirm by email.</small>
+    </div>
   </div>
 </section>`;
 }
@@ -214,7 +221,7 @@ export function modulePage(m, faqItems, ldExtra = "") {
   const path = `/software/${m.slug}/`;
   const description = `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300);
   return `${head(m, path, description)}
-<body class="lo mpage" data-w="it">
+<body class="lo mpage" data-w="it" data-ft="3">
 <script>try{var w=localStorage.getItem("shr-world");if(w)document.body.setAttribute("data-w",w)}catch(e){}</script>
 <script type="application/json" id="mod-story">${JSON.stringify([m.benefits[0], m.benefits[1], m.benefits[2], m.features[3] || m.features[0]].filter(Boolean)).replace(/</g, "\u003c")}</script>
 <script type="application/json" id="mod-data">${JSON.stringify({ faq: faqItems.map(([q, a]) => [q, a]), icons: Object.fromEntries(["file", "folder", "users", "clock", "shield", "calendar", "wallet", "repeat", "chart", "lock", "fingerprint", "camera", "layers", "send", "search", "bot", "dollar", "sparkles", "check", "message", "call", "pin", "dashboard", "alert"].map((k) => [k, icon(k, "ic")])) }).replace(/</g, "\\u003c")}</script>

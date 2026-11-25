@@ -24,11 +24,15 @@ export function navMenu(active = "") {
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>`;
 }
 
-/* Day / night switch: a small sun that becomes a moon, breathing and blinking like the characters on the home page. */
-const face = '<g class="tf"><ellipse class="te" cx="19" cy="23" rx="2" ry="2.6"/><ellipse class="te" cx="29" cy="23" rx="2" ry="2.6"/><path d="M19.5 29.5c1.4 1.7 7.6 1.7 9 0" fill="none" stroke-width="2" stroke-linecap="round"/><circle class="tc" cx="15" cy="28" r="2"/><circle class="tc" cx="33" cy="28" r="2"/></g>';
+/* Day / night switch: a little sky you can slide. The sun and the moon are the same friendly face that breathes and blinks. */
+const eyes = '<ellipse class="te" cx="19" cy="23" rx="2" ry="2.7"/><ellipse class="te" cx="29" cy="23" rx="2" ry="2.7"/><path class="tm" d="M19.5 29.5c1.4 1.8 7.6 1.8 9 0" fill="none" stroke-width="2" stroke-linecap="round"/><circle class="tc" cx="14.5" cy="28" r="2.1"/><circle class="tc" cx="33.5" cy="28" r="2.1"/>';
 export function themeFab() {
-  return `<button class="tmode" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night"><span class="tmode__orb">
-  <svg class="tmode__sun" viewBox="0 0 48 48" aria-hidden="true"><g class="rays">${Array.from({ length: 8 }, (_, i) => `<rect x="22.4" y="1.5" width="3.2" height="6.5" rx="1.6" transform="rotate(${i * 45} 24 24)"/>`).join("")}</g><circle class="body" cx="24" cy="24" r="12.5"/>${face}</svg>
-  <svg class="tmode__moon" viewBox="0 0 48 48" aria-hidden="true"><circle class="body" cx="24" cy="24" r="14"/><circle class="cr" cx="33" cy="17" r="2.6"/><circle class="cr" cx="14.5" cy="31" r="2"/><circle class="cr" cx="31.5" cy="33.5" r="1.5"/><circle class="star" cx="38" cy="12" r="1.6"/><circle class="star" cx="42" cy="21" r="1.1"/>${face}</svg>
-  </span><span class="tmode__tip"><b class="d">Night mode</b><b class="n">Day mode</b></span></button>`;
+  return `<button class="tg2" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night">
+  <span class="tg2__sky" aria-hidden="true"><i class="c c1"></i><i class="c c2"></i><i class="st s1"></i><i class="st s2"></i><i class="st s3"></i><i class="st s4"></i><i class="st s5"></i></span>
+  <span class="tg2__knob" aria-hidden="true">
+    <svg class="sun" viewBox="0 0 48 48"><g class="rays">${Array.from({ length: 8 }, (_, i) => `<rect x="22.6" y="0.5" width="2.8" height="6" rx="1.4" transform="rotate(${i * 45} 24 24)"/>`).join("")}</g><circle class="body" cx="24" cy="24" r="13"/>${eyes}</svg>
+    <svg class="moon" viewBox="0 0 48 48"><circle class="body" cx="24" cy="24" r="15"/><circle class="cr" cx="33.5" cy="16.5" r="3"/><circle class="cr" cx="14" cy="32" r="2.3"/><circle class="cr" cx="31" cy="35" r="1.7"/>${eyes}</svg>
+  </span>
+  <span class="tg2__lbl" aria-hidden="true"><b class="d">Day</b><b class="n">Night</b></span>
+</button>`;
 }
