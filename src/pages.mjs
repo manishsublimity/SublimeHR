@@ -1,6 +1,6 @@
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
-import { heroCast, crowd, baSwitch } from "./cast.mjs";
+import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
 import { clockW, leaveW, payrollW, permW, hereW, rosterW, letterW, visitorW, storyW, chatW, homeFaqItems, vsCompare, heroArt, moduleWidget } from "./widgets.mjs";
 
 const more8 = (base, ids) => { const out = [...base], seen = new Set(out.map(([q]) => q)); for (const id of ids) for (const qa of faqs.find((g) => g.id === id).items) { if (out.length >= 8) break; if (!seen.has(qa[0])) { seen.add(qa[0]); out.push(qa); } } return out; };
@@ -244,8 +244,9 @@ const CASTS = [
   [["Sara", "QA lead"], ["Aisha", "Developer"], ["Karan", "Finance"]]
 ];
 function moduleCast(m, idx) {
-  const notes = [m.features[0], m.features[1]].map((f) => f.length > 34 ? f.slice(0, 32).replace(/[\s,&-]+\S*$/, "") + "…" : f);
-  return heroCast(CASTS[idx % CASTS.length], notes);
+  const cut = (f) => (f.length > 30 ? f.slice(0, 28).replace(/[\s,&-]+\S*$/, "") + "…" : f);
+  const cast = CASTS[idx % CASTS.length].map((c, i) => (i === 0 ? [c[0], c[1], "ppl--wave"] : c));
+  return heroCast(cast, [m.features[0], m.features[1]], [cut(m.benefits[0]), cut(m.benefits[1] || m.features[2]), cut(m.benefits[2] || m.features[3])]);
 }
 export function moduleDetail(m) {
   const path = `/software/${m.slug}/`;
@@ -273,14 +274,14 @@ ${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][i
 <section class="section">
   <div class="container">
     ${sHead({ eyebrow: "Everything included", title: `${m.features.length} capabilities, ready on day one`, lead: "Configured to your policies — no code, no add-ons." })}
-    <ul class="caps rv">${m.features.map((f) => `<li><span class="ck">${icon("check")}</span>${f}</li>`).join("")}</ul>
+    ${capSpot(m)}
   </div>
 </section>
 
 <section class="section cream">
   <div class="container">
     ${sHead({ eyebrow: "Real-world scenarios", tone: "butter", title: `Where ${m.name.toLowerCase()} shines` })}
-    <div class="grid g3">${m.useCases.map((u, i) => `<div class="scen rv" style="--d:${i * 70}ms"><span class="no" aria-hidden="true">0${i + 1}</span><span class="lbl">${icon(["building", "users", "zap"][i])}Scenario ${i + 1}</span><p>${u}</p></div>`).join("")}</div>
+    ${flipCards(m)}
   </div>
 </section>
 

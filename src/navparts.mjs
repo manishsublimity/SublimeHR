@@ -29,6 +29,6 @@ const face = '<g class="tf"><ellipse class="te" cx="19" cy="23" rx="2" ry="2.6"/
 export function themeFab() {
   return `<button class="tmode" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night"><span class="tmode__orb">
   <svg class="tmode__sun" viewBox="0 0 48 48" aria-hidden="true"><g class="rays">${Array.from({ length: 8 }, (_, i) => `<rect x="22.4" y="1.5" width="3.2" height="6.5" rx="1.6" transform="rotate(${i * 45} 24 24)"/>`).join("")}</g><circle class="body" cx="24" cy="24" r="12.5"/>${face}</svg>
-  <svg class="tmode__moon" viewBox="0 0 48 48" aria-hidden="true"><path class="body" d="M36 30.5A15 15 0 1 1 20.5 9a12 12 0 0 0 15.5 21.5z"/><circle class="cr" cx="17" cy="30" r="2.2"/><circle class="cr" cx="24.5" cy="36" r="1.5"/><circle class="star" cx="38" cy="12" r="1.6"/><circle class="star" cx="42" cy="21" r="1.1"/>${face.replace(/cx="19"/, 'cx="17"').replace(/cx="29"/, 'cx="25"')}</svg>
+  <svg class="tmode__moon" viewBox="0 0 48 48" aria-hidden="true"><circle class="body" cx="24" cy="24" r="14"/><circle class="cr" cx="33" cy="17" r="2.6"/><circle class="cr" cx="14.5" cy="31" r="2"/><circle class="cr" cx="31.5" cy="33.5" r="1.5"/><circle class="star" cx="38" cy="12" r="1.6"/><circle class="star" cx="42" cy="21" r="1.1"/>${face}</svg>
   </span><span class="tmode__tip"><b class="d">Night mode</b><b class="n">Day mode</b></span></button>`;
 }

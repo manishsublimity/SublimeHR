@@ -1853,3 +1853,7 @@ html[data-theme="dark"] body.lo main > section.meet { filter: none; }
 html[data-theme="dark"] body.lo footer { filter: none; background: #0B1730; color: #B9C4D8; }
 html[data-theme="dark"] body.lo footer h2 { color: #fff; } html[data-theme="dark"] body.lo footer a { color: #B9C4D8; } html[data-theme="dark"] body.lo footer .footer__bar { border-color: rgba(255,255,255,.14); color: #8E9BB3; }
 html[data-theme="dark"] body.lo .meet .ppl { filter: none; }
+
+/* hover panel keeps the icon and the title visible */
+.md { min-height: 282px; } .md ul { top: 134px; bottom: 0; display: grid; align-content: center; } .md .md__ic, .md b { position: relative; z-index: 2; }
+html[data-theme="dark"] body.lo .footer__word { opacity: .08; }

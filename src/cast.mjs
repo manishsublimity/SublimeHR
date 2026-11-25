@@ -24,14 +24,13 @@ const byName = Object.fromEntries(people.map((p) => [p.n, p]));
 const tag = (n, role) => `<span class="ctag"><b>${n}</b> ${role}</span>`;
 
 /* the little office in a page hero: a perspective floor, two or three people with name tags, sticky notes, a wall clock */
-export function heroCast(cast, notes = [], clock = true) {
+export function heroCast(cast, notes = [], lines = []) {
   const slots = cast.map(([name, role, extra = ""], i) => {
     const p = byName[name];
-    return `<div class="cslot cs-${i}">${who(p, i, extra)}${tag(name, role)}</div>`;
+    return `<div class="cslot cs-${i}">${lines[i] ? `<span class="cbub" style="--bd:${i * 3.2}s">${lines[i]}</span>` : ""}${who(p, i, extra)}${tag(name, role)}</div>`;
   }).join("");
   const sticky = notes.map((n, i) => `<span class="cnote cn-${i}">${n}</span>`).join("");
-  const clk = clock ? '<span class="cclock" aria-hidden="true"><i class="h"></i><i class="m"></i></span>' : "";
-  return `<div class="cast cscene" aria-hidden="true"><span class="cfloor"></span>${clk}${sticky}${slots}</div>`;
+  return `<div class="cast cscene" aria-hidden="true"><span class="cfloor"></span>${sticky}${slots}</div>`;
 }
 
 /* a crowd for the closing band */
@@ -60,4 +59,20 @@ export function baSwitch(m) {
   </div>
   <script>(function(){var r=document.currentScript.parentNode,t=r.querySelectorAll("[data-s]"),iv;function set(s){r.setAttribute("data-state",s);t.forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.s===s))})}t.forEach(function(b){b.addEventListener("click",function(){clearInterval(iv);set(b.dataset.s)})});if(!matchMedia("(prefers-reduced-motion: reduce)").matches)iv=setInterval(function(){set(r.getAttribute("data-state")==="before"?"after":"before")},4800)})();</script>
 </div>`;
+}
+
+
+/* capability spotlight: a person says each capability in turn while the matching tile lights up */
+export function capSpot(m) {
+  return `<div class="capx" data-capx>
+  <div class="capx__stage cast" aria-hidden="true"><span class="capx__ring"></span><span class="capx__ring r2"></span><span class="capx__say" data-say>${m.features[0]}</span>${who(byName["Aisha"], 1, "ppl--wave")}<span class="capx__floor"></span></div>
+  <ul class="capx__list">${m.features.map((f, i) => `<li data-i="${i}"${i === 0 ? ' class="on"' : ""}><span class="ck">${icon("check")}</span><span>${f}</span></li>`).join("")}</ul>
+</div>`;
+}
+
+/* scenario cards that turn over on their own: the situation on the front, what SublimeHR does about it on the back */
+export function flipCards(m) {
+  return `<div class="flipx" data-flipx>${m.useCases.map((u, i) => `<button type="button" class="fcard fc-${i}" aria-pressed="false"><span class="fcard__in">
+    <span class="fcard__f"><small>${icon(["building", "users", "zap"][i])}Scenario ${i + 1}</small><b>${u}</b><i class="fcard__tap">${icon("repeat")}</i></span>
+    <span class="fcard__b"><small>${icon("sparkles")}What SublimeHR does</small><b>${m.features[(i * 3 + 1) % m.features.length]}</b><i class="fcard__tap">${icon("check")}</i></span></span></button>`).join("")}</div>`;
 }
