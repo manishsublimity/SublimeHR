@@ -616,3 +616,4 @@
 .awhy__big { position: absolute; right: -30px; bottom: -34px; width: 230px; height: 230px; opacity: .12; } .awhy__big .ic { width: 100%; height: 100%; stroke-width: 1.1; }
 @media (max-width: 1180px) { .abt { grid-template-columns: 1fr; } .aoff__grid, .awhy { grid-template-columns: 1fr; } }
 .awhy__c .abt__tag { justify-self: start; }
+.abt__copy h2 { margin-top: 0; }

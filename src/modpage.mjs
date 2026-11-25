@@ -520,7 +520,7 @@ const OTONE = ["#3558F5", "#FF8A70", "#F5B500", "#45C4B0", "#7A5CF0"];
 
 function aboutStory() {
   return `<section class="abt" id="try" aria-labelledby="h-abt" data-tip="Our story, in numbers.">
-  <div class="abt__copy"><span class="abt__tag"><i></i>Our story</span><h2 id="h-abt">One platform for the work behind your people.</h2>
+  <div class="abt__copy"><h2 id="h-abt">One platform for the work behind your people.</h2>
     <p class="abt__lead">SublimeHR helps businesses streamline attendance, leave, shift scheduling, employee records, payroll and day-to-day HR operations through a single, intuitive platform.</p>
     <p>Whether you're a growing startup, a mid-sized business or a large enterprise, our goal is to eliminate manual processes, reduce admin overhead, and give your team more time for what matters most: growing your business.</p></div>
   <div class="abt__stats" data-count-box>
