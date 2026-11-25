@@ -278,7 +278,7 @@ const peeks = [
   ["What if payroll was ready before the month ended?", "Attendance, leave and overtime flow in as they happen. Run it once and every phone gets a payslip.", "412 payslips sent", "ink"],
   ["Who is in the building right now?", "Staff and visitors, live. Badges print at the door and hosts get a ping the moment a guest arrives.", "In the building: 38", "white"]
 ];
-const stops = [
+const stopsDefault = [
   [7, "08:45", "Clock in", "Selfie and GPS match, so the day starts on time."],
   [24, "10:30", "Leave request", "Approved in one tap and the balance updates itself."],
   [41, "13:00", "Shift swap", "Two colleagues trade and the rota fixes itself."],
@@ -394,9 +394,10 @@ export function movieSection() {
 </section>`;
 }
 
-export function daySection() {
+export function daySection(o = {}) {
+  const stops = o.stops || stopsDefault;
   return `<section class="day" aria-labelledby="h-day" data-day data-tip="Watch Aisha walk through a working day.">
-  <div class="day__head"><h2 id="h-day">One day, from clock-in to payslip.</h2><p>Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets.</p></div>
+  <div class="day__head"><h2 id="h-day">${o.title || "One day, from clock-in to payslip."}</h2><p>${o.lead || "Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets."}</p></div>
   <div class="day__track" data-track>
     <div class="day__line"><i data-prog></i></div>
     ${stops.map(([l, t, h, p], i) => `<div class="stp ${i % 2 ? "dn" : "up"}" style="--l:${l}%"><div class="stp__c"><small>${t}</small><b>${h}</b><span>${p}</span></div><i class="stp__d"></i></div>`).join("")}

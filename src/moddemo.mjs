@@ -172,6 +172,6 @@ const field = (d) => wrap(d, "field", `
 
 export function demoSection(m, d) {
   if (m.slug === "employee-self-service") return `<div class="cast mhome" id="try">${movieSection()}</div>`;
-  if (m.slug === "mobile-workforce") return field({ title: "Follow Ravi's day, stop by stop.", lead: "A field engineer, three sites and one phone. Tap a stop, or let it play. See what the app records when the signal drops and when it comes back.", stops: [["08:00", "Depot"], ["10:15", "Client visit"], ["12:30", "No signal"], ["13:10", "Back online"], ["16:00", "Approvals"], ["18:05", "Clock out"]] });
+  if (m.slug === "mobile-workforce") return `<div class="cast mhome" id="try">${daySection({ title: "One day on the road, from depot to payslip.", lead: "Follow a field engineer from the first punch to the last. Every stop is a moment where the phone replaces a call, a sheet or a trip back to the office.", stops: [[7, "08:00", "Depot punch-in", "Fingerprint and GPS, checked against the site fence."], [24, "10:15", "Client visit", "Check-in, a site photo and the visit is on record."], [41, "12:30", "No signal", "Punches are kept on the phone, nothing is lost."], [58, "13:10", "Back online", "Everything syncs with the original times."], [75, "16:00", "Approvals on the go", "Fuel claim and leave approved from the road."], [92, "18:05", "Clock out", "Hours, overtime and payslip update on their own."]] })}</div>`;
   return ({ punch, leave, payroll, chart, phone, roles, roster, visitor })[d.type](d);
 }
