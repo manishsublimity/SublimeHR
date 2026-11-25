@@ -186,37 +186,43 @@
   };
   $$("[data-show]", gMenu).forEach(function (b) { b.addEventListener("click", async function () { menu(false); if (gBusy) return; gBusy = true; var f = shows[b.getAttribute("data-show")]; try { if (f) await f(); } catch (e) {} gBusy = false; }); });
 
-  /* ================= before / after: the floating Subi flies over, listens, fixes it, and she relaxes ================= */
+  /* ================= before / after: she asks Subi for help, Subi goes through the problems one by one, then she relaxes ================= */
   (function () {
     var r = $("[data-mba]"); if (!r) return;
-    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), lady = $(".mba__lady .ppl", r), auto = true, token = 0, shown = false;
-    var lines = { before: "Where is that file again?", fix: "Oh, thank you!", after: "Found it. One click." };
+    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), lady = $(".mba__lady .ppl", r), cards = $$(".mba__cards li", r), prog = $("[data-prog]", r), auto = true, token = 0, shown = false;
     function set(step) {
       r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step);
       tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(step === "after" ? b.dataset.s === "after" : b.dataset.s === "before")); });
-      bsay.textContent = lines[step] || lines.before;
-      if (lady) { lady.setAttribute("data-pose", step === "after" ? "wave" : "rest"); lady.classList.toggle("ppl--wave", step === "after"); talk(lady, 2400); }
+      if (lady) { lady.setAttribute("data-pose", { before: "rest", ask: "point", work: "hips", after: "wave" }[step] || "rest"); lady.classList.toggle("ppl--wave", step === "after"); }
       if (step === "after") Snd.chime();
     }
+    function lsay(text, ms) { bsay.textContent = text; bsay.classList.remove("on"); void bsay.offsetWidth; bsay.classList.add("on"); talk(lady, ms || 2200); }
+    function resetCards() { cards.forEach(function (c) { c.classList.remove("fixed"); }); prog.textContent = "Waiting for the file…"; prog.classList.remove("done"); }
     function alive(t) { return t === token; }
+    function atCard(c) { var rc = c.getBoundingClientRect(); return { x: rc.left + rc.width * .5, y: rc.top + rc.height * .5 }; }
+    async function visit(c) { var pt = atCard(c); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, pt.x - 22)), Math.max(70, Math.min(window.innerHeight - 140, pt.y - 40))); await wait(850); c.classList.add("fixed"); Snd.tick(); }
     async function play(manual) {
       var t = ++token;
       if (gBusy && !manual) return;
-      gBusy = true; menu(false); set("before"); guide.classList.add("mplay"); await wait(500); if (!alive(t)) return;
-      await flyTo(scene, .86, .08); if (!alive(t)) return; guide.classList.add("mhi"); setTimeout(function () { guide.classList.remove("mhi"); }, 1400); Snd.pop();
-      guideSay("Hi, I'm Subi. What's the trouble?", 2600); await wait(1900); if (!alive(t)) return;
-      bsay.textContent = "Where is that file again?"; talk(lady, 2000); await wait(2300); if (!alive(t)) return;
-      await flyTo(scene, .47, .52); if (!alive(t)) return;
-      set("fix"); guide.classList.add("msearch"); guideSay("Let me find it. One moment…", 2200); await wait(2300); if (!alive(t)) return; guide.classList.remove("msearch");
-      set("after"); guideSay("Found it. Everything is on her record now.", 3000); await wait(3400); if (!alive(t)) return;
+      gBusy = true; menu(false); resetCards(); set("before"); guide.classList.add("mplay"); lsay("Where is that file again?", 2200); await wait(1800); if (!alive(t)) return;
+      await flyTo(scene, .84, .1); if (!alive(t)) return; guide.classList.add("mhi"); setTimeout(function () { guide.classList.remove("mhi"); }, 1400); Snd.pop();
+      guideSay("Hi, I'm Subi. Need a hand?", 2200); await wait(1900); if (!alive(t)) return;
+      set("ask"); lsay("Subi, find Sara's signed offer letter, please!", 3200); await wait(3400); if (!alive(t)) return;
+      guideSay("On it! Fixing it all.", 1800); set("work"); guide.classList.add("msearch");
+      var order = [0, 3, 1, 4, 2]; var done = 0;
+      for (var i = 0; i < order.length; i++) { if (!alive(t)) return; prog.textContent = "Subi is on it · " + (done + 1) + " of " + cards.length; await visit(cards[order[i]]); done++; }
+      cards.forEach(function (c) { c.classList.add("fixed"); }); prog.textContent = "All " + cards.length + " fixed"; prog.classList.add("done"); guide.classList.remove("msearch");
+      await wait(600); if (!alive(t)) return;
+      var lr = $(".mba__lady", r).getBoundingClientRect(); gFly = true; gPlace(Math.max(8, lr.left + lr.width + 6), Math.max(70, lr.top + 6)); await wait(1100); if (!alive(t)) return;
+      set("after"); guideSay("All done. Everything is on her record.", 3000); lsay("Found it. Thank you, Subi!", 3000); await wait(3600); if (!alive(t)) return;
       gHome(); guide.classList.remove("mplay", "msearch", "mhi"); await wait(900); gBusy = false;
     }
-    tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; token++; if (b.dataset.s === "after") { gBusy = false; play(true); } else { set("before"); if (gBusy) { gHome(); gBusy = false; } } }); });
+    tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; token++; guide.classList.remove("mplay", "msearch", "mhi"); if (b.dataset.s === "after") { gBusy = false; play(true); } else { resetCards(); set("before"); lsay("Where is that file again?", 2000); if (gBusy) { gHome(); gBusy = false; } } }); });
     mbaApi = { play: function () { auto = false; return play(true); } };
-    if (reduce) { set("after"); return; }
+    if (reduce) { cards.forEach(function (c) { c.classList.add("fixed"); }); set("after"); return; }
     var loopTimer;
-    function cycle() { clearTimeout(loopTimer); if (!auto || !shown) return; play(false).then(function () { loopTimer = setTimeout(function () { if (auto && shown) { set("before"); loopTimer = setTimeout(cycle, 2600); } }, 5200); }); }
-    vis(r, function (on) { shown = on; if (on && auto) { setTimeout(cycle, 900); } else { clearTimeout(loopTimer); if (!on && gBusy && auto) { token++; gHome(); gBusy = false; } } }, .5);
+    function cycle() { clearTimeout(loopTimer); if (!auto || !shown) return; play(false).then(function () { loopTimer = setTimeout(function () { if (auto && shown) { resetCards(); set("before"); loopTimer = setTimeout(cycle, 2600); } }, 5200); }); }
+    vis(r, function (on) { shown = on; if (on && auto) { setTimeout(cycle, 900); } else { clearTimeout(loopTimer); if (!on && gBusy && auto) { token++; gHome(); guide.classList.remove("mplay", "msearch", "mhi"); gBusy = false; } } }, .5);
   })();
 
   /* ================= closing band: pick a time ================= */

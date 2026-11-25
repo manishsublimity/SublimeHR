@@ -24,15 +24,13 @@ export function navMenu(active = "") {
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>`;
 }
 
-/* Day / night switch: a little sky you can slide. The sun and the moon are the same friendly face that breathes and blinks. */
-const eyes = '<ellipse class="te" cx="19" cy="23" rx="2" ry="2.7"/><ellipse class="te" cx="29" cy="23" rx="2" ry="2.7"/><path class="tm" d="M19.5 29.5c1.4 1.8 7.6 1.8 9 0" fill="none" stroke-width="2" stroke-linecap="round"/><circle class="tc" cx="14.5" cy="28" r="2.1"/><circle class="tc" cx="33.5" cy="28" r="2.1"/>';
+/* Day / night switch: a little pull-cord lamp that hangs at the edge of the page. Pull it and the lights go to night. */
 export function themeFab() {
-  return `<button class="tg2" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night">
-  <span class="tg2__sky" aria-hidden="true"><i class="c c1"></i><i class="c c2"></i><i class="st s1"></i><i class="st s2"></i><i class="st s3"></i><i class="st s4"></i><i class="st s5"></i></span>
-  <span class="tg2__knob" aria-hidden="true">
-    <svg class="sun" viewBox="0 0 48 48"><g class="rays">${Array.from({ length: 8 }, (_, i) => `<rect x="22.6" y="0.5" width="2.8" height="6" rx="1.4" transform="rotate(${i * 45} 24 24)"/>`).join("")}</g><circle class="body" cx="24" cy="24" r="13"/>${eyes}</svg>
-    <svg class="moon" viewBox="0 0 48 48"><circle class="body" cx="24" cy="24" r="15"/><circle class="cr" cx="33.5" cy="16.5" r="3"/><circle class="cr" cx="14" cy="32" r="2.3"/><circle class="cr" cx="31" cy="35" r="1.7"/>${eyes}</svg>
-  </span>
-  <span class="tg2__lbl" aria-hidden="true"><b class="d">Day</b><b class="n">Night</b></span>
+  return `<button class="lamp" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Pull the cord: day or night">
+  <span class="lamp__cord" aria-hidden="true"></span>
+  <span class="lamp__shade" aria-hidden="true"><i class="le lL"></i><i class="le lR"></i><i class="lm"></i><i class="lc lL"></i><i class="lc lR"></i></span>
+  <span class="lamp__bulb" aria-hidden="true"></span><span class="lamp__beam" aria-hidden="true"></span>
+  <span class="lamp__chain" aria-hidden="true"><i></i></span>
+  <span class="lamp__tip" aria-hidden="true"><b class="d">Pull for night</b><b class="n">Pull for day</b></span>
 </button>`;
 }

@@ -68,3 +68,29 @@ html[data-theme="dark"] .tg2__knob { transform: translateX(74px); animation-name
 .tg2__lbl { right: 12px; left: auto; height: auto; top: 50%; transform: translateY(-50%); padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.92); color: #14213D; font: 800 13px/1 "Figtree", sans-serif; letter-spacing: .03em; box-shadow: 0 6px 10px -6px rgba(20,33,61,.5); text-transform: uppercase; }
 html[data-theme="dark"] .tg2__lbl { left: 12px; right: auto; background: rgba(255,255,255,.14); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
 .tg2 .st { width: 4px; height: 4px; } .tg2__sky .s1 { left: 70px; top: 10px; } .tg2__sky .s2 { left: 92px; top: 40px; } .tg2__sky .s3 { left: 104px; top: 18px; } .tg2__sky .s4 { left: 84px; top: 22px; } .tg2__sky .s5 { left: 116px; top: 36px; }
+
+/* ---------- day / night: a pull-cord lamp that hangs at the edge of the page ---------- */
+.tg2 { display: none; }
+.lamp { position: fixed; z-index: 72; left: 14px; top: 0; width: 56px; height: 190px; padding: 0; border: 0; background: none; cursor: pointer; transform-origin: 50% 0; animation: lsway 5.5s ease-in-out infinite alternate; -webkit-tap-highlight-color: transparent; }
+@keyframes lsway { from { transform: rotate(-2.4deg); } to { transform: rotate(2.4deg); } }
+.lamp__cord { position: absolute; left: 27px; top: 0; width: 2px; height: 78px; background: linear-gradient(180deg, #A9B2C6, #7C86A0); }
+.lamp__shade { position: absolute; left: 4px; top: 76px; width: 48px; height: 36px; border-radius: 26px 26px 6px 6px / 30px 30px 6px 6px; background: #FFD05A; box-shadow: inset 0 -5px 0 rgba(20,33,61,.13), inset 0 3px 0 rgba(255,255,255,.35), 0 8px 12px -6px rgba(20,33,61,.45); transition: background .5s, box-shadow .5s; }
+.lamp__shade .le { position: absolute; top: 14px; width: 5px; height: 8px; border-radius: 50%; background: #14213D; animation: lblink 5s infinite; } .lamp__shade .lL { left: 14px; } .lamp__shade .lR { right: 14px; }
+.lamp__shade .lm { position: absolute; left: 50%; top: 24px; width: 10px; height: 5px; margin-left: -5px; border-bottom: 2.5px solid #14213D; border-radius: 0 0 10px 10px; transition: width .3s, margin .3s; }
+.lamp__shade .lc { position: absolute; top: 22px; width: 6px; height: 4px; border-radius: 50%; background: #FF8E7A; opacity: .55; } .lamp__shade .lL.lc { left: 6px; } .lamp__shade .lR.lc { right: 6px; }
+.lamp__bulb { position: absolute; left: 21px; top: 110px; width: 14px; height: 11px; border-radius: 0 0 50% 50%; background: #FFF6CE; box-shadow: 0 2px 4px rgba(20,33,61,.25); transition: background .5s, box-shadow .6s; }
+.lamp__beam { position: absolute; left: -48px; top: 118px; width: 152px; height: 250px; clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); background: linear-gradient(180deg, rgba(255,226,130,.5), rgba(255,226,130,0)); opacity: 0; transition: opacity .7s; pointer-events: none; }
+.lamp__chain { position: absolute; left: 41px; top: 106px; width: 2px; height: 46px; background: #B7BED0; transition: transform .25s cubic-bezier(.34,1.8,.5,1); transform-origin: 50% 0; }
+.lamp__chain i { position: absolute; left: -4px; bottom: -9px; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 2px 5px rgba(20,33,61,.4), inset 0 -2px 0 rgba(20,33,61,.15); }
+.lamp:hover .lamp__chain { transform: translateY(5px); } .lamp:active .lamp__chain { transform: translateY(14px); }
+.lamp__tip { position: absolute; left: 62px; top: 94px; padding: 8px 14px; border-radius: 999px; background: #14213D; color: #fff; font: 700 13px/1 "Figtree", sans-serif; white-space: nowrap; opacity: 0; transform: translateX(-8px); transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1); pointer-events: none; box-shadow: 0 10px 16px -8px rgba(0,0,0,.5); } .lamp__tip .n { display: none; }
+.lamp:hover .lamp__tip, .lamp:focus-visible .lamp__tip { opacity: 1; transform: none; }
+html[data-theme="dark"] .lamp__shade { background: #FFC233; box-shadow: inset 0 -5px 0 rgba(20,33,61,.13), inset 0 3px 0 rgba(255,255,255,.4), 0 0 28px 6px rgba(255,200,70,.45); }
+html[data-theme="dark"] .lamp__bulb { background: #FFFBE0; box-shadow: 0 0 18px 8px rgba(255,226,130,.85), 0 0 46px 20px rgba(255,200,70,.4); }
+html[data-theme="dark"] .lamp__beam { opacity: 1; }
+html[data-theme="dark"] .lamp__shade .le { height: 3px; border-radius: 0; background: none; border-top: 2.5px solid #14213D; border-radius: 6px 6px 0 0; animation: none; top: 17px; }
+html[data-theme="dark"] .lamp__shade .lm { width: 14px; margin-left: -7px; height: 7px; }
+html[data-theme="dark"] .lamp__tip { background: #FFE9A8; color: #14213D; } html[data-theme="dark"] .lamp__tip .d { display: none; } html[data-theme="dark"] .lamp__tip .n { display: inline; }
+@keyframes lblink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@media (prefers-reduced-motion: reduce) { .lamp, .lamp__shade .le { animation: none; } }
+@media (max-width: 760px) { .lamp { transform: scale(.8); transform-origin: 50% 0; left: 6px; } }

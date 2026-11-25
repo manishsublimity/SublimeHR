@@ -63,6 +63,7 @@ function head(m, path, description) {
 <link rel="stylesheet" href="/assets/css/mod3.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod4.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod5.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mod6.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -136,12 +137,13 @@ function before(m) {
       <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul></div>
     </div>
     <div class="mba__scene cast">
-      <span class="mba__dots" aria-hidden="true"></span><span class="mba__glow" aria-hidden="true"></span><span class="mba__beam" aria-hidden="true"></span>
-      <span class="mba__cloud" aria-hidden="true"><i></i><u></u><u></u><u></u><u></u></span>
+      <span class="mba__dots" aria-hidden="true"></span><span class="mba__glow" aria-hidden="true"></span>
+      <span class="mba__papers" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
       <span class="mba__say" data-bsay>Where is that file again?</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
       <ul class="mba__cards" aria-hidden="true">${fixes.map(([bad, good], i) => `<li class="k${i}" style="--d:${i * 0.16}s"><span class="bf"><i>${icon("close", "ic")}</i>${bad}</span><span class="af"><i>${icon("check", "ic")}</i>${good}</span></li>`).join("")}</ul>
+      <span class="mba__prog" data-prog aria-hidden="true">Waiting for the file…</span>
       <span class="mba__floor"></span>
     </div>
   </div>
