@@ -1,6 +1,7 @@
 // The live demo of each module page. Every demo plays by itself and stops when the visitor takes over (see mod3.js).
 import { icon } from "./icons.mjs";
 import { who, people } from "./cast.mjs";
+import { movieSection, daySection } from "./home2.mjs";
 
 const byName = Object.fromEntries(people.map((p) => [p.n, p]));
 const esc = (s = "") => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -71,13 +72,20 @@ const payroll = (d) => wrap(d, "payroll", `
     <label>Basic salary <output data-o="0"></output><input type="range" data-s="0" min="2000" max="9000" step="100" value="4200"></label>
     <label>Overtime hours <output data-o="1"></output><input type="range" data-s="1" min="0" max="30" step="1" value="6"></label>
     <label>Unpaid leave days <output data-o="2"></output><input type="range" data-s="2" min="0" max="6" step="1" value="1"></label>
+    <label>Bonus <output data-o="3"></output><input type="range" data-s="3" min="0" max="1500" step="50" value="0"></label>
+    <label>Advance recovery <output data-o="4"></output><input type="range" data-s="4" min="0" max="1000" step="50" value="0"></label>
     <p class="dmx__hint">Allowances are 25% of basic. Overtime is paid at 1.25 times.</p>
+    <div class="dmx__run"><div class="dmx__runhead"><b>Payroll run, April</b><span data-runtxt>Step 0 of 4</span></div>
+      <ol data-run><li><i>${icon("check", "ic")}</i>Attendance locked</li><li><i>${icon("check", "ic")}</i>Overtime approved</li><li><i>${icon("check", "ic")}</i>Deductions checked</li><li><i>${icon("check", "ic")}</i>Payslips released</li></ol>
+      <div class="dmx__runbar"><i data-runbar></i></div></div>
   </div>
   <div class="dmx__r dmx__slip">
     <div class="dmx__sliphead"><span>${icon("wallet", "ic")}</span><div><b>Salary slip, April</b><small>Aisha Khan · EMP-0142</small></div></div>
     <ul data-lines></ul>
     <div class="dmx__net"><span>Net pay</span><b data-net>0</b></div>
     <div class="dmx__split" data-split><i></i><i></i><i></i></div>
+    <div class="dmx__legend2"><span><i class="a"></i>Basic</span><span><i class="b"></i>Allowances</span><span><i class="c"></i>Overtime and bonus</span></div>
+    <button class="dmx__send dmx__send--s" type="button" data-release>Release payslips ${icon("send", "ic")}</button>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Let me check my slip.</span><div class="dmx__ppl">${who(byName["Aisha"], 1, "")}</div></div>`);
 
@@ -86,11 +94,18 @@ const chart = (d) => wrap(d, "chart", `
     <div class="dmx__pills" data-pills role="group" aria-label="Question"><button type="button" data-k="0" aria-pressed="true">Who is late?</button><button type="button" data-k="1" aria-pressed="false">Attendance this month</button><button type="button" data-k="2" aria-pressed="false">What does payroll cost?</button></div>
     <div class="dmx__chart" data-chart></div>
     <div class="dmx__axis" data-axis></div>
+    <div class="dmx__kpis" data-kpis></div>
   </div>
   <div class="dmx__r dmx__insight">
     <b data-ititle>Late arrivals by weekday</b>
     <p data-itext>Mondays and Fridays are the worst. Share the report with department heads.</p>
     <div class="dmx__chips" data-ichips></div>
+    <div class="dmx__acts"><small>What do you want to do with it?</small>
+      <button type="button" data-act><i>${icon("users", "ic")}</i><span>Share with department heads</span><em>Share</em></button>
+      <button type="button" data-act><i>${icon("repeat", "ic")}</i><span>Email it every Monday</span><em>Schedule</em></button>
+      <button type="button" data-act><i>${icon("file", "ic")}</i><span>Download as PDF or Excel</span><em>Export</em></button>
+    </div>
+    <div class="dmx__acts"><small>Also ready to run</small><div class="dmx__chips"><em>Attendance summary</em><em>Leave balances</em><em>Payroll register</em><em>Headcount trend</em></div></div>
     <span class="dmx__live">${icon("check", "ic")}Live data. Tamper-proof history.</span>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>What do the numbers say?</span><div class="dmx__ppl">${who(byName["Karan"], 1, "")}</div></div>`);
@@ -135,5 +150,7 @@ const visitor = (d) => wrap(d, "visitor", `
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Welcome!</span><div class="dmx__ppl">${who(byName["Nadia"], 1, "ppl--wave")}</div></div>`);
 
 export function demoSection(m, d) {
+  if (m.slug === "employee-self-service") return `<div class="cast mhome" id="try">${movieSection()}</div>`;
+  if (m.slug === "mobile-workforce") return `<div class="cast mhome" id="try">${daySection()}</div>`;
   return ({ punch, leave, payroll, chart, phone, roles, roster, visitor })[d.type](d);
 }

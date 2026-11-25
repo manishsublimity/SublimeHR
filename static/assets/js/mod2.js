@@ -34,7 +34,7 @@
       chime: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, .5, "triangle", .11, i * .09); }); },
       blip: function (base) { var n = 4 + Math.floor(Math.random() * 4); for (var i = 0; i < n; i++) tone(base * (.85 + Math.random() * .55), .07, "triangle", .06, i * .075); }
     };
-  })();
+  })(); window.SHRSnd = Snd;
   var sndBtn = $("[data-sound]"), nudge = $("[data-nudge]");
   function setSound(v) {
     Snd.set(v); sndBtn.setAttribute("aria-pressed", v ? "true" : "false"); sndBtn.setAttribute("aria-label", v ? "Turn sound off" : "Turn sound on");

@@ -276,6 +276,7 @@ ${themeFab()}
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 ${ldExtra}
 <script src="/assets/js/mod2.js?v=${V}" defer></script>
+<script src="/assets/js/mod11.js?v=${V}" defer></script>
 <script src="/assets/js/mod3.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>
 </body>

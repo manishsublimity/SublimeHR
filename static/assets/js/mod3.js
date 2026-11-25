@@ -122,29 +122,35 @@
   /* ---------- payroll ---------- */
   function payroll(box) {
     var st = { taken: false }, sl = $$("[data-s]", box), out = $$("[data-o]", box), lines = $("[data-lines]", box), net = $("[data-net]", box), split = $$("[data-split] i", box);
+    var run = $$("[data-run] li", box), runTxt = $("[data-runtxt]", box), runBar = $("[data-runbar]", box), ri = 0;
     function calc() {
-      var basic = +sl[0].value, ot = +sl[1].value, ul = +sl[2].value, allow = basic * .25, otp = basic / 160 * 1.25 * ot, ded = basic / 26 * ul, total = basic + allow + otp - ded;
-      out[0].textContent = fmt(basic); out[1].textContent = ot + " h"; out[2].textContent = ul + " d";
-      lines.innerHTML = [["Basic", fmt(basic)], ["Allowances (25%)", "+" + fmt(allow)], ["Overtime " + ot + " h", "+" + fmt(otp)], ["Unpaid leave " + ul + " d", "-" + fmt(ded)]].map(function (r, i) { return '<li class="' + (i === 3 ? "neg" : "") + '"><span>' + r[0] + "</span><b>" + r[1] + "</b></li>"; }).join("");
-      net.textContent = fmt(total); var sum = basic + allow + otp; split[0].style.width = (basic / sum * 100) + "%"; split[1].style.width = (allow / sum * 100) + "%"; split[2].style.width = (otp / sum * 100) + "%";
+      var basic = +sl[0].value, ot = +sl[1].value, ul = +sl[2].value, bonus = +sl[3].value, adv = +sl[4].value, allow = basic * .25, otp = basic / 160 * 1.25 * ot, ded = basic / 26 * ul, total = basic + allow + otp + bonus - ded - adv;
+      out[0].textContent = fmt(basic); out[1].textContent = ot + " h"; out[2].textContent = ul + " d"; out[3].textContent = fmt(bonus); out[4].textContent = fmt(adv);
+      lines.innerHTML = [["Basic", fmt(basic)], ["Allowances (25%)", "+" + fmt(allow)], ["Overtime " + ot + " h", "+" + fmt(otp)], ["Bonus", "+" + fmt(bonus)], ["Unpaid leave " + ul + " d", "-" + fmt(ded)], ["Advance recovery", "-" + fmt(adv)]].map(function (r, i) { return '<li class="' + (i > 3 ? "neg" : "") + '"><span>' + r[0] + "</span><b>" + r[1] + "</b></li>"; }).join("");
+      net.textContent = fmt(total); var sum = basic + allow + otp + bonus; split[0].style.width = (basic / sum * 100) + "%"; split[1].style.width = (allow / sum * 100) + "%"; split[2].style.width = ((otp + bonus) / sum * 100) + "%";
     }
-    sl.forEach(function (s) { s.addEventListener("input", calc); }); calc();
-    var targets = [[5200, 12, 0], [3800, 4, 2], [6400, 20, 1], [4200, 6, 1]], ti = 0;
-    drive(box, function () { var tg = targets[ti++ % targets.length]; var from = sl.map(function (s) { return +s.value; }), t0 = performance.now(); say(box, ["Overtime counted.", "Unpaid leave deducted.", "Slip updated.", "Net pay ready."][ti % 4]); (function step(now) { var p = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - p, 3); sl.forEach(function (s, i) { s.value = Math.round((from[i] + (tg[i] - from[i]) * e) / (+s.step || 1)) * (+s.step || 1); }); calc(); if (p < 1 && !st.taken) requestAnimationFrame(step); })(t0); }, 2800, st);
+    function runTo(k) { ri = k; run.forEach(function (l, i) { l.classList.toggle("on", i < k); }); runBar.style.width = (k / 4 * 100) + "%"; runTxt.textContent = k >= 4 ? "412 payslips sent" : "Step " + k + " of 4"; }
+    sl.forEach(function (s) { s.addEventListener("input", calc); }); calc(); runTo(0);
+    $("[data-release]", box).addEventListener("click", function () { runTo(4); say(box, "Sent to every phone."); });
+    var targets = [[5200, 12, 0, 300, 0], [3800, 4, 2, 0, 400], [6400, 20, 1, 800, 0], [4200, 6, 1, 0, 200]], ti = 0;
+    drive(box, function () { var tg = targets[ti++ % targets.length]; var from = sl.map(function (s) { return +s.value; }), t0 = performance.now(); say(box, ["Overtime counted.", "Unpaid leave deducted.", "Slip updated.", "Net pay ready."][ti % 4]); runTo(ti % 5); (function step(now) { var p = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - p, 3); sl.forEach(function (s, i) { s.value = Math.round((from[i] + (tg[i] - from[i]) * e) / (+s.step || 1)) * (+s.step || 1); }); calc(); if (p < 1 && !st.taken) requestAnimationFrame(step); })(t0); }, 2800, st);
   }
 
   /* ---------- chart ---------- */
   function chart(box) {
-    var st = { taken: false }, pills = $$("[data-k]", box), ch = $("[data-chart]", box), ax = $("[data-axis]", box), title = $("[data-ititle]", box), txt = $("[data-itext]", box), chips = $("[data-ichips]", box);
-    var D = [{ t: "Late arrivals by weekday", x: ["Mon", "Tue", "Wed", "Thu", "Fri"], v: [14, 6, 5, 7, 12], u: "", p: "Mondays and Fridays are the worst. Share the report with department heads.", c: ["Mon +8%", "Fri +5%"] }, { t: "Attendance this month, by week", x: ["W1", "W2", "W3", "W4"], v: [94, 96, 93, 97], u: "%", p: "Attendance is steady at 95%. Week 3 dipped around the holiday.", c: ["95% average", "Week 3 dip"] }, { t: "Payroll cost by department", x: ["Ops", "Sales", "IT", "HR", "Fin"], v: [38, 24, 18, 11, 9], u: "k", p: "Operations is 38% of cost. Overtime is the fastest-growing line.", c: ["Ops 38%", "OT +6%"] }], cur = 0;
+    var st = { taken: false }, pills = $$("[data-k]", box), kp = $("[data-kpis]", box), acts = $$("[data-act]", box), ch = $("[data-chart]", box), ax = $("[data-axis]", box), title = $("[data-ititle]", box), txt = $("[data-itext]", box), chips = $("[data-ichips]", box);
+    var D = [{ t: "Late arrivals by weekday", x: ["Mon", "Tue", "Wed", "Thu", "Fri"], v: [14, 6, 5, 7, 12], u: "", p: "Mondays and Fridays are the worst. Share the report with department heads.", c: ["Mon +8%", "Fri +5%"], k: [["Worst day", "Monday", "14 late"], ["Average", "9 a day", "2 fewer than March"], ["Total late", "44", "this month"]] }, { t: "Attendance this month, by week", x: ["W1", "W2", "W3", "W4"], v: [94, 96, 93, 97], u: "%", p: "Attendance is steady at 95%. Week 3 dipped around the holiday.", c: ["95% average", "Week 3 dip"], k: [["Best week", "Week 4", "97% present"], ["Average", "95%", "up 1.2 points"], ["Lowest", "Week 3", "93%, holiday week"]] }, { t: "Payroll cost by department", x: ["Ops", "Sales", "IT", "HR", "Fin"], v: [38, 24, 18, 11, 9], u: "k", p: "Operations is 38% of cost. Overtime is the fastest-growing line.", c: ["Ops 38%", "OT +6%"], k: [["Total cost", "100k", "all departments"], ["Biggest", "Operations", "38% of cost"], ["Fastest growing", "Overtime", "up 6% in a quarter"]] }], cur = 0;
     function show(i) {
       cur = i; pills.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); }); var d = D[i], mx = Math.max.apply(null, d.v);
       ch.innerHTML = d.v.map(function (v, k) { return '<div class="bar"><b>' + v + d.u + '</b><i style="--h:' + (v / mx * 100) + '%;--d:' + (k * 70) + 'ms"></i></div>'; }).join("");
       ax.innerHTML = d.x.map(function (x) { return "<span>" + x + "</span>"; }).join(""); title.textContent = d.t; txt.textContent = d.p; chips.innerHTML = d.c.map(function (c) { return "<em>" + c + "</em>"; }).join("");
+      kp.innerHTML = d.k.map(function (r) { return "<div><small>" + r[0] + "</small><b>" + r[1] + "</b><span>" + r[2] + "</span></div>"; }).join(""); acts.forEach(function (a) { a.classList.remove("done"); $("em", a).textContent = a.dataset.l || $("em", a).textContent; });
       ch.classList.remove("dmgo"); void ch.offsetWidth; ch.classList.add("dmgo"); say(box, ["Mondays hurt.", "Looking steady.", "Ops costs most."][i]);
+      if (!st.taken) setTimeout(function () { var a = acts[i % 3]; if (!st.taken && cur === i) a.classList.add("done"); }, 1800);
     }
-    pills.forEach(function (b, i) { b.addEventListener("click", function () { show(i); }); }); show(0);
-    drive(box, function () { show((cur + 1) % 3); }, 4200, st);
+    pills.forEach(function (b, i) { b.addEventListener("click", function () { show(i); }); });
+    acts.forEach(function (a) { a.dataset.l = $("em", a).textContent; a.addEventListener("click", function () { a.classList.toggle("done"); }); }); show(0);
+    drive(box, function () { show((cur + 1) % 3); }, 4800, st);
   }
 
   /* ---------- phone ---------- */

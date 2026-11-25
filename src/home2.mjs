@@ -307,6 +307,104 @@ const clockDots = Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI /
 const col = (t, links) => `<div><h2>${t}</h2><ul>${links.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join("")}</ul></div>`;
 const showBtns = [["clock", "fingerprint", "Clock in with a thumb"], ["selfie", "camera", "Check in with a selfie"], ["gps", "pin", "Test the GPS fence"], ["leave", "calendar", "Request some leave"], ["pay", "wallet", "Run payroll"], ["roster", "repeat", "Fix a shift roster"], ["ask", "bot", "Ask a question"]];
 
+export function movieSection() {
+  return `<section class="movie" aria-labelledby="h-movie" data-movie data-tip="That is the employee app, playing by itself. Tap a step to jump in.">
+  <div class="movie__head"><h2 id="h-movie">Twenty seconds on a phone.</h2><p>Sign in, clock in, ask for leave, check shifts and open a payslip. This is the employee app, playing by itself. Tap any step to jump in.</p></div>
+  <div class="movie__grid">
+    <div class="movie__steps" role="tablist" aria-label="App walkthrough">
+      ${steps.map(([ic, t, s], i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-go="${i}"><i>${icon(ic, "ic")}</i><span><b>${t}</b><small>${s}</small></span><em></em></button>`).join("")}
+    </div>
+    <div class="movie__stage">
+      <div class="mphone" role="img" aria-label="Animated walkthrough of the SublimeHR mobile app"><i class="mphone__isl"></i><i class="mphone__btn b1"></i><i class="mphone__btn b2"></i><div class="mscreen">
+        <span class="tapdot" data-tap></span>
+        <div class="msbar" aria-hidden="true"><span>9:41</span><i></i></div>
+        <div class="mscr on" data-ms="0">
+          <div class="mtop"><img src="${site.logo}" alt="" width="34" height="30"><span class="mlang"><b>EN</b><em>عربي</em></span></div>
+          <h5>Welcome back</h5><small>Sign in to your SublimeHR workspace</small>
+          <div class="mfld"><small>Employee code</small><span><em data-mtype></em><i class="caret"></i></span></div>
+          <div class="mfld mfld--p"><small>Password</small><span>••••••••</span></div>
+          <div class="mbtn" data-mbtn>Continue</div>
+          <div class="mor"><i></i>or<i></i></div>
+          <div class="mbio">${icon("fingerprint", "ic")}<span>Use fingerprint</span></div>
+          <small class="mfoot">Trouble signing in? Ask your HR team.</small>
+        </div>
+        <div class="mscr" data-ms="1">
+          <div class="mback">${icon("arrow", "ic")}</div><h5>Enter your code</h5><small>We sent a 4-digit code to +91 •••• 7684</small>
+          <div class="motp" data-motp><span></span><span></span><span></span><span></span></div>
+          <small class="mresend">Resend code in <b data-mresend>0:24</b></small>
+          <div class="mkeys" data-mkeys>${["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "x"].map((k) => `<span${k ? ` data-k="${k}"` : ' class="blank"'}>${k === "x" ? "&larr;" : k}</span>`).join("")}</div>
+          <div class="mbtn" data-mbtn>Verify</div>
+        </div>
+        <div class="mscr" data-ms="2">
+          <div class="mhead"><img src="${site.logo}" alt="" width="20" height="18">SublimeHR<span class="mbell">${icon("alert", "ic")}<i></i></span><span class="mav">SN</span></div>
+          <small>Good morning</small><h5>Sara Nasser</h5>
+          <div class="mcard"><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office, Dubai</span><div class="mbtn mbtn--w" data-mbtn>Clock in</div></div>
+          <div class="mquick"><span><i>${icon("calendar", "ic")}</i>Leave</span><span><i>${icon("file", "ic")}</i>Payslip</span><span><i>${icon("repeat", "ic")}</i>Shifts</span><span><i>${icon("users", "ic")}</i>Team</span></div>
+          <div class="mlist"><div><i style="--c:#FFD05A">OM</i><span><b>Omar</b>On leave until Thursday</span></div><div><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Working from home</span></div></div>
+          <div class="mnews">${icon("sparkles", "ic")}<span><b>Holiday notice</b>Office closed on 30 March</span></div>
+        </div>
+        <div class="mscr mscr--c" data-ms="3">
+          <div class="mshift"><div><small>Today's shift</small><b>09:00 to 18:00</b></div><span>Head Office</span></div>
+          <div class="mscan" data-mscan>${icon("fingerprint", "ic")}<i></i></div>
+          <b data-mclock>Hold to clock in</b>
+          <div class="mgeo">${icon("pin", "ic")}<span>Inside geofence, 12 m</span><i></i></div>
+          <div class="mpun"><div><small>In</small><b data-mpin>--:--</b></div><div><small>Out</small><b>--:--</b></div><div><small>Hours</small><b>0.0</b></div></div>
+          <div class="mwk3"><small>This week</small><div><span><b>Mon</b>08:49<em class="ok">On time</em></span><span><b>Tue</b>09:07<em class="gr">Grace</em></span><span><b>Wed</b>08:52<em class="ok">On time</em></span></div></div>
+        </div>
+        <div class="mscr" data-ms="4">
+          <h5>Apply leave</h5>
+          <div class="mpills"><span class="on">Annual</span><span>Sick</span><span>Comp-off</span></div>
+          <div class="mcal" data-mcal2></div>
+          <div class="msum"><span data-msum>Pick your dates</span><b>14 days left</b></div>
+          <div class="mfld mfld--s"><small>Reason</small><span>Family trip</span></div>
+          <div class="mbal3"><span><b>14</b>Annual</span><span><b>6</b>Sick</span><span><b>2</b>Comp-off</span></div>
+          <div class="mappr"><i>PS</i><span><b>Priya Shah</b>Approves your request</span><em>Manager</em></div>
+          <div class="mbtn" data-mbtn>Submit request</div>
+        </div>
+        <div class="mscr" data-ms="5">
+          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>April payslip</h5><span>${icon("arrow", "ic")}</span></div>
+          <div class="mnet"><small>Net pay</small><b>4,940</b><span>Paid on 1 May</span></div>
+          <div class="mslip"><div><span>Basic</span><b>4,200</b></div><div><span>Allowance</span><b>1,050</b></div><div class="neg"><span>Deductions</span><b>- 310</b></div></div>
+          <div class="mtrend"><small>Last six months</small><div><i style="--h:60%"></i><i style="--h:72%"></i><i style="--h:66%"></i><i style="--h:78%"></i><i style="--h:70%"></i><i style="--h:92%"></i></div></div>
+          <div class="mrow2"><div class="mbtn">Download PDF</div><div class="mbtn mbtn--o">Share</div></div>
+        </div>
+        <div class="mscr" data-ms="6">
+          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>This week</h5><span>${icon("arrow", "ic")}</span></div>
+          <div class="mwk" data-mwk></div>
+          <div class="mswap">${icon("repeat", "ic")}<span><b>Swap Thursday?</b>Karan can cover your evening</span><em>Ask</em></div>
+          <div class="mcov"><small>Team coverage</small><div><i style="--w:92%"></i></div><span>Fully covered all week</span></div>
+        </div>
+        <div class="mscr" data-ms="7">
+          <h5>Inbox</h5>
+          <ul class="minbox" data-minbox>
+            <li><i style="--c:#2BB673">${icon("check", "ic")}</i><span><b>Leave approved</b>Priya approved 23 to 24 Apr</span><em>2m</em></li>
+            <li><i style="--c:#7FB4FF">${icon("file", "ic")}</i><span><b>April payslip is ready</b>Tap to open</span><em>1h</em></li>
+            <li><i style="--c:#FFB020">${icon("repeat", "ic")}</i><span><b>Shift swap accepted</b>Karan covers Thursday</span><em>3h</em></li>
+            <li><i style="--c:#9B8CFF">${icon("shield", "ic")}</i><span><b>Policy updated</b>Remote work, version 2</span><em>1d</em></li>
+            <li><i style="--c:#45C4B0">${icon("clock", "ic")}</i><span><b>Overtime approved</b>2 hours on Tuesday</span><em>2d</em></li>
+            <li><i style="--c:#E86F9C">${icon("sparkles", "ic")}</i><span><b>Birthday today</b>Wish Nadia a good one</span><em>2d</em></li>
+          </ul>
+        </div>
+        <div class="mtab" data-mtab aria-hidden="true"><span class="on">${icon("dashboard", "ic")}Home</span><span>${icon("clock", "ic")}Clock</span><span>${icon("calendar", "ic")}Leave</span><span>${icon("wallet", "ic")}Pay</span><span>${icon("alert", "ic")}Inbox</span></div>
+      </div></div>
+      <div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div><div class="movie__who">${who(people[0], 0, "ppl--movie")}</div>
+    </div>
+  </div>
+  <div class="movie__bar" aria-hidden="true"><i data-mbar></i></div>
+</section>`;
+}
+
+export function daySection() {
+  return `<section class="day" aria-labelledby="h-day" data-day data-tip="Watch Aisha walk through a working day.">
+  <div class="day__head"><h2 id="h-day">One day, from clock-in to payslip.</h2><p>Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets.</p></div>
+  <div class="day__track" data-track>
+    <div class="day__line"><i data-prog></i></div>
+    ${stops.map(([l, t, h, p], i) => `<div class="stp ${i % 2 ? "dn" : "up"}" style="--l:${l}%"><div class="stp__c"><small>${t}</small><b>${h}</b><span>${p}</span></div><i class="stp__d"></i></div>`).join("")}
+    <div class="walker" data-walker>${who(people[0], 0, "ppl--walk")}</div>
+  </div>
+</section>`;
+}
+
 export function homeFooter() {
   return `<footer class="footer">
   <span class="footer__glow g1" aria-hidden="true"></span><span class="footer__glow g2" aria-hidden="true"></span>
@@ -496,99 +594,9 @@ export function home2(path = "/home-v2/") {
   </div>
 </section>
 
-<section class="movie" aria-labelledby="h-movie" data-movie data-tip="That is the employee app, playing by itself. Tap a step to jump in.">
-  <div class="movie__head"><h2 id="h-movie">Twenty seconds on a phone.</h2><p>Sign in, clock in, ask for leave, check shifts and open a payslip. This is the employee app, playing by itself. Tap any step to jump in.</p></div>
-  <div class="movie__grid">
-    <div class="movie__steps" role="tablist" aria-label="App walkthrough">
-      ${steps.map(([ic, t, s], i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-go="${i}"><i>${icon(ic, "ic")}</i><span><b>${t}</b><small>${s}</small></span><em></em></button>`).join("")}
-    </div>
-    <div class="movie__stage">
-      <div class="mphone" role="img" aria-label="Animated walkthrough of the SublimeHR mobile app"><i class="mphone__isl"></i><i class="mphone__btn b1"></i><i class="mphone__btn b2"></i><div class="mscreen">
-        <span class="tapdot" data-tap></span>
-        <div class="msbar" aria-hidden="true"><span>9:41</span><i></i></div>
-        <div class="mscr on" data-ms="0">
-          <div class="mtop"><img src="${site.logo}" alt="" width="34" height="30"><span class="mlang"><b>EN</b><em>عربي</em></span></div>
-          <h5>Welcome back</h5><small>Sign in to your SublimeHR workspace</small>
-          <div class="mfld"><small>Employee code</small><span><em data-mtype></em><i class="caret"></i></span></div>
-          <div class="mfld mfld--p"><small>Password</small><span>••••••••</span></div>
-          <div class="mbtn" data-mbtn>Continue</div>
-          <div class="mor"><i></i>or<i></i></div>
-          <div class="mbio">${icon("fingerprint", "ic")}<span>Use fingerprint</span></div>
-          <small class="mfoot">Trouble signing in? Ask your HR team.</small>
-        </div>
-        <div class="mscr" data-ms="1">
-          <div class="mback">${icon("arrow", "ic")}</div><h5>Enter your code</h5><small>We sent a 4-digit code to +91 •••• 7684</small>
-          <div class="motp" data-motp><span></span><span></span><span></span><span></span></div>
-          <small class="mresend">Resend code in <b data-mresend>0:24</b></small>
-          <div class="mkeys" data-mkeys>${["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "x"].map((k) => `<span${k ? ` data-k="${k}"` : ' class="blank"'}>${k === "x" ? "&larr;" : k}</span>`).join("")}</div>
-          <div class="mbtn" data-mbtn>Verify</div>
-        </div>
-        <div class="mscr" data-ms="2">
-          <div class="mhead"><img src="${site.logo}" alt="" width="20" height="18">SublimeHR<span class="mbell">${icon("alert", "ic")}<i></i></span><span class="mav">SN</span></div>
-          <small>Good morning</small><h5>Sara Nasser</h5>
-          <div class="mcard"><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office, Dubai</span><div class="mbtn mbtn--w" data-mbtn>Clock in</div></div>
-          <div class="mquick"><span><i>${icon("calendar", "ic")}</i>Leave</span><span><i>${icon("file", "ic")}</i>Payslip</span><span><i>${icon("repeat", "ic")}</i>Shifts</span><span><i>${icon("users", "ic")}</i>Team</span></div>
-          <div class="mlist"><div><i style="--c:#FFD05A">OM</i><span><b>Omar</b>On leave until Thursday</span></div><div><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Working from home</span></div></div>
-          <div class="mnews">${icon("sparkles", "ic")}<span><b>Holiday notice</b>Office closed on 30 March</span></div>
-        </div>
-        <div class="mscr mscr--c" data-ms="3">
-          <div class="mshift"><div><small>Today's shift</small><b>09:00 to 18:00</b></div><span>Head Office</span></div>
-          <div class="mscan" data-mscan>${icon("fingerprint", "ic")}<i></i></div>
-          <b data-mclock>Hold to clock in</b>
-          <div class="mgeo">${icon("pin", "ic")}<span>Inside geofence, 12 m</span><i></i></div>
-          <div class="mpun"><div><small>In</small><b data-mpin>--:--</b></div><div><small>Out</small><b>--:--</b></div><div><small>Hours</small><b>0.0</b></div></div>
-          <div class="mwk3"><small>This week</small><div><span><b>Mon</b>08:49<em class="ok">On time</em></span><span><b>Tue</b>09:07<em class="gr">Grace</em></span><span><b>Wed</b>08:52<em class="ok">On time</em></span></div></div>
-        </div>
-        <div class="mscr" data-ms="4">
-          <h5>Apply leave</h5>
-          <div class="mpills"><span class="on">Annual</span><span>Sick</span><span>Comp-off</span></div>
-          <div class="mcal" data-mcal2></div>
-          <div class="msum"><span data-msum>Pick your dates</span><b>14 days left</b></div>
-          <div class="mfld mfld--s"><small>Reason</small><span>Family trip</span></div>
-          <div class="mbal3"><span><b>14</b>Annual</span><span><b>6</b>Sick</span><span><b>2</b>Comp-off</span></div>
-          <div class="mappr"><i>PS</i><span><b>Priya Shah</b>Approves your request</span><em>Manager</em></div>
-          <div class="mbtn" data-mbtn>Submit request</div>
-        </div>
-        <div class="mscr" data-ms="5">
-          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>April payslip</h5><span>${icon("arrow", "ic")}</span></div>
-          <div class="mnet"><small>Net pay</small><b>4,940</b><span>Paid on 1 May</span></div>
-          <div class="mslip"><div><span>Basic</span><b>4,200</b></div><div><span>Allowance</span><b>1,050</b></div><div class="neg"><span>Deductions</span><b>- 310</b></div></div>
-          <div class="mtrend"><small>Last six months</small><div><i style="--h:60%"></i><i style="--h:72%"></i><i style="--h:66%"></i><i style="--h:78%"></i><i style="--h:70%"></i><i style="--h:92%"></i></div></div>
-          <div class="mrow2"><div class="mbtn">Download PDF</div><div class="mbtn mbtn--o">Share</div></div>
-        </div>
-        <div class="mscr" data-ms="6">
-          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>This week</h5><span>${icon("arrow", "ic")}</span></div>
-          <div class="mwk" data-mwk></div>
-          <div class="mswap">${icon("repeat", "ic")}<span><b>Swap Thursday?</b>Karan can cover your evening</span><em>Ask</em></div>
-          <div class="mcov"><small>Team coverage</small><div><i style="--w:92%"></i></div><span>Fully covered all week</span></div>
-        </div>
-        <div class="mscr" data-ms="7">
-          <h5>Inbox</h5>
-          <ul class="minbox" data-minbox>
-            <li><i style="--c:#2BB673">${icon("check", "ic")}</i><span><b>Leave approved</b>Priya approved 23 to 24 Apr</span><em>2m</em></li>
-            <li><i style="--c:#7FB4FF">${icon("file", "ic")}</i><span><b>April payslip is ready</b>Tap to open</span><em>1h</em></li>
-            <li><i style="--c:#FFB020">${icon("repeat", "ic")}</i><span><b>Shift swap accepted</b>Karan covers Thursday</span><em>3h</em></li>
-            <li><i style="--c:#9B8CFF">${icon("shield", "ic")}</i><span><b>Policy updated</b>Remote work, version 2</span><em>1d</em></li>
-            <li><i style="--c:#45C4B0">${icon("clock", "ic")}</i><span><b>Overtime approved</b>2 hours on Tuesday</span><em>2d</em></li>
-            <li><i style="--c:#E86F9C">${icon("sparkles", "ic")}</i><span><b>Birthday today</b>Wish Nadia a good one</span><em>2d</em></li>
-          </ul>
-        </div>
-        <div class="mtab" data-mtab aria-hidden="true"><span class="on">${icon("dashboard", "ic")}Home</span><span>${icon("clock", "ic")}Clock</span><span>${icon("calendar", "ic")}Leave</span><span>${icon("wallet", "ic")}Pay</span><span>${icon("alert", "ic")}Inbox</span></div>
-      </div></div>
-      <div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div><div class="movie__who">${who(people[0], 0, "ppl--movie")}</div>
-    </div>
-  </div>
-  <div class="movie__bar" aria-hidden="true"><i data-mbar></i></div>
-</section>
+${movieSection()}
 
-<section class="day" aria-labelledby="h-day" data-day data-tip="Watch Aisha walk through a working day.">
-  <div class="day__head"><h2 id="h-day">One day, from clock-in to payslip.</h2><p>Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets.</p></div>
-  <div class="day__track" data-track>
-    <div class="day__line"><i data-prog></i></div>
-    ${stops.map(([l, t, h, p], i) => `<div class="stp ${i % 2 ? "dn" : "up"}" style="--l:${l}%"><div class="stp__c"><small>${t}</small><b>${h}</b><span>${p}</span></div><i class="stp__d"></i></div>`).join("")}
-    <div class="walker" data-walker>${who(people[0], 0, "ppl--walk")}</div>
-  </div>
-</section>
+${daySection()}
 
 <section class="lab" id="lab" aria-labelledby="h-lab" data-lab data-tip="Want a tour of these? Click me and pick something to see.">
   <div class="lab__head"><h2 id="h-lab">Don't take our word for it. Play with it.</h2><p>Six working mini versions of SublimeHR. Punch a clock, pick leave dates, move payroll sliders, rotate a roster. The numbers are real arithmetic. Not sure where to start? Click Subi, the robot, and it will show you.</p></div>
