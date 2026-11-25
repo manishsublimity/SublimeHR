@@ -94,3 +94,26 @@ html[data-theme="dark"] .lamp__tip { background: #FFE9A8; color: #14213D; } html
 @keyframes lblink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
 @media (prefers-reduced-motion: reduce) { .lamp, .lamp__shade .le { animation: none; } }
 @media (max-width: 760px) { .lamp { transform: scale(.8); transform-origin: 50% 0; left: 6px; } }
+
+/* ---------- day / night: a small eclipse ---------- */
+.lamp, .tg2 { display: none !important; }
+.ecl { position: fixed; z-index: 72; left: 20px; bottom: 20px; width: 64px; height: 64px; padding: 0; border: 0; border-radius: 50%; overflow: hidden; cursor: pointer; background: radial-gradient(circle at 30% 25%, #CDEBFF, #6FB8FF 70%); box-shadow: 0 0 0 3px rgba(255,255,255,.9), 0 16px 26px -10px rgba(20,33,61,.55); transition: background .7s, box-shadow .6s, transform .4s cubic-bezier(.34,1.56,.64,1); }
+.ecl:hover { transform: scale(1.1) rotate(-6deg); } .ecl:active { transform: scale(.94); }
+.ecl__sky i { position: absolute; display: block; width: 3px; height: 3px; border-radius: 50%; background: #fff; opacity: 0; animation: ecltw 2.4s ease-in-out infinite; } .ecl__sky .s1 { left: 12px; top: 14px; } .ecl__sky .s2 { right: 12px; top: 20px; animation-delay: -.8s; } .ecl__sky .s3 { left: 18px; bottom: 12px; animation-delay: -1.6s; width: 2px; height: 2px; } .ecl__sky .s4 { right: 16px; bottom: 14px; animation-delay: -.4s; }
+@keyframes ecltw { 0%, 100% { transform: scale(.5); } 50% { transform: scale(1.4); } }
+.ecl__sun { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -17px; }
+.ecl__sun .disc { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFF1A8, #FFC933 70%); box-shadow: 0 0 0 3px rgba(255,214,90,.35), 0 0 22px 6px rgba(255,200,60,.6); transition: box-shadow .6s, background .6s; }
+.ecl__sun .rays { position: absolute; inset: -11px; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(255,205,70,.9) 0 7deg, transparent 7deg 30deg); -webkit-mask: radial-gradient(circle, transparent 20px, #000 21px, #000 27px, transparent 28px); mask: radial-gradient(circle, transparent 20px, #000 21px, #000 27px, transparent 28px); animation: eclspin 18s linear infinite; transition: opacity .5s; }
+@keyframes eclspin { to { transform: rotate(360deg); } }
+.ecl__moon { position: absolute; left: 50%; top: 50%; width: 36px; height: 36px; margin: -18px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #3B4778, #141B3A 75%); box-shadow: inset -3px -3px 0 rgba(0,0,0,.25); transform: translateX(60px); transition: transform .8s cubic-bezier(.6,.1,.2,1); }
+.ecl__moon .cr { position: absolute; border-radius: 50%; background: rgba(255,255,255,.08); } .ecl__moon .c1 { left: 8px; top: 9px; width: 8px; height: 8px; } .ecl__moon .c2 { right: 8px; bottom: 8px; width: 6px; height: 6px; }
+.ecl__tip { position: absolute; left: 76px; bottom: 18px; padding: 8px 14px; border-radius: 999px; background: #14213D; color: #fff; font: 700 13px/1 "Figtree", sans-serif; white-space: nowrap; box-shadow: 0 10px 16px -8px rgba(0,0,0,.5); opacity: 0; transform: translateX(-8px); transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1); pointer-events: none; } .ecl__tip .n { display: none; }
+.ecl { overflow: visible; }
+.ecl__in { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; } .ecl__sky { position: absolute; inset: 0; }
+.ecl:hover .ecl__tip, .ecl:focus-visible .ecl__tip { opacity: 1; transform: none; }
+html[data-theme="dark"] .ecl { background: radial-gradient(circle at 30% 25%, #28336B, #0A0F28 75%); box-shadow: 0 0 0 3px rgba(255,255,255,.22), 0 0 30px 4px rgba(120,150,255,.35), 0 16px 26px -10px rgba(0,0,0,.7); }
+html[data-theme="dark"] .ecl__sky i { opacity: 1; }
+html[data-theme="dark"] .ecl__moon { transform: translateX(0); }
+html[data-theme="dark"] .ecl__sun .disc { background: #FFE9A0; box-shadow: 0 0 0 4px rgba(255,226,130,.6), 0 0 26px 10px rgba(255,214,90,.75); } html[data-theme="dark"] .ecl__sun .rays { opacity: .5; }
+html[data-theme="dark"] .ecl__tip { background: #FFE9A8; color: #14213D; } html[data-theme="dark"] .ecl__tip .d { display: none; } html[data-theme="dark"] .ecl__tip .n { display: inline; }
+@media (max-width: 760px) { .ecl { transform: scale(.82); transform-origin: 0 100%; left: 8px; bottom: 12px; } }

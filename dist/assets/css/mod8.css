@@ -1,0 +1,13 @@
+/* Module pages, round 7: no pinned gap; a cleaner before/after scene. */
+.mba__pin { height: auto !important; } .mba__sticky { position: static !important; }
+.mba__papers, .mba__dots, .mba__lady::after, .mba__cloud, .mba__beam { display: none !important; }
+.mba__scene { background: linear-gradient(170deg, #E8E8F4 0%, #DADFEE 60%, #CFD9EE 100%); }
+.mba[data-step="work"] .mba__scene { background: linear-gradient(170deg, #EDEFF8 0%, #E1E8F5 100%); }
+.mba[data-step="after"] .mba__scene { background: linear-gradient(165deg, #FFF3C8 0%, #FFE9B8 40%, color-mix(in srgb, var(--world) 22%, #fff) 100%); }
+/* tags: a neat zig-zag stack on the right, nothing clipped */
+.mba__cards li { max-width: 176px; }
+.mba__cards .bf, .mba__cards .af { font-size: 12px; padding: 7px 12px 7px 8px; }
+.mba__cards .k0 { left: 46%; top: 5%; } .mba__cards .k1 { left: 58%; top: 18%; } .mba__cards .k2 { left: 46%; top: 31%; } .mba__cards .k3 { left: 58%; top: 44%; } .mba__cards .k4 { left: 46%; top: 57%; } .mba__cards .k5 { left: 58%; top: 70%; } .mba__cards .k6 { left: 46%; top: 83%; }
+.mba__cards li { transform: none !important; animation: none !important; }
+.mba__prog { left: 24%; bottom: 14px; }
+.guide.mfast { transition: transform .5s cubic-bezier(.2,.75,.25,1), opacity .35s !important; }

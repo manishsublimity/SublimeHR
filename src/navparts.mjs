@@ -24,13 +24,12 @@ export function navMenu(active = "") {
   <a class="btn btn--on" href="/book-demo/">Book a demo</a>`;
 }
 
-/* Day / night switch: a little pull-cord lamp that hangs at the edge of the page. Pull it and the lights go to night. */
+/* Day / night switch: a small eclipse. In the day the sun shines; flip it and the moon slides across, the sun turns into a glowing ring and the stars come out. */
 export function themeFab() {
-  return `<button class="lamp" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Pull the cord: day or night">
-  <span class="lamp__cord" aria-hidden="true"></span>
-  <span class="lamp__shade" aria-hidden="true"><i class="le lL"></i><i class="le lR"></i><i class="lm"></i><i class="lc lL"></i><i class="lc lR"></i></span>
-  <span class="lamp__bulb" aria-hidden="true"></span><span class="lamp__beam" aria-hidden="true"></span>
-  <span class="lamp__chain" aria-hidden="true"><i></i></span>
-  <span class="lamp__tip" aria-hidden="true"><b class="d">Pull for night</b><b class="n">Pull for day</b></span>
+  return `<button class="ecl" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Day / night">
+  <span class="ecl__in" aria-hidden="true"><span class="ecl__sky"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i></span>
+  <span class="ecl__sun"><i class="rays"></i><i class="disc"></i></span>
+  <span class="ecl__moon"><i class="cr c1"></i><i class="cr c2"></i></span></span>
+  <span class="ecl__tip" aria-hidden="true"><b class="d">Switch to night</b><b class="n">Switch to day</b></span>
 </button>`;
 }
