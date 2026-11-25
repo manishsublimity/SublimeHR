@@ -26,11 +26,22 @@ export function navMenu(active = "") {
 
 /* Day / night switch: the little pull-cord lamp that hangs from the top of the page. Pull it and the lights go to night. */
 export function themeFab() {
-  return `<button class="lamp" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Pull the cord: day or night">
-  <span class="lamp__cord" aria-hidden="true"></span>
-  <span class="lamp__shade" aria-hidden="true"><i class="le lL"></i><i class="le lR"></i><i class="lm"></i><i class="lch lL"></i><i class="lch lR"></i></span>
-  <span class="lamp__bulb" aria-hidden="true"></span><span class="lamp__beam" aria-hidden="true"></span>
-  <span class="lamp__chain" aria-hidden="true"><i></i></span>
-  <span class="lamp__tip" aria-hidden="true"><b class="d">Pull for night</b><b class="n">Pull for day</b></span>
-</button>`;
+  return `<div class="lamp" data-lamp role="group" aria-label="Day and night lamp">
+  <button class="lamp__cord" type="button" data-lcord aria-label="Bulb options" aria-expanded="false"></button>
+  <div class="lamp__body">
+    <button class="lamp__shade" type="button" data-lface aria-label="Play with the lamp: tickle it, or pull it down"><i class="le lL"></i><i class="le lR"></i><i class="lm"></i><i class="lch lL"></i><i class="lch lR"></i></button>
+    <button class="lamp__bulb" type="button" data-lbulb aria-label="Take the bulb out or put it back"></button><span class="lamp__beam" aria-hidden="true"></span>
+    <button class="lamp__chain" type="button" data-lpull aria-label="Pull the chain: day or night"><i></i></button>
+    <span class="lamp__tip" aria-hidden="true"><b class="d">Pull for night</b><b class="n">Pull for day</b></span>
+    <span class="lamp__say" data-lsay aria-live="polite"></span>
+  </div>
+  <div class="lamp__menu" data-lmenu hidden role="dialog" aria-label="Lamp options">
+    <b>Pick a bulb</b>
+    <div class="lamp__sw"><button type="button" data-lc="255,200,70|#FFFBE0|#FFC233" style="--c:#FFC233" aria-label="Warm"></button><button type="button" data-lc="255,255,255|#FFFFFF|#E8EEF8" style="--c:#E8EEF8" aria-label="White"></button><button type="button" data-lc="255,120,170|#FFE3EE|#FF8FB8" style="--c:#FF8FB8" aria-label="Pink"></button><button type="button" data-lc="90,170,255|#E3F1FF|#6FB4FF" style="--c:#6FB4FF" aria-label="Blue"></button><button type="button" data-lc="70,220,150|#E0FFF0|#4FD69C" style="--c:#4FD69C" aria-label="Green"></button></div>
+    <button type="button" data-lact="bulb" class="lamp__act">Take the bulb out</button>
+    <button type="button" data-lact="swing" class="lamp__act">Give it a swing</button>
+  </div>
+</div>
+<script src="/assets/js/lamp.js?v=${Date.now().toString(36)}" defer></script>`;
 }
+
