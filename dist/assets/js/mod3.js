@@ -292,6 +292,26 @@
     drive(box, function () { go((cur + 1) % 6); }, 3600, st);
   }
 
-  var map = { dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
+  /* ---------- flow: six steps on one phone ---------- */
+  function flow(box) {
+    var st = { taken: false }, steps = $$("[data-fs]", box), scr = $$("[data-ps]", box), cur = -1, T = [];
+    var lines = ["Sign in first.", "One-time code.", "Here is my day.", "Fingerprint and GPS.", "Two days off. Easy.", "My payslip, ready."];
+    function later(fn, ms) { T.push(setTimeout(fn, reduce ? 0 : ms)); }
+    function press(el) { if (!el) return; el.classList.add("press"); setTimeout(function () { el.classList.remove("press"); }, 520); }
+    function go(i) {
+      T.forEach(clearTimeout); T = []; cur = i;
+      steps.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); var u = $("u", b); u.style.animation = "none"; if (k === i) { void u.offsetWidth; u.style.animation = ""; } });
+      scr.forEach(function (x, k) { x.classList.toggle("on", k === i); }); say(box, lines[i]); var p = scr[i];
+      if (i === 0) { var ty = $("[data-ftype]", p), w = "EMP-0142"; ty.textContent = ""; for (var k = 1; k <= w.length; k++) (function (n) { later(function () { ty.textContent = w.slice(0, n); }, 500 + n * 130); })(k); later(function () { press($("[data-pcta]", p)); }, 2100); }
+      if (i === 1) { var bx = $$("[data-otp] span", p), dg = ["4", "7", "1", "9"]; bx.forEach(function (b) { b.textContent = ""; b.classList.remove("f"); }); bx.forEach(function (b, k) { later(function () { b.textContent = dg[k]; b.classList.add("f"); }, 500 + k * 380); }); later(function () { press($("[data-pcta]", p)); }, 2300); }
+      if (i === 3) { var sc = $("[data-pscan]", p), lb = $("[data-pclock]", p), pi = $("[data-pin2]", p); sc.classList.remove("scan", "ok"); lb.textContent = "Hold to clock in"; pi.textContent = "--:--"; later(function () { sc.classList.add("scan"); lb.textContent = "Scanning..."; }, 700); later(function () { sc.classList.remove("scan"); sc.classList.add("ok"); lb.textContent = "Clocked in at 08:52"; pi.textContent = "08:52"; }, 2300); }
+      if (i === 4) { var ds = $$("[data-pdays] span", p), sm = $("[data-psum]", p); ds.forEach(function (d) { d.classList.remove("sel"); }); sm.textContent = "Pick your dates"; later(function () { ds[1].classList.add("sel"); }, 800); later(function () { ds[2].classList.add("sel"); sm.textContent = "2 working days"; }, 1300); later(function () { press($("[data-pcta]", p)); sm.textContent = "Sent to Priya"; }, 2400); }
+      if (i === 5) { later(function () { press($("[data-pcta]", p)); }, 2100); }
+    }
+    steps.forEach(function (b, i) { b.addEventListener("click", function () { go(i); }); });
+    go(0); drive(box, function () { go((cur + 1) % 6); }, 4400, st);
+  }
+
+  var map = { flow: flow, dial: dial, field: field, punch: punch, leave: leave, payroll: payroll, chart: chart, phone: phone, roles: roles, roster: roster, visitor: visitor };
   $$("[data-dm]").forEach(function (b) { var f = map[b.dataset.dm]; if (f) { try { f(b); } catch (e) { console.error(e); } } });
 })();

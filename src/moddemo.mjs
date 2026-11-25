@@ -170,8 +170,25 @@ const dial = (d) => wrap(d, "dial", `
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Good morning!</span><div class="dmx__ppl">${who(byName["Aisha"], 1, "ppl--wave")}</div></div>`);
 
+const FLOW = [["lock", "Sign in", "Email, username or employee code"], ["shield", "Verify OTP", "MFA keeps HR data safe"], ["dashboard", "Home", "Balances and shift at a glance"], ["fingerprint", "Clock in", "Selfie and GPS, one tap"], ["calendar", "Apply leave", "Pick dates, done"], ["file", "Payslip", "Download it any time"]];
+const fstep = (s, i) => `<button type="button" data-fs="${i}" aria-pressed="${i === 0}"><i>${icon(s[0], "ic")}</i><span><b>${s[1]}</b><small>${s[2]}</small></span><u></u></button>`;
+const flow = (d) => wrap(d, "flow", `
+  <div class="dmx__l dmx__flow">
+    <div class="dmx__fcol">${FLOW.slice(0, 3).map((s, i) => fstep(s, i)).join("")}</div>
+    <div class="dmx__pbody"><div class="dmx__pscreen"><span class="dmx__pnotch"></span><div class="dmx__pbar"><b>9:41</b><span class="dmx__sig s4"><i></i><i></i><i></i><i></i></span></div>
+      <div class="dmx__ps on" data-ps="0"><div class="dmx__plogo">${icon("bot", "ic")}</div><h4>Welcome back</h4><small>Sign in to your workspace</small><div class="dmx__pf"><small>Employee code</small><span data-ftype></span></div><div class="dmx__pf"><small>Password</small><span>••••••••</span></div><div class="dmx__pcta" data-pcta>Continue</div></div>
+      <div class="dmx__ps" data-ps="1"><h4>Enter OTP</h4><small>Sent to +91 •••• 7684</small><div class="dmx__otp" data-otp><span></span><span></span><span></span><span></span></div><div class="dmx__pcta" data-pcta>Verify</div><small class="dmx__resend">MFA keeps your HR data safe</small></div>
+      <div class="dmx__ps" data-ps="2"><small>Good morning</small><h4>Aisha Khan</h4><div class="dmx__pshift"><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office</span></div><div class="dmx__pbal"><span><b>14</b>Annual</span><span><b>6</b>Sick</span><span><b>2</b>Comp-off</span></div><div class="dmx__pnews">${icon("sparkles", "ic")}<span>Office closed on 30 March</span></div></div>
+      <div class="dmx__ps dmx__ps--c" data-ps="3"><div class="dmx__pscan" data-pscan>${icon("fingerprint", "ic")}<i></i></div><b data-pclock>Hold to clock in</b><div class="dmx__pgeo">${icon("pin", "ic")}Inside geofence, 12 m</div><div class="dmx__ptimes"><span><small>In</small><b data-pin2>--:--</b></span><span><small>Out</small><b>--:--</b></span></div></div>
+      <div class="dmx__ps" data-ps="4"><h4>Apply leave</h4><div class="dmx__pdays" data-pdays>${["M", "T", "W", "T", "F"].map((x, k) => `<span><small>${x}</small><b>${20 + k}</b></span>`).join("")}</div><div class="dmx__psum" data-psum>Pick your dates</div><div class="dmx__pappr"><i>PS</i><span><b>Priya Shah</b>Approves your request</span></div><div class="dmx__pcta" data-pcta>Submit request</div></div>
+      <div class="dmx__ps" data-ps="5"><h4>April payslip</h4><div class="dmx__pnet"><small>Net pay</small><b>4,940</b><span>Paid on 1 May</span></div><div class="dmx__pslip"><div><span>Basic</span><b>4,200</b></div><div><span>Allowance</span><b>1,050</b></div><div class="neg"><span>Deductions</span><b>- 310</b></div></div><div class="dmx__pcta" data-pcta>Download PDF</div></div>
+    </div></div>
+    <div class="dmx__fcol">${FLOW.slice(3).map((s, i) => fstep(s, i + 3)).join("")}</div>
+  </div>
+  <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Sign in first.</span><div class="dmx__ppl">${who(byName["Aisha"], 1, "ppl--wave")}</div></div>`);
+
 export function demoSection(m, d) {
   if (m.slug === "employee-self-service") return `<div class="cast mhome" id="try">${movieSection()}</div>`;
-  if (m.slug === "mobile-workforce") return dial({ title: "One day, from clock-in to payslip.", lead: "Follow Aisha through a working day. Every stop is something your team does today with paper, chat or spreadsheets." });
+  if (m.slug === "mobile-workforce") return flow({ title: "Go on, take it for a spin.", lead: "A working mini version of the real thing. No sign-up needed. Sign in, clock in, ask for leave and open a payslip, all from one phone." });
   return ({ punch, leave, payroll, chart, phone, roles, roster, visitor })[d.type](d);
 }
