@@ -11,17 +11,17 @@
 <link rel="icon" type="image/png" href="/assets/img/sublimehr-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/home2.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/navmenu.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod2.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod3.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod4.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod5.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod6.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod7.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod8.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod9.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod10.css?v=mwvzyne4">
+<link rel="stylesheet" href="/assets/css/home2.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/navmenu.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod2.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod3.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod4.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod5.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod6.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod7.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod8.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod9.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod10.css?v=mww07knu">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
 <body class="lo mpage" data-w="it" data-ft="3">
@@ -105,12 +105,32 @@
 </section>
 <section class="mdemo" id="try" aria-labelledby="h-try" data-tip="This demo plays by itself. Take over any time."><div class="mdemo__head"><h2 id="h-try">Clock in, and watch the board fill.</h2><p>Pick how you punch and press the button. Every punch is checked and added to the live list. Nobody keeps a register.</p></div><div class="dmx cast" data-dm="punch">
   <div class="dmx__l">
-    <div class="dmx__pills" data-pills role="group" aria-label="Punch method"><button type="button" data-k="Fingerprint" aria-pressed="true">Fingerprint</button><button type="button" data-k="Selfie" aria-pressed="false">Selfie</button><button type="button" data-k="Camera + GPS" aria-pressed="false">Camera + GPS</button></div>
-    <button class="dmx__big" type="button" data-punch><span class="dmx__ring"></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></span><b data-pl>Clock in</b></button>
-    <p class="dmx__hint" data-phint>Fingerprint matched. Head Office.</p>
+    <article class="lc lc--clock mlc">
+      <div class="modes" role="radiogroup" aria-label="Punch method"><button type="button" role="radio" aria-checked="true" data-mode="fp">Fingerprint</button><button type="button" role="radio" aria-checked="false" data-mode="selfie">Selfie</button><button type="button" role="radio" aria-checked="false" data-mode="gps">GPS only</button></div>
+      <div class="clk">
+        <div class="clk__l">
+          <button class="scanner" type="button" data-scan data-m="fp" aria-label="Press to clock in">
+            <span class="sc sc--fp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg><i class="thumb"></i></span>
+            <span class="sc sc--selfie"><img class="scanner__img" data-scan-img alt="" hidden><i class="silh"></i><i class="crn"></i><b class="cnt" data-cnt></b><i class="flash"></i></span>
+            <span class="sc sc--gps"><i class="grid"></i><i class="gfence"></i><i class="radar"></i><i class="pin" data-pin></i></span>
+            <i class="scanner__beam"></i>
+          </button>
+          <span class="scanner__lbl" data-scan-lbl>Press to clock in</span>
+          <div class="clk__acts"><button type="button" class="mini-link" data-sample hidden>Use a sample face</button></div>
+        </div>
+        <div class="clk__r">
+          <ul class="checks" data-checks><li><span data-c0>Fingerprint matched</span><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></i></li><li><span data-c1>GPS 12 m, inside Head Office</span><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></i></li><li><span data-status>Waiting</span><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></i></li></ul>
+          <label class="geo"><span>I am at the office</span><button class="sw" type="button" role="switch" aria-checked="true" data-geo aria-label="I am at the office"></button></label>
+          <div class="arr"><label for="arr-punch">Arrival</label><b data-arr-out>08:52</b><input id="arr-punch" type="range" min="510" max="600" value="532" data-arr aria-label="Arrival time"></div>
+          <p class="note">Shift starts 09:00. Grace until 09:15.</p>
+        </div>
+      </div>
+      <div class="hist"><small>This week</small><ul><li><span>Mon</span><b>08:49</b><em class="ok">On time</em></li><li><span>Tue</span><b>09:07</b><em class="gr">Grace</em></li><li><span>Wed</span><b>08:52</b><em class="ok">On time</em></li><li data-today><span>Today</span><b>--:--</b><em>Waiting</em></li></ul></div>
+    </article>
   </div>
   <div class="dmx__r">
-    <div class="dmx__stats"><span><b data-n="in">38</b>in today</span><span><b data-n="late">2</b>late</span><span><b data-n="out">0</b>pending</span></div>
+    <div class="dmx__boardhead"><b>Live board</b><span class="dmx__live"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>Head Office</span></div>
+    <div class="dmx__stats"><span><b data-n="in">38</b>in today</span><span><b data-n="late">2</b>late</span><span><b data-n="out">0</b>rejected</span></div>
     <ul class="dmx__feed" data-feed></ul>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Good morning!</span><div class="dmx__ppl"><div class="ppl s-long ppl--wave" data-hat="none" data-pose="rest" data-item="none" data-outfit="none" style="--skin:#E8B48C;--hair:#2B1B17;--shirt:#E5566D;--hijab:#2B1B17;--pants:#33415F;--bw:80px;--bh:98px;--lean:-2deg;--d:-0.7s" data-i="1">
@@ -256,8 +276,8 @@
 </button>
 <button class="topbtn" type="button" data-top aria-label="Back to top"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://sublimehr.com/"},{"@type":"ListItem","position":2,"name":"Features","item":"https://sublimehr.com/features/"},{"@type":"ListItem","position":3,"name":"Attendance Management","item":"https://sublimehr.com/software/attendance-management/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which biometric devices are supported?","acceptedAnswer":{"@type":"Answer","text":"SublimeHR integrates with fingerprint, RFID card and facial-recognition attendance devices. Share your device make and model and we'll confirm compatibility before you sign up."}},{"@type":"Question","name":"Can employees punch in from mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. Employees can clock in from the web or mobile app with camera and GPS verification, and beacon-based punch authorization for on-site validation."}},{"@type":"Question","name":"How are attendance exceptions handled?","acceptedAnswer":{"@type":"Answer","text":"Missing or mismatched clock-in/clock-out pairs are flagged as exceptions. Employees raise regularization requests and managers approve them in one click."}},{"@type":"Question","name":"Can I define different attendance types?","acceptedAnswer":{"@type":"Answer","text":"Yes. Attendance types are fully configurable, along with late-coming and missed clock-in tolerance rules."}},{"@type":"Question","name":"Do you support round-off rules?","acceptedAnswer":{"@type":"Answer","text":"Yes. Rounding rules for clock-in/out times are fully configurable to match your policy."}},{"@type":"Question","name":"What is SublimeHR?","acceptedAnswer":{"@type":"Answer","text":"SublimeHR is a cloud-based HR and workforce management platform. It brings employee records, attendance, leave, shift scheduling, payroll, reports and employee self-service into one system, with separate Admin and Employee panels and a native mobile app."}},{"@type":"Question","name":"Who is SublimeHR built for?","acceptedAnswer":{"@type":"Answer","text":"Growing businesses and enterprises across manufacturing, healthcare, IT, education, hospitality, retail, logistics, professional services and construction — anywhere you manage office, remote, hybrid, shift-based or field teams."}},{"@type":"Question","name":"How quickly can we go live?","acceptedAnswer":{"@type":"Answer","text":"Most customers go live in days, not months. Our team handles setup and data migration, then trains your admins and employees."}}]},{"@type":"Service","name":"Attendance Management Software","serviceType":"Attendance Management","provider":{"@id":"https://sublimehr.com/#organization"},"description":"Capture attendance from biometric devices, web punch with camera + GPS, and mobile beacons — then automate exceptions and approvals end-to-end.","url":"https://sublimehr.com/software/attendance-management/"}]}</script>
-<script src="/assets/js/mod2.js?v=mwvzyne4" defer></script>
-<script src="/assets/js/mod3.js?v=mwvzyne4" defer></script>
-<script src="/assets/js/navmenu.js?v=mwvzyne4" defer></script>
+<script src="/assets/js/mod2.js?v=mww07knu" defer></script>
+<script src="/assets/js/mod3.js?v=mww07knu" defer></script>
+<script src="/assets/js/navmenu.js?v=mww07knu" defer></script>
 </body>
 </html>

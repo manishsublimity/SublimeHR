@@ -19,54 +19,104 @@
   }
   function say(box, t) { var b = $("[data-dsay]", box); if (b) b.textContent = t; }
 
-  /* ---------- punch ---------- */
+  /* ---------- punch: the home clock-in card, playing by itself ---------- */
   function punch(box) {
-    var st = { taken: false }, feed = $("[data-feed]", box), pills = $$("[data-k]", box), hint = $("[data-phint]", box), btn = $("[data-punch]", box), pl = $("[data-pl]", box);
-    var names = ["Omar", "Sara", "Ravi", "Priya", "Karan", "Nadia", "Aisha", "John"], n = { in: 38, late: 2, out: 0 }, t = 9 * 60 + 2, i = 0, method = "Fingerprint", cnt = 0;
-    function time() { return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0"); }
-    function set(k) { method = k; pills.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.k === k)); }); hint.textContent = k === "Fingerprint" ? "Fingerprint matched. Head Office." : k === "Selfie" ? "Selfie matched, 98%. Head Office." : "GPS 12 m. Inside the geofence."; }
-    function add() {
-      var nm = names[i++ % names.length], late = t >= 9 * 60 + 15; t += 3 + (i % 4); if (late) n.late++;
-      n.in++; $$("[data-n]", box).forEach(function (e) { e.textContent = n[e.dataset.n]; });
-      var li = document.createElement("li"); li.innerHTML = '<i>' + nm.slice(0, 2).toUpperCase() + "</i><span><b>" + nm + "</b><small>" + method + "</small></span><em>" + time() + '</em><u class="' + (late ? "late" : "ok") + '">' + (late ? "Late" : "On time") + "</u>";
-      feed.insertBefore(li, feed.firstChild); while (feed.children.length > 5) feed.removeChild(feed.lastChild);
-      btn.classList.remove("hit"); void btn.offsetWidth; btn.classList.add("hit"); pl.textContent = "Clocked in"; setTimeout(function () { pl.textContent = "Clock in"; }, 900);
-      say(box, nm + " is in. " + (late ? "Late by a few minutes." : "Right on time."));
+    var st = { taken: false }, scanner = $("[data-scan]", box), lbl = $("[data-scan-lbl]", box), img = $("[data-scan-img]", box), cntEl = $("[data-cnt]", box), flash = $(".flash", scanner);
+    var checks = $$("[data-checks] li", box), status = $("[data-status]", box), c0 = $("[data-c0]", box), c1 = $("[data-c1]", box), arr = $("[data-arr]", box), arrOut = $("[data-arr-out]", box);
+    var geo = $("[data-geo]", box), modes = $$("[data-mode]", box), sample = $("[data-sample]", box), feed = $("[data-feed]", box), today = $("[data-today]", box);
+    var mode = "fp", has = false, busy = false, n = { in: 38, late: 2, out: 0 }, names = ["Omar", "Sara", "Ravi", "Priya", "Karan", "Nadia", "Aisha", "John"], ni = 0;
+    var hm = function (m) { return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
+    var modeMap = { fp: ["Fingerprint matched", "Press to clock in", "Fingerprint"], selfie: ["Selfie matched", "", "Selfie"], gps: ["Location shared", "Check my location", "GPS"] };
+    function sampleFace() {
+      var cv = document.createElement("canvas"); cv.width = cv.height = 200; var g = cv.getContext("2d");
+      g.fillStyle = "#CDE0FF"; g.fillRect(0, 0, 200, 200); g.fillStyle = "#FF8A70"; g.beginPath(); g.ellipse(100, 200, 70, 50, 0, 0, 7); g.fill();
+      g.fillStyle = "#2B1B17"; g.beginPath(); g.ellipse(100, 100, 56, 66, 0, 0, 7); g.fill(); g.fillStyle = "#E8B48C"; g.beginPath(); g.ellipse(100, 104, 42, 50, 0, 0, 7); g.fill();
+      g.fillStyle = "#2B1B17"; g.beginPath(); g.ellipse(100, 70, 46, 24, 0, Math.PI, 0); g.fill();
+      g.fillStyle = "#fff"; [80, 120].forEach(function (x) { g.beginPath(); g.ellipse(x, 104, 9, 10, 0, 0, 7); g.fill(); }); g.fillStyle = "#14213D"; [82, 122].forEach(function (x) { g.beginPath(); g.arc(x, 106, 4.5, 0, 7); g.fill(); });
+      g.strokeStyle = "#7A3B30"; g.lineWidth = 4; g.lineCap = "round"; g.beginPath(); g.arc(100, 124, 14, .2, Math.PI - .2); g.stroke(); return cv.toDataURL("image/png");
     }
-    pills.forEach(function (b) { b.addEventListener("click", function () { set(b.dataset.k); }); });
-    btn.addEventListener("click", add);
-    for (var k = 0; k < 3; k++) add(); n.in = 38; n.late = 2; $$("[data-n]", box).forEach(function (e) { e.textContent = n[e.dataset.n]; });
-    var order = ["Fingerprint", "Selfie", "Camera + GPS"];
-    drive(box, function () { cnt++; if (cnt % 2 === 0) set(order[(cnt / 2) % 3]); add(); }, 2800, st);
+    function setMode(m) {
+      mode = m; modes.forEach(function (x) { x.setAttribute("aria-checked", x.getAttribute("data-mode") === m ? "true" : "false"); });
+      scanner.setAttribute("data-m", m); scanner.classList.remove("ok", "bad", "at-in", "at-out", "scan"); c0.textContent = modeMap[m][0]; lbl.textContent = modeMap[m][1];
+      sample.hidden = m !== "selfie"; scanner.classList.toggle("has-img", m === "selfie" && has); img.hidden = !(m === "selfie" && has);
+    }
+    function stats() { $$("[data-n]", box).forEach(function (e) { e.textContent = n[e.dataset.n]; }); }
+    function addFeed(nm, how, time, cls, txt) {
+      var li = document.createElement("li"); li.innerHTML = "<i>" + nm.slice(0, 2).toUpperCase() + "</i><span><b>" + nm + "</b><small>" + how + "</small></span><em>" + time + '</em><u class="' + cls + '">' + txt + "</u>";
+      feed.insertBefore(li, feed.firstChild); while (feed.children.length > 5) feed.removeChild(feed.lastChild);
+    }
+    function runScan() {
+      if (busy) return; busy = true; var m = +arr.value, inside = geo.getAttribute("aria-checked") === "true", selfie = mode === "selfie", d = selfie ? 1500 : 0, who = names[ni++ % names.length];
+      checks.forEach(function (c) { c.className = ""; }); status.textContent = "Checking"; scanner.classList.remove("ok", "bad", "at-in", "at-out"); scanner.classList.add("scan"); lbl.textContent = selfie ? "Hold still" : "Scanning...";
+      if (selfie) {
+        img.hidden = true; [3, 2, 1].forEach(function (k, i) { setTimeout(function () { cntEl.textContent = k; cntEl.classList.remove("on"); void cntEl.offsetWidth; cntEl.classList.add("on"); }, i * 430); });
+        setTimeout(function () { cntEl.classList.remove("on"); cntEl.textContent = ""; flash.classList.remove("go"); void flash.offsetWidth; flash.classList.add("go"); img.hidden = false; }, 1290);
+      }
+      setTimeout(function () { checks[0].classList.add("on"); }, d + 700); setTimeout(function () { checks[1].classList.add("on"); if (!inside) checks[1].classList.add("late"); }, d + 1200);
+      setTimeout(function () {
+        var cls, txt, lb, em = $("em", today), fcls, ftxt;
+        scanner.classList.remove("scan"); scanner.classList.add(inside ? "at-in" : "at-out");
+        if (!inside) { cls = "on late"; txt = "Rejected: outside the fence"; lb = "Rejected"; scanner.classList.add("bad"); em.textContent = "Rejected"; em.className = "late"; $("b", today).textContent = "--:--"; fcls = "late"; ftxt = "Rejected"; n.out++; }
+        else {
+          if (m <= 540) { cls = "on"; txt = "On time, " + hm(m); lb = "On time"; scanner.classList.add("ok"); fcls = "ok"; ftxt = "On time"; }
+          else if (m <= 555) { cls = "on grace"; txt = "Within grace, no deduction"; lb = "Grace window"; scanner.classList.add("ok"); fcls = "ok"; ftxt = "Grace"; }
+          else { cls = "on late"; txt = "Late by " + (m - 540) + " min"; lb = "Late"; scanner.classList.add("bad"); fcls = "late"; ftxt = "Late"; n.late++; }
+          $("b", today).textContent = hm(m); em.textContent = lb; em.className = m <= 540 ? "ok" : m <= 555 ? "gr" : "late"; n.in++; addFeed(who, modeMap[mode][2], hm(m), fcls, ftxt);
+        }
+        if (!inside) addFeed(who, modeMap[mode][2], hm(m), "late", "Rejected");
+        stats(); status.textContent = txt; checks[2].className = cls; lbl.textContent = lb; say(box, who + ": " + txt + "."); today.classList.remove("pulse-in"); void today.offsetWidth; today.classList.add("pulse-in"); busy = false;
+      }, d + 1900);
+    }
+    function press() { if (mode === "selfie" && !has) { img.src = sampleFace(); has = true; scanner.classList.add("has-img"); img.hidden = true; } runScan(); }
+    modes.forEach(function (b) { b.addEventListener("click", function () { if (!busy) setMode(b.getAttribute("data-mode")); }); });
+    arr.addEventListener("input", function () { arrOut.textContent = hm(+arr.value); }); arrOut.textContent = hm(+arr.value);
+    geo.addEventListener("click", function () { var on = geo.getAttribute("aria-checked") !== "true"; geo.setAttribute("aria-checked", on ? "true" : "false"); c1.textContent = on ? "GPS 12 m, inside Head Office" : "GPS 340 m away, outside the fence"; });
+    sample.addEventListener("click", function () { img.src = sampleFace(); has = true; scanner.classList.add("has-img"); runScan(); });
+    scanner.addEventListener("click", press);
+    addFeed("Karan", "Selfie", "09:11", "late", "Late"); addFeed("Nadia", "GPS", "08:58", "ok", "On time"); addFeed("Priya", "Fingerprint", "08:47", "ok", "On time"); stats();
+    var plan = [["fp", 532, 1], ["selfie", 541, 1], ["gps", 531, 1], ["gps", 548, 0], ["fp", 566, 1]], pi = 0;
+    drive(box, async function () {
+      if (busy) return; var p = plan[pi++ % plan.length]; setMode(p[0]); arr.value = p[1]; arrOut.textContent = hm(p[1]);
+      geo.setAttribute("aria-checked", p[2] ? "true" : "false"); c1.textContent = p[2] ? "GPS 12 m, inside Head Office" : "GPS 340 m away, outside the fence";
+      say(box, p[0] === "fp" ? "Thumb on the scanner." : p[0] === "selfie" ? "Smile for the camera." : p[2] ? "Sharing my location." : "I am at the cafe next door."); await wait(900); if (!st.taken) press();
+    }, 6200, st);
   }
 
   /* ---------- leave ---------- */
   function leave(box) {
-    var st = { taken: false }, cal = $("[data-cal]", box), pills = $$("[data-k]", box), bal = $("[data-bal]", box), bar = $("[data-bar]", box), msg = $("[data-lmsg]", box), apply = $("[data-apply]", box), stamp = $("[data-stamp]", box);
-    var days = [], a = null, b = null, base = 14, total = 14, typeIdx = 0;
+    var st = { taken: false }, cal = $("[data-cal]", box), cards = $$("[data-k]", box), msg = $("[data-lmsg]", box), apply = $("[data-apply]", box), stamp = $("[data-stamp]", box), chain = $$("[data-ch]", box);
+    var sT = $("[data-s-type]", box), sD = $("[data-s-dates]", box), sN = $("[data-s-days]", box), sA = $("[data-s-after]", box), sB = $("[data-sbar]", box);
+    var days = [], a = null, b = null, typeIdx = 0, names = ["Annual", "Sick", "Comp-off"], bals = [14, 6, 2], tots = [14, 8, 4], timers = [];
     var wd = ["S", "M", "T", "W", "T", "F", "S"], off = 3, N = 30, hol = { 10: 1 };
     var html = wd.map(function (w) { return "<small>" + w + "</small>"; }).join("");
     for (var i = 0; i < off; i++) html += "<i></i>";
-    for (var d = 1; d <= N; d++) { var dow = (off + d - 1) % 7; html += '<button type="button" data-d="' + d + '" class="' + (dow === 0 || dow === 6 ? "we" : "") + '">' + d + "</button>"; }
+    for (var d = 1; d <= N; d++) { var dow = (off + d - 1) % 7; html += '<button type="button" data-d="' + d + '" class="' + (dow === 0 || dow === 6 ? "we" : hol[d] ? "ho" : "") + '">' + d + "</button>"; }
     cal.innerHTML = html; days = $$("[data-d]", cal);
     function working(x, y) { var c = 0; for (var d = x; d <= y; d++) { var dw = (off + d - 1) % 7; if (dw !== 0 && dw !== 6 && !hol[d]) c++; } return c; }
     function paint() {
       days.forEach(function (e) { var d = +e.dataset.d, on = a && b ? d >= a && d <= b : a === d; e.classList.toggle("sel", !!on); });
-      var w = a && b ? working(a, b) : 0; var left = Math.max(0, base - w); bal.textContent = left; bar.style.width = (left / total * 100) + "%";
+      var w = a && b ? working(a, b) : 0, after = Math.max(0, bals[typeIdx] - w);
+      cards.forEach(function (c, k) { var left = k === typeIdx ? after : bals[k]; $("[data-lb]", c).textContent = left; $("[data-lbar]", c).style.width = (left / tots[k] * 100) + "%"; });
+      sT.textContent = names[typeIdx] + " leave"; sD.textContent = !a ? "No dates yet" : !b ? a + " Apr, then pick the last day" : (a === b ? a + " Apr" : a + " to " + b + " Apr"); sN.textContent = w; sA.textContent = after; sB.style.width = (after / tots[typeIdx] * 100) + "%";
       msg.textContent = !a ? "Pick a start and an end date." : !b ? "Now pick the last day." : w + " working day" + (w === 1 ? "" : "s") + ". Weekends and holidays are skipped.";
       apply.disabled = !(a && b);
     }
-    function pick(d) { stamp.classList.remove("on"); if (!a || (a && b)) { a = d; b = null; } else { b = Math.max(a, d); a = Math.min(a, d); } paint(); }
-    function setType(i) { typeIdx = i; var p = pills[i]; pills.forEach(function (x, k) { x.setAttribute("aria-pressed", String(k === i)); }); base = total = +p.dataset.b; a = b = null; stamp.classList.remove("on"); paint(); }
+    function reset() { timers.forEach(clearTimeout); timers = []; stamp.classList.remove("on"); chain.forEach(function (c) { c.classList.remove("on"); }); }
+    function pick(d) { reset(); if (!a || (a && b)) { a = d; b = null; } else { b = Math.max(a, d); a = Math.min(a, d); } paint(); }
+    function setType(i) { typeIdx = i; cards.forEach(function (x, k) { x.setAttribute("aria-pressed", String(k === i)); }); a = b = null; reset(); paint(); }
     days.forEach(function (e) { e.addEventListener("click", function () { pick(+e.dataset.d); }); });
-    pills.forEach(function (p, i) { p.addEventListener("click", function () { setType(i); }); });
-    apply.addEventListener("click", function () { stamp.classList.add("on"); msg.textContent = "Sent. Approved in one tap. Cover found."; say(box, "Approved!"); });
+    cards.forEach(function (p, i) { p.addEventListener("click", function () { setType(i); }); });
+    apply.addEventListener("click", function () {
+      reset(); chain[0].classList.add("on"); msg.textContent = "Request sent to Priya."; say(box, "Sent!");
+      timers.push(setTimeout(function () { chain[1].classList.add("on"); msg.textContent = "Priya approved it in one tap."; say(box, "Approved!"); stamp.classList.add("on"); }, 900));
+      timers.push(setTimeout(function () { chain[2].classList.add("on"); msg.textContent = "Cover found. Payroll and the team calendar are updated."; }, 1800));
+    });
     paint();
     var script = [[7, 9], [16, 17], [22, 24]], si = 0, busy = false;
     drive(box, async function () {
-      if (busy) return; busy = true; var s = script[si++ % script.length]; setType(typeIdx % 3 === 0 && si > 1 ? (si % 3) : 0);
-      say(box, "Picking dates…"); await wait(700); if (st.taken) { busy = false; return; } pick(s[0]); await wait(900); if (st.taken) { busy = false; return; } pick(s[1]); await wait(1100); if (st.taken) { busy = false; return; } apply.click(); await wait(2600); if (!st.taken) { a = b = null; stamp.classList.remove("on"); paint(); } busy = false;
-    }, 8800, st);
+      if (busy) return; busy = true; var s = script[si++ % script.length]; setType(si > 1 ? si % 3 : 0);
+      say(box, "Picking dates…"); await wait(700); if (st.taken) { busy = false; return; } pick(s[0]); await wait(900); if (st.taken) { busy = false; return; } pick(s[1]); await wait(1100); if (st.taken) { busy = false; return; } apply.click(); await wait(3600); if (!st.taken) { a = b = null; reset(); paint(); } busy = false;
+    }, 9600, st);
   }
 
   /* ---------- payroll ---------- */

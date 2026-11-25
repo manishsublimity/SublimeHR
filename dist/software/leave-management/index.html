@@ -11,17 +11,17 @@
 <link rel="icon" type="image/png" href="/assets/img/sublimehr-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/home2.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/navmenu.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod2.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod3.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod4.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod5.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod6.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod7.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod8.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod9.css?v=mwvzyne4">
-<link rel="stylesheet" href="/assets/css/mod10.css?v=mwvzyne4">
+<link rel="stylesheet" href="/assets/css/home2.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/navmenu.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod2.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod3.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod4.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod5.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod6.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod7.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod8.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod9.css?v=mww07knu">
+<link rel="stylesheet" href="/assets/css/mod10.css?v=mww07knu">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
 <body class="lo mpage" data-w="it" data-ft="3">
@@ -104,14 +104,28 @@
   </div>
 </section>
 <section class="mdemo" id="try" aria-labelledby="h-try" data-tip="This demo plays by itself. Take over any time."><div class="mdemo__head"><h2 id="h-try">Pick two dates and send the request.</h2><p>Choose a leave type and tap a start and an end date. Weekends are skipped, the balance updates and the request is approved.</p></div><div class="dmx cast" data-dm="leave">
-  <div class="dmx__l">
-    <div class="dmx__pills" data-pills role="group" aria-label="Leave type"><button type="button" data-k="Annual" data-b="14" aria-pressed="true">Annual</button><button type="button" data-k="Sick" data-b="6" aria-pressed="false">Sick</button><button type="button" data-k="Comp-off" data-b="2" aria-pressed="false">Comp-off</button></div>
+  <div class="dmx__l dmx__lcal">
+    <div class="dmx__calhead"><b>April</b><span><i class="we"></i>Weekend<i class="ho"></i>Holiday<i class="sel"></i>Your leave</span></div>
     <div class="dmx__cal" data-cal></div>
   </div>
-  <div class="dmx__r dmx__bal">
-    <div class="dmx__balance"><b data-bal>14</b><span>days left</span><div class="bar"><i data-bar></i></div></div>
-    <p class="dmx__msg" data-lmsg>Pick a start and an end date.</p>
-    <button class="dmx__send" type="button" data-apply>Send request <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></button>
+  <div class="dmx__r dmx__lv">
+    <div class="dmx__types" role="group" aria-label="Leave type">
+      <button type="button" data-k="Annual" aria-pressed="true"><small>Annual</small><b data-lb>14</b><span>days left</span><u><i data-lbar></i></u></button>
+      <button type="button" data-k="Sick" aria-pressed="false"><small>Sick</small><b data-lb>6</b><span>days left</span><u><i data-lbar></i></u></button>
+      <button type="button" data-k="Comp-off" aria-pressed="false"><small>Comp-off</small><b data-lb>2</b><span>days left</span><u><i data-lbar></i></u></button>
+    </div>
+    <div class="dmx__sum">
+      <div><small data-s-type>Annual leave</small><b data-s-dates>No dates yet</b></div>
+      <div class="dmx__nums"><span><b data-s-days>0</b>working days</span><span><b data-s-after>14</b>left after</span></div>
+      <div class="dmx__sbar"><i data-sbar></i></div>
+    </div>
+    <ol class="dmx__chain" aria-label="Approval flow">
+      <li data-ch><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></i><b>Sent</b><small>You</small></li>
+      <li data-ch><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></i><b>Approved</b><small>Priya, manager</small></li>
+      <li data-ch><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="5" width="20" height="15" rx="2"/><path d="M2 10h20M6 15h4"/></svg></i><b>Synced</b><small>Payroll and calendar</small></li>
+    </ol>
+    <div class="dmx__away"><small>Also away this month</small><ul><li><i>OM</i><span>Omar<em>3 to 4 Apr</em></span></li><li><i>RA</i><span>Ravi<em>14 Apr</em></span></li><li><i>NA</i><span>Nadia<em>28 to 29 Apr</em></span></li></ul></div>
+    <div class="dmx__sendrow"><p class="dmx__msg" data-lmsg>Pick a start and an end date.</p><button class="dmx__send dmx__send--s" type="button" data-apply>Send request <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></button></div>
     <div class="dmx__stamp" data-stamp>APPROVED ✓</div>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Planning a trip?</span><div class="dmx__ppl"><div class="ppl s-bun has-gl ppl--wave" data-hat="none" data-pose="rest" data-item="none" data-outfit="none" style="--skin:#F1CBA6;--hair:#6B3A22;--shirt:#9B8CFF;--hijab:#6B3A22;--pants:#3C3A55;--bw:82px;--bh:96px;--lean:-1deg;--d:-0.7s" data-i="1">
@@ -257,8 +271,8 @@
 </button>
 <button class="topbtn" type="button" data-top aria-label="Back to top"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://sublimehr.com/"},{"@type":"ListItem","position":2,"name":"Features","item":"https://sublimehr.com/features/"},{"@type":"ListItem","position":3,"name":"Leave Management","item":"https://sublimehr.com/software/leave-management/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I configure our custom leave policies?","acceptedAnswer":{"@type":"Answer","text":"Yes. Accrual frequency, carry-forward, tenure rules, attendance-based accrual and per-employee overrides are all configurable without code."}},{"@type":"Question","name":"Can HR apply leave on behalf of employees?","acceptedAnswer":{"@type":"Answer","text":"Yes. HR and authorized managers can apply leave on behalf of any employee, with the same approval and balance checks."}},{"@type":"Question","name":"How do multi-level approvals work?","acceptedAnswer":{"@type":"Answer","text":"You define the approval chain — for example reporting manager, then department head, then HR — and requests route automatically with notifications at each step."}},{"@type":"Question","name":"Can we view team-wide leave calendars?","acceptedAnswer":{"@type":"Answer","text":"Yes. Holiday and leave calendars show who is away across teams so you can prevent understaffing."}},{"@type":"Question","name":"Do you handle regional holiday lists?","acceptedAnswer":{"@type":"Answer","text":"Yes. Configure branch-level holiday lists and policies to match local statutory requirements."}},{"@type":"Question","name":"What is SublimeHR?","acceptedAnswer":{"@type":"Answer","text":"SublimeHR is a cloud-based HR and workforce management platform. It brings employee records, attendance, leave, shift scheduling, payroll, reports and employee self-service into one system, with separate Admin and Employee panels and a native mobile app."}},{"@type":"Question","name":"Who is SublimeHR built for?","acceptedAnswer":{"@type":"Answer","text":"Growing businesses and enterprises across manufacturing, healthcare, IT, education, hospitality, retail, logistics, professional services and construction — anywhere you manage office, remote, hybrid, shift-based or field teams."}},{"@type":"Question","name":"How quickly can we go live?","acceptedAnswer":{"@type":"Answer","text":"Most customers go live in days, not months. Our team handles setup and data migration, then trains your admins and employees."}}]},{"@type":"Service","name":"Leave Management Software","serviceType":"Leave Management","provider":{"@id":"https://sublimehr.com/#organization"},"description":"Design any leave policy — accruals, holidays, weekends, tolerance — and let the rules engine handle balances and approvals for you.","url":"https://sublimehr.com/software/leave-management/"}]}</script>
-<script src="/assets/js/mod2.js?v=mwvzyne4" defer></script>
-<script src="/assets/js/mod3.js?v=mwvzyne4" defer></script>
-<script src="/assets/js/navmenu.js?v=mwvzyne4" defer></script>
+<script src="/assets/js/mod2.js?v=mww07knu" defer></script>
+<script src="/assets/js/mod3.js?v=mww07knu" defer></script>
+<script src="/assets/js/navmenu.js?v=mww07knu" defer></script>
 </body>
 </html>

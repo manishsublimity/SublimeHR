@@ -9,25 +9,59 @@ const wrap = (d, type, inner, extra = "") => `<section class="mdemo" id="try" ar
 
 const punch = (d) => wrap(d, "punch", `
   <div class="dmx__l">
-    <div class="dmx__pills" data-pills role="group" aria-label="Punch method"><button type="button" data-k="Fingerprint" aria-pressed="true">Fingerprint</button><button type="button" data-k="Selfie" aria-pressed="false">Selfie</button><button type="button" data-k="Camera + GPS" aria-pressed="false">Camera + GPS</button></div>
-    <button class="dmx__big" type="button" data-punch><span class="dmx__ring"></span><span>${icon("fingerprint", "ic")}</span><b data-pl>Clock in</b></button>
-    <p class="dmx__hint" data-phint>Fingerprint matched. Head Office.</p>
+    <article class="lc lc--clock mlc">
+      <div class="modes" role="radiogroup" aria-label="Punch method"><button type="button" role="radio" aria-checked="true" data-mode="fp">Fingerprint</button><button type="button" role="radio" aria-checked="false" data-mode="selfie">Selfie</button><button type="button" role="radio" aria-checked="false" data-mode="gps">GPS only</button></div>
+      <div class="clk">
+        <div class="clk__l">
+          <button class="scanner" type="button" data-scan data-m="fp" aria-label="Press to clock in">
+            <span class="sc sc--fp">${icon("fingerprint", "ic")}<i class="thumb"></i></span>
+            <span class="sc sc--selfie"><img class="scanner__img" data-scan-img alt="" hidden><i class="silh"></i><i class="crn"></i><b class="cnt" data-cnt></b><i class="flash"></i></span>
+            <span class="sc sc--gps"><i class="grid"></i><i class="gfence"></i><i class="radar"></i><i class="pin" data-pin></i></span>
+            <i class="scanner__beam"></i>
+          </button>
+          <span class="scanner__lbl" data-scan-lbl>Press to clock in</span>
+          <div class="clk__acts"><button type="button" class="mini-link" data-sample hidden>Use a sample face</button></div>
+        </div>
+        <div class="clk__r">
+          <ul class="checks" data-checks><li><span data-c0>Fingerprint matched</span><i>${icon("check", "ic")}</i></li><li><span data-c1>GPS 12 m, inside Head Office</span><i>${icon("check", "ic")}</i></li><li><span data-status>Waiting</span><i>${icon("check", "ic")}</i></li></ul>
+          <label class="geo"><span>I am at the office</span><button class="sw" type="button" role="switch" aria-checked="true" data-geo aria-label="I am at the office"></button></label>
+          <div class="arr"><label for="arr-${d.type}">Arrival</label><b data-arr-out>08:52</b><input id="arr-${d.type}" type="range" min="510" max="600" value="532" data-arr aria-label="Arrival time"></div>
+          <p class="note">Shift starts 09:00. Grace until 09:15.</p>
+        </div>
+      </div>
+      <div class="hist"><small>This week</small><ul><li><span>Mon</span><b>08:49</b><em class="ok">On time</em></li><li><span>Tue</span><b>09:07</b><em class="gr">Grace</em></li><li><span>Wed</span><b>08:52</b><em class="ok">On time</em></li><li data-today><span>Today</span><b>--:--</b><em>Waiting</em></li></ul></div>
+    </article>
   </div>
   <div class="dmx__r">
-    <div class="dmx__stats"><span><b data-n="in">38</b>in today</span><span><b data-n="late">2</b>late</span><span><b data-n="out">0</b>pending</span></div>
+    <div class="dmx__boardhead"><b>Live board</b><span class="dmx__live">${icon("check", "ic")}Head Office</span></div>
+    <div class="dmx__stats"><span><b data-n="in">38</b>in today</span><span><b data-n="late">2</b>late</span><span><b data-n="out">0</b>rejected</span></div>
     <ul class="dmx__feed" data-feed></ul>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Good morning!</span><div class="dmx__ppl">${who(byName["Aisha"], 1, "ppl--wave")}</div></div>`);
 
 const leave = (d) => wrap(d, "leave", `
-  <div class="dmx__l">
-    <div class="dmx__pills" data-pills role="group" aria-label="Leave type"><button type="button" data-k="Annual" data-b="14" aria-pressed="true">Annual</button><button type="button" data-k="Sick" data-b="6" aria-pressed="false">Sick</button><button type="button" data-k="Comp-off" data-b="2" aria-pressed="false">Comp-off</button></div>
+  <div class="dmx__l dmx__lcal">
+    <div class="dmx__calhead"><b>April</b><span><i class="we"></i>Weekend<i class="ho"></i>Holiday<i class="sel"></i>Your leave</span></div>
     <div class="dmx__cal" data-cal></div>
   </div>
-  <div class="dmx__r dmx__bal">
-    <div class="dmx__balance"><b data-bal>14</b><span>days left</span><div class="bar"><i data-bar></i></div></div>
-    <p class="dmx__msg" data-lmsg>Pick a start and an end date.</p>
-    <button class="dmx__send" type="button" data-apply>Send request ${icon("send", "ic")}</button>
+  <div class="dmx__r dmx__lv">
+    <div class="dmx__types" role="group" aria-label="Leave type">
+      <button type="button" data-k="Annual" aria-pressed="true"><small>Annual</small><b data-lb>14</b><span>days left</span><u><i data-lbar></i></u></button>
+      <button type="button" data-k="Sick" aria-pressed="false"><small>Sick</small><b data-lb>6</b><span>days left</span><u><i data-lbar></i></u></button>
+      <button type="button" data-k="Comp-off" aria-pressed="false"><small>Comp-off</small><b data-lb>2</b><span>days left</span><u><i data-lbar></i></u></button>
+    </div>
+    <div class="dmx__sum">
+      <div><small data-s-type>Annual leave</small><b data-s-dates>No dates yet</b></div>
+      <div class="dmx__nums"><span><b data-s-days>0</b>working days</span><span><b data-s-after>14</b>left after</span></div>
+      <div class="dmx__sbar"><i data-sbar></i></div>
+    </div>
+    <ol class="dmx__chain" aria-label="Approval flow">
+      <li data-ch><i>${icon("send", "ic")}</i><b>Sent</b><small>You</small></li>
+      <li data-ch><i>${icon("check", "ic")}</i><b>Approved</b><small>Priya, manager</small></li>
+      <li data-ch><i>${icon("wallet", "ic")}</i><b>Synced</b><small>Payroll and calendar</small></li>
+    </ol>
+    <div class="dmx__away"><small>Also away this month</small><ul><li><i>OM</i><span>Omar<em>3 to 4 Apr</em></span></li><li><i>RA</i><span>Ravi<em>14 Apr</em></span></li><li><i>NA</i><span>Nadia<em>28 to 29 Apr</em></span></li></ul></div>
+    <div class="dmx__sendrow"><p class="dmx__msg" data-lmsg>Pick a start and an end date.</p><button class="dmx__send dmx__send--s" type="button" data-apply>Send request ${icon("send", "ic")}</button></div>
     <div class="dmx__stamp" data-stamp>APPROVED ✓</div>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Planning a trip?</span><div class="dmx__ppl">${who(byName["Sara"], 1, "ppl--wave")}</div></div>`);
