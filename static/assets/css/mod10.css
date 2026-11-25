@@ -790,3 +790,24 @@
 .cf__ch .cf__say { bottom: 214px; }
 .cf__ch--l .cf__say { left: 74%; }
 .cf__ch .cf__say { top: auto; height: auto; }
+
+/* dropdown and date arrows get room on the right */
+.cf-field select { -webkit-appearance: none; appearance: none; padding-right: 54px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%2314213D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 22px center; background-size: 14px 9px; }
+.cf-field select:focus { background-color: #fff; }
+.cf-tel select { padding: 0 34px 0 14px; background-position: right 13px center; }
+.cf-field input[type="date"] { padding-right: 18px; } .cf-field input[type="date"]::-webkit-calendar-picker-indicator { margin-right: 6px; cursor: pointer; opacity: .7; }
+
+/* the section under the form: one tidy band of facts, then two contact buttons */
+.cfr { max-width: 1020px; padding-top: 50px; }
+.cfr__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+.cfr__grid > .cf__agenda, .cfr__grid > .cf__incl, .cfr__grid > .cf__short { grid-column: 1 / -1; }
+.cfr__grid .cf__agenda { padding: 26px 30px 28px; } .cfr__grid .cf__agenda p, .cfr__grid .cf__incl p { margin: 0 0 18px; font-size: 14.5px; }
+.cfr__grid .cf__agenda ol { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; } .cfr__grid .cf__agenda ol::before { left: 44px; right: 44px; top: 17px; bottom: auto; width: auto; height: 3px; border-radius: 3px; }
+.cfr__grid .cf__agenda li { flex-direction: column; align-items: flex-start; gap: 14px; padding: 0 12px 0 0; } .cfr__grid .cf__agenda li b { width: 88px; height: 36px; } .cfr__grid .cf__agenda li span { max-width: 15em; font-size: 15.5px; line-height: 1.35; }
+.cfr__grid .cf__plans { grid-template-columns: repeat(3, 1fr); gap: 14px; } .cfr__grid .cf__plans span { display: grid; gap: 6px; padding: 18px 20px; border-radius: 18px; } .cfr__grid .cf__plans b { font-size: 20px; } .cfr__grid .cf__plans small { font-size: 14px; }
+.cfr__grid .cf__cmp { margin-top: 18px; }
+.cfr__grid .cf__incl { display: flex; align-items: center; gap: 12px 30px; flex-wrap: wrap; padding: 20px 30px; } .cfr__grid .cf__incl p { margin: 0; } .cfr__grid .cf__incl ul { display: flex; flex-wrap: wrap; gap: 10px 26px; }
+.cfr__grid .cf__line { height: 96px; padding: 0 26px; gap: 16px; border-radius: 28px; } .cfr__grid .cf__line > i { width: 54px; height: 54px; border-radius: 18px; } .cfr__grid .cf__line b { font-size: 23px; } .cfr__grid .cf__line small { font-size: 13.5px; } .cfr__grid .cf__line > .ic { display: block; width: 24px; height: 24px; transition: transform .35s var(--spring); } .cfr__grid .cf__line:hover > .ic { transform: translateX(6px); }
+.cfr__grid .cf__short { padding: 26px 30px; } .cfr__grid .cf__short div { grid-template-columns: repeat(3, 1fr); gap: 14px; } .cfr__grid .cf__short a { padding: 20px 22px; gap: 6px; border-radius: 22px; } .cfr__grid .cf__short i { width: 44px; height: 44px; font-size: 22px; margin-bottom: 8px; } .cfr__grid .cf__short b { font-size: 18px; } .cfr__grid .cf__short small { font-size: 13.5px; }
+@media (max-width: 900px) { .cfr__grid { grid-template-columns: 1fr; } .cfr__grid .cf__agenda ol, .cfr__grid .cf__plans, .cfr__grid .cf__short div { grid-template-columns: 1fr; gap: 14px; } .cfr__grid .cf__agenda ol::before { display: none; } .cfr__grid .cf__agenda li { flex-direction: row; align-items: center; } }
+.cfh__d--l { left: -64px; } .cfh__d--r { right: -64px; }
