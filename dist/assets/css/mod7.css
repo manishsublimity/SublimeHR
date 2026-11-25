@@ -21,16 +21,3 @@
 /* ---------- tags: no more overlap ---------- */
 .mba__cards .k0 { left: 47%; top: 15%; } .mba__cards .k6 { left: 73%; top: 4%; } .mba__cards .k1 { left: 68%; top: 26%; } .mba__cards .k2 { left: 46%; top: 38%; } .mba__cards .k3 { left: 70%; top: 49%; } .mba__cards .k4 { left: 48%; top: 61%; } .mba__cards .k5 { left: 66%; top: 72%; }
 .mba__prog { bottom: 14px; }
-
-/* ---------- day / night: a small desk lamp, bottom left ---------- */
-.lamp { left: 18px; top: auto; bottom: 14px; width: 104px; height: 176px; animation: none; transform: none; }
-.lamp__cord { display: none; }
-.lamp::before { content: ""; position: absolute; left: 36px; bottom: 12px; width: 7px; height: 104px; border-radius: 7px; background: linear-gradient(90deg, #8E98B2, #C3CADB); transform-origin: 50% 100%; transform: rotate(9deg); }
-.lamp::after { content: ""; position: absolute; left: 12px; bottom: 0; width: 62px; height: 15px; border-radius: 32px 32px 9px 9px; background: linear-gradient(180deg, #A3ADC5, #7D87A2); box-shadow: 0 8px 12px -6px rgba(20,33,61,.5); }
-.lamp__shade { left: 34px; top: 14px; transform: rotate(-12deg); transform-origin: 50% 100%; }
-.lamp__bulb { left: 52px; top: 48px; }
-.lamp__beam { left: 8px; top: 58px; width: 150px; height: 230px; transform: rotate(-12deg); transform-origin: 50% 0; }
-.lamp__chain { left: 78px; top: 40px; height: 38px; }
-.lamp__tip { left: 92px; top: 18px; }
-.lamp:hover .lamp__shade { transform: rotate(-4deg); } .lamp__shade { transition: background .5s, box-shadow .5s, transform .5s var(--spring); }
-@media (max-width: 760px) { .lamp { transform: scale(.78); transform-origin: 0 100%; left: 8px; } }
