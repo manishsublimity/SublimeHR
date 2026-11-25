@@ -1843,12 +1843,3 @@ body[data-ft="3"] .footer__contact a:hover { background: rgba(255,255,255,.3); b
 /* industry dock sits on the hero itself, a little higher, and fades out as soon as you scroll */
 .dock { position: absolute; top: calc(100vh - 80px); top: calc(100svh - 80px); bottom: auto; transition: none; }
 @media (max-height: 780px) { .dock { top: calc(100vh - 70px); top: calc(100svh - 70px); bottom: auto; } }
-
-/* dark theme for the home page: the sections below the hero are flipped as a whole, the hero keeps its industry colour */
-html[data-theme="dark"] body.lo { background: #0B1226; color: #E8EDF8; }
-html[data-theme="dark"] body.lo main > section:not(.hero), html[data-theme="dark"] body.lo .ticker, html[data-theme="dark"] body.lo footer { filter: invert(.93) hue-rotate(180deg); }
-
-/* the original sticky site header sits above the hero, so the hero and the industry dock make room for it */
-.hero { padding-top: 40px; }
-.dock { top: calc(100vh - 80px - 71px); top: calc(100svh - 80px - 71px); }
-@media (max-height: 780px) { .dock { top: calc(100vh - 70px - 71px); top: calc(100svh - 70px - 71px); } }

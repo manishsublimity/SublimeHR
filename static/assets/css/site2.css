@@ -117,3 +117,7 @@ html[data-theme="dark"] body.v2 main .btn { --bg: #fff; --fg: #14213D; }
 html[data-theme="dark"] body.v2 main .btn.alt { --bg: rgba(255,255,255,.08); --fg: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
 html[data-theme="dark"] body.v2 .phero .btn { --bg: var(--on); --fg: var(--world); } html[data-theme="dark"] body.v2 .phero .btn.alt { --bg: rgba(255,255,255,.18); --fg: var(--on); }
 html[data-theme="dark"] body.v2 .cta .btn { --bg: var(--on); --fg: var(--world); } html[data-theme="dark"] body.v2 .cta .btn.alt { --bg: rgba(255,255,255,.18); --fg: var(--on); }
+
+/* the home-page header floats over the hero band */
+body.v2 .phero { margin-top: 14px; padding-top: 128px; }
+body.v2 .nav .nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
