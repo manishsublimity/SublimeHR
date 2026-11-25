@@ -190,6 +190,7 @@
   (function () {
     var r = $("[data-mba]"); if (!r) return;
     var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), ladyBox = $(".mba__lady", r), lady = $(".ppl", ladyBox), cards = $$(".mba__cards li", r), prog = $("[data-prog]", r), recRows = $$(".mba__record li", r), recPct = $("[data-recpct]", r), pile = $(".mba__cards", r);
+    var Ls = { say: r.dataset.l0, ask: r.dataset.l1, done: r.dataset.l2, doneG: r.dataset.l3 };
     var order = [0, 3, 1, 4, 2, 5, 6], token = 0, running = false, auto = true, dwell, lastFixed = -1;
     function pose(step) { lady.setAttribute("data-pose", { before: "rest", ask: "point", work: "hips", after: "wave" }[step] || "rest"); lady.classList.toggle("ppl--wave", step === "after"); }
     function set(step) {
@@ -204,19 +205,19 @@
     function release() { guide.classList.remove("mplay", "msearch", "mhi", "mfast"); }
     async function play(manual) {
       var t = ++token; if (gBusy && !manual) return;
-      running = true; gBusy = true; menu(false); guide.classList.add("mplay", "mfast"); syncCards(0); set("before"); lsay("Where is that file again?", 1800); await wait(900); if (!alive(t)) return;
+      running = true; gBusy = true; menu(false); guide.classList.add("mplay", "mfast"); syncCards(0); set("before"); lsay(Ls.say, 1800); await wait(900); if (!alive(t)) return;
       near(scene, .86, .1); await wait(650); if (!alive(t)) return; guide.classList.add("mhi"); setTimeout(function () { guide.classList.remove("mhi"); }, 1200); Snd.pop(); guideSay("Hi, I'm Subi. Need a hand?", 1800); await wait(1500); if (!alive(t)) return;
-      set("ask"); lsay("Subi, can you find Sara's offer letter?", 2600); await wait(2700); if (!alive(t)) return;
+      set("ask"); lsay(Ls.ask, 2600); await wait(2700); if (!alive(t)) return;
       guideSay("On it!", 1200); set("work"); guide.classList.add("msearch");
       near(pile, .36, .5); await wait(700); if (!alive(t)) return;
       for (var i = 0; i < order.length; i++) { if (!alive(t)) return; syncCards(i + 1); await wait(560); }
       guide.classList.remove("msearch"); await wait(250); if (!alive(t)) return;
       near(ladyBox, 1.15, .62); await wait(700); if (!alive(t)) return;
-      set("after"); guideSay("All done. Everything is on her record.", 2800); lsay("Found it. Thank you, Subi!", 2800); await wait(3000); if (!alive(t)) return;
+      set("after"); guideSay(Ls.doneG, 2800); lsay(Ls.done, 2800); await wait(3000); if (!alive(t)) return;
       gHome(); release(); await wait(600); gBusy = false; running = false;
     }
     function stop() { token++; clearTimeout(dwell); if (running) { release(); gBusy = false; gHome(); running = false; } }
-    tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; stop(); if (b.dataset.s === "after") play(true); else { syncCards(0); set("before"); lsay("Where is that file again?", 1800); } }); });
+    tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; stop(); if (b.dataset.s === "after") play(true); else { syncCards(0); set("before"); lsay(Ls.say, 1800); } }); });
     mbaApi = { play: function () { auto = false; stop(); return play(true); } };
     if (reduce) { cards.forEach(function (c) { c.classList.add("fixed"); }); set("after"); return; }
     set("before");

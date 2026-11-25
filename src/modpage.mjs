@@ -5,6 +5,8 @@ import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
 import { homeFooter, V } from "./home2.mjs";
+import { CONF, iconFor } from "./modconf.mjs";
+import { demoSection } from "./moddemo.mjs";
 
 const byName = Object.fromEntries(people.map((p) => [p.n, p]));
 const esc = (s = "") => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -67,6 +69,7 @@ function head(m, path, description) {
 <link rel="stylesheet" href="/assets/css/mod7.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod8.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod9.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mod10.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -76,7 +79,11 @@ const tagx = (name, role, i, x, y, s) => `<span class="tagx" style="--x:${x}px;-
 
 function hero(m) {
   const rows = m.features.slice(0, 4);
-  const cast = [["Omar", "HR manager", 60, 116, .84], ["Priya", "HR partner", 250, 344, 1], ["Sara", "New joiner", 560, 330, 1]];
+  const hc = CONF[m.slug]?.hero;
+  const pos = [[60, 116, .84], [250, 344, 1], [560, 330, 1]];
+  const cast = (hc ? hc.cast : [["Omar", "HR manager"], ["Priya", "HR partner"], ["Sara", "New joiner"]]).map(([n, r], i) => [n, r, ...pos[i]]);
+  const who3 = hc ? hc.who : ["SN", "Sara Nasser", "New joiner · Senior Accountant"];
+  const chips = hc ? hc.chips : [["users", "3 joined today"], ["file", "Offer letter sent"], ["check", "All records in sync"]];
   return `<section class="hero mhero" aria-labelledby="h1" data-hero data-tip="Watch the office work. Each line is something this module does.">
   <div class="hero__wrap">
     <div class="hero__main">
@@ -89,14 +96,12 @@ function hero(m) {
         <div class="stage__floor" aria-hidden="true"></div>
         <div class="mwin" data-mwin>
           <div class="mwin__top"><i>${icon(m.icon, "ic")}</i><b>${esc(m.name)}</b><em><span></span>Live</em></div>
-          <div class="mwin__who"><span class="mwin__av">SN</span><span><b>Sara Nasser</b><small>New joiner · Senior Accountant</small></span><strong data-pct>25%</strong></div>
+          <div class="mwin__who"><span class="mwin__av">${esc(who3[0])}</span><span><b>${esc(who3[1])}</b><small>${esc(who3[2])}</small></span><strong data-pct>25%</strong></div>
           <ul>${rows.map((f, i) => `<li data-row="${i}"><i>${icon("check", "ic")}</i><span>${esc(f)}</span></li>`).join("")}</ul>
           <div class="mwin__bar"><i data-bar></i></div>
         </div>
         <div class="mchips" aria-hidden="true">
-          <span class="mchip mc-1"><i>${icon("users", "ic")}</i><b>3 joined today</b></span>
-          <span class="mchip mc-2"><i>${icon("file", "ic")}</i><b>Offer letter sent</b></span>
-          <span class="mchip mc-3"><i>${icon("check", "ic")}</i><b>All records in sync</b></span>
+          ${chips.map(([ic, tx], i) => `<span class="mchip mc-${i + 1}"><i>${icon(ic, "ic")}</i><b>${esc(tx)}</b></span>`).join("")}
         </div>
         ${cast.map(([n, r, x, y, s], i) => slot(n, i, x, y, s, i === 1 ? "ppl--wave" : "")).join("")}
         ${cast.map(([n, r, x, y, s]) => tagx(n, r, 0, x, y, s)).join("")}
@@ -130,9 +135,11 @@ function letterDemo() {
 
 function before(m) {
   const pains = ["Spreadsheets & paper forms", "Manual re-keying between systems", "The same HR questions, every day"];
-  const fixes = ["Final_v7.xlsx", "Who has the form?", "Re-type it", "Wrong salary?", "Lost the letter", "Duplicate entry", "No audit trail"];
-  const rec = ["Profile", "Offer letter", "Salary", "Documents", "Timeline", "Access card", "Audit log"];
-  return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-tip="Watch Subi come over and fix her day.">
+  const bc = CONF[m.slug]?.before;
+  const fixes = bc ? bc.problems : ["Final_v7.xlsx", "Who has the form?", "Re-type it", "Wrong salary?", "Lost the letter", "Duplicate entry", "No audit trail"];
+  const rec = bc ? bc.rec.rows : ["Profile", "Offer letter", "Salary", "Documents", "Timeline", "Access card", "Audit log"];
+  const L = bc ? { say: bc.say, ask: bc.ask, done: bc.done, doneG: bc.doneG, av: bc.rec.av, name: bc.rec.name, sub: bc.rec.sub } : { say: "Where is that file again?", ask: "Subi, can you find Sara's offer letter?", done: "Found it. Thank you, Subi!", doneG: "All done. Everything is on her record.", av: "SN", name: "Sara Nasser", sub: "Employee record" };
+  return `<section class="mba" aria-labelledby="h-ba" data-mba data-state="before" data-l0="${esc(L.say)}" data-l1="${esc(L.ask)}" data-l2="${esc(L.done)}" data-l3="${esc(L.doneG)}" data-tip="Watch Subi come over and fix her day.">
   <div class="mba__pin" data-pin><div class="mba__sticky">
   <div class="mba__head"><h2 id="h-ba">What changes for your HR team.</h2>
     <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button></div></div>
@@ -145,9 +152,9 @@ function before(m) {
       <span class="mba__dots" aria-hidden="true"></span><span class="mba__glow" aria-hidden="true"></span>
       <span class="mba__papers" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
-      <span class="mba__say" data-bsay>Where is that file again?</span>
+      <span class="mba__say" data-bsay>${esc(L.say)}</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
-      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>SN</i><span><b>Sara Nasser</b><small>Employee record</small></span><em data-recpct>0%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i>${x}</li>`).join("")}</ul></div>
+      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em data-recpct>0%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i>${x}</li>`).join("")}</ul></div>
       <ul class="mba__cards" aria-hidden="true">${fixes.map((bad, i) => `<li class="k${i}"><span class="bf"><i></i>${bad}</span></li>`).join("")}</ul>
       <span class="mba__prog" data-prog aria-hidden="true">Waiting for the file…</span>
       <span class="mba__floor"></span>
@@ -159,7 +166,8 @@ function before(m) {
 
 function caps(m) {
   const ex = EXTRA[m.slug]?.caps;
-  const list = m.features.map((f, i) => ex ? ex[i] || [f, "", "file", "hold"] : [f, "", "file", "hold"]);
+  const ce = CONF[m.slug]?.caps;
+  const list = m.features.map((f, i) => ex ? ex[i] || [f, "", "file", "hold"] : [f, ce ? ce[i] || "" : "", iconFor(f), ["hold", "point", "hold", "type"][i % 4]]);
   return `<section class="mcap" aria-labelledby="h-cap" data-mcap data-tip="One capability at a time. Hover any tile to jump to it.">
   <div class="mcap__head"><h2 id="h-cap">${m.features.length} things it does for you.</h2><p>Configured to your policies. No code, no add-ons.</p></div>
   <div class="mcap__grid">
@@ -244,7 +252,7 @@ export function modulePage(m, faqItems, ldExtra = "") {
 </header>
 <main id="main">
 ${hero(m)}
-${m.slug === "employee-management" ? letterDemo() : ""}
+${m.slug === "employee-management" ? letterDemo() : CONF[m.slug]?.demo ? demoSection(m, CONF[m.slug].demo) : ""}
 ${before(m)}
 ${caps(m)}
 ${scen(m)}
@@ -268,6 +276,7 @@ ${themeFab()}
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 ${ldExtra}
 <script src="/assets/js/mod2.js?v=${V}" defer></script>
+<script src="/assets/js/mod3.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>
 </body>
 </html>
