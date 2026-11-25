@@ -77,7 +77,7 @@
   function ring(el) { var r = el.getBoundingClientRect(), d = document.createElement("i"); d.className = "tapring"; d.style.left = r.left + r.width / 2 + "px"; d.style.top = r.top + r.height / 2 + "px"; fx.appendChild(d); setTimeout(function () { d.remove(); }, 900); }
 
   /* ================= stage fit, wall clock, nav, back to top ================= */
-  function fit() { var w = Math.min(hero.clientWidth, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.55, Math.min(1.28, (w - 440 - 36) / 760)))); }
+  function fit() { var w = Math.min(hero.clientWidth, 1600) - 112, byW = (w - 440 - 36) / 760, byH = (window.innerHeight - 96 - 118) / 610; stage.style.setProperty("--fit", String(Math.max(.5, Math.min(1.28, byW, byH)))); }
   fit(); window.addEventListener("resize", fit);
   var wc = $(".wallclock", stage), hh = $(".hh", wc), mh = $(".mh", wc), sh = $(".sh", wc);
   function tick() {

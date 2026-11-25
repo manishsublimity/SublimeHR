@@ -295,7 +295,7 @@ const roles = [
 const ticks = modules.map((m) => m.name);
 const ticks2 = ["Hire to retire", "Attendance to payroll", "Admin to self-service", "English and Arabic", "Mobile ready", "Role-based security", "13 reports", "70+ feature areas"];
 const tick = (arr, rev) => `<div class="ticker__row${rev ? " rev" : ""}">${[0, 1].map(() => `<span>${arr.map((t) => `<b>${t}</b>`).join("")}</span>`).join("")}</div>`;
-const chip = (d, i) => `<button class="chip" type="button" data-k="${d.key}" aria-pressed="${i === 0}">${icon(d.icon, "ic")}<span>${d.name}</span></button>`;
+const chip = (d, i) => `<button class="chip" type="button" data-k="${d.key}" data-name="${d.name}" aria-pressed="${i === 0}">${icon(d.icon, "ic")}<span>${d.name}</span></button>`;
 const faq = homeFaqItems().map(([q, a]) => [q, a]);
 const clockNums = [[12, 0], [3, 90], [6, 180], [9, 270]].map(([n, d]) => { const a = d * Math.PI / 180; return `<text x="${(60 + 37 * Math.sin(a)).toFixed(1)}" y="${(60 - 37 * Math.cos(a) + 4.2).toFixed(1)}">${n}</text>`; }).join("");
 const clockPt = (i, n, r) => { const a = i * 2 * Math.PI / n; return [(60 + r * Math.sin(a)).toFixed(1), (60 - r * Math.cos(a)).toFixed(1)]; };
@@ -341,10 +341,6 @@ export function home2() {
                 <div class="tally" aria-label="Today at a glance">
                   <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
                 </div>
-        <div class="dock">
-          <p class="dock__lbl" id="pick-lbl">Pick your industry and watch the office change.</p>
-          <div class="chips" role="group" aria-labelledby="pick-lbl" data-chips>${industries.map(chip).join("")}</div>
-        </div>
       </div>
       <div class="stage" data-stage aria-label="A live office where people clock in, take leave and get paid">
         <div class="stage__floor" aria-hidden="true"></div>
@@ -358,6 +354,10 @@ export function home2() {
         ${people.map((p, i) => `<div class="slot" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s};--z:${Math.round(p.y / 3)};--par:${p.s < 1 ? 5 : 12}" data-slot="${i}"><div class="say" data-say aria-live="polite"></div>${who(p, i)}</div>`).join("")}
         ${people.map((p, i) => `<span class="tagx" data-tagx="${i}" style="--x:${p.x}px;--y:${p.y}px;--s:${p.s}"><b>${p.n}</b><em data-role></em></span>`).join("")}
       </div>
+    </div>
+    <div class="dock" role="group" aria-labelledby="pick-lbl">
+      <p class="dock__lbl" id="pick-lbl">Pick your industry<small>and watch the office change</small></p>
+      <div class="chips" data-chips>${industries.map(chip).join("")}</div>
     </div>
   </div>
 </section>
