@@ -120,13 +120,13 @@ const roles = (d) => wrap(d, "roles", `
     <div class="dmx__pills" data-pills role="group" aria-label="Role">${ROLES.map((r, i) => `<button type="button" data-k="${i}" aria-pressed="${i === 0}">${r}</button>`).join("")}</div>
     <ul class="dmx__perms" data-perms>${AREAS.map((a, i) => `<li data-a="${i}"><span>${a}</span><button type="button" class="sw" role="switch" aria-checked="false" aria-label="${a}"><i></i></button></li>`).join("")}</ul>
   </div>
-  <div class="dmx__r dmx__sum"><span class="dmx__badge" data-badge>${icon("lock", "ic")}</span><b data-stitle>Employee</b><p data-stext></p><div class="dmx__chips" data-schips></div></div>
+  <div class="dmx__r dmx__sum"><div class="dmx__shead"><span class="dmx__badge" data-badge>${icon("lock", "ic")}</span><div><b data-stitle>Employee</b><p data-stext></p></div></div><div class="dmx__chips" data-schips></div><div class="dmx__can"><small>What this role does</small><ul data-scan></ul></div></div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Who can see what?</span><div class="dmx__ppl">${who(byName["Priya"], 1, "")}</div></div>`);
 
 const roster = (d) => wrap(d, "roster", `
   <div class="dmx__l dmx__rosterbox">
-    <div class="dmx__legend"><span class="m">M</span>Morning<span class="e">E</span>Evening<span class="n">N</span>Night<span class="o">O</span>Off</div>
-    <div class="dmx__rgrid" data-grid></div>
+    <p class="legend"><span class="M">M</span>Morning<span class="E">E</span>Evening<span class="N">N</span>Night<span class="O">O</span>Day off<span class="cvk">2</span>people needed on every morning</p>
+    <div class="roster" data-grid></div>
   </div>
   <div class="dmx__r dmx__insight"><b data-ctitle>Coverage is fine</b><p data-ctext>Every day has at least two people on the morning shift.</p><div class="dmx__tiles" data-tiles></div><span class="dmx__live">${icon("repeat", "ic")}Linked to attendance and pay.</span></div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Swap?</span><div class="dmx__ppl">${who(byName["Omar"], 1, "")}</div></div>`);
@@ -139,35 +139,14 @@ const visitor = (d) => wrap(d, "visitor", `
     <button class="dmx__send" type="button" data-checkin>Check in ${icon("check", "ic")}</button>
   </div>
   <div class="dmx__r dmx__badgebox">
-    <div class="dmx__badge2" data-badge2><div class="dmx__bhead"><span>VISITOR</span><em data-btime>09:12</em></div><div class="dmx__bphoto" data-bav>JL</div><b data-bname>Your visitor</b><small data-bhost>Host will be notified</small><div class="dmx__vmeta"><span data-bwho>Priya Shah</span><span data-bwhy>Interview</span></div><div class="dmx__qr"></div><small class="dmx__valid">Valid today · Head Office</small></div>
+    <div class="dmx__badge2" data-badge2>
+      <div class="dmx__bside"><span>VISITOR</span><div class="dmx__bphoto" data-bav>JL</div><em data-btime>09:12</em></div>
+      <div class="dmx__bmain"><small>Guest pass · Head Office</small><b data-bname>Your visitor</b><div class="dmx__vmeta"><span data-bwho>Priya Shah</span><span data-bwhy>Interview</span></div><div class="dmx__bfoot"><div class="dmx__qr"></div><small class="dmx__valid">Valid today<br>Show at reception</small></div></div>
+    </div>
+    <div class="dmx__host" data-host><i>${icon("bot", "ic")}</i><span><b data-hostt>Host will be told</b><small data-hosts>A message goes out the moment you check in</small></span></div>
     <ul class="dmx__vsteps" data-vsteps><li><i>${icon("check", "ic")}</i>Photo taken</li><li><i>${icon("check", "ic")}</i>Host told</li><li><i>${icon("check", "ic")}</i>Badge printed</li></ul>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Welcome!</span><div class="dmx__ppl">${who(byName["Nadia"], 1, "ppl--wave")}</div></div>`);
-
-const field = (d) => wrap(d, "field", `
-  <div class="dmx__l dmx__map">
-    <div class="dmx__mapbox">
-      <svg viewBox="0 0 600 290" role="img" aria-label="Ravi's route across three sites">
-        <defs><pattern id="fhatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="9" stroke="currentColor" stroke-width="2" opacity=".18"/></pattern></defs>
-        <g class="fmap-roads"><path d="M0 210H600M0 70H600M120 0V290M300 0V290M470 0V290"/><path d="M0 150C150 130 300 190 600 120" /></g>
-        <g data-zone class="fmap-zone"><ellipse cx="365" cy="160" rx="82" ry="58" fill="url(#fhatch)"/><text x="365" y="228" text-anchor="middle">No signal</text></g>
-        <path data-path class="fmap-route" d="M62 232C130 236 150 98 232 90S338 196 380 170 470 62 540 70"/>
-        <path data-trail class="fmap-trail" d="M62 232C130 236 150 98 232 90S338 196 380 170 470 62 540 70"/>
-        <g data-sites></g>
-        <g data-pin class="fmap-pin"><circle class="pulse" r="16"/><circle r="9"/><circle r="3.4" fill="#fff"/></g>
-      </svg>
-      <span class="dmx__nets" data-net-badge><i></i><i></i><i></i><i></i></span>
-    </div>
-    <div class="dmx__stops" data-stops role="group" aria-label="Stops of the day">${d.stops.map((s, i) => `<button type="button" data-st="${i}" aria-pressed="${i === 0}"><b>${esc(s[0])}</b><span>${esc(s[1])}</span></button>`).join("")}</div>
-  </div>
-  <div class="dmx__r dmx__fphone">
-    <div class="dmx__fscr"><div class="dmx__fbar"><b>SublimeHR</b><span class="dmx__sig" data-sig><i></i><i></i><i></i><i></i></span></div>
-      <h3 data-fh>Clocked in at the depot</h3>
-      <ul data-frows></ul>
-      <div class="dmx__fcta" data-fcta>Clocked in</div></div>
-    <div class="dmx__fcount"><span><b data-km>0</b>km</span><span><b data-vis>0</b>visits</span><span><b data-hrs>0:00</b>worked</span></div>
-  </div>
-  <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Off to the depot.</span><div class="dmx__ppl">${who(byName["Ravi"], 1, "ppl--wave")}</div></div>`);
 
 const DAY = [["08:45", "Clock in", "Selfie and GPS match, so the day starts on time.", "clock"], ["10:30", "Leave request", "Approved in one tap and the balance updates itself.", "calendar"], ["13:00", "Shift swap", "Two colleagues trade and the rota fixes itself.", "repeat"], ["16:00", "Overtime", "Logged and approved before it is worked.", "alert"], ["18:05", "Clock out", "Hours add up and nobody types anything.", "check"], ["Month end", "Payslip", "One run, and every phone has its payslip.", "wallet"]];
 const dial = (d) => wrap(d, "dial", `

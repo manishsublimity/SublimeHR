@@ -184,13 +184,13 @@
   /* ---------- roles ---------- */
   function roles(box) {
     var st = { taken: false }, pills = $$("[data-k]", box), rows = $$("[data-a]", box), P = [[1, 1, 0, 0, 0], [1, 1, 0, 1, 0], [1, 1, 1, 1, 0], [1, 1, 1, 1, 1]], R = ["Employee", "Manager", "HR", "Admin"], A = ["Attendance", "Leave", "Payroll", "Reports", "Settings"], cur = 0, perms = P.map(function (x) { return x.slice(); });
-    var title = $("[data-stitle]", box), text = $("[data-stext]", box), chips = $("[data-schips]", box), badge = $("[data-badge]", box);
+    var can = $("[data-scan]", box), CAN = [["Clock in and out", "Request leave", "Open own payslips"], ["Approve leave and swaps", "See team attendance", "Run team reports"], ["Edit employee records", "Check payroll runs", "Publish policies"], ["Manage roles and MFA", "Set branch rules", "Read the audit log"]], title = $("[data-stitle]", box), text = $("[data-stext]", box), chips = $("[data-schips]", box), badge = $("[data-badge]", box);
     function paint() {
       var p = perms[cur]; rows.forEach(function (r, i) { var sw = $(".sw", r); sw.setAttribute("aria-checked", String(!!p[i])); r.classList.toggle("on", !!p[i]); });
       var open = A.filter(function (a, i) { return p[i]; }), shut = A.filter(function (a, i) { return !p[i]; });
       title.textContent = R[cur]; text.textContent = "Can open " + open.length + " of 5 areas" + (shut.length ? " and cannot see " + shut.join(", ") + "." : ". Full access.");
       chips.innerHTML = open.map(function (a) { return "<em class='y'>" + a + "</em>"; }).join("") + shut.map(function (a) { return "<em class='n'>" + a + "</em>"; }).join("");
-      badge.classList.toggle("full", cur === 3); say(box, shut.length ? R[cur] + ": limited view." : R[cur] + ": full access.");
+      can.innerHTML = CAN[cur].map(function (c) { return "<li>" + c + "</li>"; }).join(""); badge.classList.toggle("full", cur === 3); say(box, shut.length ? R[cur] + ": limited view." : R[cur] + ": full access.");
     }
     function pick(i) { cur = i; pills.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); }); paint(); }
     pills.forEach(function (b, i) { b.addEventListener("click", function () { pick(i); }); });
@@ -201,32 +201,34 @@
   /* ---------- roster ---------- */
   function roster(box) {
     var st = { taken: false }, grid = $("[data-grid]", box), ct = $("[data-ctitle]", box), cx = $("[data-ctext]", box), tiles = $("[data-tiles]", box);
-    var names = ["Karan", "Ravi", "Sara", "Nadia", "Omar"], dn = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], S = ["M", "E", "N", "O"], full = ["Morning", "Evening", "Night", "Off"];
-    var data = [[0, 0, 1, 1, 0, 3, 3], [1, 1, 0, 0, 0, 0, 3], [0, 3, 0, 0, 1, 1, 3], [3, 0, 1, 1, 0, 0, 0], [2, 2, 3, 0, 1, 1, 0]], cells = [], covs = [];
-    var hd = document.createElement("div"); hd.className = "dmx__rrow"; hd.innerHTML = "<span></span>" + dn.map(function (d) { return "<small>" + d + "</small>"; }).join(""); grid.appendChild(hd);
-    data.forEach(function (r, i) { var row = document.createElement("div"); row.className = "dmx__rrow"; var b = document.createElement("b"); b.textContent = names[i]; row.appendChild(b); cells[i] = r.map(function (v, j) { var bt = document.createElement("button"); bt.type = "button"; bt.dataset.r = i; bt.dataset.c = j; row.appendChild(bt); return bt; }); grid.appendChild(row); });
-    var cr = document.createElement("div"); cr.className = "dmx__rrow"; var cl = document.createElement("small"); cl.textContent = "Morning crew"; cr.appendChild(cl); for (var j = 0; j < 7; j++) { var em = document.createElement("em"); cr.appendChild(em); covs.push(em); } grid.appendChild(cr);
+    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], rp = [["Karan", "#FF9FC0"], ["Ravi", "#45C4B0"], ["Sara", "#9B8CFF"], ["Nadia", "#B8E986"], ["Omar", "#FFD05A"]], seq = ["M", "E", "N", "O"], full = { M: "Morning", E: "Evening", N: "Night", O: "Off" };
+    var ICO = { M: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>', E: '<svg viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 9V2M4.2 10.2l1.4 1.4M2 18h2M20 18h2M18.4 11.6l1.4-1.4M22 22H2M8 5l4-3 4 3"/></svg>', N: '<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>', O: '<svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>' };
+    var mon = new Date(); mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7));
+    var rs = [["M", "M", "E", "E", "O", "M", "O"], ["E", "E", "M", "M", "M", "O", "M"], ["M", "O", "M", "M", "E", "E", "O"], ["O", "M", "O", "E", "M", "M", "E"], ["N", "N", "M", "O", "E", "O", "M"]], flashAt = null;
     function paint() {
-      data.forEach(function (r, i) { r.forEach(function (v, j) { cells[i][j].className = S[v].toLowerCase(); cells[i][j].textContent = S[v]; }); });
-      var low = -1; for (var j = 0; j < 7; j++) { var c = 0; data.forEach(function (r) { if (r[j] === 0) c++; }); if (c < 2 && low < 0) low = j; covs[j].className = c < 2 ? "low" : "ok"; covs[j].textContent = c; }
-      ct.textContent = low < 0 ? "Coverage is fine" : dn[low] + " is understaffed"; cx.textContent = low < 0 ? "Every day has at least two people on the morning shift." : "Only one person on the morning shift on " + dn[low] + ". Rotate a shift to fix it.";
-      var n = [0, 0, 0, 0]; data.forEach(function (r) { r.forEach(function (v) { n[v]++; }); });
-      tiles.innerHTML = [0, 1, 2, 3].map(function (k) { return '<div class="' + S[k].toLowerCase() + '"><small><i></i>' + full[k] + "</small><b>" + n[k] + "</b><span>" + (k === 3 ? "days off this week" : "shifts this week") + "</span></div>"; }).join("");
+      var h = '<div class="r"><span></span>' + days.map(function (d, i) { var dt = new Date(mon); dt.setDate(mon.getDate() + i); return '<span class="hd">' + d + "<b>" + dt.getDate() + "</b></span>"; }).join("") + "</div>", bad = [];
+      rp.forEach(function (p, r) { h += '<div class="r"><span class="nm"><i style="--c:' + p[1] + '">' + p[0].slice(0, 2).toUpperCase() + "</i>" + p[0] + "</span>" + rs[r].map(function (v, d) { return '<button type="button" class="' + v + (flashAt && flashAt[0] === r && flashAt[1] === d ? " flash" : "") + '" data-r="' + r + '" data-d="' + d + '" aria-label="' + p[0] + " " + days[d] + ", shift " + v + '">' + ICO[v] + "<span>" + v + "</span></button>"; }).join("") + "</div>"; });
+      h += '<div class="r"><span class="nm">Morning crew</span>' + days.map(function (d, di) { var n = rs.reduce(function (q, row) { return q + (row[di] === "M" ? 1 : 0); }, 0), b = n < 2; if (b) bad.push(d); return '<span class="cv' + (b ? " bad" : "") + '"><i style="--w:' + Math.min(100, n / 2 * 100) + '%"></i><b>' + n + (b ? " of 2" : "") + "</b></span>"; }).join("") + "</div>";
+      grid.innerHTML = h; flashAt = null;
+      ct.textContent = bad.length ? bad[0] + " is understaffed" : "Coverage is fine"; cx.textContent = bad.length ? "Only one person on the morning shift on " + bad[0] + ". Rotate a shift to fix it." : "Every day has at least two people on the morning shift.";
+      var n = { M: 0, E: 0, N: 0, O: 0 }; rs.forEach(function (r) { r.forEach(function (v) { n[v]++; }); });
+      tiles.innerHTML = seq.map(function (k) { return '<div class="' + k.toLowerCase() + '"><small><i></i>' + full[k] + "</small><b>" + n[k] + "</b><span>" + (k === "O" ? "days off this week" : "shifts this week") + "</span></div>"; }).join("");
     }
-    grid.addEventListener("click", function (e) { var b = e.target.closest("[data-r]"); if (!b) return; var r = +b.dataset.r, c = +b.dataset.c; data[r][c] = (data[r][c] + 1) % 4; paint(); });
-    paint(); var seq = [[2, 1], [0, 5], [3, 2], [1, 4], [4, 3]], k = 0;
-    drive(box, function () { var s = seq[k++ % seq.length]; data[s[0]][s[1]] = (data[s[0]][s[1]] + 1) % 4; paint(); var cell = cells[s[0]][s[1]]; cell.classList.remove("flash"); void cell.offsetWidth; cell.classList.add("flash"); say(box, names[s[0]] + " moved to " + ["morning", "evening", "night", "a day off"][data[s[0]][s[1]]] + "."); }, 2400, st);
+    grid.addEventListener("click", function (e) { var b = e.target.closest("[data-r]"); if (!b) return; var r = +b.dataset.r, d = +b.dataset.d; rs[r][d] = seq[(seq.indexOf(rs[r][d]) + 1) % 4]; flashAt = [r, d]; paint(); });
+    paint(); var plan = [[2, 1], [0, 4], [3, 2], [1, 4], [4, 3]], k = 0;
+    drive(box, function () { var p = plan[k++ % plan.length]; rs[p[0]][p[1]] = seq[(seq.indexOf(rs[p[0]][p[1]]) + 1) % 4]; flashAt = [p[0], p[1]]; paint(); say(box, rp[p[0]][0] + " moved to " + full[rs[p[0]][p[1]]].toLowerCase() + "."); }, 2600, st);
   }
 
   /* ---------- visitor ---------- */
   function visitor(box) {
-    var st = { taken: false }, name = $('[data-v="name"]', box), host = $('[data-v="host"]', box), why = $('[data-v="why"]', box), btn = $("[data-checkin]", box), badge = $("[data-badge2]", box), bn = $("[data-bname]", box), bh = $("[data-bhost]", box), bt = $("[data-btime]", box), bav = $("[data-bav]", box), vst = $$("[data-vsteps] li", box), bwho = $("[data-bwho]", box), bwhy = $("[data-bwhy]", box);
+    var st = { taken: false }, name = $('[data-v="name"]', box), host = $('[data-v="host"]', box), why = $('[data-v="why"]', box), btn = $("[data-checkin]", box), badge = $("[data-badge2]", box), bn = $("[data-bname]", box), bh = $("[data-bhost]", box), bt = $("[data-btime]", box), bav = $("[data-bav]", box), vst = $$("[data-vsteps] li", box), hostt = $("[data-hostt]", box), hosts = $("[data-hosts]", box), hostBox = $("[data-host]", box), bwho = $("[data-bwho]", box), bwhy = $("[data-bwhy]", box);
     var people = [["John Lewis", 0, 0], ["Meera Iyer", 1, 1], ["Daniel Reed", 2, 3]], k = 0, t = 9 * 60 + 12, running = false;
     function fmtT() { return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0"); }
     function ini(s) { return s.split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase(); }
     function checkin() {
-      var nm = name.value.trim() || "Guest"; t += 4; bn.textContent = nm; bh.textContent = "Here to see " + host.value; bt.textContent = fmtT(); bav.textContent = ini(nm); bwho.textContent = host.value; bwhy.textContent = why.value;
+      var nm = name.value.trim() || "Guest"; t += 4; bn.textContent = nm; if (bh) bh.textContent = "Here to see " + host.value; bt.textContent = fmtT(); bav.textContent = ini(nm); bwho.textContent = host.value; bwhy.textContent = why.value;
       badge.classList.remove("print"); void badge.offsetWidth; badge.classList.add("print");
+      hostBox.classList.remove("sent"); hostt.textContent = "Telling " + host.value.split(" ")[0] + "…"; hosts.textContent = nm + " is at the front desk for " + why.value.toLowerCase(); setTimeout(function () { hostBox.classList.add("sent"); hostt.textContent = host.value.split(" ")[0] + " has been told"; }, 1200);
       vst.forEach(function (l, i) { l.classList.remove("on"); setTimeout(function () { l.classList.add("on"); }, 500 + i * 650); });
       say(box, nm.split(" ")[0] + " is checked in. " + host.value.split(" ")[0] + " has been told.");
     }
