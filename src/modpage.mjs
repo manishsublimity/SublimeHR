@@ -533,10 +533,12 @@ function aboutStory() {
 <script>(function(){var b=document.querySelector('[data-count-box]');if(!b)return;var els=[].slice.call(b.querySelectorAll('[data-count]'));function run(){els.forEach(function(e){var to=+e.getAttribute('data-count'),sf=e.getAttribute('data-suffix')||'',t0=performance.now();(function s(n){var p=Math.min(1,(n-t0)/1400),v=Math.round(to*(1-Math.pow(1-p,3)));e.textContent=v+sf;if(p<1)requestAnimationFrame(s)})(t0)})}if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();run()}},{threshold:.4});io.observe(b)}})();</script>`;
 }
 
+const OFFER_HREF = ["/software/attendance-management/", "/software/leave-management/", "/software/shift-scheduling/", "/software/employee-management/", "/software/payroll/", "/software/reports-analytics/", "/software/security-access/", "/software/mobile-workforce/", "/features/"];
+const OFFER_BG = ["#3558F5", "#FFD05A", "#CFF3E4", "#FFD9CC", "#14213D", "#E4DEFF", "#CFE3FF", "#FFE9A8", "#3558F5"];
 function aboutOffer() {
-  return `<section class="aoff" aria-labelledby="h-aoff" data-tip="The essentials to run your workforce.">
+  return `<section class="aoff" aria-labelledby="h-aoff" data-tip="The essentials to run your workforce. Each one opens its page.">
   <div class="aoff__head"><h2 id="h-aoff">The essentials to run your workforce.</h2></div>
-  <div class="aoff__grid">${OFFER.map(([ic, tt], i) => `<div class="aoff__c" style="--c:${OTONE[i % 5]}"><i>${icon(ic, "ic")}</i><b>${esc(tt)}</b></div>`).join("")}</div>
+  <div class="aoff__bento">${OFFER.map(([ic, tt], i) => `<a class="aoff__t aoff__t--${i}" href="${OFFER_HREF[i]}" style="--bg:${OFFER_BG[i]}"><span class="aoff__w" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><b>${esc(tt)}</b><em>${icon("arrow", "ic")}</em></a>`).join("")}</div>
 </section>`;
 }
 
