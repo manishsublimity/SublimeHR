@@ -207,7 +207,7 @@
     var rs = [["M", "M", "E", "E", "O", "M", "O"], ["E", "E", "M", "M", "M", "O", "M"], ["M", "O", "M", "M", "E", "E", "O"], ["O", "M", "O", "E", "M", "M", "E"], ["N", "N", "M", "O", "E", "O", "M"]], flashAt = null;
     function paint() {
       var h = '<div class="r"><span></span>' + days.map(function (d, i) { var dt = new Date(mon); dt.setDate(mon.getDate() + i); return '<span class="hd">' + d + "<b>" + dt.getDate() + "</b></span>"; }).join("") + "</div>", bad = [];
-      rp.forEach(function (p, r) { h += '<div class="r"><span class="nm"><i style="--c:' + p[1] + '">' + p[0].slice(0, 2).toUpperCase() + "</i>" + p[0] + "</span>" + rs[r].map(function (v, d) { return '<button type="button" class="' + v + (flashAt && flashAt[0] === r && flashAt[1] === d ? " flash" : "") + '" data-r="' + r + '" data-d="' + d + '" aria-label="' + p[0] + " " + days[d] + ", shift " + v + '">' + ICO[v] + "<span>" + v + "</span></button>"; }).join("") + "</div>"; });
+      rp.forEach(function (p, r) { h += '<div class="r"><span class="nm"><i style="--c:' + p[1] + '">' + p[0].slice(0, 2).toUpperCase() + "</i>" + p[0] + "</span>" + rs[r].map(function (v, d) { return '<button type="button" class="' + v + (flashAt && flashAt[0] === r && flashAt[1] === d ? " rflash" : "") + '" data-r="' + r + '" data-d="' + d + '" aria-label="' + p[0] + " " + days[d] + ", shift " + v + '">' + ICO[v] + "<span>" + v + "</span></button>"; }).join("") + "</div>"; });
       h += '<div class="r"><span class="nm">Morning crew</span>' + days.map(function (d, di) { var n = rs.reduce(function (q, row) { return q + (row[di] === "M" ? 1 : 0); }, 0), b = n < 2; if (b) bad.push(d); return '<span class="cv' + (b ? " bad" : "") + '"><i style="--w:' + Math.min(100, n / 2 * 100) + '%"></i><b>' + n + (b ? " of 2" : "") + "</b></span>"; }).join("") + "</div>";
       grid.innerHTML = h; flashAt = null;
       ct.textContent = bad.length ? bad[0] + " is understaffed" : "Coverage is fine"; cx.textContent = bad.length ? "Only one person on the morning shift on " + bad[0] + ". Rotate a shift to fix it." : "Every day has at least two people on the morning shift.";
@@ -226,12 +226,13 @@
     function fmtT() { return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0"); }
     function ini(s) { return s.split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase(); }
     function checkin() {
-      var nm = name.value.trim() || "Guest"; t += 4; bn.textContent = nm; if (bh) bh.textContent = "Here to see " + host.value; bt.textContent = fmtT(); bav.textContent = ini(nm); bwho.textContent = host.value; bwhy.textContent = why.value;
+      var nm = name.value.trim() || "Guest"; t += 4; bn.textContent = nm; if (bh) bh.textContent = "Here to see " + host.value; bt.textContent = fmtT(); bav.textContent = ini(nm); bwho.textContent = host.value; bwhy.textContent = why.value; $("[data-bdate]", box).textContent = new Date().toLocaleDateString("en-US", { day: "numeric", month: "short" });
       badge.classList.remove("print"); void badge.offsetWidth; badge.classList.add("print");
       hostBox.classList.remove("sent"); hostt.textContent = "Telling " + host.value.split(" ")[0] + "…"; hosts.textContent = nm + " is at the front desk for " + why.value.toLowerCase(); setTimeout(function () { hostBox.classList.add("sent"); hostt.textContent = host.value.split(" ")[0] + " has been told"; }, 1200);
       vst.forEach(function (l, i) { l.classList.remove("on"); setTimeout(function () { l.classList.add("on"); }, 500 + i * 650); });
       say(box, nm.split(" ")[0] + " is checked in. " + host.value.split(" ")[0] + " has been told.");
     }
+    $("[data-bdate]", box).textContent = new Date().toLocaleDateString("en-US", { day: "numeric", month: "short" });
     btn.addEventListener("click", checkin);
     async function typeName(s) { name.value = ""; for (var i = 0; i < s.length; i++) { if (st.taken) return false; name.value = s.slice(0, i + 1); await wait(65); } return true; }
     drive(box, async function () {

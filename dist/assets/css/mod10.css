@@ -289,7 +289,7 @@
 
 /* roster: the home roster, inside the panel */
 .dmx .roster .r { grid-template-columns: 112px repeat(7, minmax(0, 1fr)); gap: 5px; }
-.dmx .roster button { height: 46px; } .dmx .roster button.flash { animation: dmfl .9s ease-out; }
+.dmx .roster button { height: 46px; } .dmx .roster button.rflash { animation: dmfl .9s ease-out; }
 .dmx .roster .nm { font-size: 13.5px; }
 .dmx__rosterbox { align-content: start; gap: 12px; padding: 22px 24px; } .dmx__rosterbox .legend { margin: 0; }
 
@@ -308,3 +308,34 @@
 .dmx__host.sent i { background: #1FBF75; color: #fff; }
 .dmx[data-dm="visitor"] .dmx__vsteps { justify-content: flex-start; }
 .dmx__vform select { -webkit-appearance: none; appearance: none; padding-right: 48px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%2314213D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; }
+
+
+/* security: rows with icons and a line of explanation */
+.dmx__perms li { gap: 12px; padding: 10px 14px; } .dmx__perms li > i { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 12px; background: color-mix(in srgb, var(--world) 12%, #fff); color: var(--world); font-size: 18px; transition: background .3s, color .3s; }
+.dmx__perms li.on > i { background: var(--world); color: var(--on); } .dmx__perms li > span { flex: 1; display: grid; gap: 2px; min-width: 0; } .dmx__perms li b { font: 600 15px/1.15 var(--f-d); } .dmx__perms li small { font: 500 12px/1.2 var(--f); color: var(--ink2); }
+
+/* shift scheduling: a wider roster and a lighter coverage side */
+.dmx[data-dm="roster"] { grid-template-columns: minmax(0, 1.95fr) minmax(0, .8fr) 210px; }
+.dmx[data-dm="roster"] .dmx__insight { align-content: start; gap: 10px; padding: 22px 22px; } .dmx[data-dm="roster"] .dmx__insight b { font-size: 18px; } .dmx[data-dm="roster"] .dmx__insight p { font-size: 13.5px; line-height: 1.45; }
+.dmx[data-dm="roster"] .dmx__tiles { gap: 8px; } .dmx[data-dm="roster"] .dmx__tiles div { padding: 10px 12px; border-radius: 14px; gap: 2px; } .dmx[data-dm="roster"] .dmx__tiles b { font-size: 22px; } .dmx[data-dm="roster"] .dmx__tiles small { font-size: 11.5px; } .dmx[data-dm="roster"] .dmx__tiles span { font-size: 11px; }
+.dmx[data-dm="roster"] .dmx__live { font-size: 12px; }
+.dmx .roster .r { grid-template-columns: 118px repeat(7, minmax(0, 1fr)); gap: 6px; } .dmx .roster button { height: 50px; }
+
+/* visitor: the form with its status, and a large pass */
+.dmx[data-dm="visitor"] { grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr) 220px; }
+.dmx[data-dm="visitor"] .dmx__vform { padding: 24px 28px; gap: 14px; align-content: center; }
+.dmx__vfields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; } .dmx__vfields .full { grid-column: 1 / -1; }
+.dmx__vfields label { display: grid; gap: 8px; font: 700 12.5px/1 var(--f); color: var(--ink2); }
+.dmx__vfields input, .dmx__vfields select { height: 48px; padding: 0 16px; font-size: 15.5px; }
+.dmx__vfields select { padding-right: 46px; }
+.dmx[data-dm="visitor"] .dmx__send { height: 50px; }
+.dmx__vstatus { display: grid; gap: 10px; padding-top: 14px; border-top: 1px dashed color-mix(in srgb, var(--world) 25%, #fff); }
+.dmx__vstatus .dmx__host { background: color-mix(in srgb, var(--world) 6%, #fff); box-shadow: none; }
+.dmx[data-dm="visitor"] .dmx__badgebox { padding: 26px 30px; justify-items: stretch; align-content: center; gap: 0; }
+.dmx[data-dm="visitor"] .dmx__badge2 { grid-template-columns: 150px 1fr; border-radius: 26px; box-shadow: 0 30px 40px -20px rgba(20,33,61,.55), 0 0 0 1px color-mix(in srgb, var(--world) 14%, #fff); }
+.dmx[data-dm="visitor"] .dmx__bside { padding: 22px 12px; gap: 14px; } .dmx[data-dm="visitor"] .dmx__bside span { font-size: 12.5px; }
+.dmx[data-dm="visitor"] .dmx__bphoto { width: 92px; height: 92px; font-size: 28px; }
+.dmx[data-dm="visitor"] .dmx__bmain { padding: 22px 24px; gap: 10px; } .dmx[data-dm="visitor"] .dmx__bmain b { font-size: 28px; }
+.dmx[data-dm="visitor"] .dmx__vmeta span { padding: 7px 14px; font-size: 13.5px; }
+.dmx__bgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; } .dmx__bgrid div { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--world) 7%, #fff); } .dmx__bgrid small { font: 700 11px/1 var(--f); color: var(--ink2); } .dmx[data-dm="visitor"] .dmx__bgrid b { font: 600 16px/1.1 var(--f-d); }
+.dmx[data-dm="visitor"] .dmx__qr { width: 62px; height: 62px; } .dmx[data-dm="visitor"] .dmx__bfoot { margin-top: 2px; gap: 14px; } .dmx__bfoot .dmx__valid { font-size: 12.5px; }

@@ -114,11 +114,11 @@ const phone = (d) => wrap(d, "phone", `
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Tap a step.</span><div class="dmx__ppl">${who(byName["Sara"], 1, "ppl--wave")}</div></div>`, ` data-screens="${esc(JSON.stringify(d.screens.map((s) => s.done)))}"`);
 
-const ROLES = ["Employee", "Manager", "HR", "Admin"], AREAS = ["Attendance", "Leave", "Payroll", "Reports", "Settings"];
+const ROLES = ["Employee", "Manager", "HR", "Admin"], AREAS = [["Attendance", "Live punches and corrections", "clock"], ["Leave", "Requests and balances", "calendar"], ["Payroll", "Salary runs and payslips", "wallet"], ["Reports", "Dashboards and exports", "chart"], ["Settings", "Policies and access", "shield"]];
 const roles = (d) => wrap(d, "roles", `
   <div class="dmx__l dmx__matrix">
     <div class="dmx__pills" data-pills role="group" aria-label="Role">${ROLES.map((r, i) => `<button type="button" data-k="${i}" aria-pressed="${i === 0}">${r}</button>`).join("")}</div>
-    <ul class="dmx__perms" data-perms>${AREAS.map((a, i) => `<li data-a="${i}"><span>${a}</span><button type="button" class="sw" role="switch" aria-checked="false" aria-label="${a}"><i></i></button></li>`).join("")}</ul>
+    <ul class="dmx__perms" data-perms>${AREAS.map((a, i) => `<li data-a="${i}"><i>${icon(a[2], "ic")}</i><span><b>${a[0]}</b><small>${a[1]}</small></span><button type="button" class="sw" role="switch" aria-checked="false" aria-label="${a[0]}"><i></i></button></li>`).join("")}</ul>
   </div>
   <div class="dmx__r dmx__sum"><div class="dmx__shead"><span class="dmx__badge" data-badge>${icon("lock", "ic")}</span><div><b data-stitle>Employee</b><p data-stext></p></div></div><div class="dmx__chips" data-schips></div><div class="dmx__can"><small>What this role does</small><ul data-scan></ul></div></div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Who can see what?</span><div class="dmx__ppl">${who(byName["Priya"], 1, "")}</div></div>`);
@@ -133,18 +133,24 @@ const roster = (d) => wrap(d, "roster", `
 
 const visitor = (d) => wrap(d, "visitor", `
   <div class="dmx__l dmx__vform">
-    <label>Visitor name<input data-v="name" value="" placeholder="Full name" autocomplete="off"></label>
-    <label>Who are they here to see?<select data-v="host"><option>Priya Shah</option><option>Omar Mansour</option><option>Karan Mehta</option></select></label>
-    <label>Purpose<select data-v="why"><option>Interview</option><option>Meeting</option><option>Delivery</option><option>Audit</option></select></label>
+    <div class="dmx__vfields">
+      <label class="full">Visitor name<input data-v="name" value="" placeholder="Full name" autocomplete="off"></label>
+      <label>Here to see<select data-v="host"><option>Priya Shah</option><option>Omar Mansour</option><option>Karan Mehta</option></select></label>
+      <label>Purpose<select data-v="why"><option>Interview</option><option>Meeting</option><option>Delivery</option><option>Audit</option></select></label>
+    </div>
     <button class="dmx__send" type="button" data-checkin>Check in ${icon("check", "ic")}</button>
+    <div class="dmx__vstatus">
+      <div class="dmx__host" data-host><i>${icon("bot", "ic")}</i><span><b data-hostt>Host will be told</b><small data-hosts>A message goes out the moment you check in</small></span></div>
+      <ul class="dmx__vsteps" data-vsteps><li><i>${icon("check", "ic")}</i>Photo taken</li><li><i>${icon("check", "ic")}</i>Host told</li><li><i>${icon("check", "ic")}</i>Badge printed</li></ul>
+    </div>
   </div>
   <div class="dmx__r dmx__badgebox">
     <div class="dmx__badge2" data-badge2>
       <div class="dmx__bside"><span>VISITOR</span><div class="dmx__bphoto" data-bav>JL</div><em data-btime>09:12</em></div>
-      <div class="dmx__bmain"><small>Guest pass · Head Office</small><b data-bname>Your visitor</b><div class="dmx__vmeta"><span data-bwho>Priya Shah</span><span data-bwhy>Interview</span></div><div class="dmx__bfoot"><div class="dmx__qr"></div><small class="dmx__valid">Valid today<br>Show at reception</small></div></div>
+      <div class="dmx__bmain"><small>Guest pass · Head Office</small><b data-bname>Your visitor</b><div class="dmx__vmeta"><span data-bwho>Priya Shah</span><span data-bwhy>Interview</span></div>
+        <div class="dmx__bgrid"><div><small>Date</small><b data-bdate>Today</b></div><div><small>Valid until</small><b>18:00</b></div><div><small>Floor</small><b>3</b></div></div>
+        <div class="dmx__bfoot"><div class="dmx__qr"></div><small class="dmx__valid">Show this pass at reception<br>and wear it while inside</small></div></div>
     </div>
-    <div class="dmx__host" data-host><i>${icon("bot", "ic")}</i><span><b data-hostt>Host will be told</b><small data-hosts>A message goes out the moment you check in</small></span></div>
-    <ul class="dmx__vsteps" data-vsteps><li><i>${icon("check", "ic")}</i>Photo taken</li><li><i>${icon("check", "ic")}</i>Host told</li><li><i>${icon("check", "ic")}</i>Badge printed</li></ul>
   </div>
   <div class="dmx__who" aria-hidden="true"><span class="dmx__say" data-dsay>Welcome!</span><div class="dmx__ppl">${who(byName["Nadia"], 1, "ppl--wave")}</div></div>`);
 
