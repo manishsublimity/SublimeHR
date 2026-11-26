@@ -54,10 +54,14 @@
   if (sheets.length === 3) {
     var RT = ["Event Sheet", "Timesheet", "Attendance", "Comparison", "Exception", "Punch Approval", "Who Is Here", "Daily Clock In/Out", "Penalty", "Daily Salary", "Visitor Timesheet", "Biometrics", "Late Coming"];
     var FM = ["PDF", "XLS", "CSV"], next = 3, order = sheets.slice();
-    function heights(k) { var a = []; for (var j = 0; j < 5; j++) a.push(22 + ((k * 37 + j * 53 + (k * j) % 7 * 11) % 70)); return a; }
+    function heights(k) { var a = []; for (var q = 0; q < 5; q++) a.push(22 + ((k * 37 + q * 53 + (k * q) % 7 * 11) % 70)); return a; }
     function fill(sh, k) {
-      sh.querySelector("[data-rtitle]").textContent = RT[k % RT.length]; sh.querySelector("[data-rfmt]").textContent = FM[k % 3];
-      var h = heights(k); [].forEach.call(sh.querySelectorAll(".abt__bars i"), function (b, j) { b.style.height = h[j] + "%"; });
+      var r = k % RT.length, kind = r % 4, h = heights(r);
+      sh.querySelector("[data-rtitle]").textContent = RT[r]; sh.querySelector("[data-rfmt]").textContent = FM[r % 3]; sh.setAttribute("data-k", String(kind));
+      [].forEach.call(sh.querySelectorAll(".abt__bars i"), function (bb, q) { bb.style.height = h[q] + "%"; });
+      var pts = []; for (var q = 0; q < 6; q++) pts.push((q * 20) + "," + Math.round(44 - h[q % 5] * .42 - (q % 2) * 3)); sh.querySelector("polyline").setAttribute("points", pts.join(" "));
+      sh.querySelector(".abt__dn").style.setProperty("--p", (30 + h[0] % 50) + "%");
+      [].forEach.call(sh.querySelectorAll(".abt__tb u"), function (u, q) { u.style.width = (45 + (h[q] % 55)) + "%"; });
     }
     sheets.forEach(function (sh, i) { fill(sh, [1, 2, 12][i]); });
     function layout() { order.forEach(function (sh, i) { sh.setAttribute("data-p", String(i)); }); }
