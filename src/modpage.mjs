@@ -151,13 +151,11 @@ function before(m) {
       <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul>
         <div class="mba__strip"><div class="mba__stat"><b>0</b><span>left to chase</span></div><div class="mba__stat"><b>${m.features.length}</b><span>features on one record</span></div><a class="mba__cta" href="#try">Try the live demo ${icon("arrow", "ic")}</a></div></div>
     </div>
-    <div class="mba__scene cast" style="--p:94%">
+    <div class="mba__scene cast">
       <div class="mba__chaos" aria-hidden="true">${fixes.map((bad, i) => `<span class="ch ch${i % 7} k${i}"><i></i><b>${esc(bad)}</b></span>`).join("")}</div>
       <div class="mba__clean" aria-hidden="true">
-      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em>100%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i><span class="recp">${esc(fixes[i] || x)}</span><span class="recs">${esc(x)}</span></li>`).join("")}</ul></div>
-        <div class="mba__badges"><span><b>100%</b>on one record</span><span><b>0</b>left to chase</span><span><b>${m.features.length}</b>features ready</span></div>
+      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em>100%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i><span class="recp">${esc(fixes[i] || x)}</span><span class="recs">${esc(m.features[i] || x)}</span></li>`).join("")}</ul></div>
       </div>
-      <div class="mba__handle" data-handle role="slider" tabindex="0" aria-label="Drag to compare the old way with SublimeHR" aria-valuemin="0" aria-valuemax="100" aria-valuenow="6"><span>${icon("arrow", "ic")}${icon("arrow", "ic")}</span></div>
       <span class="mba__say" data-bsay>${esc(L.say)}</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
       <ul class="mba__cards" aria-hidden="true">${fixes.map((bad, i) => `<li class="k${i}"><span class="bf"><i></i>${bad}</span></li>`).join("")}</ul>

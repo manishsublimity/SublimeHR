@@ -933,3 +933,34 @@
 .mba__lady { left: 70px !important; }
 .ch.k2 { --x: 36%; --y: 38%; } .ch.k4 { --x: 36%; --y: 77%; } .ch.k5 { --x: 58%; --y: 80%; } .ch.k0 { --x: 30%; --y: 14%; --w: 124px; }
 .mba__floor { display: none; }
+
+/* ===== final: no divider. The old desk is a collage of problems; Subi tidies them away, and a clear screen lists each problem with how SublimeHR solves it ===== */
+.mba__handle { display: none !important; }
+.mba__clean { clip-path: none !important; transition: opacity .6s, transform .8s var(--spring) !important; background: none !important; opacity: 0; transform: translateY(18px) scale(.97); pointer-events: none; }
+.mba[data-state="after"] .mba__clean { opacity: 1; transform: none; }
+.mba__chaos { transition: background .8s; }
+.mba[data-state="after"] .mba__chaos { background: radial-gradient(circle at 85% 8%, #fff, transparent 55%), linear-gradient(160deg, color-mix(in srgb, var(--world) 9%, #fff), color-mix(in srgb, var(--world) 26%, #fff)); }
+.mba[data-state="after"] .mba__chaos::before, .mba[data-state="after"] .mba__chaos::after { opacity: 0; }
+.ch { transition: opacity .5s, transform .7s var(--spring), filter .5s; }
+.ch.gone { opacity: 0; transform: scale(.3) rotate(calc(var(--r) * 3)) translateY(-60px); filter: blur(3px); animation: none; }
+.mba__clean .mba__record { position: absolute !important; left: 212px !important; right: 18px !important; top: 16px !important; width: auto !important; padding: 14px 14px 14px !important; }
+.mba__clean .mba__record ul { gap: 6px !important; }
+.mba__clean .mba__record li { grid-template-columns: 22px 1fr !important; grid-template-rows: auto auto; row-gap: 1px; align-items: center; padding: 8px 12px 8px 10px !important; min-height: 46px; border-radius: 12px !important; }
+.mba__clean .mba__record li i { grid-row: 1 / 3; width: 22px !important; height: 22px !important; }
+.mba__clean .recp, .mba__clean .recs { display: block !important; grid-column: 2; }
+.mba__clean .recp { grid-row: 1; font: 600 10.5px/1.2 var(--f); color: rgba(20,33,61,.5); text-decoration: line-through; text-decoration-thickness: 1px; opacity: 1 !important; transform: none !important; }
+.mba__clean .recs { grid-row: 2; font: 700 12.5px/1.25 var(--f); color: var(--ink); opacity: 1 !important; transform: none !important; display: -webkit-box !important; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.mba[data-state="after"] .mba__clean .mba__record li { animation: mbrow .55s var(--spring) both; }
+.mba[data-state="after"] .mba__clean li:nth-child(1) { animation-delay: .25s; } .mba[data-state="after"] .mba__clean li:nth-child(2) { animation-delay: .33s; } .mba[data-state="after"] .mba__clean li:nth-child(3) { animation-delay: .41s; } .mba[data-state="after"] .mba__clean li:nth-child(4) { animation-delay: .49s; } .mba[data-state="after"] .mba__clean li:nth-child(5) { animation-delay: .57s; } .mba[data-state="after"] .mba__clean li:nth-child(6) { animation-delay: .65s; } .mba[data-state="after"] .mba__clean li:nth-child(7) { animation-delay: .73s; }
+@keyframes mbrow { from { opacity: 0; transform: translateX(26px); } }
+/* the status pill sits bottom right and never hides behind the caption */
+.mba__prog { left: auto !important; right: 22px !important; bottom: 14px !important; top: auto !important; transform: none !important; }
+.mba__chaos::after { left: 22px; bottom: 20px; }
+/* problems that sat too close together */
+.ch.k0 { --y: 21%; } .ch.k4 { --x: 33%; --y: 75%; } .ch.k5 { --x: 60%; --y: 82%; }
+.mba__lady { left: 56px !important; }
+.mba__clean .mba__record li .recp { grid-area: 1 / 2 !important; } .mba__clean .mba__record li .recs { grid-area: 2 / 2 !important; }
+.mba__clean .mba__record li { min-height: 48px; }
+.mba__clean .mba__record li { gap: 0 10px !important; padding: 6px 12px 6px 10px !important; min-height: 44px; }
+.mba__clean .recp { font-size: 10px; } .mba__clean .recs { font-size: 12.5px; }
+.ch.k5 { --x: 54%; --y: 79%; }
