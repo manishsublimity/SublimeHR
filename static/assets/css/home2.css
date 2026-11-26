@@ -1794,3 +1794,66 @@ body[data-ft="3"] .footer__contact a:hover { background: rgba(255,255,255,.3); b
 .ckl li b { padding-top: 1px; font-size: 12.5px; } .ckl li span { font-size: 11px; }
 .ckl li:not(.on) b, .ckl li:not(.on) span { opacity: .55; }
 .ckl li { min-height: 38px; padding-left: 30px; } .ckl li b { font-size: 12px; letter-spacing: -.01em; } .ckl li span { font-size: 10.5px; } .ckp { margin: 6px 0 10px; }
+
+/* industry picker lives in the hero copy, right under the numbers, so it is always on screen */
+.hero__copy { flex: 0 0 480px; }
+.dock { margin-top: 26px; padding: 16px 16px 18px; border-radius: 28px 28px 28px 8px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+.dock__lbl { margin: 0 0 12px; font: 600 15px/1.25 var(--f-d); letter-spacing: -.01em; }
+.dock .chips { gap: 8px; }
+.dock .chip { height: 36px; padding: 0 14px 0 10px; gap: 6px; border-width: 1.5px; font-size: 13.5px; }
+.dock .chip .ic { font-size: 16px; }
+.hero__wrap { padding-bottom: 36px; }
+@media (max-height: 780px) {
+  .hero { padding-top: 78px; }
+  .hero__lead { margin-top: 10px; } .hero__cta { margin-top: 18px; } .tally { margin-top: 18px; } .tally b { font-size: 26px; }
+  .dock { margin-top: 14px; padding: 12px 12px 14px; } .dock__lbl { margin-bottom: 9px; font-size: 14px; }
+  .dock .chip { height: 32px; font-size: 13px; } .dock .chips { gap: 6px; }
+}
+
+/* =====================================================================
+   industry dock: a glass bar pinned to the bottom of the first screen
+   ===================================================================== */
+.hero { height: 100vh; height: 100svh; min-height: 620px; padding-top: 96px; padding-bottom: 118px; justify-content: center; }
+.hero__wrap { padding-bottom: 0; }
+.hero__copy { flex: 0 0 440px; }
+.dock { position: absolute; z-index: 30; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; margin: 0; padding: 9px 10px 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,.38); background: rgba(255,255,255,.16); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 22px 40px -22px rgba(0,0,0,.45); max-width: calc(100% - 40px); }
+.dock__lbl { margin: 0; padding-right: 14px; border-right: 1px solid rgba(255,255,255,.3); font: 600 14px/1.15 var(--f-d); letter-spacing: -.01em; white-space: nowrap; } .dock__lbl small { display: block; margin-top: 3px; font: 500 11.5px/1.2 var(--f); opacity: .85; }
+.dock .chips { flex-wrap: nowrap; gap: 6px; }
+.dock .chip { position: relative; height: 46px; min-width: 46px; padding: 0; justify-content: center; gap: 0; border: 0; background: rgba(255,255,255,.14); border-radius: 999px; transition: background .25s, width .35s var(--spring), padding .35s var(--spring), transform .35s var(--spring); }
+.dock .chip .ic { font-size: 22px; }
+.dock .chip span { max-width: 0; overflow: hidden; white-space: nowrap; font: 700 14px/1 var(--f); opacity: 0; transition: max-width .4s var(--ease), opacity .25s, margin .35s; }
+.dock .chip:hover { background: rgba(255,255,255,.3); transform: translateY(-6px) scale(1.08); }
+.dock .chip:hover::after { content: attr(data-name); position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translateX(-50%); padding: 6px 11px; border-radius: 10px; background: var(--on); color: var(--world); font: 700 12.5px/1 var(--f); white-space: nowrap; pointer-events: none; box-shadow: 0 10px 18px -10px rgba(0,0,0,.5); }
+.dock .chip[aria-pressed="true"] { padding: 0 18px 0 14px; gap: 8px; background: var(--on); color: var(--world); transform: none; box-shadow: 0 10px 18px -12px rgba(0,0,0,.5); }
+.dock .chip[aria-pressed="true"] span { max-width: 130px; opacity: 1; }
+.dock .chip[aria-pressed="true"]:hover::after { display: none; }
+@media (max-width: 1180px) { .dock__lbl { display: none; } .dock { padding-left: 10px; } }
+@media (max-height: 780px) { .hero { padding-bottom: 96px; padding-top: 78px; } .dock { bottom: 14px; padding-top: 6px; padding-bottom: 6px; } .dock .chip { height: 40px; min-width: 40px; } }
+.hero__wrap { position: static; }
+
+/* hero back to its original size and widths; only the industry picker is new, pinned to the screen bottom */
+.hero { height: auto; min-height: 0; justify-content: flex-start; padding: 92px 0 112px; }
+.hero__wrap { position: static; padding-bottom: 0; }
+.hero__copy { flex: 0 0 440px; }
+.dock { position: fixed; bottom: 22px; transition: opacity .35s, transform .35s var(--ease); }
+.dock.off { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(20px); }
+@media (max-height: 780px) { .hero { padding: 92px 0 96px; } .dock { bottom: 14px; } }
+.dock { bottom: 12px; padding-top: 7px; padding-bottom: 7px; } .dock .chip { height: 42px; min-width: 42px; }
+
+/* industry dock sits on the hero itself, a little higher, and fades out as soon as you scroll */
+.dock { position: absolute; top: calc(100vh - 80px); top: calc(100svh - 80px); bottom: auto; transition: none; }
+@media (max-height: 780px) { .dock { top: calc(100vh - 70px); top: calc(100svh - 70px); bottom: auto; } }
+
+/* dark theme for the home page: the sections below the hero are flipped as a whole, the hero keeps its industry colour */
+html[data-theme="dark"] body.lo { background: #0B1226; }
+html[data-theme="dark"] body.lo main > section:not(.hero), html[data-theme="dark"] body.lo .ticker, html[data-theme="dark"] body.lo footer { filter: invert(.93) hue-rotate(180deg); }
+/* dark mode: people keep their own colours, and the closing band keeps the industry colour */
+html[data-theme="dark"] body.lo .ppl { filter: invert(.93) hue-rotate(180deg); }
+html[data-theme="dark"] body.lo main > section.meet { filter: none; }
+html[data-theme="dark"] body.lo footer { filter: none; background: #0B1730; color: #B9C4D8; }
+html[data-theme="dark"] body.lo footer h2 { color: #fff; } html[data-theme="dark"] body.lo footer a { color: #B9C4D8; } html[data-theme="dark"] body.lo footer .footer__bar { border-color: rgba(255,255,255,.14); color: #8E9BB3; }
+html[data-theme="dark"] body.lo .meet .ppl { filter: none; }
+
+/* hover panel keeps the icon and the title visible */
+.md { min-height: 282px; } .md ul { top: 134px; bottom: 0; display: grid; align-content: center; } .md .md__ic, .md b { position: relative; z-index: 2; }
+html[data-theme="dark"] body.lo .footer__word { opacity: .08; }

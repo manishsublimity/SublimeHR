@@ -1,0 +1,79 @@
+/* Module pages, round 3. */
+
+/* ---------- hero sits in the same container as every other section ---------- */
+.mhero .hero__wrap { max-width: 1480px; margin: 0 auto; padding: 0 var(--gut); }
+.mhero .hero__main { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); justify-content: space-between; align-items: center; gap: 24px; }
+.mhero .hero__copy { flex: none; }
+.mhero .stage { justify-self: end; margin-top: 4px; }
+.mchips { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+.mchip { position: absolute; display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px 8px 8px; border-radius: 999px; background: #fff; color: var(--ink); font: 600 14px/1 var(--f); box-shadow: 0 16px 24px -12px rgba(0,0,0,.45); animation: float 6s ease-in-out infinite; white-space: nowrap; }
+.mchip i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--world); color: var(--on); font-size: 17px; font-style: normal; }
+.mc-1 { left: 6px; top: 40px; } .mc-2 { left: 4px; top: 318px; animation-delay: -2s; } .mc-3 { left: 430px; top: 318px; animation-delay: -4s; }
+.mc-2 i { background: #FFD05A; color: #14213D; } .mc-3 i { background: #1FBF75; color: #fff; }
+
+/* ---------- letter demo: the person holds the letter ---------- */
+.mdemo__panel .mdemo__who { background: linear-gradient(180deg, #fff 0%, color-mix(in srgb, var(--world) 9%, #fff) 70%, color-mix(in srgb, var(--world) 20%, #fff) 100%); }
+.mdemo__ppl { position: relative; z-index: 2; margin-bottom: 38px; transform: scale(1.25); transform-origin: 50% 100%; width: 104px; height: 190px; }
+.mdemo__ppl .ppl, .mdemo__ppl .ppl__fig { overflow: visible; }
+.mcap__stage .ppl .ppl__fig > .chest, .mdemo__ppl .ppl .ppl__fig > .chest, .mbk__ppl .ppl .ppl__fig > .chest { top: 100px; left: calc(50% - 23px); width: 46px; height: 50px; padding: 0; z-index: 9; display: grid; place-items: center; border-radius: 12px; background: #fff; color: var(--world); font-size: 25px; box-shadow: 0 12px 16px -8px rgba(0,0,0,.45), inset 0 -4px 0 rgba(20,33,61,.1); transform: rotate(-4deg); animation: none; }
+.mdemo__ppl .ppl .ppl__fig > .chest::before, .mdemo__ppl .ppl .ppl__fig > .chest::after, .mcap__stage .ppl .ppl__fig > .chest::before, .mcap__stage .ppl .ppl__fig > .chest::after { display: none; }
+.mpaper__ink { position: absolute; left: 36px; bottom: 56px; width: 150px; height: 46px; fill: none; stroke: var(--world); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; opacity: .9; }
+.mpaper.sent .mpaper__ink { stroke-dashoffset: 0; transition: stroke-dashoffset 1.3s ease .3s; }
+
+/* ---------- before / after: Subi flies in, the problems on the right turn into answers ---------- */
+.mba__scene { min-height: 440px; }
+.mba__lady { left: 34px; bottom: 76px; }
+.mba__cards { position: absolute; z-index: 4; right: 22px; top: 22px; bottom: 74px; width: 49%; display: grid; grid-auto-rows: 1fr; gap: 12px; list-style: none; margin: 0; padding: 0; }
+.mba__cards li { position: relative; display: grid; }
+.mba__cards .bf, .mba__cards .af { grid-area: 1 / 1; display: flex; align-items: center; gap: 12px; padding: 0 16px; border-radius: 18px 18px 6px 18px; font: 600 14px/1.3 var(--f); transition: opacity .45s, transform .6s var(--spring); }
+.mba__cards .bf { background: #fff; color: var(--ink); box-shadow: 0 14px 20px -14px rgba(20,33,61,.5); }
+.mba__cards .af { background: var(--world); color: var(--on); opacity: 0; transform: translateY(14px) scale(.96); box-shadow: 0 16px 22px -12px color-mix(in srgb, var(--world) 80%, #000); }
+.mba__cards i { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font-style: normal; } .mba__cards .bf i { background: #FFE3EA; color: #D6336C; } .mba__cards .af i { background: var(--on); color: var(--world); } .mba__cards .ic { width: 15px; height: 15px; stroke-width: 3; }
+.mba[data-step="after"] .mba__cards .bf { opacity: 0; transform: translateY(-14px) scale(.96); transition-delay: var(--d); } .mba[data-step="after"] .mba__cards .af { opacity: 1; transform: none; transition-delay: calc(var(--d) + .25s); }
+.mba__glow { left: -12%; top: 14%; width: 62%; height: 70%; }
+.mba__sparks i { bottom: 90px; } .mba__sparks i:nth-child(1) { left: 6%; } .mba__sparks i:nth-child(2) { left: 14%; } .mba__sparks i:nth-child(3) { left: 22%; } .mba__sparks i:nth-child(4) { left: 30%; } .mba__sparks i:nth-child(5) { left: 38%; } .mba__sparks i:nth-child(6) { left: 10%; }
+.mba__say { left: 22px; top: 22px; max-width: 200px; }
+.mba[data-step="fix"] .mba__cards .bf { animation: mshake .5s ease-in-out 2; }
+@keyframes mshake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+.mba[data-step="fix"] .mba__scene .mo { border-top: 0; border-bottom: 3px solid #5b2a23; border-radius: 0 0 16px 16px; top: 54px; }
+.guide.mba-near .subi__lbl { opacity: 0; }
+
+/* ---------- capabilities: held item sits in her hands; the bits behind her are all different ---------- */
+.mcap__float { width: auto; height: auto; background: none; box-shadow: none; border-radius: 0; animation: mcfl 6s ease-in-out infinite; color: #fff; }
+.mcap__float.f1 { left: 7%; top: 36%; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 7px; border-radius: 999px; background: rgba(255,255,255,.95); color: #14213D; font: 700 13px/1 var(--f); box-shadow: 0 12px 18px -10px rgba(0,0,0,.5); } .mcap__float.f1 i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--world); color: #fff; font-size: 12px; font-style: normal; }
+.mcap__float.f2 { right: 9%; top: 38%; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: #FFD05A; color: #14213D; font: 700 14px/1 var(--f-d); box-shadow: 0 0 0 4px rgba(255,255,255,.4); animation-delay: -1.5s; }
+.mcap__float.f3 { left: 12%; top: 64%; display: grid; gap: 5px; width: 74px; padding: 11px; border-radius: 12px; background: rgba(255,255,255,.95); box-shadow: 0 12px 18px -10px rgba(0,0,0,.5); animation-delay: -3s; } .mcap__float.f3 em { display: block; height: 5px; border-radius: 5px; background: color-mix(in srgb, var(--world) 30%, #fff); } .mcap__float.f3 em:nth-child(1) { width: 100%; background: var(--world); } .mcap__float.f3 em:nth-child(2) { width: 70%; } .mcap__float.f3 em:nth-child(3) { width: 45%; }
+.mcap__float.f4 { right: 12%; top: 64%; width: 52px; height: 52px; animation-delay: -2s; } .mcap__float.f4 svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 8px rgba(0,0,0,.25)); }
+.mcap__float.f5 { left: 44%; top: 22%; font-size: 26px; color: #FFE680; animation: mctw 3s ease-in-out infinite; } @keyframes mctw { 0%, 100% { transform: scale(.8) rotate(0); opacity: .7; } 50% { transform: scale(1.2) rotate(20deg); opacity: 1; } }
+.mcap__float.f6 { right: 7%; top: 52%; padding: 5px 12px; border-radius: 8px; background: #1FBF75; color: #fff; font: 700 12px/1 var(--f); transform: rotate(8deg); animation: none; box-shadow: 0 8px 12px -6px rgba(0,0,0,.4); }
+.mcap__stage .ppl .ppl__fig > .chest { font-size: 25px; }
+
+/* ---------- related modules: a visible link on every tile, tiles a little shorter ---------- */
+.mpage .md { min-height: 236px; }
+.mpage .md .md__go { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font: 700 14px/1 var(--f); font-style: normal; color: var(--world); } .mpage .md .md__go .ic { transition: transform .3s var(--spring); } .mpage .md:hover .md__go .ic { transform: translateX(4px); }
+.mpage .mods { padding-bottom: 50px; }
+
+/* ---------- closing band: pick a time ---------- */
+.mbk { position: relative; margin-top: 30px; padding-top: 86px; border-radius: 56px 56px 0 0; background: var(--world); color: var(--on); overflow: hidden; }
+.mbk::before { content: ""; position: absolute; right: -160px; top: -200px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--on) 20%, transparent), transparent 66%); }
+.mbk__wrap { position: relative; max-width: 1480px; margin: 0 auto; padding: 0 var(--gut) 90px; display: grid; grid-template-columns: minmax(0, 1fr) 150px 430px; gap: 20px; align-items: end; }
+.mbk__in { align-self: center; }
+.mbk h2 { font-size: clamp(1.9rem, 1rem + 1.8vw, 2.7rem); line-height: 1.12; text-wrap: balance; max-width: 14em; }
+.mbk__in > p:first-of-type { margin-top: 14px; font-size: 18px; max-width: 24em; opacity: .95; }
+.mbk__pts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; } .mbk__pts li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px 8px 10px; border-radius: 999px; background: color-mix(in srgb, var(--on) 18%, transparent); font-weight: 600; font-size: 14.5px; } .mbk__pts .ic { width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: var(--on); color: var(--world); stroke-width: 3.2; }
+.mbk__alt { margin-top: 22px; font-size: 15.5px; opacity: .95; }
+.mbk__who { position: relative; align-self: end; height: 230px; }
+.mbk__ppl { position: absolute; left: 20px; bottom: -4px; width: 104px; height: 190px; transform: scale(1.05); transform-origin: 50% 100%; }
+.mbk__say { position: absolute; left: -10px; top: -4px; padding: 9px 14px; border-radius: 14px 14px 14px 4px; background: #fff; color: var(--ink); font: 600 12.5px/1.2 var(--f-d); white-space: nowrap; box-shadow: 0 12px 18px -10px rgba(0,0,0,.45); }
+.mbk__card { display: grid; gap: 16px; padding: 28px; border-radius: 34px 34px 10px 34px; background: #fff; color: var(--ink); box-shadow: 0 36px 50px -30px rgba(0,0,0,.55); }
+.mbk__card > b { font: 600 20px/1.2 var(--f-d); letter-spacing: -.02em; }
+.mbk__days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.mbk__days button { display: grid; gap: 4px; padding: 10px 0; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); font: 600 12px/1 var(--f); color: var(--ink2); transition: transform .3s var(--spring), background .2s, color .2s; } .mbk__days button strong { font: 600 18px/1 var(--f-d); color: var(--ink); }
+.mbk__days button:hover, .mbk__times button:hover { transform: translateY(-2px); }
+.mbk__days button[aria-pressed="true"], .mbk__times button[aria-pressed="true"] { background: var(--world); color: var(--on); box-shadow: none; } .mbk__days button[aria-pressed="true"] strong { color: var(--on); }
+.mbk__times { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; } .mbk__times button { padding: 12px 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); font: 600 14px/1 var(--f); color: var(--ink); transition: transform .3s var(--spring), background .2s, color .2s; }
+.mbk__go { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: var(--ink); color: #fff; font: 600 17px/1 var(--f); transition: transform .35s var(--spring), box-shadow .35s; } .mbk__go:hover { transform: translateY(-2px); box-shadow: 0 16px 24px -12px rgba(20,33,61,.6); }
+.mbk__card small { text-align: center; color: var(--ink2); font-size: 13px; }
+@media (max-width: 1100px) { .mbk__wrap { grid-template-columns: 1fr; } .mbk__who { display: none; } .mhero .hero__main { grid-template-columns: 1fr; } }
+.mc-2 { left: 4px; top: 474px; } .mc-3 { left: 470px; top: 572px; }
+.mdemo__ppl { transform: scale(1.02); margin-bottom: 30px; } .mdemo__say { top: 20px; max-width: 190px; }

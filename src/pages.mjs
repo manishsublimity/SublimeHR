@@ -1,5 +1,8 @@
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage, quoteModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
+import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
+import { modulePage } from "./modpage.mjs";
 import { clockW, leaveW, payrollW, permW, hereW, rosterW, letterW, visitorW, storyW, chatW, homeFaqItems, vsCompare, heroArt, moduleWidget } from "./widgets.mjs";
 
 const more8 = (base, ids) => { const out = [...base], seen = new Set(out.map(([q]) => q)); for (const id of ids) for (const qa of faqs.find((g) => g.id === id).items) { if (out.length >= 8) break; if (!seen.has(qa[0])) { seen.add(qa[0]); out.push(qa); } } return out; };
@@ -230,77 +233,41 @@ ${cta({ title: "Have a workflow we don't cover yet?", lead: "We build custom mod
    MODULE DETAIL
    ===================================================================== */
 const FAQ_MAP = { "employee-management": ["getting-started", "security"], "attendance-management": ["attendance"], "leave-management": ["leave"], payroll: ["payroll"], "reports-analytics": ["reports"], "employee-self-service": ["mobile-integrations", "getting-started"], "mobile-workforce": ["mobile-integrations"], "security-access": ["security"], "shift-scheduling": ["attendance", "implementation"], "visitor-management": ["security", "implementation"] };
-function moduleFaqs(m) {
+export function moduleFaqs(m) {
   const out = [...m.faqs], seen = new Set(out.map(([q]) => q));
   for (const id of [...(FAQ_MAP[m.slug] || []), "getting-started", "implementation", "security"]) for (const qa of faqs.find((g) => g.id === id).items) { if (out.length >= 8) break; if (!seen.has(qa[0])) { seen.add(qa[0]); out.push(qa); } }
   return out;
 }
 const WIDE = ["leave-management", "payroll", "security-access", "employee-management", "visitor-management", "employee-self-service", "mobile-workforce"];
+const CASTS = [
+  [["Priya", "HR partner"], ["Sara", "QA lead"], ["Omar", "Designer"]],
+  [["Aisha", "Developer"], ["Ravi", "Team manager"], ["Nadia", "Intern"]],
+  [["Karan", "Finance"], ["Priya", "HR partner"], ["Omar", "Designer"]],
+  [["Sara", "QA lead"], ["Aisha", "Developer"], ["Karan", "Finance"]]
+];
+function moduleCast(m, idx) {
+  const cut = (f) => (f.length > 30 ? f.slice(0, 28).replace(/[\s,&-]+\S*$/, "") + "…" : f);
+  const cast = CASTS[idx % CASTS.length].map((c, i) => (i === 0 ? [c[0], c[1], "ppl--wave"] : c));
+  return heroCast(cast, [m.features[0], m.features[1]], [cut(m.benefits[0]), cut(m.benefits[1] || m.features[2]), cut(m.benefits[2] || m.features[3])]);
+}
 export function moduleDetail(m) {
   const path = `/software/${m.slug}/`;
   const trail = [["Home", "/"], ["Features", "/features/"], [m.name, path]];
-  const idx = modules.indexOf(m);
-  const rel = [1, 2, 3, 4, 5].map((k) => modules[(idx + k) % modules.length]);
-  const isStory = m.slug === "employee-self-service" || m.slug === "mobile-workforce";
-  const tryHead = sHead({ eyebrow: "Try it yourself", tone: "mint", title: `Go on — <span class="mark mint">take it for a spin.</span>`, lead: "A working mini version of the real thing. No sign-up needed.", left: isStory });
-  const body = `
-${phero({ eyebrow: `${m.name} software`, tone: ["", "mint", "butter", "peach"][idx % 4], title: m.tagline, lead: m.summary, trail, actions: btn("Book a demo", `/book-demo/?module=${m.slug}`) + btn("Try it live", "#try", { alt: true, ic: "play" }), aside: heroArt(m, idx) })}
-
-<section class="section" id="try">
-  <div class="container">
-    ${isStory ? storyW({ intro: tryHead }) : `${tryHead}<div class="rv pop" style="max-width:${WIDE.includes(m.slug) ? "1000px" : "620px"};margin-inline:auto">${moduleWidget[m.slug]()}</div>`}
-  </div>
-</section>
-
-<section class="section cream">
-  <div class="container">
-    ${sHead({ eyebrow: "Before & after", tone: "peach", title: "What actually changes for your HR team" })}
-    ${vsCompare(m)}
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    ${sHead({ eyebrow: "Everything included", title: `${m.features.length} capabilities, ready on day one`, lead: "Configured to your policies — no code, no add-ons." })}
-    <ul class="caps rv">${m.features.map((f) => `<li><span class="ck">${icon("check")}</span>${f}</li>`).join("")}</ul>
-  </div>
-</section>
-
-<section class="section cream">
-  <div class="container">
-    ${sHead({ eyebrow: "Real-world scenarios", tone: "butter", title: `Where ${m.name.toLowerCase()} shines` })}
-    <div class="grid g3">${m.useCases.map((u, i) => `<div class="scen rv" style="--d:${i * 70}ms"><span class="no" aria-hidden="true">0${i + 1}</span><span class="lbl">${icon(["building", "users", "zap"][i])}Scenario ${i + 1}</span><p>${u}</p></div>`).join("")}</div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    ${sHead({ eyebrow: "Quick answers", tone: "mint", title: `${m.name}, answered.` })}
-    ${chatW(moduleFaqs(m), { title: `${m.name} assistant`, suggest: 8 })}
-  </div>
-</section>
-
-<section class="section cream">
-  <div class="container">
-    <div class="head-row">${sHead({ eyebrow: "Works better together", title: "Related modules", left: true })}${btn("All features", "/features/", { alt: true })}</div>
-    <div class="mods">${rel.map((r) => modCard(r, modules.indexOf(r))).join("")}</div>
-  </div>
-</section>
-${cta({ title: `See ${m.name} with your own data.`, lead: "A personalized 30-minute demo, tailored to your workforce and policies.", primary: ["Book a demo", `/book-demo/?module=${m.slug}`] })}
-`;
-  return page({
-    title: `${m.name} Software — ${m.tagline}`,
-    description: `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300),
-    path, active: "features",
-    ld: [crumbLd(trail), faqLd(moduleFaqs(m)), { "@type": "Service", name: `${m.name} Software`, serviceType: m.name, provider: { "@id": site.url + "/#organization" }, description: m.summary, url: site.url + path }],
-    body
-  });
+  const faqItems = moduleFaqs(m);
+  const graph = [crumbLd(trail), faqLd(faqItems), { "@type": "Service", name: `${m.name} Software`, serviceType: m.name, provider: { "@id": site.url + "/#organization" }, description: m.summary, url: site.url + path }];
+  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
+  return modulePage(m, faqItems, ld);
 }
 
 /* =====================================================================
    INDUSTRIES
    ===================================================================== */
 export function industriesPage() {
+  const trail = [["Home", "/"], ["Industries", "/industries/"]];
+  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail)] })}</script>`;
+  return industriesModulePage([], ld);
+}
+export function industriesPageOld() {
   const trail = [["Home", "/"], ["Industries", "/industries/"]];
   const art = `<div class="art t1" aria-hidden="true">
     ${sticker("a1", "var(--blue)", "factory", "3-shift plants")}
@@ -327,6 +294,12 @@ ${cta({ title: "Don't see your industry?", lead: "Our rules engine and custom de
    PRICING
    ===================================================================== */
 export function pricing() {
+  const trail = [["Home", "/"], ["Pricing", "/pricing/"]];
+  const items = more8(faqs.find((g) => g.id === "pricing").items, ["implementation", "getting-started"]);
+  const ld = `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(items)] })}</script>`;
+  return pricingModulePage(items, ld);
+}
+export function pricingOld() {
   const trail = [["Home", "/"], ["Pricing", "/pricing/"]];
   const pf = faqs.find((g) => g.id === "pricing").items;
   const cell = (v, hl) => `<td class="c${hl ? " hl" : ""}${v === 1 ? " yes" : v === 0 ? " no" : ""}">${v === 1 ? "✓<span class=\"vh\">Included</span>" : v === 0 ? "—<span class=\"vh\">Not included</span>" : v}</td>`;
@@ -385,6 +358,10 @@ ${cta({ title: "Start with the plan that fits today.", lead: "Upgrade any time a
    ===================================================================== */
 export function integrationsPage() {
   const trail = [["Home", "/"], ["Integrations", "/integrations/"]];
+  return integrationsModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail)] })}</script>`);
+}
+export function integrationsPageOld() {
+  const trail = [["Home", "/"], ["Integrations", "/integrations/"]];
   const groups = [...new Set(allInts.map((x) => x[3]))];
   const short = { "Google Workspace": "Google", "Microsoft 365": "Microsoft 365", "Microsoft Teams": "Teams", "Biometric Devices": "Biometrics", "REST APIs": "REST API", "Okta / SAML SSO": "Okta SSO", "SAP ERP": "SAP", "Oracle ERP": "Oracle" };
   const r1 = allInts.slice(0, 6), r2 = allInts.slice(6, 12);
@@ -410,6 +387,11 @@ ${phero({ eyebrow: "Integrations", tone: "mint", title: `Plays nicely with ${squ
    CUSTOM DEVELOPMENT
    ===================================================================== */
 export function customDev() {
+  const trail = [["Home", "/"], ["Custom Development", "/custom-development/"]];
+  const items = more8(faqs.find((g) => g.id === "custom-development").items, ["implementation", "mobile-integrations"]);
+  return customDevModulePage(items, `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), faqLd(items)] })}</script>`);
+}
+export function customDevOld() {
   const trail = [["Home", "/"], ["Custom Development", "/custom-development/"]];
   const cf = faqs.find((g) => g.id === "custom-development").items;
   const art = `<div class="art t4" aria-hidden="true">
@@ -445,6 +427,10 @@ ${cta({ title: "Tell us about the workflow you need.", lead: "Get a solution des
    ABOUT
    ===================================================================== */
 export function about() {
+  const trail = [["Home", "/"], ["About", "/about/"]];
+  return aboutModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "AboutPage", name: "About SublimeHR", url: site.url + "/about/", about: { "@id": site.url + "/#organization" } }] })}</script>`);
+}
+export function aboutOld() {
   const trail = [["Home", "/"], ["About", "/about/"]];
   const offer = [["clock", "Attendance management"], ["calendar", "Leave & holidays"], ["repeat", "Shift scheduling"], ["users", "Employee directory"], ["wallet", "Payroll support"], ["chart", "Reports & analytics"], ["lock", "Role-based access"], ["phone", "Mobile accessibility"], ["cloud", "Secure cloud platform"]];
   const reasons = ["Simple and intuitive user experience", "Designed for businesses of all sizes", "Secure cloud infrastructure", "Scalable as your organization grows", "Reliable customer support", "Continuous product improvements"];
@@ -564,6 +550,10 @@ ${phero({ eyebrow, tone, title, lead, trail, extra: switcher(kind) })}
 }
 
 export function bookDemo() {
+  const trail = [["Home", "/"], ["Book a demo", "/book-demo/"]];
+  return demoModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "ContactPage", name: "Book a Demo — See SublimeHR Live", url: site.url + "/book-demo/" }] })}</script>`);
+}
+export function bookDemoOld() {
   return formPage({
     kind: "demo", path: "/book-demo/", crumb: "Book a demo", eyebrow: "Book a demo", tone: "", title: `See SublimeHR ${squiggle("live.")}`,
     lead: "A personalized 30-minute walkthrough with your policies, your shifts and your questions.",
@@ -581,6 +571,10 @@ export function bookDemo() {
 }
 
 export function getPricing() {
+  const trail = [["Home", "/"], ["Get pricing", "/get-pricing/"]];
+  return quoteModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "ContactPage", name: "Get Pricing — Request a SublimeHR Quote", url: site.url + "/get-pricing/" }] })}</script>`);
+}
+export function getPricingOld() {
   return formPage({
     kind: "pricing", path: "/get-pricing/", crumb: "Get pricing", eyebrow: "Get pricing", tone: "mint", title: `Get a quote ${squiggle("for your team.")}`,
     lead: "Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.",
@@ -598,6 +592,10 @@ export function getPricing() {
 }
 
 export function contact() {
+  const trail = [["Home", "/"], ["Contact", "/contact/"]];
+  return contactModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail), { "@type": "ContactPage", name: "Contact SublimeHR", url: site.url + "/contact/" }] })}</script>`);
+}
+export function contactOld() {
   return formPage({
     kind: "contact", path: "/contact/", crumb: "Contact", eyebrow: "Contact us", tone: "peach", title: "Let's talk.",
     lead: "Questions, support, partnerships or anything else — we reply within 1 business day.",

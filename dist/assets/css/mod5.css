@@ -1,0 +1,43 @@
+/* Module pages, round 4. */
+
+/* hero: same container as every other section */
+.mhero .hero__wrap { width: 100%; max-width: 1480px; margin: 0 auto; }
+
+/* before / after: a livelier scene, problems scattered around her, and a better arrival for Subi */
+.mba__scene { background: linear-gradient(170deg, #E3E1F0 0%, #D7DCEC 55%, #C9D3EA 100%); }
+.mba[data-step="call"] .mba__scene, .mba[data-step="fix"] .mba__scene { background: linear-gradient(170deg, #ECEAF6 0%, #E4E8F4 60%, #D9E4F6 100%); }
+.mba[data-step="after"] .mba__scene { background: linear-gradient(165deg, #FFF3C8 0%, #FFE9B8 35%, color-mix(in srgb, var(--world) 22%, #fff) 100%); }
+.mba__dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(20,33,61,.1) 1.5px, transparent 1.6px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%); mask-image: linear-gradient(180deg, #000, transparent 85%); transition: opacity .8s; }
+.mba[data-step="after"] .mba__dots { opacity: .35; }
+.mba__cloud { position: absolute; z-index: 3; left: 34px; top: 76px; width: 140px; height: 70px; transition: opacity .7s, transform .8s var(--spring); animation: float 5s ease-in-out infinite; }
+.mba__cloud i { position: absolute; left: 0; top: 14px; width: 140px; height: 38px; border-radius: 99px; background: #8D97B2; box-shadow: inset 0 -6px 0 rgba(20,33,61,.12); }
+.mba__cloud i::before, .mba__cloud i::after { content: ""; position: absolute; border-radius: 50%; background: #8D97B2; } .mba__cloud i::before { left: 22px; top: -20px; width: 52px; height: 52px; } .mba__cloud i::after { left: 64px; top: -28px; width: 62px; height: 62px; }
+.mba__cloud u { position: absolute; top: 52px; width: 3px; height: 12px; border-radius: 3px; background: #6FA8FF; animation: mrain .9s linear infinite; } .mba__cloud u:nth-of-type(1) { left: 26px; } .mba__cloud u:nth-of-type(2) { left: 56px; animation-delay: -.3s; } .mba__cloud u:nth-of-type(3) { left: 88px; animation-delay: -.6s; } .mba__cloud u:nth-of-type(4) { left: 114px; animation-delay: -.15s; }
+@keyframes mrain { from { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(46px); opacity: 0; } }
+.mba[data-step="after"] .mba__cloud { opacity: 0; transform: translateY(-30px) scale(.5); }
+.mba__beam { position: absolute; z-index: 5; left: 0; right: 0; top: -20px; height: 16px; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--world) 55%, transparent), transparent); opacity: 0; pointer-events: none; }
+.mba[data-step="fix"] .mba__beam { opacity: 1; animation: mbeam 1.1s ease-in-out infinite; } @keyframes mbeam { from { top: -20px; } to { top: 100%; } }
+.mba__lady { left: 38px; bottom: 74px; }
+.mba__say { white-space: nowrap; max-width: none; width: max-content; left: 22px; top: 20px; }
+.mba__cards { position: absolute; inset: 0; width: auto; display: block; z-index: 4; pointer-events: none; }
+.mba__cards li { position: absolute; display: grid; width: max-content; max-width: 190px; }
+.mba__cards .bf, .mba__cards .af { padding: 9px 14px 9px 9px; border-radius: 14px 14px 5px 14px; font-size: 12.5px; line-height: 1.2; }
+.mba__cards i { width: 22px; height: 22px; } .mba__cards .ic { width: 12px; height: 12px; }
+.mba__cards .k0 { left: 51%; top: 9%; transform: rotate(-4deg); } .mba__cards .k1 { left: 66%; top: 22%; transform: rotate(3deg); } .mba__cards .k2 { left: 46%; top: 36%; transform: rotate(5deg); } .mba__cards .k3 { left: 68%; top: 47%; transform: rotate(-3deg); } .mba__cards .k4 { left: 50%; top: 60%; transform: rotate(2deg); } .mba__cards .k5 { left: 64%; top: 72%; transform: rotate(-5deg); } .mba__cards .k6 { left: 74%; top: 10%; transform: rotate(4deg); }
+.mba__cards li { animation: float 6s ease-in-out infinite; } .mba__cards .k1 { animation-delay: -1s; } .mba__cards .k2 { animation-delay: -2s; } .mba__cards .k3 { animation-delay: -3s; } .mba__cards .k4 { animation-delay: -4s; } .mba__cards .k5 { animation-delay: -5s; }
+.mba[data-step="after"] .mba__cards li { animation: none; }
+.mba__cards .bf { background: #fff; box-shadow: 0 12px 16px -12px rgba(20,33,61,.55); }
+.mba[data-step="fix"] .mba__cards .bf { animation: mshake .45s ease-in-out 3; }
+
+/* Subi arriving: a halo, a pop, a ring, and a search glow while it looks */
+.guide.mplay .subi__bot { filter: drop-shadow(0 0 16px color-mix(in srgb, var(--world) 70%, #fff)); }
+.guide.mhi .subi__bot { animation: mhi .9s var(--spring); } @keyframes mhi { 0% { transform: scale(.4) rotate(-25deg); } 60% { transform: scale(1.25) rotate(8deg); } 100% { transform: none; } }
+.guide.mhi::before { content: ""; position: absolute; z-index: -1; left: 35px; top: 30px; width: 24px; height: 24px; margin: -12px; border-radius: 50%; box-shadow: 0 0 0 3px var(--world), 0 0 0 9px color-mix(in srgb, var(--world) 30%, transparent); animation: mring 1s ease-out 2; }
+.guide.msearch .subi__bot { animation: msr .5s ease-in-out infinite alternate; filter: drop-shadow(0 0 18px #FFD05A); } @keyframes msr { from { transform: translateX(-5px) rotate(-6deg); } to { transform: translateX(5px) rotate(6deg); } }
+.guide.msearch .s-scr b { background: #FFD05A; }
+
+/* related modules: the panel keeps title and icon, hides the short text, and has room for every bullet */
+.mpage .md { min-height: 262px; }
+.mpage .md > span { transition: opacity .25s; } .mpage .md:hover > span, .mpage .md:hover .md__go { opacity: 0; }
+.mpage .md ul { top: 108px; align-content: center; gap: 8px; padding: 14px 16px 16px; font-size: 12.5px; }
+.mba__cards .k6 { left: 38%; top: 84%; transform: rotate(3deg); }

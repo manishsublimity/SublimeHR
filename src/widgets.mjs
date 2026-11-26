@@ -136,7 +136,7 @@ export function rosterW() {
 
 export function letterW() {
   return finish(`<div class="w" data-w="letter">
-  ${top("file", "Letter generator", "peach", hint("Type — watch the letter write itself"))}
+  ${top("file", "Letter generator", "peach", hint("Plays by itself — or type your own"))}
   <div class="lsteps" aria-hidden="true"><span class="done" data-ls="0"><i>1</i>Fill details</span><span class="on" data-ls="1"><i>2</i>Letter auto-generated</span><span data-ls="2"><i>3</i>Send for e-sign</span></div>
   <div class="w__body letter">
     <div class="form-grid" style="grid-template-columns:1fr;gap:10px">
@@ -227,14 +227,15 @@ export function chatW(items, { title = "Ask SublimeHR", suggest = 6, inline = fa
   const more = items.length > suggest ? `<button class="btn text sm" type="button" data-more>Show more questions</button>` : "";
   const win = (extra) => `<div class="chat__win">
     <div class="w__top"><b><span class="ico">${icon("bot")}</span>${title}</b><span class="chip white"><span style="width:8px;height:8px;border-radius:50%;background:var(--teal)"></span>Online</span></div>
-    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">Hi! 👋 ${inline ? "Pick a topic on the left — I'll suggest questions right here" : "Pick a question on the left"}, or type your own.</div></div>
+    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">${inline ? "Hi! 👋 Pick a topic on the left — I'll suggest questions right here, or type your own." : "Hi, I'm Subi. Pick a question on the left or type your own."}</div></div>
     ${extra}
     <form class="chat__foot" data-ask><label class="vh" for="ask-{{id}}">Ask a question</label><input class="input" id="ask-{{id}}" placeholder="e.g. Do you support biometric devices?" autocomplete="off"><button class="btn sm no-bub" type="submit" aria-label="Send">${icon("send")}</button></form>
   </div>`;
   if (inline) return finish(`<div class="chat chat--inline" data-w="chat" data-inline="1" data-suggest="${suggest}"><div class="src-qs" data-qs>${qa("sugg")}</div>${win("")}</div>`);
+  const popular = `<div class="chat__pop" data-pop><b>Popular right now</b><div>${items.slice(0, 3).map(([q], i) => `<button type="button" data-pq="${i}">${q}</button>`).join("")}</div><small>Or ask in your own words below. A real person replies within one business day.</small></div>`;
   return finish(`<div class="chat" data-w="chat" data-suggest="${suggest}">
   <div><div class="chat__qs" data-qs>${qa("chat__q")}</div>${more ? `<div class="mt1">${more}</div>` : ""}</div>
-  ${win("")}
+  ${win(popular)}
 </div>`);
 }
 

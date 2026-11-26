@@ -86,7 +86,7 @@
   }
   tick(); setInterval(tick, 1000);
   var topBtn = $("[data-top]");
-  window.addEventListener("scroll", function () { nav.classList.toggle("solid", window.scrollY > 30); nav.classList.toggle("onhero", window.scrollY < hero.offsetHeight - 90); topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
+  window.addEventListener("scroll", function () { nav.classList.toggle("solid", window.scrollY > 30); nav.classList.toggle("onhero", window.scrollY < hero.offsetHeight - 90); var dk = $(".dock"); if (dk) { var o = Math.max(0, 1 - window.scrollY / 170); dk.style.opacity = o; dk.style.pointerEvents = o < .15 ? "none" : ""; } topBtn.classList.toggle("on", window.scrollY > 900); var g = $("[data-guide]"); if (g) g.classList.toggle("away", window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 520); }, { passive: true });
   topBtn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); Snd.tick(); });
 
   /* ================= eyes follow the cursor; idle eyes wander ================= */
@@ -214,7 +214,7 @@
   }
   function setIndustry(i, fromUser) {
     cur = i; var d = inds[i];
-    body.setAttribute("data-w", d.key); var meta = $('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", d.color);
+    body.setAttribute("data-w", d.key); try { localStorage.setItem("shr-world", d.key); } catch (e) {} var meta = $('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", d.color);
     chipBtns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === d.key ? "true" : "false"); });
     leads.forEach(function (l) { if (l) setText(l, d.lead); });
     allPpl.forEach(function (p) { dress(p, d); });

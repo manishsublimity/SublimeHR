@@ -13,7 +13,7 @@ mkdirSync(out, { recursive: true });
 cpSync(join(root, "static"), out, { recursive: true });
 
 const routes = [
-  ["/", P.home(), 1.0],
+  ["/", home2("/"), 1.0],
   ["/features/", P.features(), 0.9],
   ...modules.map((m) => [`/software/${m.slug}/`, P.moduleDetail(m), 0.8]),
   ["/industries/", P.industriesPage(), 0.8],
