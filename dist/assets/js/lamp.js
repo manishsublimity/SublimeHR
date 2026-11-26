@@ -19,7 +19,7 @@
 
   /* ----- colours of the bulb ----- */
   function setColor(v, quiet) {
-    var p = v.split("|"); L.style.setProperty("--lg", p[0]); L.style.setProperty("--lb", p[1]); L.style.setProperty("--ls", p[2]); save("shr-lamp", v);
+    var p = v.split("|"); L.style.setProperty("--lg", p[0]); L.style.setProperty("--lb", p[1]); L.style.setProperty("--ls", p[2]); root.style.setProperty("--lg", p[0]); save("shr-lamp", v);
     Array.prototype.forEach.call(L.querySelectorAll("[data-lc]"), function (b) { b.classList.toggle("on", b.getAttribute("data-lc") === v); });
     if (!quiet) { say("Ooh, nice colour!"); mood("giggle", 600); }
   }
@@ -29,12 +29,15 @@
   function switchTheme() {
     if (st.busy) return; st.busy = true;
     var toDark = !isDark(); L.classList.add("flicker"); say(toDark ? "Moon time!" : "Rise and shine!", 1500);
-    var fx = document.createElement("div"); fx.className = "lamp-fx " + (toDark ? "to-dark" : "to-day");
-    fx.innerHTML = toDark ? '<div class="orb moon"><i></i></div><span class="st s1"></span><span class="st s2"></span><span class="st s3"></span><span class="st s4"></span><span class="st s5"></span><span class="st s6"></span>' : '<div class="orb sun"><b class="rays"></b><b class="rays r2"></b><i></i></div>';
-    document.body.appendChild(fx); void fx.offsetWidth; fx.classList.add("go");
-    setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); }, reduce ? 0 : 650);
-    setTimeout(function () { fx.classList.add("out"); L.classList.remove("flicker"); }, reduce ? 0 : 1150);
-    setTimeout(function () { fx.remove(); st.busy = false; }, reduce ? 0 : 1800);
+    var br = bulb.getBoundingClientRect(), bx = br.left + br.width / 2, by = br.top + br.height / 2;
+    var fx = document.createElement("div"); fx.className = "lfx " + (toDark ? "to-dark" : "to-day"); fx.style.setProperty("--x", bx + "px"); fx.style.setProperty("--y", by + "px");
+    var h = '<div class="lfx__wash"></div>';
+    if (toDark) { h += '<div class="lfx__moon"></div>'; for (var i = 0; i < 26; i++) h += '<span class="lfx__st" style="left:' + (Math.random() * 100).toFixed(1) + '%;top:' + (Math.random() * 100).toFixed(1) + '%;animation-delay:' + (0.35 + Math.random() * 0.9).toFixed(2) + 's;width:' + (2 + Math.random() * 3).toFixed(1) + 'px;height:' + (2 + Math.random() * 3).toFixed(1) + 'px"></span>'; }
+    else h += '<b class="lfx__rays"></b><b class="lfx__rays r2"></b><div class="lfx__sun"></div>';
+    fx.innerHTML = h; document.body.appendChild(fx); void fx.offsetWidth; fx.classList.add("lfx-on");
+    setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); }, reduce ? 0 : 950);
+    setTimeout(function () { fx.classList.add("lfx-out"); L.classList.remove("flicker"); }, reduce ? 0 : 1350);
+    setTimeout(function () { fx.remove(); st.busy = false; }, reduce ? 0 : 2200);
   }
 
   /* ----- a tiny spring for the lamp when it is let go ----- */
