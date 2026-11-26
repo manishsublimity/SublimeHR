@@ -70,6 +70,7 @@ function head(m, path, description, title) {
 <link rel="stylesheet" href="/assets/css/mod8.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod9.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod10.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/system.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }

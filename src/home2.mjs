@@ -443,6 +443,7 @@ export function home2(path = "/home-v2/") {
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/system.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/cast.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>

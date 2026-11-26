@@ -82,6 +82,7 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <link rel="stylesheet" href="/assets/css/site5.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navhome.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/system.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/cast.css?v=${V}">
 <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
 <script>try{if(sessionStorage.getItem("shr-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-skip")}catch(e){}</script>
