@@ -91,7 +91,7 @@ html[data-theme="dark"] .lamp__bulb { box-shadow: 0 0 8px 3px rgba(var(--lg), .8
 main { overflow-x: clip; }
 .donut__ring { flex: none; width: 98px; height: 98px; aspect-ratio: 1; }
 /* the phone demo's character speaks right above her head; the closing band bubble stays inside its column */
-.say--movie { left: 50%; bottom: calc(100% - 4px); width: max-content; max-width: 190px; transform: translateX(-50%) scale(.6); transform-origin: 50% 100%; }
+.say--movie { left: 50%; bottom: calc(100% + 14px); width: max-content; max-width: 190px; transform: translateX(-50%) scale(.6); transform-origin: 50% 100%; }
 .say--movie.on { transform: translateX(-50%) scale(1); }
 .mbk__say { left: 0; top: -30px; width: 140px; white-space: normal; text-align: center; font-size: 12.5px; }
 
@@ -118,3 +118,8 @@ main { overflow-x: clip; }
 .abt__s:not(.abt__s--2) .abt__toss i:nth-child(2) { --x: -22px !important; --rise: -112px; }
 .abt__s:not(.abt__s--2) .abt__toss i:nth-child(3) { --x: 22px !important; --rise: -88px; }
 .abt__s:not(.abt__s--2) .abt__toss i:nth-child(4) { --x: 62px !important; --rise: -120px; }
+/* one speech-bubble design everywhere: white rounded bubble with a two-dot thought tail (the Before/After scene's bubble) */
+.say, .mbk__say { border-radius: 18px; }
+.say::after, .say--big::after, .say--movie::after, .movie__stage > .say--movie::after, .mbk__say::after { content: ""; display: block; position: absolute; left: 40px; right: auto; top: auto; bottom: -13px; width: 11px; height: 11px; margin: 0; border-radius: 50%; background: #fff; transform: none; box-shadow: 9px 10px 0 -3px #fff, 0 6px 8px -4px rgba(20,33,61,.4); }
+.say--movie::after { left: calc(50% - 8px); }
+.mbk__say::after { left: 50%; margin-left: -8px; }
