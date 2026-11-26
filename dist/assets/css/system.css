@@ -151,21 +151,26 @@ main { overflow-x: clip; }
 .abt__body > .abt__dn { inset: 50% auto auto 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: conic-gradient(#14213D 0 var(--p, 60%), #FFB400 var(--p, 60%) 100%); -webkit-mask: radial-gradient(circle, transparent 0 17px, #000 18px); mask: radial-gradient(circle, transparent 0 17px, #000 18px); }
 .abt__tb { display: grid; align-content: start; gap: 7px; }
 .abt__tb u { display: block; height: 9px; border-radius: 4px; background: #E6E9F2; transition: width .5s var(--ease-out); } .abt__tb u:first-child { background: #14213D; }
-/* industry icons: flat, two-tone, with a solid offset shadow for a light 3D feel */
+/* industry icons: coloured sticker tiles with a solid offset shadow, popping in and out one by one */
 .abt__fx--ind { display: grid; place-items: center; color: #14213D; }
 .abt__s span.abt__ic { opacity: 0; font: inherit; grid-area: 1 / 1; display: grid; justify-items: center; animation: abtshow 23.4s linear infinite; animation-delay: calc(var(--i) * 2.6s); }
-.abt__ic svg { display: block; overflow: visible; }
-.abt__ic svg path { stroke: #14213D; stroke-width: 2.5; fill: none; }
-.abt__ic svg .sh path { fill: #14213D; stroke: #14213D; fill-opacity: 0; stroke-opacity: 0; animation: abtfill 23.4s linear infinite; animation-delay: calc(var(--i) * 2.6s); }
-.abt__ic svg > path { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; animation: abtdraw 23.4s linear infinite, abtfill 23.4s linear infinite; animation-delay: calc(var(--i) * 2.6s); }
-.abt__ic svg .a { fill: #fff; } .abt__ic svg .b { fill: #FFD05A; } .abt__ic svg .c { fill: #FF8A70; } .abt__ic svg .d { fill: #3558F5; } .abt__ic svg .w { stroke: #fff; } .abt__ic svg .n { fill: none; }
+.abt__ic svg { display: block; overflow: visible; animation: abtpop 23.4s linear infinite; animation-delay: calc(var(--i) * 2.6s); transform-origin: 50% 60%; }
+.abt__ic .ksh { fill: #14213D; }
+.abt__ic .ktile { fill: var(--c); stroke: #14213D; stroke-width: 2.5; }
+.abt__ic .kg { fill: #fff; } .abt__ic .ky { fill: var(--a); } .abt__ic .kt { fill: var(--c); }
+.abt__ic .kw { fill: #fff; stroke: #14213D; stroke-width: 2; }
+.abt__ic .kgl { fill: none; stroke: #fff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.abt__ic .kgy { fill: none; stroke: var(--a); stroke-width: 3.4; stroke-linecap: round; }
+.abt__ic .ktl { fill: none; stroke: #14213D; stroke-width: 3.4; stroke-linecap: round; }
 @keyframes abtshow { 0% { opacity: 1; } 11% { opacity: 1; } 11.1%, 100% { opacity: 0; } }
-@keyframes abtdraw { 0% { stroke-dashoffset: 1; } 4.5% { stroke-dashoffset: 0; } 8.5% { stroke-dashoffset: 0; } 11% { stroke-dashoffset: -1; } 100% { stroke-dashoffset: -1; } }
-@keyframes abtfill { 0%, 3% { fill-opacity: 0; stroke-opacity: 0; } 6%, 9% { fill-opacity: 1; stroke-opacity: 1; } 11%, 100% { fill-opacity: 0; stroke-opacity: 0; } }
+@keyframes abtpop { 0% { transform: scale(.5) rotate(-10deg); } 3.2% { transform: scale(1.08) rotate(2deg); } 4.6% { transform: scale(1) rotate(0); } 9% { transform: scale(1) rotate(0) translateY(-2px); } 11% { transform: scale(.7) rotate(6deg) translateY(6px); } 100% { transform: scale(.7); } }
 /* languages */
 .abt__fx--lang { display: grid; align-content: center; justify-content: end; width: 124px; }
 .abt__glyphs { display: grid; grid-template-columns: repeat(5, 21px); gap: 4px; }
 .abt__glyphs i { display: grid; place-items: center; width: 21px; height: 21px; border-radius: 7px; background: rgba(255,255,255,.1); color: rgba(255,255,255,.55); font: 700 11px/1 var(--f); font-style: normal; transition: background .3s, color .3s, transform .3s var(--ease-pop); }
 .abt__glyphs i.on { background: #FFD05A; color: #14213D; transform: scale(1.15); }
 .abt__s span.abt__glyphs { opacity: 1; font: inherit; }
-@media (prefers-reduced-motion: reduce) { .abt__sheet { transition: none; } .abt__s span.abt__ic { animation: none; } .abt__s span.abt__ic:first-child { opacity: 1; } .abt__ic svg > path, .abt__ic svg .sh path { animation: none; stroke-dashoffset: 0; fill-opacity: 1; stroke-opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .abt__sheet { transition: none; } .abt__s span.abt__ic, .abt__ic svg { animation: none; } .abt__s span.abt__ic:first-child { opacity: 1; } }
+/* module hero: the card is a little shorter so the third person's head never touches it */
+.mhero .mwin { padding-bottom: 6px; }
+.mhero .mwin ul { margin-bottom: 6px; }
