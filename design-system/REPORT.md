@@ -42,3 +42,24 @@ Full list with selectors: `qa-audit-report.md`.
 5. Heading semantics, 768px nav, tap targets, text under 12px.
 6. Real dark mode tokens, then Privacy, Terms and 404.
 After each step: audit at 1440, 1024, 768, 390, 320 and show before and after numbers.
+
+## 5. Done on 2026-11-26 (system layer, `static/assets/css/system.css`)
+Measured on 23 pages with iframes at 320, 390, 768, 1024 and 1440 (viewports reported 305, 375, 753, 1009, 1425).
+
+| Item | Before | After |
+|---|---|---|
+| Page wider than the screen | about 18 pages at 320, 8 at 390, 3 at 1024, nav 2px at 768 | 0 pages at all five widths |
+| Button variants | 17 (33 to 58px) | 3 sizes: 52 / 44 / 36px (chips, filters and icon buttons are separate components) |
+| H1 size | 46.4px home, 37.6px inner | 43.9px everywhere at 1440 |
+| H2 size | 41.6 / 47.5 / 49px | 40px everywhere |
+| Motion on buttons | overshoot curve on colour, no press state | ease-out 160 to 200ms, press scale .97, hover lift only on devices that hover, reduced motion respected |
+
+Fixes behind the overflow numbers: gutter 56px becomes 32px under 1024 and 18px under 760; two-column grids (`.rhythm`, `.movie__grid`, `.prod`, `.roles__grid`, `.pplans`, `.abt__stats`, section heads) become one column; the day timeline becomes a vertical list under 820px; the 600px orbit scales with `zoom`; `.rec` chips wrap.
+
+## 6. Not done, and why
+- Phone layouts are not designed. "No overflow" does not mean "looks right": the home hero and the nav still use the desktop structure on a phone (no burger menu, hero content is clipped by the hero's `overflow: hidden`). The browser pane's phone emulation reported a 683px width, so phone screenshots could not be trusted; real-phone checking is needed.
+- Section padding is still 21 different pairs. Changing it globally needs a visual check of each page, because several sections rely on 0 or 20px bottom padding to join the next section.
+- H3 sizes (18 / 24 / 31.7px), paragraph weight 500 and sub-12px text are not changed yet.
+- Headings semantics (h2 to h5, h1 to h3 on 5 pages) are not changed yet; they change markup, not CSS.
+- Dark mode tokens, keyboard focus styles and `transition: all` clean-up are not done.
+- Emil Kowalski's rules were applied to buttons (curves, press feedback, hover gating). Taste-skill and Impeccable were not run yet.

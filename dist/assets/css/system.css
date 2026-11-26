@@ -38,3 +38,27 @@
 @media (max-width: 820px) { .day__head { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
 @media (max-width: 760px) { .clk { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 820px) { main [class$="__head"] { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- 2. Buttons: three sizes (large 52, medium 44, small 36), pill, one family ---------- */
+:root { --ease-out: cubic-bezier(.23, 1, .32, 1); --ease-snap: cubic-bezier(.3, .9, .3, 1); --ease-spring: cubic-bezier(.34, 1.56, .64, 1); }
+.btn, .nav .btn { height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; }
+.btn--lg, .hero .btn--lg { height: 52px; padding: 0 26px; font-size: 16px; }
+.mbk__go { height: 52px; padding: 0 24px; font-size: 16px; font-weight: 600; }
+.istk__go, .mba__cta { height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; }
+.md__go, .frow__go, body .mods__grid > a.md .md__go { height: 36px; padding: 0 16px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; }
+.mods__grid > a.md .md__go { height: 36px !important; padding: 0 16px !important; }
+
+/* ---------- 4. Motion: ease-out for colour and hover, spring only on movement, press feedback ---------- */
+.btn, .mbk__go, .istk__go, .mba__cta, .md__go, .frow__go, .link { transition: transform 160ms var(--ease-out), box-shadow 200ms var(--ease-out), background-color 180ms var(--ease-out), color 180ms var(--ease-out); }
+.btn:active, .mbk__go:active, .istk__go:active, .mba__cta:active, .md__go:active, .frow__go:active { transform: scale(.97); }
+@media (hover: none) { .btn:hover, .mbk__go:hover, .istk__go:hover, .mba__cta:hover, .md:hover .md__go, .frow__go:hover { transform: none; box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { .btn, .mbk__go, .istk__go, .mba__cta, .md__go, .frow__go { transition: none; } }
+body .btn { height: 44px; min-height: 0; padding: 0 20px; font-size: 15px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
+body .btn--lg, body .btn.lg { height: 52px; padding: 0 26px; font-size: 16px; }
+body .btn.sm, body .btn--sm { height: 36px; padding: 0 16px; font-size: 13px; }
+.cf__send { height: 52px; padding: 0 26px; font-size: 16px; }
+
+/* ---------- 3. Type scale: one H1 and one H2 size across all pages ---------- */
+body.lo h1 { font-size: clamp(30px, 3.05vw, 44px); line-height: 1.12; }
+body.lo main h2 { font-size: clamp(26px, 2.8vw, 40px); line-height: 1.15; }
+@media (max-width: 960px) { .rec { display: flex; flex-wrap: wrap; } .rec a { max-width: 100%; } .rec a b { white-space: normal; } }
