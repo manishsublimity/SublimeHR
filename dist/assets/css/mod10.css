@@ -984,3 +984,16 @@
 .mba__tiles::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--world) 18%, transparent), transparent 65%); }
 .mba[data-state="after"] .mba__prog { bottom: 56px !important; }
 .ch.k0 { --x: 34%; --y: 19%; }
+
+/* ===== polish round: thought dots clear of her head, warm scene colours that match the yellow card, problems spread loosely and on one line ===== */
+.mba__scene .mba__say { top: auto !important; bottom: 296px !important; }
+.mba__scene .mba__say::after { left: 40px; bottom: -11px; width: 8px; height: 8px; box-shadow: 6px 8px 0 -2px #fff, 0 5px 7px -4px rgba(20,33,61,.4); }
+.mba:not([data-state="after"]) .mba__chaos { background: radial-gradient(circle at 16% 10%, rgba(255,255,255,.95), transparent 42%), radial-gradient(circle at 92% 92%, rgba(255,170,110,.38), transparent 52%), radial-gradient(circle at 70% 25%, rgba(255,214,90,.25), transparent 45%), linear-gradient(165deg, #FFF6E6, #FFE2C4); }
+.mba:not([data-state="after"]) .mba__chaos::before { background-image: radial-gradient(rgba(150,90,30,.16) 1.3px, transparent 1.7px); opacity: .8; }
+.mba:not([data-state="after"]) .mba__tiles { background: linear-gradient(rgba(214,120,40,.34) 2px, transparent 2px) 0 0 / 100% 44px, linear-gradient(90deg, rgba(214,120,40,.34) 2px, transparent 2px) 0 0 / 60px 100%; }
+.mba:not([data-state="after"]) .mba__tiles::after { background: radial-gradient(ellipse at 50% 100%, rgba(255,170,90,.32), transparent 65%); }
+.mba__chaos { transition: background .8s; }
+.ch { width: max-content !important; max-width: 176px !important; }
+.ch b { white-space: normal; }
+.ch.k0 { --x: 34%; --y: 14%; } .ch.k3 { --x: 64%; --y: 8%; } .ch.k2 { --x: 47%; --y: 28%; } .ch.k6 { --x: 62%; --y: 39%; } .ch.k1 { --x: 35%; --y: 51%; } .ch.k4 { --x: 60%; --y: 62%; } .ch.k5 { --x: 45%; --y: 77%; }
+.ch.k3 { --x: 66.5%; --y: 8%; }
