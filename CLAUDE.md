@@ -32,3 +32,6 @@ Static marketing site. Sources in `src/*.mjs` and `static/assets/`, built into `
 
 ## Reporting
 Reply in Hindi. Say what was actually verified and what was not. Do not claim a result that was only measured, not seen.
+
+## Approved work stays as it is
+Anything already built and accepted (sizes, heights, colours, gradients, effects) is not changed unless the owner asks for that exact change. Skill or audit suggestions never override an approved look; report them instead.

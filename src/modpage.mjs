@@ -81,7 +81,7 @@ const tagx = (name, role, i, x, y, s) => `<span class="tagx" style="--x:${x}px;-
 function hero(m) {
   const rows = m.features.slice(0, 4);
   const hc = m._hero || CONF[m.slug]?.hero;
-  const pos = m._pos || [[60, 116, .84], [250, 344, 1], [560, 330, 1]];
+  const pos = m._pos || [[60, 116, .84], [250, 344, 1], [560, 412, 1]];
   const cast = (hc ? hc.cast : [["Omar", "HR manager"], ["Priya", "HR partner"], ["Sara", "New joiner"]]).map(([n, r], i) => [n, r, ...pos[i]]);
   const who3 = hc ? hc.who : ["SN", "Sara Nasser", "New joiner · Senior Accountant"];
   const chips = hc ? hc.chips : [["users", "3 joined today"], ["file", "Offer letter sent"], ["check", "All records in sync"]];
@@ -321,14 +321,10 @@ function indCta() {
     <div class="mbk__in">
       <h2 id="h-meet">Don't see your industry?</h2>
       <p>Our rules engine and custom development cover almost any workforce. Tell us how your teams work.</p>
+      <div class="mbk__act"><a class="mbk__go" href="/contact/">Talk to an HR expert ${icon("arrow", "ic")}</a><a class="mbk__go mbk__go--alt" href="/custom-development/">Custom development ${icon("arrow", "ic")}</a></div>
+      <small class="mbk__note">We reply within one business day.</small>
     </div>
     <div class="mbk__who cast" aria-hidden="true"><span class="mbk__say">Tell us about your teams!</span><div class="mbk__ppl" data-bkppl>${who(byName["Aisha"], 5, "ppl--wave")}</div></div>
-    <div class="mbk__card">
-      <b>Let's talk</b>
-      <a class="mbk__go" href="/contact/">Talk to an HR expert ${icon("arrow", "ic")}</a>
-      <a class="mbk__go mbk__go--alt" href="/custom-development/">Custom development ${icon("arrow", "ic")}</a>
-      <small>We reply within one business day.</small>
-    </div>
   </div>
 </section>
 <script>(function(){var l=[].slice.call(document.querySelectorAll('[data-spy] a')),s=l.map(function(a){return document.querySelector(a.getAttribute('href'))});if(!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=s.indexOf(e.target);l.forEach(function(a,k){if(k===i)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});var a=l[i];if(a&&a.parentNode.scrollTo)a.parentNode.scrollTo({left:a.offsetLeft-24,behavior:'smooth'})}})},{rootMargin:'-35% 0px -55% 0px'});s.forEach(function(x){if(x)io.observe(x)})})();</script>`;
@@ -392,9 +388,10 @@ function priceTable() {
 function closeBand(o) {
   return `<section class="mbk" aria-labelledby="h-meet" data-tip="${esc(o.title)}">
   <div class="mbk__wrap">
-    <div class="mbk__in"><h2 id="h-meet">${esc(o.title)}</h2><p>${esc(o.lead)}</p></div>
+    <div class="mbk__in"><h2 id="h-meet">${esc(o.title)}</h2><p>${esc(o.lead)}</p>
+      <div class="mbk__act">${o.links.map(([tx, href, alt]) => `<a class="mbk__go${alt ? " mbk__go--alt" : ""}" href="${href}">${esc(tx)} ${icon("arrow", "ic")}</a>`).join("")}</div>
+      <small class="mbk__note">${esc(o.small)}</small></div>
     <div class="mbk__who cast" aria-hidden="true"><span class="mbk__say">${esc(o.say)}</span><div class="mbk__ppl" data-bkppl>${who(byName["Aisha"], 5, "ppl--wave")}</div></div>
-    <div class="mbk__card"><b>${esc(o.card)}</b>${o.links.map(([tx, href, alt]) => `<a class="mbk__go${alt ? " mbk__go--alt" : ""}" href="${href}">${esc(tx)} ${icon("arrow", "ic")}</a>`).join("")}<small>${esc(o.small)}</small></div>
   </div>
 </section>`;
 }
@@ -536,10 +533,10 @@ function aboutStory() {
     <p class="abt__lead">SublimeHR helps businesses streamline attendance, leave, shift scheduling, employee records, payroll and day-to-day HR operations through a single, intuitive platform.</p>
     <p>Whether you're a growing startup, a mid-sized business or a large enterprise, our goal is to eliminate manual processes, reduce admin overhead, and give your team more time for what matters most: growing your business.</p></div>
   <div class="abt__stats" data-count-box>
-    <div class="abt__s abt__s--0"><strong data-count="70" data-suffix="+">70+</strong><span>Feature areas</span></div>
-    <div class="abt__s abt__s--1"><strong data-count="13">13</strong><span>Report types</span></div>
-    <div class="abt__s abt__s--2"><strong data-count="9">9</strong><span>Industries</span></div>
-    <div class="abt__s abt__s--3"><strong>EN·AR</strong><span>Languages</span></div>
+    <div class="abt__s abt__s--0"><strong data-count="70" data-suffix="+">70+</strong><span>Feature areas</span><span class="abt__toss" aria-hidden="true"><i style="--d:0.00s;--x:-26px">7</i><i style="--d:-1.05s;--x:6px">0</i><i style="--d:-2.10s;--x:30px">+</i></span></div>
+    <div class="abt__s abt__s--1"><strong data-count="13">13</strong><span>Report types</span><span class="abt__toss" aria-hidden="true"><i style="--d:0.00s;--x:-26px">1</i><i style="--d:-1.05s;--x:6px">3</i><i style="--d:-2.10s;--x:30px">%</i></span></div>
+    <div class="abt__s abt__s--2"><strong data-count="9">9</strong><span>Industries</span><span class="abt__toss" aria-hidden="true"><i style="--d:0.00s;--x:-26px">9</i><i style="--d:-1.05s;--x:6px">+</i><i style="--d:-2.10s;--x:30px">1</i></span><span class="abt__jg cast" aria-hidden="true"><span class="abt__jgp">${who(byName["Sara"], 3, "ppl--wave")}</span></span></div>
+    <div class="abt__s abt__s--3"><strong>EN·AR</strong><span>Languages</span><span class="abt__toss" aria-hidden="true"><i style="--d:0.00s;--x:-26px">A</i><i style="--d:-1.05s;--x:6px">ع</i><i style="--d:-2.10s;--x:30px">E</i></span></div>
   </div>
 </section>
 <script>(function(){var b=document.querySelector('[data-count-box]');if(!b)return;var els=[].slice.call(b.querySelectorAll('[data-count]'));function run(){els.forEach(function(e){var to=+e.getAttribute('data-count'),sf=e.getAttribute('data-suffix')||'',t0=performance.now();(function s(n){var p=Math.min(1,(n-t0)/1400),v=Math.round(to*(1-Math.pow(1-p,3)));e.textContent=v+sf;if(p<1)requestAnimationFrame(s)})(t0)})}if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();run()}},{threshold:.4});io.observe(b)}})();</script>`;

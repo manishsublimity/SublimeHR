@@ -55,7 +55,7 @@ body.v2 .mods > a.mod .more { top: 112px; bottom: 0; right: 0; left: 0; display:
 body.v2 .mods > a.mod .ico, body.v2 .mods > a.mod h3 { position: relative; z-index: 2; }
 
 /* ----- dark mode: the big footer word no longer glows ----- */
-html[data-theme="dark"] body.v2 .foot2__word { opacity: .07; background: none;   }
+html[data-theme="dark"] body.v2 .foot2__word { opacity: .07; background: linear-gradient(180deg, #fff, transparent 88%); -webkit-background-clip: text; background-clip: text; }
 html[data-theme="dark"] body.v2 .foot2__about .brand2, html[data-theme="dark"] body.v2 .foot2__about .brand2 b { color: var(--on); }
 body.v2 .mods > a.mod { min-height: 252px; } body.v2 .mods > a.mod .more { top: 124px; }
 body.v2 .cnote { max-width: 200px; }

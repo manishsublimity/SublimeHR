@@ -43,7 +43,7 @@
 :root { --ease-out: cubic-bezier(.23, 1, .32, 1); --ease-snap: cubic-bezier(.3, .9, .3, 1); --ease-spring: cubic-bezier(.23,1,.32,1); }
 .btn, .nav .btn { height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; }
 .btn--lg, .hero .btn--lg { height: 52px; padding: 0 26px; font-size: 16px; }
-.mbk__go { height: 52px; padding: 0 24px; font-size: 16px; font-weight: 600; }
+.mbk__go { height: 52px; padding: 0 26px; font-size: 16px; font-weight: 600; }
 .istk__go, .mba__cta { height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; }
 .md__go, .frow__go, body .mods__grid > a.md .md__go { height: 36px; padding: 0 16px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; }
 .mods__grid > a.md .md__go { height: 36px !important; padding: 0 16px !important; }
@@ -64,7 +64,6 @@ body.lo main h2 { font-size: clamp(26px, 2.8vw, 40px); line-height: 1.15; }
 @media (max-width: 960px) { .rec { display: flex; flex-wrap: wrap; } .rec a { max-width: 100%; } .rec a b { white-space: normal; } }
 
 /* ---------- 5. Decoration budget (Impeccable): solid text, calmer glow, pausable ticker ---------- */
-.footer__word, body.v2 .foot2__word, body[data-ft="2"] .footer__word, body[data-ft="3"] .footer__word, html[data-theme="dark"] body.v2 .foot2__word { background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: currentColor !important; color: color-mix(in srgb, var(--world, #3558F5) 22%, transparent) !important; opacity: 1 !important; }
 .mark, .mark.sky, .mark.mint, .strip__label b, .footer__title span, .sw__row strong { background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: currentColor !important; }
 .ticker:hover .ticker__track, .ticker:focus-within .ticker__track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .ticker__track, .ticker__row { animation: none !important; } }
@@ -91,13 +90,10 @@ html[data-theme="dark"] .lamp__bulb { box-shadow: 0 0 8px 3px rgba(var(--lg), .8
 .cfh { overflow-x: visible; }
 main { overflow-x: clip; }
 .donut__ring { flex: none; width: 98px; height: 98px; aspect-ratio: 1; }
-.abt { align-items: stretch; }
-.abt__stats { align-self: stretch; grid-auto-rows: 1fr; }
-.abt__s { min-height: 210px; }
 /* the phone demo's character speaks right above her head; the closing band bubble stays inside its column */
 .say--movie { left: 50%; bottom: calc(100% - 4px); width: max-content; max-width: 190px; transform: translateX(-50%) scale(.6); transform-origin: 50% 100%; }
 .say--movie.on { transform: translateX(-50%) scale(1); }
-.mbk__say { left: 0; top: -30px; width: 140px; white-space: normal; text-align: center; font-size: 12.5px; }
+.mbk__say { left: auto; right: calc(50% + 44px); top: 34px; width: 132px; white-space: normal; text-align: center; font-size: 12.5px; border-radius: 14px 14px 4px 14px; }
 
 /* ---------- 9. Life on the inner pages: floating chips, a heartbeat line, a breathing live dot, counters that settle ---------- */
 @keyframes sysfloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
@@ -111,3 +107,7 @@ main { overflow-x: clip; }
 .mwin__top em span, .feed__h em i, .cta__feed-h .live { animation: sysbeat 1.6s ease-in-out infinite !important; }
 .mods__grid > a.md { animation: sysrise .6s var(--ease-out, ease-out) both; } .mods__grid > a.md:nth-child(2) { animation-delay: .06s; } .mods__grid > a.md:nth-child(3) { animation-delay: .12s; } .mods__grid > a.md:nth-child(4) { animation-delay: .18s; } .mods__grid > a.md:nth-child(5) { animation-delay: .24s; }
 @media (prefers-reduced-motion: reduce) { .mhero .mchip, .mhero .tagx, .mhero::after, .mwin__top em span, .feed__h em i, .cta__feed-h .live, .mods__grid > a.md { animation: none !important; } }
+/* the phone-demo character never carries a chest badge or the white shirt panel */
+.movie__who .chest, .movie__who .ppl__body::after { display: none !important; }
+/* the closing-band character is a greeter: no chest badge */
+.mbk__ppl .chest, .mbk__ppl .ppl__body::after { display: none !important; }
