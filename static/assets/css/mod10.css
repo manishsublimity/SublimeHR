@@ -893,3 +893,43 @@
 .mba[data-step="work"] .mba__record li:not(.done) { animation: mbwob 1.4s ease-in-out infinite; } .mba[data-step="work"] .mba__record li:not(.done):nth-child(even) { animation-delay: -.7s; }
 @keyframes mbwob { 50% { transform: translateX(3px) rotate(.4deg); } }
 .mba__lady { left: 26px; }
+
+/* ===== before / after, third and final design: ONE scene, a drag-to-compare divider. Left of it the messy old desk, right of it the clean record. Subi wipes the divider across as he fixes things. ===== */
+.mba__scene { overflow: hidden; touch-action: pan-y; }
+.mba__papers, .mba__sparks { display: none; }
+.mba__chaos { position: absolute; inset: 0; background: radial-gradient(circle at 20% 15%, rgba(214,51,108,.10), transparent 45%), linear-gradient(160deg, #E8EBF4, #D6DCEA); }
+.mba__chaos::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(20,33,61,.12) 1.2px, transparent 1.6px); background-size: 22px 22px; opacity: .6; }
+.mba__chaos::after { content: "A mess, any day"; position: absolute; left: 24px; bottom: 18px; font: 700 12px/1 var(--f); letter-spacing: .08em; text-transform: uppercase; color: rgba(20,33,61,.35); }
+.ch { position: absolute; left: var(--x); top: var(--y); width: var(--w, 124px); transform: rotate(var(--r, 0deg)); display: flex; align-items: center; gap: 8px; padding: 10px 12px; font: 600 12px/1.25 var(--f); color: var(--ink); background: #fff; box-shadow: 0 12px 16px -10px rgba(20,33,61,.5); animation: mbbob var(--t, 5.5s) ease-in-out infinite; animation-delay: var(--dl, 0s); }
+.ch i { flex: none; width: 18px; height: 18px; border-radius: 4px; } .ch b { font-weight: 600; }
+.ch0 { border-radius: 6px; border-left: 6px solid #1E8E5A; } .ch0 i { background: repeating-linear-gradient(0deg, #1E8E5A 0 2px, #fff 2px 5px), #fff; box-shadow: inset 0 0 0 1.5px #1E8E5A; }
+.ch1 { background: #FFE066; border-radius: 2px 2px 14px 2px; } .ch1 i { display: none; } .ch1::before { content: ""; position: absolute; left: 50%; top: -6px; width: 26px; height: 10px; margin-left: -13px; background: rgba(214,51,108,.55); border-radius: 2px; }
+.ch2 { background: #D6F5C5; border-radius: 14px 14px 14px 3px; } .ch2 i { border-radius: 50%; background: #2FA84F; box-shadow: inset 0 0 0 4px #D6F5C5, inset 0 0 0 9px #2FA84F; }
+.ch3 { border-radius: 10px; border-left: 5px solid #D6336C; } .ch3 i { border-radius: 50%; background: #D6336C; box-shadow: inset 0 0 0 6px #D6336C; position: relative; } .ch3 i::after { content: "!"; position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font: 800 12px/1 var(--f); }
+.ch4 { background: #FFB8CC; border-radius: 3px; } .ch4 i { display: none; } .ch4::before { content: ""; position: absolute; right: -1px; top: -1px; border-width: 0 14px 14px 0; border-style: solid; border-color: transparent #E8EBF4 rgba(20,33,61,.15) transparent; }
+.ch5 { background: #F6C65B; border-radius: 4px 12px 12px 12px; margin-top: 8px; } .ch5::before { content: ""; position: absolute; left: 0; top: -8px; width: 44%; height: 9px; background: #F6C65B; border-radius: 4px 8px 0 0; } .ch5 i { display: none; }
+.ch6 { background: #D6336C; color: #fff; border-radius: 999px; } .ch6 i { background: #fff; border-radius: 50%; position: relative; } .ch6 i::after { content: "\00d7"; position: absolute; inset: 0; display: grid; place-items: center; color: #D6336C; font: 800 15px/1 var(--f); }
+.ch.k0 { --x: 27%; --y: 15%; --r: -6deg; --w: 128px; } .ch.k1 { --x: 52%; --y: 60%; --r: 5deg; --w: 126px; --t: 6s; --dl: -1s; } .ch.k2 { --x: 28%; --y: 39%; --r: 4deg; --w: 112px; --t: 4.8s; --dl: -2s; } .ch.k3 { --x: 75%; --y: 20%; --r: -4deg; --w: 124px; --t: 5.6s; --dl: -.5s; } .ch.k4 { --x: 31%; --y: 72%; --r: -5deg; --w: 118px; --t: 6.4s; --dl: -3s; } .ch.k5 { --x: 54%; --y: 80%; --r: 4deg; --w: 118px; --t: 5.2s; --dl: -1.7s; } .ch.k6 { --x: 74%; --y: 44%; --r: -3deg; --w: 112px; --t: 6.2s; --dl: -2.6s; }
+.mba__clean { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--p, 88%)); transition: clip-path .9s cubic-bezier(.5,0,.2,1); background: radial-gradient(circle at 85% 10%, #fff, transparent 50%), linear-gradient(160deg, color-mix(in srgb, var(--world) 9%, #fff), color-mix(in srgb, var(--world) 24%, #fff)); }
+.mba__scene.dragging .mba__clean, .mba__scene.dragging .mba__handle { transition: none !important; }
+.mba__clean .mba__record { width: 57% !important; right: 20px !important; top: 20px !important; }
+.mba__clean .mba__record li { background: color-mix(in srgb, var(--world) 13%, #fff) !important; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 35%, #fff) !important; }
+.mba__clean .mba__record li i { background: var(--world) !important; color: var(--on) !important; } .mba__clean .mba__record li i::before { display: none; } .mba__clean .mba__record li i .ic { display: block; }
+.mba__clean .recp { display: none; } .mba__clean .recs { opacity: 1; transform: none; }
+.mba__badges { position: absolute; left: 20px; right: 20px; bottom: 18px; display: none; }
+.mba__handle { position: absolute; top: 0; bottom: 0; left: var(--p, 88%); width: 0; z-index: 6; transition: left .9s cubic-bezier(.5,0,.2,1); cursor: ew-resize; touch-action: none; outline: none; }
+.mba__handle::before { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 4px; background: #fff; box-shadow: 0 0 0 1px rgba(20,33,61,.08), 0 0 24px 4px rgba(255,255,255,.8); }
+.mba__handle::after { content: ""; position: absolute; left: -22px; top: -22px; bottom: -22px; width: 44px; }
+.mba__handle span { position: absolute; left: -23px; top: 50%; margin-top: -23px; width: 46px; height: 46px; display: grid; grid-auto-flow: column; place-items: center; border-radius: 50%; background: var(--ink); color: #fff; box-shadow: 0 10px 20px -6px rgba(20,33,61,.6), 0 0 0 4px #fff; animation: mbhint 2.6s ease-in-out infinite; }
+.mba__handle .ic { width: 13px; height: 13px; stroke-width: 3; } .mba__handle .ic:first-child { transform: rotate(180deg); }
+.mba__handle:focus-visible span { box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--world); }
+@keyframes mbhint { 50% { transform: scale(1.1); } }
+.mba__scene.dragging .mba__handle span { animation: none; transform: scale(1.12); }
+.mba__lady { z-index: 5; } .mba__say { z-index: 7; } .mba__prog { z-index: 7; }
+.mba__cards { visibility: hidden !important; }
+.ch.k3 { --x: 58%; --y: 16%; --w: 120px; } .ch.k6 { --x: 66%; --y: 40%; --w: 106px; } .ch.k1 { --x: 50%; --y: 62%; }
+.ch.k4 { --x: 27%; --y: 76%; }
+.mba__clean { clip-path: inset(0 0 0 var(--p, 94%)); } .mba__handle { left: var(--p, 94%); }
+.mba__lady { left: 70px !important; }
+.ch.k2 { --x: 36%; --y: 38%; } .ch.k4 { --x: 36%; --y: 77%; } .ch.k5 { --x: 58%; --y: 80%; } .ch.k0 { --x: 30%; --y: 14%; --w: 124px; }
+.mba__floor { display: none; }

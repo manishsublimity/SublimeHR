@@ -194,12 +194,12 @@
     var order = [0, 3, 1, 4, 2, 5, 6], token = 0, running = false, auto = true, dwell, lastFixed = -1;
     function pose(step) { lady.setAttribute("data-pose", { before: "rest", ask: "point", work: "hips", after: "wave" }[step] || "rest"); lady.classList.toggle("ppl--wave", step === "after"); }
     function set(step) {
-      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step); pose(step);
+      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step); pose(step); if (step === "after" && scene) scene.style.setProperty("--p", "6%");
       tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(step === "after" ? b.dataset.s === "after" : b.dataset.s === "before")); });
       if (step === "after") Snd.chime();
     }
     function lsay(text, ms) { bsay.textContent = text; bsay.classList.remove("on"); void bsay.offsetWidth; bsay.classList.add("on"); talk(lady, ms || 2200); }
-    function syncCards(n) { if (n === lastFixed) return; cards.forEach(function (c, i) { c.classList.toggle("fixed", order.indexOf(i) < n); }); recRows.forEach(function (x, i) { x.classList.toggle("done", i < n); }); if (recPct) recPct.textContent = Math.round(n / cards.length * 100) + "%"; if (n > lastFixed && n > 0) Snd.tick(); lastFixed = n; prog.textContent = n === 0 ? "Waiting for the file…" : n >= cards.length ? "All " + cards.length + " fixed" : "Subi is on it · " + n + " of " + cards.length; prog.classList.toggle("done", n >= cards.length); }
+    function syncCards(n) { if (n === lastFixed) return; if (scene) scene.style.setProperty("--p", (94 - 88 * (n / (cards.length || 1))) + "%"); cards.forEach(function (c, i) { c.classList.toggle("fixed", order.indexOf(i) < n); }); recRows.forEach(function (x, i) { x.classList.toggle("done", i < n); }); if (recPct) recPct.textContent = Math.round(n / cards.length * 100) + "%"; if (n > lastFixed && n > 0) Snd.tick(); lastFixed = n; prog.textContent = n === 0 ? "Waiting for the file…" : n >= cards.length ? "All " + cards.length + " fixed" : "Subi is on it · " + n + " of " + cards.length; prog.classList.toggle("done", n >= cards.length); }
     function near(el, fx, fy, dx, dy) { var rc = el.getBoundingClientRect(); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, rc.left + rc.width * fx + (dx || 0))), Math.max(70, Math.min(window.innerHeight - 140, rc.top + rc.height * fy + (dy || 0)))); }
     function alive(t) { return t === token; }
     function release() { guide.classList.remove("mplay", "msearch", "mhi", "mfast"); }
@@ -217,6 +217,17 @@
       gHome(); release(); await wait(600); gBusy = false; running = false;
     }
     function stop() { token++; clearTimeout(dwell); if (running) { release(); gBusy = false; gHome(); running = false; } }
+    var handle = $("[data-handle]", r);
+    if (handle && scene) {
+      var dragging = false;
+      var setP = function (x) { var b = scene.getBoundingClientRect(), p = Math.max(5, Math.min(95, (x - b.left) / b.width * 100)); scene.style.setProperty("--p", p + "%"); handle.setAttribute("aria-valuenow", Math.round(100 - p)); return p; };
+      var land = function (p) { var after = p < 50, st = after ? "after" : "before"; r.setAttribute("data-state", st); r.setAttribute("data-step", st); pose(st); tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.s === st)); }); scene.style.setProperty("--p", (after ? 6 : 94) + "%"); lastFixed = after ? cards.length : 0; recRows.forEach(function (x) { x.classList.toggle("done", after); }); cards.forEach(function (c) { c.classList.toggle("fixed", after); }); };
+      handle.addEventListener("pointerdown", function (e) { dragging = true; auto = false; stop(); scene.classList.add("dragging"); try { handle.setPointerCapture(e.pointerId); } catch (x) {} e.preventDefault(); });
+      handle.addEventListener("pointermove", function (e) { if (dragging) setP(e.clientX); });
+      var endDrag = function (e) { if (!dragging) return; dragging = false; scene.classList.remove("dragging"); land(setP(e.clientX)); };
+      handle.addEventListener("pointerup", endDrag); handle.addEventListener("pointercancel", endDrag);
+      handle.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); auto = false; stop(); land(e.key === "ArrowLeft" ? 10 : 90); } });
+    }
     tabs.forEach(function (b) { b.addEventListener("click", function () { auto = false; stop(); if (b.dataset.s === "after") play(true); else { syncCards(0); set("before"); lsay(Ls.say, 1800); } }); });
     mbaApi = { play: function () { auto = false; stop(); return play(true); } };
     if (reduce) { cards.forEach(function (c) { c.classList.add("fixed"); }); set("after"); return; }
