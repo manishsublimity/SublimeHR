@@ -860,3 +860,19 @@
 .is-a li { background: rgba(255,255,255,.14); } .mba__pane li:hover { transform: translateX(6px); background: rgba(255,255,255,.6); } .is-a li:hover { background: rgba(255,255,255,.24); }
 .mba__pane ul { gap: 10px; }
 .mba__stat { animation: mbpop .6s var(--spring) both; } .mba__stat + .mba__stat { animation-delay: .1s; } @keyframes mbpop { from { opacity: 0; transform: translateY(10px) scale(.94); } }
+
+/* the problems are scattered loosely around the scene, the way real problems turn up: different spots, angles and sizes, every note fully readable */
+.mba__cards { position: absolute; inset: 0; display: block; }
+.mba__cards li { position: absolute !important; left: var(--x) !important; top: var(--y) !important; width: var(--w, 128px) !important; grid-column: auto !important; justify-self: auto !important; transform: rotate(var(--r, 0deg)) !important; animation: mbbob var(--t, 5s) ease-in-out infinite !important; animation-delay: var(--dl, 0s) !important; }
+@keyframes mbbob { 50% { translate: 0 -5px; } }
+.mba[data-step="work"] .mba__cards li, .mba[data-state="after"] .mba__cards li { animation-play-state: paused !important; }
+.mba__cards .k0 { --x: 26%; --y: 17%; --r: -8deg; --w: 124px; --t: 5.4s; }
+.mba__cards .k1 { --x: 52%; --y: 63%; --r: 5deg; --w: 132px; --t: 6s; --dl: -1.2s; }
+.mba__cards .k2 { --x: 27%; --y: 41%; --r: 9deg; --w: 108px; --t: 4.8s; --dl: -2s; }
+.mba__cards .k3 { --x: 74%; --y: 66%; --r: -6deg; --w: 120px; --t: 5.6s; --dl: -.6s; }
+.mba__cards .k4 { --x: 31%; --y: 73%; --r: -4deg; --w: 118px; --t: 6.4s; --dl: -3s; }
+.mba__cards .k5 { --x: 55%; --y: 80%; --r: 8deg; --w: 124px; --t: 5.2s; --dl: -1.8s; }
+.mba__cards .k6 { --x: 76%; --y: 84%; --r: -3deg; --w: 112px; --t: 6.2s; --dl: -2.6s; }
+.mba__cards li.fixed { transform: rotate(var(--r, 0deg)) !important; }
+.mba__cards li:last-child { width: var(--w, 112px) !important; }
+.mba__cards .k1 { --x: 51%; --w: 122px; } .mba__cards .k3 { --x: 77.5%; --y: 64%; --w: 116px; } .mba__cards .k5 { --x: 53%; --y: 81%; --w: 116px; } .mba__cards .k6 { --x: 79%; --y: 83%; --w: 108px; }
