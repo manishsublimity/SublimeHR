@@ -162,3 +162,4 @@
 @keyframes cast-tapr { from { transform: rotate(calc(var(--rf) * 1deg)); } to { transform: rotate(calc(var(--rf) * 1deg - 7deg)); } }
 @keyframes cast-steam { 0% { transform: translateY(4px); opacity: 0; } 40% { opacity: .8; } 100% { transform: translateY(-8px); opacity: 0; } }
 @keyframes cast-flicker { from { transform: scaleY(.8); opacity: .8; } to { transform: scaleY(1.15); opacity: 1; } }
+.cast [data-hat="tie"] .ppl__body::after { display: none !important; }

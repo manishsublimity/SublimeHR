@@ -208,7 +208,8 @@
   function setText(el, text) { el.classList.add("swap"); setTimeout(function () { el.textContent = text; el.classList.remove("swap"); }, 230); }
   function dress(p, d) {
     var i = +p.getAttribute("data-i"), a = d.acts[i] || ["rest", "none", "none"];
-    p.setAttribute("data-hat", d.hats[i] || "none"); p.setAttribute("data-outfit", a[2]);
+    var hat = d.hats[i] || "none"; if (hat === "tie") hat = "none"; if (p.classList.contains("s-hijab") && hat !== "headset" && hat !== "hard") hat = "none";
+    p.setAttribute("data-hat", hat); p.setAttribute("data-outfit", a[2]);
     if (p.classList.contains("ppl--bust") || p.classList.contains("ppl--wave") || p.classList.contains("ppl--walk") || p.classList.contains("ppl--movie")) return;
     p.setAttribute("data-pose", a[0]); p.setAttribute("data-item", a[1]);
   }
@@ -223,8 +224,9 @@
     if (fromUser) { Snd.whoosh(); guideSay("Welcome to the " + d.name.toLowerCase() + " floor.", 3200); }
     last = -1; setTimeout(act, 700);
   }
-  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); burstAt(b, 8); }); });
-  if (!reduce) setInterval(function () { if (!userPicked && heroVisible && !document.hidden) setIndustry((cur + 1) % inds.length, false); }, 9500);
+  var dockEl = $(".dock"); if (dockEl) dockEl.classList.add("hint");
+  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; if (dockEl) dockEl.classList.remove("hint"); var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); burstAt(b, 8); }); });
+  if (!reduce) setInterval(function () { if (!userPicked && heroVisible && !document.hidden) setIndustry((cur + 1) % inds.length, false); }, 5200);
   vis(hero, function (v) { heroVisible = v; }, .15);
 
   /* ================= stats count up ================= */
