@@ -371,3 +371,21 @@ body select:not([multiple]) { -webkit-appearance: none; appearance: none; paddin
 html[data-theme="dark"] body select:not([multiple]) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
 body .mods__grid > a.md:hover ul, body .mods__grid > a.md:focus-visible ul { flex: 1; align-content: space-evenly; gap: 6px; margin: 10px 0 14px; font-size: 14px; line-height: 1.35; }
 html[data-theme="dark"] .dk-undo { filter: hue-rotate(180deg) invert(1) contrast(1.1628); } html[data-theme="dark"] .dk-undo .ppl { filter: none; }
+
+/* ===== round nine: compact module card — icon and name in one row, description, button. Hover: the feature list slides up from the bottom, only as tall as it needs ===== */
+body .mods__grid > a.md { display: grid !important; grid-template-columns: 48px 1fr; grid-template-rows: auto 1fr auto; column-gap: 14px; row-gap: 14px; align-content: stretch; min-height: 0 !important; height: auto; padding: 22px 22px 22px; background: #fff !important; }
+body .mods__grid > a.md .md__ic { grid-column: 1; grid-row: 1; width: 48px; height: 48px; margin: 0; font-size: 23px; border-radius: 16px; background: color-mix(in srgb, var(--world) 14%, #fff) !important; color: var(--world) !important; }
+body .mods__grid > a.md > b { grid-column: 2; grid-row: 1; align-self: center; min-height: 0; font: 600 16px/1.25 var(--f-d); color: var(--ink) !important; }
+body .mods__grid > a.md > span { display: none !important; }
+body .mods__grid > a.md .md__d { grid-column: 1 / -1; grid-row: 2; margin: 0; min-height: 0; font-size: 13.5px; line-height: 1.55; -webkit-line-clamp: 4; }
+body .mods__grid > a.md .md__go { grid-column: 1 / -1; grid-row: 3; margin: 0; align-self: end; justify-self: start; }
+body .mods__grid > a.md ul { position: absolute !important; display: grid !important; left: 0; right: 0; bottom: 0; top: auto; margin: 0; padding: 16px 22px 18px; gap: 9px; align-content: start; flex: none; background: var(--world); color: var(--on); font-size: 13px; line-height: 1.35; font-weight: 600; overflow: visible; transform: translateY(101%) !important; transition: transform .45s var(--ease); animation: none; }
+body .mods__grid > a.md:hover ul, body .mods__grid > a.md:focus-visible ul { transform: none !important; flex: none; margin: 0; font-size: 13px; gap: 9px; align-content: start; }
+body .mods__grid > a.md:hover, body .mods__grid > a.md:focus-visible { background: #fff !important; }
+body .mods__grid > a.md:hover > b, body .mods__grid > a.md:focus-visible > b { color: var(--ink) !important; }
+body .mods__grid > a.md:hover .md__ic { background: color-mix(in srgb, var(--world) 14%, #fff) !important; color: var(--world) !important; }
+body .mods__grid > a.md:hover > span, body .mods__grid > a.md:hover .md__d, body .mods__grid > a.md:focus-visible .md__d { display: -webkit-box; }
+body .mods__grid > a.md:hover .md__go, body .mods__grid > a.md:focus-visible .md__go { background: var(--ink); color: #fff; }
+body .mods__grid > a.md ul li { display: flex; align-items: flex-start; gap: 9px; }
+body .mods__grid > a.md ul { z-index: 3; }
+body .mods__grid > a.md:hover .md__go, body .mods__grid > a.md:focus-visible .md__go { opacity: 0 !important; }
