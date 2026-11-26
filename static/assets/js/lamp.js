@@ -28,16 +28,13 @@
   /* ----- day and night, with the light spreading from the bulb ----- */
   function switchTheme() {
     if (st.busy) return; st.busy = true;
-    var toDark = !isDark(), r = bulb.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
-    L.classList.add("flicker"); say(toDark ? "Lights out!" : "Good morning!", 1500);
-    var fx = document.createElement("div"); fx.className = "lamp-fx " + (toDark ? "to-dark" : "to-day"); fx.style.setProperty("--x", x + "px"); fx.style.setProperty("--y", y + "px"); document.body.appendChild(fx);
-    var delay = reduce ? 0 : (toDark ? 380 : 120);
-    setTimeout(function () {
-      fx.classList.add("go");
-      setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); }, reduce ? 0 : 420);
-      setTimeout(function () { fx.classList.add("out"); L.classList.remove("flicker"); }, reduce ? 0 : 820);
-      setTimeout(function () { fx.remove(); st.busy = false; }, reduce ? 0 : 1250);
-    }, delay);
+    var toDark = !isDark(); L.classList.add("flicker"); say(toDark ? "Moon time!" : "Rise and shine!", 1500);
+    var fx = document.createElement("div"); fx.className = "lamp-fx " + (toDark ? "to-dark" : "to-day");
+    fx.innerHTML = toDark ? '<div class="orb moon"><i></i></div><span class="st s1"></span><span class="st s2"></span><span class="st s3"></span><span class="st s4"></span><span class="st s5"></span><span class="st s6"></span>' : '<div class="orb sun"><b class="rays"></b><b class="rays r2"></b><i></i></div>';
+    document.body.appendChild(fx); void fx.offsetWidth; fx.classList.add("go");
+    setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); }, reduce ? 0 : 650);
+    setTimeout(function () { fx.classList.add("out"); L.classList.remove("flicker"); }, reduce ? 0 : 1150);
+    setTimeout(function () { fx.remove(); st.busy = false; }, reduce ? 0 : 1800);
   }
 
   /* ----- a tiny spring for the lamp when it is let go ----- */
