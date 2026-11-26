@@ -32,7 +32,7 @@
     var br = bulb.getBoundingClientRect(), bx = br.left + br.width / 2, by = br.top + br.height / 2;
     var fx = document.createElement("div"); fx.className = "lfx " + (toDark ? "to-dark" : "to-day"); fx.style.setProperty("--x", bx + "px"); fx.style.setProperty("--y", by + "px");
     var h = '<div class="lfx__wash"></div>', vw = innerWidth, vh = innerHeight, k, rr = Math.random;
-    if (toDark) { h += '<i class="lfx__halo"></i><div class="lfx__moon"><b></b><u></u></div><div class="lfx__shoot"></div>'; for (k = 0; k < 34; k++) h += '<span class="lfx__st" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (rr() * 100).toFixed(1) + '%;animation-delay:' + (0.4 + rr() * 1.1).toFixed(2) + 's;width:' + (2 + rr() * 3).toFixed(1) + 'px;height:' + (2 + rr() * 3).toFixed(1) + 'px"></span>'; }
+    if (toDark) { h += '<b class="lfx__bloom nb"></b><b class="lfx__bloom nb b2"></b><b class="lfx__bloom nb b3"></b><i class="lfx__halo"></i><div class="lfx__moon"><b></b><u></u></div>'; for (k = 0; k < 34; k++) h += '<span class="lfx__st" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (rr() * 100).toFixed(1) + '%;animation-delay:' + (0.4 + rr() * 1.1).toFixed(2) + 's;width:' + (2 + rr() * 3).toFixed(1) + 'px;height:' + (2 + rr() * 3).toFixed(1) + 'px"></span>'; }
     else { h += '<b class="lfx__bloom"></b><b class="lfx__bloom b2"></b><b class="lfx__bloom b3"></b>'; for (k = 0; k < 5; k++) { var f = 0.18 + k * 0.17; h += '<i class="lfx__fl" style="left:' + (bx - (bx - vw / 2) * f - 20) + 'px;top:' + (by + (vh / 2 - by) * f - 20) + 'px;--s:' + (0.5 + rr() * 1.4).toFixed(2) + ';animation-delay:' + (0.35 + k * 0.08).toFixed(2) + 's"></i>'; } for (k = 0; k < 16; k++) h += '<span class="lfx__mote" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (40 + rr() * 60).toFixed(1) + '%;animation-delay:' + (0.3 + rr() * 0.9).toFixed(2) + 's"></span>'; }
     fx.innerHTML = h; document.body.appendChild(fx); void fx.offsetWidth; fx.classList.add("lfx-on");
     setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); }, reduce ? 0 : 950);
@@ -108,14 +108,20 @@
 
   /* ----- little life of its own ----- */
   if (!reduce) {
+    var acts = [
+      function () { L.classList.remove("nudge"); void L.offsetWidth; L.classList.add("nudge"); },
+      function () { L.classList.add("spin"); mood("oh", 900); say("Wheee!", 1200); setTimeout(function () { L.classList.remove("spin"); }, 1100); },
+      function () { L.classList.remove("jiggle"); void L.offsetWidth; L.classList.add("jiggle"); mood("giggle", 800); say("Hehe!", 1100); },
+      function () { mood("yawn", 1500); say("Yaaawn…", 1400); },
+      function () { mood("wink", 900); },
+      function () { mood("laugh", 900); sparkles(7); },
+      function () { say("Psst, pull my chain!", 2000); L.classList.remove("nudge"); void L.offsetWidth; L.classList.add("nudge"); }
+    ];
     (function idle() {
       setTimeout(function () {
-        if (!st.dragging && !st.busy && document.visibilityState === "visible") {
-          var r = Math.random();
-          if (r < .35) { L.classList.remove("nudge"); void L.offsetWidth; L.classList.add("nudge"); } else if (r < .6) { mood("yawn", 1500); say("Yaaawn…", 1400); } else if (r < .85) { mood("wink", 900); } else { say("Psst, pull my chain!", 2000); }
-        }
+        if (!st.dragging && !st.busy && document.visibilityState === "visible" && !L.classList.contains("menu")) acts[Math.floor(Math.random() * acts.length)]();
         idle();
-      }, 7000 + Math.random() * 6000);
+      }, 3500 + Math.random() * 3000);
     })();
   }
   sync();

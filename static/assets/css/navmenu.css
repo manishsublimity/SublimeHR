@@ -321,3 +321,17 @@ html[data-theme="dark"]::before { mix-blend-mode: normal; animation: none; backg
 /* morning: layered blooms expanding from the bulb, no spokes */
 .lfx__bloom.b2 { background: radial-gradient(circle, rgba(255,255,255,.85) 0, rgba(255,240,180,.4) 8%, transparent 34%); animation-delay: .18s; animation-duration: 1.8s; }
 .lfx__bloom.b3 { background: radial-gradient(circle, rgba(255,205,120,.38) 0, rgba(255,190,110,.18) 30%, transparent 60%); animation-delay: .35s; animation-duration: 2.1s; }
+
+/* ===== round six: night uses the same soft blooms as day; the lamp is alive on its own ===== */
+.lfx__shoot { display: none !important; }
+.lfx.to-dark .lfx__wash { display: none; }
+.lfx__bloom.nb { background: radial-gradient(circle, rgba(3,8,24,.96) 0, rgba(5,12,34,.7) 8%, rgba(8,18,48,.35) 26%, transparent 52%); }
+.lfx__bloom.nb.b2 { background: radial-gradient(circle, rgba(20,30,80,.7) 0, rgba(14,24,66,.35) 22%, transparent 50%); }
+.lfx__bloom.nb.b3 { background: radial-gradient(circle, rgba(60,50,140,.35) 0, rgba(40,40,110,.18) 30%, transparent 60%); }
+/* it floats and sways by itself, the cord reaches above the page so it never detaches */
+.lamp > .lamp__cord { top: -16px; height: calc(94px + var(--dy)); } .lamp > .lamp__cord::after { top: 22px; }
+.lamp { animation: lalive 7s ease-in-out infinite; transform-origin: 50% 0; }
+@keyframes lalive { 0%, 100% { transform: rotate(-3deg); translate: 0 0; } 25% { transform: rotate(2deg); translate: 0 5px; } 50% { transform: rotate(3.5deg); translate: 0 9px; } 75% { transform: rotate(-1.5deg); translate: 0 4px; } }
+.lamp.spin .lamp__body, .lamp.jiggle .lamp__body { transform-origin: 28px 76px; }
+.lamp:hover, .lamp.pulling, .lamp.springing { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .lamp { animation: none; } }
