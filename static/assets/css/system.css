@@ -91,8 +91,8 @@ html[data-theme="dark"] .lamp__bulb { box-shadow: 0 0 8px 3px rgba(var(--lg), .8
 main { overflow-x: clip; }
 .donut__ring { flex: none; width: 98px; height: 98px; aspect-ratio: 1; }
 /* the phone demo's character speaks right above her head; the closing band bubble stays inside its column */
-.say--movie { left: 50%; bottom: calc(100% + 14px); width: max-content; max-width: 190px; transform: translateX(-50%) scale(.6); transform-origin: 50% 100%; }
-.say--movie.on { transform: translateX(-50%) scale(1); }
+.say--movie { left: 58px; bottom: calc(100% + 20px); width: max-content; max-width: 150px; transform: scale(.6); transform-origin: 0 100%; }
+.say--movie.on { transform: scale(1); }
 .mbk__say { left: 0; top: -30px; width: 140px; white-space: normal; text-align: center; font-size: 12.5px; }
 
 /* ---------- 9. Life on the inner pages: floating chips, a heartbeat line, a breathing live dot, counters that settle ---------- */
@@ -111,15 +111,31 @@ main { overflow-x: clip; }
 .movie__who .chest, .movie__who .ppl__body::after { display: none !important; }
 /* module/about hero: the copy column uses the gap that used to sit empty before the stage; the stage (640px) always still fits */
 @media (min-width: 1101px) { .mhero .hero__main { grid-template-columns: minmax(0, clamp(440px, calc(100vw - 790px), 560px)) minmax(0, 1fr); } }
-/* about stats: four numbers tossed across the free half of each card */
-.abt__s:not(.abt__s--2) .abt__toss { width: 168px; right: 14px; }
-.abt__s:not(.abt__s--2) .abt__toss i { width: 36px; height: 36px; margin-left: -18px; font-size: 16px; }
-.abt__s:not(.abt__s--2) .abt__toss i:nth-child(1) { --x: -64px !important; --rise: -72px; }
-.abt__s:not(.abt__s--2) .abt__toss i:nth-child(2) { --x: -22px !important; --rise: -112px; }
-.abt__s:not(.abt__s--2) .abt__toss i:nth-child(3) { --x: 22px !important; --rise: -88px; }
-.abt__s:not(.abt__s--2) .abt__toss i:nth-child(4) { --x: 62px !important; --rise: -120px; }
-/* one speech-bubble design everywhere: white rounded bubble with a two-dot thought tail (the Before/After scene's bubble) */
-.say, .mbk__say { border-radius: 18px; }
-.say::after, .say--big::after, .say--movie::after, .movie__stage > .say--movie::after, .mbk__say::after { content: ""; display: block; position: absolute; left: 40px; right: auto; top: auto; bottom: -13px; width: 11px; height: 11px; margin: 0; border-radius: 50%; background: #fff; transform: none; box-shadow: 9px 10px 0 -3px #fff, 0 6px 8px -4px rgba(20,33,61,.4); }
-.say--movie::after { left: calc(50% - 8px); }
-.mbk__say::after { left: 50%; margin-left: -8px; }
+/* about stats: each card plays its own small scene in the free half (feature rain, report tracks, drawn industry icons, language switch) */
+.abt__s { overflow: hidden; }
+.abt__fx { position: absolute; right: 14px; top: 14px; bottom: 14px; width: 150px; pointer-events: none; }
+.abt__fx--rain i { position: absolute; left: 0; top: 0; padding: 4px 9px; border-radius: 999px; background: rgba(255,255,255,.94); color: #14213D; font: 700 10.5px/14px var(--f); font-style: normal; white-space: nowrap; box-shadow: 0 6px 10px -6px rgba(20,33,61,.6); opacity: 0; will-change: transform; }
+.abt__fx--rain i.abt__pill--rain { background: color-mix(in srgb, #fff 70%, transparent); }
+.abt__fx--types { display: grid; align-content: center; gap: 8px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
+.abt__trk { display: flex; gap: 6px; width: max-content; animation: abtslide 22s linear infinite; }
+.abt__trk--1 { animation-direction: reverse; animation-duration: 26s; }
+.abt__trk--2 { animation-duration: 30s; }
+.abt__trk i { flex: none; padding: 5px 10px; border-radius: 999px; background: #14213D; color: #FFD05A; font: 700 10.5px/14px var(--f); font-style: normal; white-space: nowrap; }
+@keyframes abtslide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.abt__fx--ind { display: grid; place-items: center; color: #14213D; }
+.abt__ic { grid-area: 1 / 1; display: grid; justify-items: center; gap: 6px; opacity: 0; animation: abtshow 23.4s linear infinite; animation-delay: calc(var(--i) * 2.6s); }
+.abt__ic svg { display: block; }
+.abt__ic path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: abtdraw 23.4s linear infinite; animation-delay: calc(var(--i) * 2.6s); }
+.abt__ic b { font: 700 11px/1.1 var(--f); text-align: center; opacity: .85; }
+@keyframes abtshow { 0% { opacity: 1; } 11% { opacity: 1; } 11.1%, 100% { opacity: 0; } }
+@keyframes abtdraw { 0% { stroke-dashoffset: 1; } 4.5% { stroke-dashoffset: 0; } 8.5% { stroke-dashoffset: 0; } 11% { stroke-dashoffset: -1; } 100% { stroke-dashoffset: -1; } }
+.abt__fx--lang { display: grid; justify-items: end; align-content: center; gap: 8px; color: #FFD05A; }
+.abt__globe { animation: abtspin 14s linear infinite; }
+@keyframes abtspin { to { transform: rotate(360deg); } }
+.abt__fx--lang b { display: inline-block; padding: 7px 14px; border-radius: 16px 16px 4px 16px; background: #FFD05A; color: #14213D; font: 700 15px/1 var(--f-d); transition: opacity .28s, transform .28s; }
+@media (prefers-reduced-motion: reduce) { .abt__trk, .abt__globe { animation: none; } .abt__ic { animation: none; } .abt__ic:first-child { opacity: 1; } .abt__ic path { animation: none; stroke-dashoffset: 0; } }
+.abt__s span.abt__fx, .abt__s span.abt__trk { opacity: 1; font: inherit; }
+.abt__s span.abt__ic { opacity: 0; font: inherit; }
+@media (prefers-reduced-motion: reduce) { .abt__s span.abt__ic:first-child { opacity: 1; } }
+.abt__fx--types { width: 126px; }
+@media (max-width: 1200px) { .say--movie { left: 44px; max-width: 112px; } .say--movie::after { left: 12px; } }

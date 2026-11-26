@@ -59,7 +59,7 @@
 
   /* ================= hero: the stage scales to the space, and the people act out the module ================= */
   var stage = $("[data-stage]");
-  function fit() { if (!hero || !stage) return; var w = Math.min(hero.clientWidth, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)))); }
+  function fit() { if (!hero || !stage) return; var w = Math.min(hero.clientWidth, 1600) - 112, f = Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)), cp = $(".hero__copy", hero), st = 1; stage.style.setProperty("--fit", String(f)); if (cp && $(".mwin", stage) && hero.clientWidth > 1100) st = Math.max(1, Math.min(1.5, (w - cp.offsetWidth - 24) / (760 * f))); stage.style.setProperty("--st", st.toFixed(3)); }
   fit(); window.addEventListener("resize", fit);
   var slots = stage ? $$("[data-slot]", stage) : [], rows = stage ? $$("[data-row]", stage) : [], bar = stage ? $("[data-bar]", stage) : null, pct = stage ? $("[data-pct]", stage) : null, lines = [];
   try { lines = JSON.parse($("#mod-story").textContent); } catch (e) {}

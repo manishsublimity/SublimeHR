@@ -66,6 +66,7 @@
   var day = $("[data-day]");
   if (day) (function () {
     var walker = $("[data-walker]"), walkP = $(".ppl", walker), prog = $("[data-prog]"), stp = $$(".stp", day);
+    if (!walker || !prog) return;
     var sx = stp.map(function (s) { return parseFloat(s.style.getPropertyValue("--l")); });
     var wk = { x: 3, k: 0, pause: 0, vis: false, t0: 0, walking: false };
     function wSet() { walker.style.setProperty("--wx", wk.x.toFixed(2) + "%"); prog.style.setProperty("--pw", Math.max(0, wk.x - 2).toFixed(2) + "%"); }

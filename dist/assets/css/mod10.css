@@ -600,23 +600,6 @@
 .abt__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .abt__s { display: grid; align-content: center; gap: 8px; min-height: 170px; padding: 24px 28px; border-radius: 28px; transition: transform .4s var(--ease-pop); } .abt__s:hover { transform: translateY(-5px) rotate(-.6deg); }
 .abt__s strong { font: 600 clamp(44px, 4.6vw, 72px)/1 var(--f-d); letter-spacing: -.04em; } .abt__s span { font: 600 16px/1.2 var(--f); opacity: .8; }
-/* about stats: the numbers get tossed around in each card's free corner; cards keep their size */
-.abt__s { position: relative; }
-.abt__toss { position: absolute; right: 18px; top: 16px; bottom: 16px; width: 92px; pointer-events: none; }
-.abt__toss i { position: absolute; left: 50%; bottom: 0; display: grid; place-items: center; width: 32px; height: 32px; margin-left: -16px; border-radius: 50%; background: rgba(255,255,255,.92); color: #14213D; font: 700 15px/1 var(--f-d); font-style: normal; box-shadow: 0 8px 14px -8px rgba(20,33,61,.55); opacity: 0; translate: var(--x) 0; animation: abttoss 3.15s infinite; animation-delay: var(--d); }
-.abt__s--1 .abt__toss i { background: #14213D; color: #FFD05A; }
-.abt__s--3 .abt__toss i { background: #FFD05A; color: #14213D; }
-.abt__s--2 .abt__toss { --rise: -34px; right: 52px; bottom: 96px; top: 6px; width: 40px; }
-@keyframes abttoss {
-  0% { transform: translateY(0) scale(.7) rotate(0); opacity: 0; animation-timing-function: cubic-bezier(.2,.7,.3,1); }
-  10% { opacity: 1; }
-  48% { transform: translateY(var(--rise,-92px)) scale(1.08) rotate(-12deg); opacity: 1; animation-timing-function: cubic-bezier(.6,0,.9,.5); }
-  88% { transform: translateY(-6px) scale(.9) rotate(10deg); opacity: 1; }
-  100% { transform: translateY(0) scale(.7) rotate(0); opacity: 0; }
-}
-.abt__jg { position: absolute; right: 8px; bottom: 0; width: 104px; height: 190px; transform: scale(.6); transform-origin: 100% 100%; pointer-events: none; }
-.abt__jgp { position: absolute; inset: 0; }
-@media (prefers-reduced-motion: reduce) { .abt__toss i { animation: none; opacity: 1; transform: translateY(-40px); } }
 .abt__s--0 { background: var(--world); color: var(--on); } .abt__s--1 { background: #FFD05A; color: #14213D; } .abt__s--2 { background: #CFF3E4; color: #14213D; } .abt__s--3 { background: #14213D; color: #fff; }
 .aoff__head h2 { font: 600 clamp(30px, 3.3vw, 50px)/1.07 var(--f-d); letter-spacing: -.03em; max-width: 16em; }
 .aoff__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
