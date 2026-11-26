@@ -81,7 +81,7 @@ const tagx = (name, role, i, x, y, s) => `<span class="tagx" style="--x:${x}px;-
 function hero(m) {
   const rows = m.features.slice(0, 4);
   const hc = m._hero || CONF[m.slug]?.hero;
-  const pos = m._pos || [[60, 116, .84], [250, 344, 1], [560, 404, 1]];
+  const pos = m._pos || [[60, 116, .84], [250, 344, 1], [714, 300, 1]];
   const cast = (hc ? hc.cast : [["Omar", "HR manager"], ["Priya", "HR partner"], ["Sara", "New joiner"]]).map(([n, r], i) => [n, r, ...pos[i]]);
   const who3 = hc ? hc.who : ["SN", "Sara Nasser", "New joiner · Senior Accountant"];
   const chips = hc ? hc.chips : [["users", "3 joined today"], ["file", "Offer letter sent"], ["check", "All records in sync"]];
