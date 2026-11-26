@@ -19,11 +19,11 @@
 
   /* ----- colours of the bulb ----- */
   function setColor(v, quiet) {
-    var p = v.split("|"); L.style.setProperty("--lg", p[0]); L.style.setProperty("--lb", p[1]); L.style.setProperty("--ls", p[2]); root.style.setProperty("--lg", p[0]); save("shr-lamp", v);
+    var p = v.split("|"); L.style.setProperty("--lg", p[0]); L.style.setProperty("--lb", p[1]); L.style.setProperty("--ls", p[2]); root.style.setProperty("--lg", p[0]); save("shr-lamp2", v);
     Array.prototype.forEach.call(L.querySelectorAll("[data-lc]"), function (b) { b.classList.toggle("on", b.getAttribute("data-lc") === v); });
     if (!quiet) { say("Ooh, nice colour!"); mood("giggle", 600); }
   }
-  var saved = load("shr-lamp"); if (saved) setColor(saved, true); else setColor("255,200,70|#FFFBE0|#FFC233", true);
+  var saved = load("shr-lamp2"); if (saved) setColor(saved, true); else setColor("255,200,70|#FFFBE0|#FFC233", true);
 
   /* ----- day and night, with the light spreading from the bulb ----- */
   function switchTheme() {
@@ -31,9 +31,9 @@
     var toDark = !isDark(); L.classList.add("flicker"); say(toDark ? "Moon time!" : "Rise and shine!", 1500);
     var br = bulb.getBoundingClientRect(), bx = br.left + br.width / 2, by = br.top + br.height / 2;
     var fx = document.createElement("div"); fx.className = "lfx " + (toDark ? "to-dark" : "to-day"); fx.style.setProperty("--x", bx + "px"); fx.style.setProperty("--y", by + "px");
-    var h = '<div class="lfx__wash"></div><i class="lfx__ring"></i><i class="lfx__ring r2"></i>', vw = innerWidth, vh = innerHeight, k, rr = Math.random;
-    if (toDark) { h += '<div class="lfx__moon"><b></b></div><div class="lfx__shoot"></div>'; for (k = 0; k < 34; k++) h += '<span class="lfx__st" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (rr() * 100).toFixed(1) + '%;animation-delay:' + (0.4 + rr() * 1.1).toFixed(2) + 's;width:' + (2 + rr() * 3).toFixed(1) + 'px;height:' + (2 + rr() * 3).toFixed(1) + 'px"></span>'; }
-    else { h += '<b class="lfx__bloom"></b><b class="lfx__rays"></b><b class="lfx__rays r2"></b>'; for (k = 0; k < 5; k++) { var f = 0.18 + k * 0.17; h += '<i class="lfx__fl" style="left:' + (bx - (bx - vw / 2) * f - 20) + 'px;top:' + (by + (vh / 2 - by) * f - 20) + 'px;--s:' + (0.5 + rr() * 1.4).toFixed(2) + ';animation-delay:' + (0.35 + k * 0.08).toFixed(2) + 's"></i>'; } for (k = 0; k < 16; k++) h += '<span class="lfx__mote" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (40 + rr() * 60).toFixed(1) + '%;animation-delay:' + (0.3 + rr() * 0.9).toFixed(2) + 's"></span>'; }
+    var h = '<div class="lfx__wash"></div>', vw = innerWidth, vh = innerHeight, k, rr = Math.random;
+    if (toDark) { h += '<i class="lfx__halo"></i><div class="lfx__moon"><b></b><u></u></div><div class="lfx__shoot"></div>'; for (k = 0; k < 34; k++) h += '<span class="lfx__st" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (rr() * 100).toFixed(1) + '%;animation-delay:' + (0.4 + rr() * 1.1).toFixed(2) + 's;width:' + (2 + rr() * 3).toFixed(1) + 'px;height:' + (2 + rr() * 3).toFixed(1) + 'px"></span>'; }
+    else { h += '<b class="lfx__bloom"></b><b class="lfx__bloom b2"></b><b class="lfx__bloom b3"></b>'; for (k = 0; k < 5; k++) { var f = 0.18 + k * 0.17; h += '<i class="lfx__fl" style="left:' + (bx - (bx - vw / 2) * f - 20) + 'px;top:' + (by + (vh / 2 - by) * f - 20) + 'px;--s:' + (0.5 + rr() * 1.4).toFixed(2) + ';animation-delay:' + (0.35 + k * 0.08).toFixed(2) + 's"></i>'; } for (k = 0; k < 16; k++) h += '<span class="lfx__mote" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (40 + rr() * 60).toFixed(1) + '%;animation-delay:' + (0.3 + rr() * 0.9).toFixed(2) + 's"></span>'; }
     fx.innerHTML = h; document.body.appendChild(fx); void fx.offsetWidth; fx.classList.add("lfx-on");
     setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); }, reduce ? 0 : 950);
     setTimeout(function () { fx.classList.add("lfx-out"); L.classList.remove("flicker"); }, reduce ? 0 : 1350);
