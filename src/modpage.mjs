@@ -321,10 +321,14 @@ function indCta() {
     <div class="mbk__in">
       <h2 id="h-meet">Don't see your industry?</h2>
       <p>Our rules engine and custom development cover almost any workforce. Tell us how your teams work.</p>
-      <div class="mbk__act"><a class="mbk__go" href="/contact/">Talk to an HR expert ${icon("arrow", "ic")}</a><a class="mbk__go mbk__go--alt" href="/custom-development/">Custom development ${icon("arrow", "ic")}</a></div>
-      <small class="mbk__note">We reply within one business day.</small>
     </div>
     <div class="mbk__who cast" aria-hidden="true"><span class="mbk__say">Tell us about your teams!</span><div class="mbk__ppl" data-bkppl>${who(byName["Aisha"], 5, "ppl--wave")}</div></div>
+    <div class="mbk__card">
+      <b>Let's talk</b>
+      <a class="mbk__go" href="/contact/">Talk to an HR expert ${icon("arrow", "ic")}</a>
+      <a class="mbk__go mbk__go--alt" href="/custom-development/">Custom development ${icon("arrow", "ic")}</a>
+      <small>We reply within one business day.</small>
+    </div>
   </div>
 </section>
 <script>(function(){var l=[].slice.call(document.querySelectorAll('[data-spy] a')),s=l.map(function(a){return document.querySelector(a.getAttribute('href'))});if(!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=s.indexOf(e.target);l.forEach(function(a,k){if(k===i)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});var a=l[i];if(a&&a.parentNode.scrollTo)a.parentNode.scrollTo({left:a.offsetLeft-24,behavior:'smooth'})}})},{rootMargin:'-35% 0px -55% 0px'});s.forEach(function(x){if(x)io.observe(x)})})();</script>`;
@@ -388,10 +392,9 @@ function priceTable() {
 function closeBand(o) {
   return `<section class="mbk" aria-labelledby="h-meet" data-tip="${esc(o.title)}">
   <div class="mbk__wrap">
-    <div class="mbk__in"><h2 id="h-meet">${esc(o.title)}</h2><p>${esc(o.lead)}</p>
-      <div class="mbk__act">${o.links.map(([tx, href, alt]) => `<a class="mbk__go${alt ? " mbk__go--alt" : ""}" href="${href}">${esc(tx)} ${icon("arrow", "ic")}</a>`).join("")}</div>
-      <small class="mbk__note">${esc(o.small)}</small></div>
+    <div class="mbk__in"><h2 id="h-meet">${esc(o.title)}</h2><p>${esc(o.lead)}</p></div>
     <div class="mbk__who cast" aria-hidden="true"><span class="mbk__say">${esc(o.say)}</span><div class="mbk__ppl" data-bkppl>${who(byName["Aisha"], 5, "ppl--wave")}</div></div>
+    <div class="mbk__card"><b>${esc(o.card)}</b>${o.links.map(([tx, href, alt]) => `<a class="mbk__go${alt ? " mbk__go--alt" : ""}" href="${href}">${esc(tx)} ${icon("arrow", "ic")}</a>`).join("")}<small>${esc(o.small)}</small></div>
   </div>
 </section>`;
 }

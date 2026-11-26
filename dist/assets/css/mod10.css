@@ -424,7 +424,7 @@
 .iglance__c:hover { transform: translateY(-5px) rotate(-.4deg); }
 .iglance__c i { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 6px; border-radius: 16px; background: var(--world); color: var(--on); font-size: 24px; } .iglance__c--1 i { background: #FF8A70; color: #fff; } .iglance__c--2 i { background: #FFD05A; color: #14213D; } .iglance__c--3 i { background: #45C4B0; color: #fff; } .iglance__c--4 i { background: #7A5CF0; color: #fff; }
 .iglance__c b { font: 600 20px/1.15 var(--f-d); letter-spacing: -.02em; } .iglance__c p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink2); } .iglance__c em { margin-top: 6px; display: inline-flex; align-items: center; gap: 8px; font: 700 14px/1 var(--f); font-style: normal; color: var(--world); } .iglance__c em .ic { width: 16px; height: 16px; transition: transform .3s var(--ease-pop); } .iglance__c:hover em .ic { transform: translateX(5px); }
-.mbk__go--alt { background: transparent !important; color: var(--on) !important; box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--on) 75%, transparent); }
+.mbk__go--alt { background: #fff !important; color: #14213D !important; box-shadow: inset 0 0 0 2px #14213D; }
 @media (max-width: 1180px) { .istk__c { position: static; grid-template-columns: 1fr; padding: 30px; } .iglance__grid { grid-template-columns: 1fr; } }
 
 
