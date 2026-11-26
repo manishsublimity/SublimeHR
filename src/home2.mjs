@@ -387,7 +387,7 @@ export function movieSection() {
         </div>
         <div class="mtab" data-mtab aria-hidden="true"><span class="on">${icon("dashboard", "ic")}Home</span><span>${icon("clock", "ic")}Clock</span><span>${icon("calendar", "ic")}Leave</span><span>${icon("wallet", "ic")}Pay</span><span>${icon("alert", "ic")}Inbox</span></div>
       </div></div>
-      <div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div><div class="movie__who">${who(people[0], 0, "ppl--movie")}</div>
+      <div class="movie__who"><div class="say say--movie" data-say-movie aria-live="polite">Watch me do the whole day.</div>${who(people[0], 0, "ppl--movie")}</div>
     </div>
   </div>
   <div class="movie__bar" aria-hidden="true"><i data-mbar></i></div>
@@ -419,7 +419,7 @@ export function homeFooter() {
       ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
       ${col("Software", [["Attendance", "/software/attendance-management/"], ["Payroll", "/software/payroll/"], ["Leave", "/software/leave-management/"], ["Self service", "/software/employee-self-service/"], ["HR analytics", "/software/reports-analytics/"]])}
       ${col("Industries", [["Manufacturing", "/industries/#manufacturing"], ["Healthcare", "/industries/#healthcare"], ["IT &amp; Software", "/industries/#it-software"], ["Retail", "/industries/#retail"], ["Hospitality", "/industries/#hospitality"]])}
-      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"], ["Home", "/"]])}
+      ${col("Company", [["About", "/about/"], ["FAQ", "/faq/"], ["Contact", "/contact/"], ["Book a demo", "/book-demo/"]])}
     </div>
     <div class="footer__bar"><span>&copy; ${new Date().getFullYear()} SublimeHR. All rights reserved.</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div>
   </div>

@@ -13,7 +13,7 @@
   var movie = $("[data-movie]");
   if (movie) (function () {
     var mSteps = $$("[data-go]", movie), mScr = $$(".mscr", movie), mScreen = $(".mscreen", movie), tap = $("[data-tap]", movie), mSay = $("[data-say-movie]", movie), mWho = $(".ppl--movie", movie), mBar = $("[data-mbar]", movie), mTabs = $$("[data-mtab] span", movie);
-    var mi = 0, mT = [], mVis = false, mAuto = null, MDUR = 4300, N = 8, tabOf = [-1, -1, 0, 1, 2, 3, 0, 4];
+    var mi = 0, mT = [], mVis = false, mAuto = null, MDUR = 4000, N = 8, tabOf = [-1, -1, 0, 1, 2, 3, 0, 4];
     var mLines = ["Employee code first.", "Now the one-time code.", "Here's my whole day.", "Fingerprint and GPS, one press.", "Two days off. Easy.", "And there's my payslip.", "My week, with a swap ready.", "Everything lands in my inbox."];
     (function () {
       var cal = $("[data-mcal2]", movie), h = ["S", "M", "T", "W", "T", "F", "S"], s = h.map(function (x) { return '<span class="h">' + x + "</span>"; }).join("");

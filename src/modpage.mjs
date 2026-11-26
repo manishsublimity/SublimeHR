@@ -241,6 +241,7 @@ function meet(m) {
 </section>`;
 }
 
+const navActive = (p) => (/^\/(software|features)\//.test(p) ? "features" : /^\/industries\//.test(p) ? "industries" : /^\/(pricing|get-pricing)\//.test(p) ? "pricing" : /^\/integrations\//.test(p) ? "integrations" : /^\/(about|contact|faq|custom-development)\//.test(p) ? "company" : "");
 export function modulePage(m, faqItems, ldExtra = "", o = {}) {
   const path = o.path || `/software/${m.slug}/`;
   const description = o.description || `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300);
@@ -252,7 +253,7 @@ export function modulePage(m, faqItems, ldExtra = "", o = {}) {
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav${o.noHero ? " solid" : " onhero"}" data-nav>
   <a class="nav__brand" href="/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
-  ${navMenu("features")}
+  ${navMenu(o.active || navActive(path))}
 </header>
 <main id="main">
 ${o.main ? o.main(m) : `${hero(m)}

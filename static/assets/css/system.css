@@ -85,3 +85,29 @@ html[data-theme="dark"] .lamp__bulb { box-shadow: 0 0 8px 3px rgba(var(--lg), .8
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 3px solid #3558F5; outline-offset: 3px; border-radius: 8px; }
 .hero :where(a, button):focus-visible, .meet :where(a, button):focus-visible, .footer :where(a, button):focus-visible, .nav.onhero :where(a, button):focus-visible { outline-color: #fff; }
 @media (max-width: 760px) { .footer a, .footer__bar a { display: inline-flex; align-items: center; min-height: 44px; } }
+
+/* ---------- 8. This round: active page, forms, donut, about stats ---------- */
+.nav__links a[aria-current="page"] { opacity: 1; font-weight: 700; text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; text-decoration-color: currentColor; }
+.cfh { overflow-x: visible; }
+main { overflow-x: clip; }
+.donut__ring { flex: none; width: 98px; height: 98px; aspect-ratio: 1; }
+.abt { align-items: stretch; }
+.abt__stats { align-self: stretch; grid-auto-rows: 1fr; }
+.abt__s { min-height: 210px; }
+/* the phone demo's character speaks right above her head; the closing band bubble stays inside its column */
+.say--movie { left: 50%; bottom: calc(100% - 4px); width: max-content; max-width: 190px; transform: translateX(-50%) scale(.6); transform-origin: 50% 100%; }
+.say--movie.on { transform: translateX(-50%) scale(1); }
+.mbk__say { left: 0; top: -30px; width: 140px; white-space: normal; text-align: center; font-size: 12.5px; }
+
+/* ---------- 9. Life on the inner pages: floating chips, a heartbeat line, a breathing live dot, counters that settle ---------- */
+@keyframes sysfloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+@keyframes sysbeat { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.35); } }
+@keyframes sysrise { from { opacity: 0; translate: 0 14px; } }
+.mhero .mchip { animation: sysfloat 5.2s ease-in-out infinite; }
+.mhero .mchip:nth-of-type(2n) { animation-duration: 6.1s; animation-delay: -1.7s; } .mhero .mchip:nth-of-type(3n) { animation-duration: 4.6s; animation-delay: -3s; }
+.mhero .tagx { animation: sysfloat 6s ease-in-out infinite; } .mhero .tagx:nth-of-type(2n) { animation-delay: -2.2s; }
+.mhero { position: relative; }
+.mhero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 52px; background: rgba(255,255,255,.2); -webkit-mask: var(--ecg) repeat-x 0 50% / 360px 52px; mask: var(--ecg) repeat-x 0 50% / 360px 52px; animation: ecg 7s linear infinite; pointer-events: none; z-index: 0; }
+.mwin__top em span, .feed__h em i, .cta__feed-h .live { animation: sysbeat 1.6s ease-in-out infinite !important; }
+.mods__grid > a.md { animation: sysrise .6s var(--ease-out, ease-out) both; } .mods__grid > a.md:nth-child(2) { animation-delay: .06s; } .mods__grid > a.md:nth-child(3) { animation-delay: .12s; } .mods__grid > a.md:nth-child(4) { animation-delay: .18s; } .mods__grid > a.md:nth-child(5) { animation-delay: .24s; }
+@media (prefers-reduced-motion: reduce) { .mhero .mchip, .mhero .tagx, .mhero::after, .mwin__top em span, .feed__h em i, .cta__feed-h .live, .mods__grid > a.md { animation: none !important; } }
