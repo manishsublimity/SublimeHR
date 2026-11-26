@@ -997,3 +997,11 @@
 .ch b { white-space: normal; }
 .ch.k0 { --x: 34%; --y: 14%; } .ch.k3 { --x: 64%; --y: 8%; } .ch.k2 { --x: 47%; --y: 28%; } .ch.k6 { --x: 62%; --y: 39%; } .ch.k1 { --x: 35%; --y: 51%; } .ch.k4 { --x: 60%; --y: 62%; } .ch.k5 { --x: 45%; --y: 77%; }
 .ch.k3 { --x: 66.5%; --y: 8%; }
+
+/* calmer Before scene: soft neutral light that drifts slowly, quiet floor */
+.mba:not([data-state="after"]) .mba__chaos { background: radial-gradient(circle at 20% 18%, rgba(255,255,255,.95), transparent 38%) 0 0 / 220% 220%, radial-gradient(circle at 82% 72%, rgba(255,190,160,.26), transparent 42%) 0 0 / 220% 220%, radial-gradient(circle at 50% 46%, rgba(176,168,255,.22), transparent 48%) 0 0 / 220% 220%, linear-gradient(165deg, #F8F5F1, #E8E3EC); animation: mbglow 18s ease-in-out infinite alternate; }
+@keyframes mbglow { 0% { background-position: 0% 0%, 100% 100%, 40% 0%, 0 0; } 100% { background-position: 100% 70%, 0% 20%, 0% 100%, 0 0; } }
+.mba:not([data-state="after"]) .mba__chaos::before { background-image: radial-gradient(rgba(80,70,110,.14) 1.3px, transparent 1.7px); opacity: .7; }
+.mba:not([data-state="after"]) .mba__tiles { background: linear-gradient(rgba(96,84,128,.22) 2px, transparent 2px) 0 0 / 100% 44px, linear-gradient(90deg, rgba(96,84,128,.22) 2px, transparent 2px) 0 0 / 60px 100%; }
+.mba:not([data-state="after"]) .mba__tiles::after { background: radial-gradient(ellipse at 50% 100%, rgba(120,104,160,.2), transparent 65%); }
+@media (prefers-reduced-motion: reduce) { .mba:not([data-state="after"]) .mba__chaos { animation: none; } }
