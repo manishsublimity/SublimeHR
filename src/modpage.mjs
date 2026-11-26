@@ -196,7 +196,7 @@ function mods(m) {
   const idx = modules.indexOf(m), rel = [1, 2, 3, 4, 5].map((k) => modules[(idx + k) % modules.length]);
   return `<section class="mods" aria-labelledby="h-mods" data-tip="Works better together.">
   <div class="mods__head"><h2 id="h-mods">Works better together.</h2><a class="link link--ink" href="/features/">See all features</a></div>
-  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><em class="md__go">Read more</em><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
+  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul><em class="md__go">Read more</em></a>`).join("")}</div>
 </section>`;
 }
 
@@ -808,7 +808,7 @@ export function quoteModulePage(ldExtra = "") {
 function modGrid(title, lead) {
   return `<section class="mods" id="try" aria-labelledby="h-mods" data-tip="Ten modules, one employee record.">
   <div class="mods__head"><h2 id="h-mods">${esc(title)}</h2><p class="mods__lead">${esc(lead)}</p></div>
-  <div class="mods__grid">${modules.map((r, i) => `<a class="md md--${i % 5}" href="#${r.slug}"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><em class="md__go">Read more</em><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
+  <div class="mods__grid">${modules.map((r, i) => `<a class="md md--${i % 5}" href="#${r.slug}"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul><em class="md__go">Read more</em></a>`).join("")}</div>
 </section>`;
 }
 function featRows() {

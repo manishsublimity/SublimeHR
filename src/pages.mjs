@@ -202,7 +202,7 @@ export function featuresOld() {
   const body = `
 ${phero({ eyebrow: "Product", title: `Ten modules. ${squiggle("One record.")}`, lead: "Every module shares the same employee data — so nothing is entered twice. Each one below has a live demo you can try.", trail, actions: btn("Book a demo", "/book-demo/") + btn("See pricing", "/pricing/", { alt: true }) })}
 <section class="section tight">
-  <div class="container"><div class="mods__grid">${modules.map((m, i) => `<a class="md md--${i % 5}" href="#${m.slug}"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><p class="md__d">${m.summary}</p><em class="md__go">Read more</em><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div></div>
+  <div class="container"><div class="mods__grid">${modules.map((m, i) => `<a class="md md--${i % 5}" href="#${m.slug}"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><p class="md__d">${m.summary}</p><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul><em class="md__go">Read more</em></a>`).join("")}</div></div>
 </section>
 ${modules.map((m, i) => `<section class="section${i % 2 ? "" : " cream"}" id="${m.slug}">
   <div class="container split" style="align-items:start">

@@ -188,7 +188,7 @@ html[data-theme="dark"] .gen__tip { background: #E6ECFF; color: #14213D; } html[
 .lamp__shade.wink .lR { height: 2px; border-radius: 0; background: none; border-top: 2.5px solid #14213D; border-radius: 6px 6px 0 0; animation: none; top: 17px; }
 .lamp__shade.yawn .lm { width: 12px; margin-left: -6px; height: 14px; border: 0; background: #14213D; border-radius: 50%; } .lamp__shade.yawn .le { height: 2px; border-radius: 0; animation: none; background: none; border-top: 2.5px solid #14213D; top: 16px; }
 .lamp.jiggle .lamp__body { animation: ljig .5s ease-in-out; } @keyframes ljig { 20% { transform: translateY(var(--dy)) rotate(-8deg); } 45% { transform: translateY(var(--dy)) rotate(7deg); } 70% { transform: translateY(var(--dy)) rotate(-4deg); } }
-.lamp.nudge { animation: lnudge 1.6s ease-out; } @keyframes lnudge { 0% { transform: rotate(0); } 15% { transform: rotate(13deg); } 35% { transform: rotate(-10deg); } 55% { transform: rotate(7deg); } 75% { transform: rotate(-4deg); } 100% { transform: rotate(0); } }
+.lamp.lnudge { animation: lnudge 1.6s ease-out; } @keyframes lnudge { 0% { transform: rotate(0); } 15% { transform: rotate(13deg); } 35% { transform: rotate(-10deg); } 55% { transform: rotate(7deg); } 75% { transform: rotate(-4deg); } 100% { transform: rotate(0); } }
 .lamp.spin .lamp__body { animation: lspin 1s cubic-bezier(.3,.7,.3,1); } @keyframes lspin { to { transform: translateY(var(--dy)) rotate(720deg); } }
 .lamp.pulling { animation-play-state: paused; }
 .lamp__say { position: absolute; right: 62px; top: 82px; padding: 8px 14px; border-radius: 16px 16px 4px 16px; background: #fff; color: #14213D; font: 700 13px/1.2 "Figtree", sans-serif; white-space: nowrap; box-shadow: 0 12px 20px -10px rgba(20,33,61,.55); opacity: 0; transform: translateX(8px) scale(.9); transform-origin: right center; transition: opacity .2s, transform .3s cubic-bezier(.34,1.56,.64,1); pointer-events: none; } .lamp__say.on { opacity: 1; transform: none; }
@@ -356,3 +356,18 @@ body .mods__grid > a.md:hover ul, body .mods__grid > a.md:focus-visible ul { tra
 body .mods__grid > a.md ul li { display: flex; align-items: flex-start; gap: 9px; } body .mods__grid > a.md ul li::before { content: ""; flex: none; width: 6px; height: 6px; margin: 6px 0 0; border-radius: 50%; background: currentColor; }
 body .mods__grid > a.md:hover > b, body .mods__grid > a.md:focus-visible > b { color: var(--on); }
 body .mods__grid > a.md:hover .md__ic { background: var(--on); color: var(--world); }
+
+/* ===== round eight: module card hover without dead space; one select style; lamp class clashes fixed ===== */
+body .mods__grid > a.md { min-height: 316px !important; transition: transform .4s var(--spring), box-shadow .3s, filter .35s, opacity .35s, background .3s; }
+body .mods__grid > a.md ul { position: static; display: none; transform: none !important; padding: 0; margin: 12px 0 18px; background: none; color: var(--on); overflow: visible; align-content: start; gap: 9px; animation: mdup .35s var(--ease); }
+@keyframes mdup { from { opacity: 0; transform: translateY(10px); } }
+body .mods__grid > a.md:hover, body .mods__grid > a.md:focus-visible { background: var(--world); }
+body .mods__grid > a.md:hover ul, body .mods__grid > a.md:focus-visible ul { display: grid; transform: none !important; }
+body .mods__grid > a.md:hover > b, body .mods__grid > a.md:focus-visible > b { min-height: 0; }
+body .mods__grid > a.md:hover > span, body .mods__grid > a.md:hover .md__d, body .mods__grid > a.md:focus-visible > span, body .mods__grid > a.md:focus-visible .md__d { display: none; }
+body .mods__grid > a.md:hover .md__go, body .mods__grid > a.md:focus-visible .md__go { margin-top: auto; background: #fff; color: var(--world); }
+/* dropdowns: the arrow sits inside the field, never on its edge */
+body select:not([multiple]) { -webkit-appearance: none; appearance: none; padding-right: 44px !important; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2314213D' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; background-size: 14px; }
+html[data-theme="dark"] body select:not([multiple]) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
+body .mods__grid > a.md:hover ul, body .mods__grid > a.md:focus-visible ul { flex: 1; align-content: space-evenly; gap: 6px; margin: 10px 0 14px; font-size: 14px; line-height: 1.35; }
+html[data-theme="dark"] .dk-undo { filter: hue-rotate(180deg) invert(1) contrast(1.1628); } html[data-theme="dark"] .dk-undo .ppl { filter: none; }
