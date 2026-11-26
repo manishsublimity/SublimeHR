@@ -1872,3 +1872,19 @@ body[data-w="factory"] [data-outfit="vest"] .ofit { background: linear-gradient(
 .dock.hint .chip:not([aria-pressed="true"]) { animation: chipnudge 2.4s ease-in-out infinite; } .dock.hint .chip:nth-child(2) { animation-delay: .15s; } .dock.hint .chip:nth-child(3) { animation-delay: .3s; } .dock.hint .chip:nth-child(4) { animation-delay: .45s; } .dock.hint .chip:nth-child(5) { animation-delay: .6s; }
 @keyframes dockhint { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,.0); } 50% { box-shadow: 0 0 0 9px rgba(255,255,255,.22); } }
 @keyframes dockbob { 50% { transform: translateX(5px); } } @keyframes chipnudge { 0%, 70%, 100% { transform: none; } 80% { transform: translateY(-6px); } 90% { transform: translateY(0); } }
+
+/* round two: readable dock hint, a calm roster hover, compact module cards, hands over held things, outfits that differ */
+.dock.hint .dock__lbl small::after { color: #fff; padding: 2px 9px; border-radius: 999px; background: rgba(8,16,60,.34); font-size: 11.5px; }
+.roster button:hover { transform: translateY(-3px); box-shadow: 0 10px 14px -10px rgba(20,33,61,.5); position: relative; z-index: 2; }
+.md, .md { min-height: 0 !important; padding: 22px 22px 20px; }
+.md ul { position: static !important; transform: none !important; background: none; color: var(--ink2); padding: 10px 0 0; margin-top: auto; gap: 5px; font-size: 13px; font-weight: 500; border-top: 1px dashed color-mix(in srgb, var(--world) 22%, #fff); display: grid; align-content: start; top: auto; }
+.md ul li { display: flex; align-items: flex-start; gap: 8px; } .md ul li::before { flex: none; width: 6px; height: 6px; margin: 6px 0 0; background: var(--world); }
+.md:hover ul { transform: none; }
+[data-item]:not([data-item="none"]) .arm { z-index: 10; }
+[data-outfit="blazer"][data-i="1"] { --sleeve: #3A3F4B; --fore: #3A3F4B; } [data-outfit="blazer"][data-i="1"] .ppl__body { background: #3A3F4B; }
+[data-outfit="blazer"][data-i="2"] { --sleeve: #7A3345; --fore: #7A3345; } [data-outfit="blazer"][data-i="2"] .ppl__body { background: #7A3345; }
+[data-outfit="blazer"][data-i="3"] { --sleeve: #1F5F6B; --fore: #1F5F6B; } [data-outfit="blazer"][data-i="3"] .ppl__body { background: #1F5F6B; }
+[data-outfit="blazer"][data-i="4"] { --sleeve: #55658A; --fore: #55658A; } [data-outfit="blazer"][data-i="4"] .ppl__body { background: #55658A; }
+[data-outfit="blazer"][data-i="5"] { --sleeve: #2F6B53; --fore: #2F6B53; } [data-outfit="blazer"][data-i="5"] .ppl__body { background: #2F6B53; }
+[data-outfit="blazer"][data-i="6"] { --sleeve: #5B3F7E; --fore: #5B3F7E; } [data-outfit="blazer"][data-i="6"] .ppl__body { background: #5B3F7E; }
+.crowd { position: relative; } .crowd::before { content: ""; position: absolute; left: 4%; right: 4%; bottom: 0; top: 14%; border-radius: 50% 50% 0 0 / 80% 80% 0 0; background: radial-gradient(ellipse at 50% 85%, rgba(255,255,255,.3), rgba(255,255,255,.08) 55%, transparent 72%); pointer-events: none; }
