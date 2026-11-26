@@ -49,45 +49,45 @@
     if (reduce) { settle(); } else { cycle(); }
   }
 
-  /* ---- report types: one report sheet at a time, its chart redraws for each of the 13 reports ---- */
-  var sheet = document.querySelector("[data-sheet]");
-  if (sheet) {
+  /* ---- report types: three sheets shuffle like cards; the top one slides out and goes to the back with a new report ---- */
+  var sheets = [].slice.call(document.querySelectorAll("[data-sheet]"));
+  if (sheets.length === 3) {
     var RT = ["Event Sheet", "Timesheet", "Attendance", "Comparison", "Exception", "Punch Approval", "Who Is Here", "Daily Clock In/Out", "Penalty", "Daily Salary", "Visitor Timesheet", "Biometrics", "Late Coming"];
-    var FM = ["PDF", "XLS", "CSV"], bars = [].slice.call(sheet.querySelectorAll(".abt__bars i")), tt = sheet.querySelector("[data-rtitle]"), fm = sheet.querySelector("[data-rfmt]"), ri = 0;
-    function heights(k) { return bars.map(function (_, j) { return 22 + ((k * 37 + j * 53 + (k * j) % 7 * 11) % 70); }); }
-    function showReport(k) {
-      tt.textContent = RT[k]; fm.textContent = FM[k % 3];
-      var h = heights(k); bars.forEach(function (b, j) { b.style.height = h[j] + "%"; });
+    var FM = ["PDF", "XLS", "CSV"], next = 3, order = sheets.slice();
+    function heights(k) { var a = []; for (var j = 0; j < 5; j++) a.push(22 + ((k * 37 + j * 53 + (k * j) % 7 * 11) % 70)); return a; }
+    function fill(sh, k) {
+      sh.querySelector("[data-rtitle]").textContent = RT[k % RT.length]; sh.querySelector("[data-rfmt]").textContent = FM[k % 3];
+      var h = heights(k); [].forEach.call(sh.querySelectorAll(".abt__bars i"), function (b, j) { b.style.height = h[j] + "%"; });
     }
-    bars.forEach(function (b) { b.style.height = "0%"; });
-    showReport(0);
+    sheets.forEach(function (sh, i) { fill(sh, [1, 2, 12][i]); });
+    function layout() { order.forEach(function (sh, i) { sh.setAttribute("data-p", String(i)); }); }
+    layout();
     if (!reduce) {
       setInterval(function () {
-        ri = (ri + 1) % RT.length;
-        sheet.classList.add("flip");
-        bars.forEach(function (b) { b.style.height = "0%"; });
-        setTimeout(function () { showReport(ri); sheet.classList.remove("flip"); }, 380);
-      }, 2100);
+        var top = order.shift();
+        top.setAttribute("data-p", "out");
+        setTimeout(function () {
+          fill(top, next++); order.push(top); layout();
+        }, 520);
+        order.forEach(function (sh, i) { sh.setAttribute("data-p", String(i)); });
+      }, 2300);
     }
   }
 
-  /* ---- languages: one wheel, the active language in its own script, neighbours in English ---- */
-  var L = document.querySelector("[data-alang]"), wheel = document.querySelectorAll(".abt__wheel i");
+  /* ---- languages: the name in its own script; the matching letter lights up in the grid ---- */
+  var L = document.querySelector("[data-alang]"), glyphs = [].slice.call(document.querySelectorAll(".abt__glyphs i"));
   if (L) {
-    var langs = [["EN", "ltr", 1, "English"], ["عربي", "rtl", .82, "Arabic"], ["हिन्दी", "ltr", .8, "Hindi"], ["Español", "ltr", .56, "Spanish"], ["Français", "ltr", .56, "French"], ["Deutsch", "ltr", .56, "German"], ["Türkçe", "ltr", .56, "Turkish"], ["Bahasa", "ltr", .6, "Indonesian"], ["中文", "ltr", .86, "Chinese"], ["Português", "ltr", .5, "Portuguese"]], li = 0, N = langs.length;
+    var langs = [["EN", 1], ["عربي", .82], ["हिन्दी", .8], ["Español", .56], ["Français", .56], ["Deutsch", .56], ["Türkçe", .56], ["Bahasa", .6], ["中文", .86], ["Português", .5]], li = 0, N = langs.length;
     var base = parseFloat(getComputedStyle(L).fontSize) || 60; L.style.height = base + "px"; L.style.lineHeight = base + "px"; L.style.whiteSpace = "nowrap"; L.style.transition = "opacity .28s, transform .28s";
-    function paintWheel() { if (wheel.length === 3) { wheel[0].textContent = langs[(li + N - 1) % N][3]; wheel[1].textContent = langs[li][3]; wheel[2].textContent = langs[(li + 1) % N][3]; } }
-    paintWheel();
+    function lit() { glyphs.forEach(function (g, k) { g.classList.toggle("on", k === li); }); }
+    lit();
     if (!reduce) {
       setInterval(function () {
         li = (li + 1) % N;
-        L.style.opacity = 0; L.style.transform = "translateY(-10px)";
-        [].forEach.call(wheel, function (w) { w.style.transition = "opacity .28s, transform .28s"; w.style.opacity = 0; w.style.transform = "translateY(-8px)"; });
+        L.style.opacity = 0; L.style.transform = "translateY(-10px)"; lit();
         setTimeout(function () {
-          L.textContent = langs[li][0]; L.setAttribute("dir", langs[li][1]); L.style.fontSize = Math.round(base * langs[li][2]) + "px";
+          L.textContent = langs[li][0]; L.style.fontSize = Math.round(base * langs[li][1]) + "px";
           L.style.transform = "translateY(10px)"; void L.offsetWidth; L.style.opacity = 1; L.style.transform = "none";
-          paintWheel();
-          [].forEach.call(wheel, function (w) { w.style.transform = "translateY(8px)"; void w.offsetWidth; w.style.opacity = ""; w.style.transform = "none"; });
         }, 290);
       }, 1900);
     }
