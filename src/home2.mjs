@@ -1,4 +1,4 @@
-// Home option B — "Living Office", second pass.
+// Home option B, "Living Office", second pass.
 // Professional on the surface, playful underneath: a living office, a real product dashboard, a day timeline,
 // try-it demos with optional sound, ten industries, and links into every module.
 import { site, modules, why, industries as siteInds } from "./data.mjs";
@@ -320,7 +320,7 @@ export function movieSection() {
         <div class="msbar" aria-hidden="true"><span>9:41</span><i></i></div>
         <div class="mscr on" data-ms="0">
           <div class="mtop"><img src="${site.logo}" alt="" width="34" height="30"><span class="mlang"><b>EN</b><em>عربي</em></span></div>
-          <h5>Welcome back</h5><small>Sign in to your SublimeHR workspace</small>
+          <h3>Welcome back</h3><small>Sign in to your SublimeHR workspace</small>
           <div class="mfld"><small>Employee code</small><span><em data-mtype></em><i class="caret"></i></span></div>
           <div class="mfld mfld--p"><small>Password</small><span>••••••••</span></div>
           <div class="mbtn" data-mbtn>Continue</div>
@@ -329,7 +329,7 @@ export function movieSection() {
           <small class="mfoot">Trouble signing in? Ask your HR team.</small>
         </div>
         <div class="mscr" data-ms="1">
-          <div class="mback">${icon("arrow", "ic")}</div><h5>Enter your code</h5><small>We sent a 4-digit code to +91 •••• 7684</small>
+          <div class="mback">${icon("arrow", "ic")}</div><h3>Enter your code</h3><small>We sent a 4-digit code to +91 •••• 7684</small>
           <div class="motp" data-motp><span></span><span></span><span></span><span></span></div>
           <small class="mresend">Resend code in <b data-mresend>0:24</b></small>
           <div class="mkeys" data-mkeys>${["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "x"].map((k) => `<span${k ? ` data-k="${k}"` : ' class="blank"'}>${k === "x" ? "&larr;" : k}</span>`).join("")}</div>
@@ -337,7 +337,7 @@ export function movieSection() {
         </div>
         <div class="mscr" data-ms="2">
           <div class="mhead"><img src="${site.logo}" alt="" width="20" height="18">SublimeHR<span class="mbell">${icon("alert", "ic")}<i></i></span><span class="mav">SN</span></div>
-          <small>Good morning</small><h5>Sara Nasser</h5>
+          <small>Good morning</small><h3>Sara Nasser</h3>
           <div class="mcard"><small>Today's shift</small><b>09:00 to 18:00</b><span>Head Office, Dubai</span><div class="mbtn mbtn--w" data-mbtn>Clock in</div></div>
           <div class="mquick"><span><i>${icon("calendar", "ic")}</i>Leave</span><span><i>${icon("file", "ic")}</i>Payslip</span><span><i>${icon("repeat", "ic")}</i>Shifts</span><span><i>${icon("users", "ic")}</i>Team</span></div>
           <div class="mlist"><div><i style="--c:#FFD05A">OM</i><span><b>Omar</b>On leave until Thursday</span></div><div><i style="--c:#45C4B0">RV</i><span><b>Ravi</b>Working from home</span></div></div>
@@ -352,7 +352,7 @@ export function movieSection() {
           <div class="mwk3"><small>This week</small><div><span><b>Mon</b>08:49<em class="ok">On time</em></span><span><b>Tue</b>09:07<em class="gr">Grace</em></span><span><b>Wed</b>08:52<em class="ok">On time</em></span></div></div>
         </div>
         <div class="mscr" data-ms="4">
-          <h5>Apply leave</h5>
+          <h3>Apply leave</h3>
           <div class="mpills"><span class="on">Annual</span><span>Sick</span><span>Comp-off</span></div>
           <div class="mcal" data-mcal2></div>
           <div class="msum"><span data-msum>Pick your dates</span><b>14 days left</b></div>
@@ -362,20 +362,20 @@ export function movieSection() {
           <div class="mbtn" data-mbtn>Submit request</div>
         </div>
         <div class="mscr" data-ms="5">
-          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>April payslip</h5><span>${icon("arrow", "ic")}</span></div>
+          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h3>April payslip</h3><span>${icon("arrow", "ic")}</span></div>
           <div class="mnet"><small>Net pay</small><b>4,940</b><span>Paid on 1 May</span></div>
           <div class="mslip"><div><span>Basic</span><b>4,200</b></div><div><span>Allowance</span><b>1,050</b></div><div class="neg"><span>Deductions</span><b>- 310</b></div></div>
           <div class="mtrend"><small>Last six months</small><div><i style="--h:60%"></i><i style="--h:72%"></i><i style="--h:66%"></i><i style="--h:78%"></i><i style="--h:70%"></i><i style="--h:92%"></i></div></div>
           <div class="mrow2"><div class="mbtn">Download PDF</div><div class="mbtn mbtn--o">Share</div></div>
         </div>
         <div class="mscr" data-ms="6">
-          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h5>This week</h5><span>${icon("arrow", "ic")}</span></div>
+          <div class="mmonth"><span>${icon("arrow", "ic")}</span><h3>This week</h3><span>${icon("arrow", "ic")}</span></div>
           <div class="mwk" data-mwk></div>
           <div class="mswap">${icon("repeat", "ic")}<span><b>Swap Thursday?</b>Karan can cover your evening</span><em>Ask</em></div>
           <div class="mcov"><small>Team coverage</small><div><i style="--w:92%"></i></div><span>Fully covered all week</span></div>
         </div>
         <div class="mscr" data-ms="7">
-          <h5>Inbox</h5>
+          <h3>Inbox</h3>
           <ul class="minbox" data-minbox>
             <li><i style="--c:#2BB673">${icon("check", "ic")}</i><span><b>Leave approved</b>Priya approved 23 to 24 Apr</span><em>2m</em></li>
             <li><i style="--c:#7FB4FF">${icon("file", "ic")}</i><span><b>April payslip is ready</b>Tap to open</span><em>1h</em></li>
@@ -413,7 +413,7 @@ export function homeFooter() {
     <div class="footer__grid">
       <div class="footer__about">
         <a class="brand" href="/" aria-label="SublimeHR home"><img src="${site.logo}" alt="SublimeHR logo" width="38" height="34"><span>Sublime<span class="hr">HR</span></span></a>
-        <p>Powering your worklife — attendance, leave, payroll and self-service in one friendly platform.</p>
+        <p>Powering your worklife, attendance, leave, payroll and self-service in one friendly platform.</p>
         <div class="footer__contact"><a href="${site.phoneHref}"><i>${icon("call", "ic")}</i><span><small>Call us</small><b>${site.phone}</b></span></a><a href="${site.whatsapp}" target="_blank" rel="noopener"><i>${icon("message", "ic")}</i><span><small>WhatsApp</small><b>Chat with us</b></span></a></div>
       </div>
       ${col("Product", [["Features", "/features/"], ["Pricing", "/pricing/"], ["Integrations", "/integrations/"], ["Mobile app", "/software/mobile-workforce/"], ["Custom development", "/custom-development/"]])}
@@ -461,8 +461,9 @@ export function home2(path = "/home-v2/") {
   <div class="hero__wrap">
     <div class="hero__main">
       <div class="hero__copy">
-        <h1 id="h1">Your people are alive. Your HR should be too.</h1>
+        <h1 id="h1">Attendance, leave and payroll in one HR system.</h1>
         <p class="hero__lead" data-lead>${industries[0].lead}</p>
+        <p class="hero__fact">70+ features, 13 built-in reports, English and Arabic.</p>
         <div class="hero__cta"><a class="btn btn--on btn--lg" href="/book-demo/">Book a free demo</a><a class="link" href="#lab">Play with it live</a></div>
                 <div class="tally" aria-label="Today at a glance">
                   <span><b data-t="in">412</b> in today</span><span><b data-t="leave">9</b> on leave</span><span><b data-t="swap">3</b> swaps done</span>
@@ -492,7 +493,7 @@ export function home2(path = "/home-v2/") {
 
 <section class="prod" aria-labelledby="h-prod" data-prod data-tip="This dashboard fills as the characters work. Click the left icons to switch views.">
   <div class="prod__copy">
-    <h2 id="h-prod">Behind every character, one calm dashboard.</h2>
+    <h2 id="h-prod">Behind every character, one dashboard.</h2>
     <p>Everything the characters just did shows up here, live. HR sees who is in, who is away and what payroll will cost, without chasing anyone.</p>
     <ul class="prod__pts">
       <li>${icon("check", "ic")}<span>Attendance, leave and overtime in one view</span></li>
@@ -601,7 +602,7 @@ ${movieSection()}
 ${daySection()}
 
 <section class="lab" id="lab" aria-labelledby="h-lab" data-lab data-tip="Want a tour of these? Click me and pick something to see.">
-  <div class="lab__head"><h2 id="h-lab">Don't take our word for it. Play with it.</h2><p>Six working mini versions of SublimeHR. Punch a clock, pick leave dates, move payroll sliders, rotate a roster. The numbers are real arithmetic. Not sure where to start? Click Subi, the robot, and it will show you.</p></div>
+  <div class="lab__head"><h2 id="h-lab">Try SublimeHR before you book.</h2><p>Six working mini versions of SublimeHR. Punch a clock, pick leave dates, move payroll sliders, rotate a roster. The numbers are real arithmetic. Not sure where to start? Click Subi, the robot, and it will show you.</p></div>
   <div class="lab__grid">
     <article class="lc lc--clock" data-demo="clock">
       <header><i>${icon("fingerprint", "ic")}</i><div><h3>Clock in</h3><p>Fingerprint, selfie or GPS. Grace and late rules run themselves.</p></div></header>
@@ -610,7 +611,7 @@ ${daySection()}
         <div class="clk__l">
           <button class="scanner" type="button" data-scan data-m="fp" aria-label="Press to clock in">
             <span class="sc sc--fp">${icon("fingerprint", "ic")}<i class="thumb"></i></span>
-            <span class="sc sc--selfie"><img class="scanner__img" data-scan-img alt="" hidden><i class="silh"></i><i class="crn"></i><b class="cnt" data-cnt></b><i class="flash"></i></span>
+            <span class="sc sc--selfie"><img class="scanner__img" data-scan-img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" hidden><i class="silh"></i><i class="crn"></i><b class="cnt" data-cnt></b><i class="flash"></i></span>
             <span class="sc sc--gps"><i class="grid"></i><i class="gfence"></i><i class="radar"></i><i class="pin" data-pin></i></span>
             <i class="scanner__beam"></i>
           </button>
@@ -759,7 +760,7 @@ ${daySection()}
 </section>
 
 <section class="why" aria-labelledby="h-why">
-  <h2 id="h-why">Little things that make HR feel effortless.</h2>
+  <h2 id="h-why">Little things that save HR time.</h2>
   <div class="why__grid">
     ${why.map(([ic, t, d], i) => `<div class="wy wy--${i}"><span class="wy__bg" aria-hidden="true">${icon(ic, "ic")}</span><i>${icon(ic, "ic")}</i><h3>${t}</h3><p>${d}</p>${i === 5 ? '<a class="wy__cta" href="/custom-development/">See custom development</a>' : ""}${i === 0 ? '<ul class="wy__tags"><li>Office</li><li>Remote</li><li>Hybrid</li><li>Shift-based</li><li>Field teams</li></ul><div class="wy__stats"><span><b>70+</b>feature areas</span><span><b>' + modules.length + '</b>modules</span><span><b>13</b>reports</span></div>' : ""}</div>`).join("")}
   </div>
@@ -777,7 +778,7 @@ ${daySection()}
 <section class="ask" id="ask" aria-labelledby="h-ask" data-ask data-tip="Ask me anything about SublimeHR.">
   <div class="ask__copy">
     <h2 id="h-ask">Ask Subi anything.</h2>
-    <p>Pick a question or type your own. Subi answers instantly, and a real person replies within one business day.</p>
+    <p>Pick a question or type your own. Subi answers instantly.</p>
     <div class="ask__qs" data-qs></div>
   </div>
   <div class="chat">

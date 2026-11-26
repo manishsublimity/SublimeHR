@@ -2,7 +2,7 @@
 
 /* scene: no rain. A calm lavender room with loose papers drifting about, which tidy up once everything is fixed */
 .mba__cloud, .mba__beam { display: none; }
-.mba__papers i { position: absolute; width: 26px; height: 32px; border-radius: 4px; background: #fff; box-shadow: 0 8px 12px -6px rgba(20,33,61,.4), inset 0 0 0 1px rgba(20,33,61,.08); animation: mpap 7s ease-in-out infinite; transition: opacity .6s, transform .8s var(--spring); }
+.mba__papers i { position: absolute; width: 26px; height: 32px; border-radius: 4px; background: #fff; box-shadow: 0 8px 12px -6px rgba(20,33,61,.4), inset 0 0 0 1px rgba(20,33,61,.08); animation: mpap 7s ease-in-out infinite; transition: opacity .6s, transform .8s var(--ease-pop); }
 .mba__papers i::before { content: ""; position: absolute; left: 5px; right: 5px; top: 8px; height: 3px; border-radius: 2px; background: #C8CFE0; box-shadow: 0 6px 0 #C8CFE0, 0 12px 0 #C8CFE0; }
 .mba__papers i:nth-child(1) { left: 6%; top: 52%; transform: rotate(-14deg); } .mba__papers i:nth-child(2) { left: 30%; top: 70%; animation-delay: -2s; transform: rotate(10deg); } .mba__papers i:nth-child(3) { left: 40%; top: 18%; animation-delay: -4s; transform: rotate(-6deg); } .mba__papers i:nth-child(4) { left: 14%; top: 36%; animation-delay: -5s; transform: rotate(18deg); }
 @keyframes mpap { 0%, 100% { translate: 0 0; } 50% { translate: 6px -10px; } }
@@ -11,7 +11,7 @@
 /* her mouth follows the story: worried, asking, waiting, relieved */
 .mba[data-step="ask"] .mba__scene .mo { border-bottom: 0; border-top: 3px solid #5b2a23; border-radius: 16px 16px 0 0; top: 58px; }
 .mba[data-step="work"] .mba__scene .mo { border-bottom: 3px solid #5b2a23; border-radius: 0; height: 0; top: 56px; width: 12px; margin-left: -6px; }
-.mba__say.on { animation: msay .45s var(--spring); } @keyframes msay { from { transform: translateY(8px) scale(.9); opacity: .3; } to { transform: none; opacity: 1; } }
+.mba__say.on { animation: msay .45s var(--ease-pop); } @keyframes msay { from { transform: translateY(8px) scale(.9); opacity: .3; } to { transform: none; opacity: 1; } }
 
 /* every problem turns into its answer when Subi reaches it */
 .mba__cards li.fixed .bf { opacity: 0; transform: translateY(-14px) scale(.96); } .mba__cards li.fixed .af { opacity: 1; transform: none; }
@@ -22,7 +22,7 @@
 .mba[data-step="after"] .mba__prog { background: #1FBF75; }
 
 /* related modules: on hover the whole tile turns into the page colour, so nothing overlaps */
-.mpage .md { min-height: 272px; transition: transform .4s var(--spring), box-shadow .3s, filter .35s, opacity .35s, background .3s; }
+.mpage .md { min-height: 272px; transition: transform .4s var(--ease-pop), box-shadow .3s, filter .35s, opacity .35s, background .3s; }
 .mpage .md:hover, .mpage .md:focus-visible { background: var(--world); }
 .mpage .md:hover b, .mpage .md:focus-visible b { color: var(--on); }
 .mpage .md:hover .md__ic, .mpage .md:focus-visible .md__ic { background: var(--on); color: var(--world); }

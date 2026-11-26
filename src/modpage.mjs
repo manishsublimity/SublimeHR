@@ -207,7 +207,7 @@ function ask(m) {
   return `<section class="ask" id="ask" aria-labelledby="h-ask" data-ask data-tip="Ask me anything about ${esc(m.name)}.">
   <div class="ask__copy">
     <h2 id="h-ask">Ask Subi anything.</h2>
-    <p>Pick a question or type your own. Subi answers instantly, and a real person replies within one business day.</p>
+    <p>Pick a question or type your own. Subi answers instantly.</p>
     <div class="ask__qs" data-qs></div>
   </div>
   <div class="chat">
@@ -364,6 +364,7 @@ function priceCalc() {
       <p class="pcalc__note">${icon("arrow", "ic")}Estimated monthly cost updates on every plan below</p>
     </div>
   </div>
+  <h2 class="vh">Plans</h2>
   <div class="pplans">${plans.map((pl, i) => `<article class="pplan${pl.featured ? " pplan--pop" : ""}" style="--i:${i}">
     ${pl.featured ? `<span class="pplan__rib">★ Most loved</span>` : ""}
     <h3><i>${icon(PICON[i], "ic")}</i>${esc(pl.name)}</h3>
@@ -467,7 +468,7 @@ const TOPICS = ["General question", "Sales", "Support", "Custom development", "I
 
 function contactSection() {
   return `<section class="ctc" id="try" aria-label="Contact us">
-  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("message", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("phone", "ic")}</i><h1>Let's <span class="cfh__sq">talk.</span></h1><p>Questions, support, partnerships or anything else — we reply within 1 business day.</p><div class="cfh__chips"><span><i>${icon("clock", "ic")}</i>Reply in 1 business day</span><span><i>${icon("message", "ic")}</i>Instant on WhatsApp</span><span><i>${icon("phone", "ic")}</i>Call us</span></div></div>
+  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("message", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("phone", "ic")}</i><h1>Let's <span class="cfh__sq">talk.</span></h1><p>Questions, support, partnerships or anything else, we reply within 1 business day.</p><div class="cfh__chips"><span><i>${icon("clock", "ic")}</i>Reply in 1 business day</span><span><i>${icon("message", "ic")}</i>Instant on WhatsApp</span><span><i>${icon("phone", "ic")}</i>Call us</span></div></div>
   <div class="cf__wrap">
     ${cfSide("L", "How can we help?")}
     <div class="cf-card">
@@ -749,7 +750,7 @@ export function demoModulePage(ldExtra = "") {
 function quoteSection() {
   const sel = (id, name, label, opts, ph, req) => `<div class="cf-field"${req ? " data-validate" : ""}><label for="${id}">${label}${req ? " <b>*</b>" : ""}</label><select id="${id}" name="${name}"${req ? " required" : ""}><option value="">${ph}</option>${opts.map((v) => `<option>${esc(v)}</option>`).join("")}</select>${req ? `<span class="cf-err">Please choose your team size.</span>` : ""}</div>`;
   return `<section class="ctc" id="try" aria-label="Get pricing">
-  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("wallet", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("check", "ic")}</i><h1>Get a quote for <span class="cfh__sq">your team.</span></h1><p>Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.</p><div class="cfh__chips"><span><i>${icon("check", "ic")}</i>No commitment</span><span><i>${icon("lock", "ic")}</i>No spam</span><span><i>${icon("clock", "ic")}</i>Takes a minute</span></div></div>
+  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("wallet", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("check", "ic")}</i><h1>Get a quote for <span class="cfh__sq">your team.</span></h1><p>Tell us your team size and the modules you need, we'll send a clear, all-inclusive quote.</p><div class="cfh__chips"><span><i>${icon("check", "ic")}</i>No commitment</span><span><i>${icon("lock", "ic")}</i>No spam</span><span><i>${icon("clock", "ic")}</i>Takes a minute</span></div></div>
   <div class="cf__wrap">
     ${cfSide("L", "Let's get you a quote!")}
     <div class="cf-card">

@@ -1,4 +1,4 @@
-// Interactive product demos ("try it" widgets). Markup only — behaviour lives in main.js (data-w="...").
+// Interactive product demos ("try it" widgets). Markup only, behaviour lives in main.js (data-w="...").
 import { icon } from "./icons.mjs";
 import { faqs, homeFaqIds, findFaq } from "./data.mjs";
 
@@ -109,7 +109,7 @@ export function permW() {
 const PEOPLE = [["AK", "Aisha", 528, "#2EA79D"], ["OM", "Omar", 535, "#4A86C8"], ["PR", "Priya", 541, "#E9805F"], ["JL", "James", 548, "#7A6FD0"], ["SN", "Sara", 552, "#2F72B8"], ["RM", "Rahul", 559, "#D9A21B"], ["LM", "Lina", 563, "#3FBDB3"], ["KP", "Karan", 571, "#5F7389"], ["FA", "Fatima", 577, "#C2577A"], ["DT", "David", 584, "#4C9A5B"], ["NS", "Nora", 596, "#8F6BD6"], ["YH", "Yusuf", 612, "#E07B3A"]];
 export function hereW() {
   return finish(`<div class="w" data-w="here" data-people='${JSON.stringify(PEOPLE)}'>
-  ${top("chart", "Who is here — live", "", hint("Scrub through the morning"))}
+  ${top("chart", "Who is here, live", "", hint("Scrub through the morning"))}
   <div class="w__body">
     ${range("t", "Time of day", 510, 630, 1, 545, "time")}
     <div class="here mt2" data-grid>${PEOPLE.map(([i, n, , c]) => `<div class="p" data-p><span class="a" style="background:${c}">${i}</span>${n}</div>`).join("")}</div>
@@ -136,7 +136,7 @@ export function rosterW() {
 
 export function letterW() {
   return finish(`<div class="w" data-w="letter">
-  ${top("file", "Letter generator", "peach", hint("Plays by itself — or type your own"))}
+  ${top("file", "Letter generator", "peach", hint("Plays by itself, or type your own"))}
   <div class="lsteps" aria-hidden="true"><span class="done" data-ls="0"><i>1</i>Fill details</span><span class="on" data-ls="1"><i>2</i>Letter auto-generated</span><span data-ls="2"><i>3</i>Send for e-sign</span></div>
   <div class="w__body letter">
     <div class="form-grid" style="grid-template-columns:1fr;gap:10px">
@@ -177,7 +177,7 @@ export function visitorW() {
       <div class="idcard" data-badge>
         <span class="idcard__clip" aria-hidden="true"></span>
         <div class="idcard__top"><span>VISITOR PASS</span><img src="/assets/img/sublimehr-logo.png" alt="" width="20" height="18"></div>
-        <div class="idcard__body"><span class="ph" data-ini>?</span><div><b data-bn>Your visitor</b><small data-bm>Fill the form and check in — the badge prints here.</small></div></div>
+        <div class="idcard__body"><span class="ph" data-ini>?</span><div><b data-bn>Your visitor</b><small data-bm>Fill the form and check in, the badge prints here.</small></div></div>
         <div class="idcard__foot"><span data-bp>MEETING</span><span class="qr" aria-hidden="true"></span></div>
       </div>
       <p class="vlist-h"><span>On site now</span><b data-cnt>0</b></p>
@@ -227,7 +227,7 @@ export function chatW(items, { title = "Ask SublimeHR", suggest = 6, inline = fa
   const more = items.length > suggest ? `<button class="btn text sm" type="button" data-more>Show more questions</button>` : "";
   const win = (extra) => `<div class="chat__win">
     <div class="w__top"><b><span class="ico">${icon("bot")}</span>${title}</b><span class="chip white"><span style="width:8px;height:8px;border-radius:50%;background:var(--teal)"></span>Online</span></div>
-    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">${inline ? "Hi! 👋 Pick a topic on the left — I'll suggest questions right here, or type your own." : "Hi, I'm Subi. Pick a question on the left or type your own."}</div></div>
+    <div class="chat__log" data-log aria-live="polite"><div class="msg bot">${inline ? "Hi! 👋 Pick a topic on the left, I'll suggest questions right here, or type your own." : "Hi, I'm Subi. Pick a question on the left or type your own."}</div></div>
     ${extra}
     <form class="chat__foot" data-ask><label class="vh" for="ask-{{id}}">Ask a question</label><input class="input" id="ask-{{id}}" placeholder="e.g. Do you support biometric devices?" autocomplete="off"><button class="btn sm no-bub" type="submit" aria-label="Send">${icon("send")}</button></form>
   </div>`;

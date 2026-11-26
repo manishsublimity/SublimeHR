@@ -7,7 +7,7 @@
 @media (max-width: 1000px), (prefers-reduced-motion: reduce) { .mba__pin { height: auto; } .mba__sticky { position: static; } }
 
 /* ---------- she shows how she feels: worried brows and a sweat drop, then bright and rosy ---------- */
-.mba__lady .ppl__head::before, .mba__lady .ppl__head::after { content: ""; position: absolute; z-index: 6; top: 22px; width: 17px; height: 4px; border-radius: 4px; background: #4A2A22; transition: opacity .3s, transform .4s var(--spring); opacity: 0; }
+.mba__lady .ppl__head::before, .mba__lady .ppl__head::after { content: ""; position: absolute; z-index: 6; top: 22px; width: 17px; height: 4px; border-radius: 4px; background: #4A2A22; transition: opacity .3s, transform .4s var(--ease-pop); opacity: 0; }
 .mba__lady .ppl__head::before { left: 14px; transform: rotate(-16deg); } .mba__lady .ppl__head::after { right: 14px; transform: rotate(16deg); }
 .mba[data-step="before"] .mba__lady .ppl__head::before, .mba[data-step="before"] .mba__lady .ppl__head::after, .mba[data-step="ask"] .mba__lady .ppl__head::before, .mba[data-step="ask"] .mba__lady .ppl__head::after { opacity: 1; }
 .mba[data-step="work"] .mba__lady .ppl__head::before { opacity: 1; transform: rotate(4deg); } .mba[data-step="work"] .mba__lady .ppl__head::after { opacity: 1; transform: rotate(-4deg); }

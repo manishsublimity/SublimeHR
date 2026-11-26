@@ -4,3 +4,6 @@ node_modules/
 Thumbs.db
 *.log
 .env
+
+.taste-skill/
+dist/.taste-skill/

@@ -63,3 +63,34 @@ Fixes behind the overflow numbers: gutter 56px becomes 32px under 1024 and 18px 
 - Headings semantics (h2 to h5, h1 to h3 on 5 pages) are not changed yet; they change markup, not CSS.
 - Dark mode tokens, keyboard focus styles and `transition: all` clean-up are not done.
 - Emil Kowalski's rules were applied to buttons (curves, press feedback, hover gating). Taste-skill and Impeccable were not run yet.
+
+## 7. Skills fixes applied on 2026-11-26 (Impeccable detector, taste-skill copy-lint, Emil motion)
+Impeccable detector over 24 pages and 4 CSS files: 1234 findings before, 774 after.
+
+| Finding | Before | After | What was done |
+|---|---|---|---|
+| Undersized text (below 11px) | 113 | 0 | every font size below 11px raised to 11px (home, module demos, old pages) |
+| Bounce easing | 132 | 6 (lamp only) | overshoot curves replaced by `cubic-bezier(.23,1,.32,1)`; `--spring` renamed `--ease-pop` and no longer overshoots |
+| Pulsing dots | 202 | 79 | only the Subi antenna keeps a glow; other status dots rest |
+| Gradient text | 52 | 0 | footer word and marks are solid colour |
+| Skipped heading levels | 5 pages | 0 | phone mock titles h5 to h3, demo screens h4 to h3, hidden "Plans" h2 on Pricing |
+| Broken images | 3 | 0 | scanner image has a placeholder source |
+| Low contrast (real values) | grey #9aa3b5, #98a0b0, #6b7488, red #c2381f, green #198754, rust #b4502b, white at 65 to 88% | darker or full white | tokens raised in `home2.css`, `mod10.css` |
+| copy-lint (taste-skill) | 1 FAIL, 6 WARN | 0 FAIL, 3 WARN | removed "effortless", "powerful", "Enterprise-grade", "calm", "actually", most em dashes, response-time promises |
+| Hero | slogan, no category | h1 "Attendance, leave and payroll in one HR system." plus one fact line | slogan idea kept in the industry line |
+| Section padding | 21 pairs | plain sections 72/72 on desktop | joined sections keep their own values |
+
+### Findings left on purpose (reasons)
+- Low contrast, about 254: the detector reads the white navigation links against the page background, but on every page they sit over the coloured hero. False positive.
+- Side-tab (162), pulsing dots left (79), glow (24), radial halo (24), stripes (24), grid background (20): these are the characters' art (badge strip, Subi's antenna, night-sky stars, tiled floor) and the hero floor. They are the brand's illustration, not UI decoration.
+- Nested cards (47): the demos are product mock screens, a card inside a card is what the real app looks like.
+- Icon tile above heading (27) and cramped padding (27): card layouts that need a design pass per card; not changed.
+- Marquee (33): kept, now pauses on hover and focus and stops under reduced motion.
+- Lamp: playful overshoot kept on purpose (chain, bulb).
+- copy-lint WARN left: stat strips and the names Priya and Aisha are mock data and the mascot cast.
+
+### taste-skill browser check (consistency.mjs, home at 1440 and 390)
+Result: 306 FAIL, 185 WARN. The checker measures against its own template (one section per screen, equal edges, no tilt, real photographs, no scroll reveal), so most of it describes the site's illustrated, animated brand rather than faults. Real items it found and what was done:
+- Keyboard focus ring missing: added a visible 3px ring for every link, button and field (white on coloured grounds).
+- Tap targets under 44px on a phone (footer links, logo): footer links now 44px tall under 760px.
+- Not done: phone navigation (nav runs past the screen at 320, no burger menu), visible labels on some form fields, real-format phone number on the page (the owner's own number, kept), the one-section-per-screen and equal-edge rules (design decisions, not defects), tilt on characters and notes.
