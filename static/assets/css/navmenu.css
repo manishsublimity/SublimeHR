@@ -282,3 +282,25 @@ html.nobulb[data-theme="dark"]::before { opacity: 0; animation: none; }
 .lfx__sun { position: absolute; left: calc(var(--x) - 45px); top: calc(var(--y) - 45px); width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #FFF9C4, #FFC93C 68%, #FFA928); box-shadow: 0 0 60px 30px rgba(255,200,70,.65); transform: scale(.2); animation: lsun 1s cubic-bezier(.34,1.56,.64,1) forwards; } @keyframes lsun { to { transform: scale(1); } }
 /* characters in the hero keep their own colours at night */
 html[data-theme="dark"] body.lo main > section.hero .ppl, html[data-theme="dark"] body.lo .hero .ppl { filter: none; }
+
+/* ===== round four ===== */
+/* no big shadows inside the lamp: they were cut into a box by the layer the lamp is drawn in; the glow now lives in the page overlay */
+html[data-theme="dark"] .lamp__shade, html[data-theme="dark"] .lamp__bulb, .lamp__shade, .lamp__tip, .lamp__say { box-shadow: none; }
+html[data-theme="dark"] .lamp__shade { box-shadow: inset 0 -5px 0 rgba(20,33,61,.13), inset 0 3px 0 rgba(255,255,255,.4); }
+html[data-theme="dark"] .lamp__bulb { box-shadow: 0 0 6px 2px rgba(var(--lg), .9); }
+.lamp, .lamp__body { overflow: visible; contain: none; will-change: auto; }
+html[data-theme="dark"]::before { background: radial-gradient(circle 62vmax at calc(100% - 30px) 120px, rgba(var(--lg), .5) 0, rgba(var(--lg), .34) 3vmax, rgba(var(--lg), .14) 24vmax, rgba(var(--lg), .04) 46vmax, transparent 100%); }
+/* transition v2: a gentle wash, rings from the bulb, then moon or morning light */
+.lfx.to-dark { --c: rgba(5,10,28,.62); } .lfx.to-day { --c: rgba(255,238,175,.72); }
+.lfx__ring { position: absolute; left: var(--x); top: var(--y); width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; border: 2px solid rgba(var(--lg), .9); opacity: 0; animation: lring 1.4s ease-out forwards; } .lfx__ring.r2 { animation-delay: .22s; border-width: 1px; }
+@keyframes lring { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(60); } }
+.lfx__moon { left: calc(var(--x) - 118px); top: calc(var(--y) - 4px); width: 54px; height: 54px; box-shadow: none; border-radius: 0; background: none; opacity: 0; transform: translate(70px, -8px) scale(.2) rotate(-40deg); animation: lmoon2 1.3s .3s cubic-bezier(.3,1.35,.5,1) forwards; filter: drop-shadow(0 0 10px rgba(205,215,255,.9)) drop-shadow(0 0 28px rgba(150,170,255,.55)); }
+.lfx__moon b { position: absolute; inset: 0; border-radius: 50%; background: #F6F8FF; -webkit-mask: radial-gradient(circle at 70% 34%, transparent 0 55%, #000 56%); mask: radial-gradient(circle at 70% 34%, transparent 0 55%, #000 56%); }
+@keyframes lmoon2 { to { opacity: 1; transform: rotate(-12deg); } }
+.lfx__shoot { position: absolute; left: calc(var(--x) - 300px); top: 14%; width: 140px; height: 2px; background: linear-gradient(90deg, transparent, #fff); transform: rotate(24deg); opacity: 0; animation: lshoot 1s 1s ease-in forwards; } @keyframes lshoot { 0% { opacity: 1; transform: translate(0,0) rotate(24deg); } 100% { opacity: 0; transform: translate(-260px, 120px) rotate(24deg); } }
+.lfx__bloom { position: absolute; left: var(--x); top: var(--y); width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; border-radius: 50%; background: radial-gradient(circle, rgba(255,247,205,.95) 0, rgba(255,226,130,.55) 6%, rgba(255,214,110,.22) 22%, transparent 50%); transform: scale(.05); animation: lbloom 1.5s cubic-bezier(.2,.7,.3,1) forwards; } @keyframes lbloom { to { transform: scale(1); } }
+.lfx__rays { width: 170vmax; height: 170vmax; margin: -85vmax 0 0 -85vmax; background: repeating-conic-gradient(from 0deg, rgba(255,214,110,.32) 0 5deg, transparent 5deg 17deg); -webkit-mask: radial-gradient(circle, #000 0, transparent 34%); mask: radial-gradient(circle, #000 0, transparent 34%); filter: blur(10px); }
+.lfx__rays.r2 { background: repeating-conic-gradient(from 8deg, rgba(255,240,170,.3) 0 3deg, transparent 3deg 11deg); filter: blur(7px); }
+.lfx__fl { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.7), rgba(255,220,120,.25) 55%, transparent 70%); transform: scale(0); opacity: 0; animation: lfl 1.2s ease-out forwards; } @keyframes lfl { 30% { opacity: 1; transform: scale(var(--s)); } 100% { opacity: 0; transform: scale(calc(var(--s) * 1.4)); } }
+.lfx__mote { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #fff6c8; box-shadow: 0 0 8px 3px rgba(255,220,120,.8); opacity: 0; animation: lmote 1.6s ease-out forwards; } @keyframes lmote { 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-90px); } }
+.lfx__moon { left: calc(var(--x) - 96px); top: calc(var(--y) + 52px); }
