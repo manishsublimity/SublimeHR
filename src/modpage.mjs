@@ -146,8 +146,10 @@ function before(m) {
     <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button></div></div>
   <div class="mba__stage">
     <div class="mba__card">
-      <div class="mba__pane is-b"><small>The old way</small><p>${esc(m.problem)}</p><ul>${pains.map((x) => `<li>${icon("close", "ic")}${x}</li>`).join("")}</ul></div>
-      <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul></div>
+      <div class="mba__pane is-b"><small>The old way</small><p>${esc(m.problem)}</p><ul>${pains.map((x) => `<li>${icon("close", "ic")}${x}</li>`).join("")}</ul>
+        <div class="mba__strip"><div class="mba__stat"><b>${fixes.length}</b><span>things that go wrong</span></div><div class="mba__stat"><b>${m.features.length}</b><span>jobs done by hand</span></div><button class="mba__cta" type="button" data-s="after">See the fix ${icon("arrow", "ic")}</button></div></div>
+      <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul>
+        <div class="mba__strip"><div class="mba__stat"><b>0</b><span>left to chase</span></div><div class="mba__stat"><b>${m.features.length}</b><span>features on one record</span></div><a class="mba__cta" href="#try">Try the live demo ${icon("arrow", "ic")}</a></div></div>
     </div>
     <div class="mba__scene cast">
       <span class="mba__dots" aria-hidden="true"></span><span class="mba__glow" aria-hidden="true"></span>
