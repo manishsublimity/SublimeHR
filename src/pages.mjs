@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage, quoteModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage, quoteModulePage, featuresModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -108,7 +108,7 @@ export function home() {
     <div>
       <p class="eyebrow butter rv"><i></i>HR for people, not paperwork</p>
       <h1 class="hero-title rv" style="--d:60ms">Powering your ${squiggle("worklife")}.</h1>
-      <p class="lead rv" style="--d:120ms">A complete HR platform for workforce management — from hire to retire, attendance to payroll, and admin to employee self-service.</p>
+      <p class="lead rv" style="--d:120ms">A complete HR platform for workforce management, from hire to retire, attendance to payroll, and admin to employee self-service.</p>
       <div class="hero__cta rv" style="--d:180ms">${btn("Book a free demo", "/book-demo/")}${btn("Play with it live", "#playground", { alt: true, ic: "play" })}</div>
       <div class="proof rv" style="--d:240ms">
         <span class="avs" aria-hidden="true"><span style="background:#2EA79D">AK</span><span style="background:#E9805F">PR</span><span style="background:#4A86C8">OM</span><span style="background:#7A6FD0">JL</span></span>
@@ -193,12 +193,16 @@ ${cta()}
    FEATURES
    ===================================================================== */
 export function features() {
+  const trail0 = [["Home", "/"], ["Features", "/features/"]];
+  return featuresModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail0), { "@type": "ItemList", name: "SublimeHR modules", itemListElement: modules.map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name, url: `${site.url}/software/${m.slug}/` })) }] })}</script>`);
+}
+export function featuresOld() {
   const trail = [["Home", "/"], ["Features", "/features/"]];
   const fw = { ...moduleWidget, "employee-self-service": leaveW, "mobile-workforce": () => clockW() };
   const body = `
 ${phero({ eyebrow: "Product", title: `Ten modules. ${squiggle("One record.")}`, lead: "Every module shares the same employee data — so nothing is entered twice. Each one below has a live demo you can try.", trail, actions: btn("Book a demo", "/book-demo/") + btn("See pricing", "/pricing/", { alt: true }) })}
 <section class="section tight">
-  <div class="container"><div class="mods">${modules.map((m, i) => modCard(m, i).replace(`href="/software/${m.slug}/"`, `href="#${m.slug}"`)).join("")}</div></div>
+  <div class="container"><div class="mods__grid">${modules.map((m, i) => `<a class="md md--${i % 5}" href="#${m.slug}"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><p class="md__d">${m.summary}</p><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul><em class="md__go">Read more</em></a>`).join("")}</div></div>
 </section>
 ${modules.map((m, i) => `<section class="section${i % 2 ? "" : " cream"}" id="${m.slug}">
   <div class="container split" style="align-items:start">
@@ -376,7 +380,7 @@ ${phero({ eyebrow: "Integrations", tone: "mint", title: `Plays nicely with ${squ
     <div class="grid g3">
       ${allInts.map(([, n, d, g], i) => `<div class="int-card rv" style="--d:${(i % 3) * 50}ms" data-g="${g}"><span class="mk" style="background:${INT_COLORS[i % INT_COLORS.length]}">${icon(GROUP_ICON[g])}</span><div><h3>${n}</h3><p>${d}</p><span class="chip mt1">${g}</span></div></div>`).join("")}
     </div>
-    <div class="int-cta rv"><div><b>Need another tool?</b><span>We build custom integrations to any REST-based system — legacy ERPs, LMS and internal tools included.</span></div>${btn("Request an integration", "/contact/?topic=Integration")}</div>
+    <div class="int-cta rv"><div><b>Need another tool?</b><span>We build custom integrations to any REST-based system, legacy ERPs, LMS and internal tools included.</span></div>${btn("Request an integration", "/contact/?topic=Integration")}</div>
   </div>
 </section>
 `;
@@ -441,7 +445,7 @@ ${phero({ eyebrow: "About us", tone: "mint", title: `Workforce management, ${squ
     <div class="rv">
       <p class="eyebrow butter"><i></i>Our story</p>
       <h2>One platform for the work behind your people.</h2>
-      <p class="lead">SublimeHR helps businesses streamline attendance, leave, shift scheduling, employee records, payroll and day-to-day HR operations — through a single, intuitive platform.</p>
+      <p class="lead">SublimeHR helps businesses streamline attendance, leave, shift scheduling, employee records, payroll and day-to-day HR operations, through a single, intuitive platform.</p>
       <p>Whether you're a growing startup, a mid-sized business or a large enterprise, our goal is to eliminate manual processes, reduce admin overhead, and give your team more time for what matters most: growing your business.</p>
     </div>
     <div class="stats rv pop" style="grid-template-columns:1fr 1fr">
@@ -557,7 +561,7 @@ export function bookDemoOld() {
   return formPage({
     kind: "demo", path: "/book-demo/", crumb: "Book a demo", eyebrow: "Book a demo", tone: "", title: `See SublimeHR ${squiggle("live.")}`,
     lead: "A personalized 30-minute walkthrough with your policies, your shifts and your questions.",
-    form: formWrap("book_demo", "Book your demo", "Pick a day — we'll confirm the exact time by email or WhatsApp.",
+    form: formWrap("book_demo", "Book your demo", "Pick a day, we'll confirm the exact time by email or WhatsApp.",
       `${fld.name}${fld.company()}${fld.email}${fld.phone}${fld.size()}${fld.industry}
       <div class="field"><label for="f-date">Preferred date</label><input class="input" id="f-date" name="demo_date" type="date"></div>
       <div class="field"><span class="label">Preferred time</span><div class="tchips" role="radiogroup" aria-label="Preferred time"><label><input type="radio" name="slot" value="Morning" checked><span>Morning</span></label><label><input type="radio" name="slot" value="Afternoon"><span>Afternoon</span></label><label><input type="radio" name="slot" value="Evening"><span>Evening</span></label></div></div>
@@ -566,7 +570,7 @@ export function bookDemoOld() {
     side: `<div class="card tint-sky rv"><p class="h6" style="color:var(--blue-ink)">Your 30 minutes</p><ol class="agenda"><li><b>0–5</b>Your goals &amp; current process</li><li><b>5–20</b>Live tour tailored to your team</li><li><b>20–25</b>Pricing &amp; rollout plan</li><li><b>25–30</b>Your questions, answered</li></ol></div>
       <div class="card tint-mint rv" style="--d:60ms"><p class="h6" style="color:var(--teal-ink)">Included on every plan</p><ul class="checks"><li>Free onboarding &amp; data migration</li><li>Admin &amp; employee training</li><li>No credit card to start</li></ul></div>
       ${contactLines}`,
-    seo: ["Book a Demo — See SublimeHR Live", "Book a free 30-minute SublimeHR demo tailored to your workforce: attendance, leave, payroll and self-service."]
+    seo: ["Book a Demo, See SublimeHR Live", "Book a free 30-minute SublimeHR demo tailored to your workforce: attendance, leave, payroll and self-service."]
   });
 }
 
@@ -577,7 +581,7 @@ export function getPricing() {
 export function getPricingOld() {
   return formPage({
     kind: "pricing", path: "/get-pricing/", crumb: "Get pricing", eyebrow: "Get pricing", tone: "mint", title: `Get a quote ${squiggle("for your team.")}`,
-    lead: "Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.",
+    lead: "Tell us your team size and the modules you need, we'll send a clear, all-inclusive quote.",
     form: formWrap("request_quote", "Request your quote", "Takes about a minute. No commitment, no spam.",
       `${fld.name}${fld.company()}${fld.email}${fld.phone}${fld.size(true)}${fld.industry}
       <div class="field full"><span class="label">Plan you're considering</span><div class="mini-plans" role="radiogroup" aria-label="Plan" style="grid-template-columns:repeat(3,1fr)">${["Starter", "Professional", "Enterprise", "Not sure"].slice(0, 3).map((p, i) => `<label><input type="radio" name="plan" value="${p}"${i === 1 ? " checked" : ""}><span>${p}<small>${["$4/user", "$8/user", "Custom"][i]}</small></span></label>`).join("")}</div></div>
@@ -587,7 +591,7 @@ export function getPricingOld() {
     side: `<div class="card tint-butter rv"><p class="h6" style="color:var(--butter-ink)">Plans at a glance</p><div class="mini-plans">${plans.map((p) => `<span style="display:flex;justify-content:space-between;padding:10px 12px;border-radius:12px;background:var(--glass);font-weight:700;color:var(--ink)">${p.name}<small class="muted">${p.price} ${p.unit}</small></span>`).join("")}</div><a class="link mt2" href="/pricing/">Compare plans ${icon("arrow")}</a></div>
       <div class="card tint-mint rv" style="--d:60ms"><p class="h6" style="color:var(--teal-ink)">Every quote includes</p><ul class="checks"><li>Pay only for active employees</li><li>Free onboarding &amp; data migration</li><li>Monthly or annual billing</li></ul></div>
       ${contactLines}`,
-    seo: ["Get Pricing — Request a SublimeHR Quote", "Request a SublimeHR quote for your team size and modules. Pay only for active employees, with free onboarding and migration."]
+    seo: ["Get Pricing, Request a SublimeHR Quote", "Request a SublimeHR quote for your team size and modules. Pay only for active employees, with free onboarding and migration."]
   });
 }
 
@@ -598,7 +602,7 @@ export function contact() {
 export function contactOld() {
   return formPage({
     kind: "contact", path: "/contact/", crumb: "Contact", eyebrow: "Contact us", tone: "peach", title: "Let's talk.",
-    lead: "Questions, support, partnerships or anything else — we reply within 1 business day.",
+    lead: "Questions, support, partnerships or anything else, we reply within 1 business day.",
     form: formWrap("contact_sales", "Send us a message", "We'll get back to you by email or phone.",
       `${fld.name}${fld.email}${fld.phone}${fld.company(false)}
       <div class="field full"><label for="f-topic">Topic</label><select class="select" id="f-topic" name="topic">${opt(["General question", "Sales", "Support", "Custom development", "Integration", "Partnership"])}</select></div>

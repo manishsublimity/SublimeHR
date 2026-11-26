@@ -3,9 +3,9 @@ export const site = {
   name: "SublimeHR",
   url: "https://sublimehr.com",
   appUrl: "app.sublimehr.com",
-  tagline: "The HR platform your team will actually enjoy using.",
+  tagline: "The HR platform your team will enjoy using.",
   description:
-    "SublimeHR is a cloud-based HR & workforce management platform that unifies attendance, leave, payroll, shift scheduling and employee self-service — with 70+ feature areas, 13 built-in reports and English & Arabic support.",
+    "SublimeHR is a cloud-based HR & workforce management platform that unifies attendance, leave, payroll, shift scheduling and employee self-service, with 70+ feature areas, 13 built-in reports and English & Arabic support.",
   phone: "+91-7976117684",
   phoneHref: "tel:+917976117684",
   whatsapp:
@@ -27,11 +27,11 @@ export const modules = [
     tone: "",
     tagline: "One source of truth for your entire workforce",
     summary:
-      "Centralize every employee record — from onboarding through separation — with deep profiles, documents, letters and a full employment timeline.",
+      "Centralize every employee record, from onboarding through separation, with deep profiles, documents, letters and a full employment timeline.",
     problem:
       "Employee data scattered across spreadsheets, emails, and legacy systems creates costly errors, compliance risk, and slow HR response times.",
     solution:
-      "Centralize every employee record — from personal details and family relations to job history, salary, documents and access cards — in a secure, audit-ready workspace.",
+      "Centralize every employee record, from personal details and family relations to job history, salary, documents and access cards, in a secure, audit-ready workspace.",
     benefits: [
       "Eliminate data silos with a unified employee database",
       "Onboard 3x faster with multi-section digital forms",
@@ -75,11 +75,11 @@ export const modules = [
     tone: "teal",
     tagline: "Accurate time capture for every work model",
     summary:
-      "Capture attendance from biometric devices, web punch with camera + GPS, and mobile beacons — then automate exceptions and approvals end-to-end.",
+      "Capture attendance from biometric devices, web punch with camera + GPS, and mobile beacons, then automate exceptions and approvals end-to-end.",
     problem:
       "Manual attendance, buddy punching, and gaps between biometric devices and payroll cost businesses up to 4% of gross payroll each year.",
     solution:
-      "Capture attendance from biometric devices, web punch with camera + GPS, and mobile beacons — then automate exception handling and approvals end-to-end.",
+      "Capture attendance from biometric devices, web punch with camera + GPS, and mobile beacons, then automate exception handling and approvals end-to-end.",
     benefits: [
       "Cut attendance disputes by up to 90%",
       "Support office, remote, hybrid, and field teams from one system",
@@ -117,11 +117,11 @@ export const modules = [
     tone: "coral",
     tagline: "Automated leave policies that scale with your business",
     summary:
-      "Design any leave policy — accruals, holidays, weekends, tolerance — and let the rules engine handle balances and approvals for you.",
+      "Design any leave policy, accruals, holidays, weekends, tolerance, and let the rules engine handle balances and approvals for you.",
     problem:
       "Manual leave tracking creates balance disputes, missed accruals, and last-minute staffing crises that hit customer service and productivity.",
     solution:
-      "Design any leave policy visually — accruals, tenure-based rules, holiday policies, weekend logic — and let the rules engine handle the rest.",
+      "Design any leave policy visually, accruals, tenure-based rules, holiday policies, weekend logic, and let the rules engine handle the rest.",
     benefits: [
       "Reduce HR queries about balances by 70%+",
       "Prevent understaffing with visual team leave calendars",
@@ -149,7 +149,7 @@ export const modules = [
     faqs: [
       ["Can I configure our custom leave policies?", "Yes. Accrual frequency, carry-forward, tenure rules, attendance-based accrual and per-employee overrides are all configurable without code."],
       ["Can HR apply leave on behalf of employees?", "Yes. HR and authorized managers can apply leave on behalf of any employee, with the same approval and balance checks."],
-      ["How do multi-level approvals work?", "You define the approval chain — for example reporting manager, then department head, then HR — and requests route automatically with notifications at each step."]
+      ["How do multi-level approvals work?", "You define the approval chain, for example reporting manager, then department head, then HR, and requests route automatically with notifications at each step."]
     ]
   },
   {
@@ -160,11 +160,11 @@ export const modules = [
     tone: "",
     tagline: "Zero-error payroll, every single cycle",
     summary:
-      "Run payroll from a single dashboard with configurable heads, allowances, deductions and attendance-linked calculations — plus a branded payslip designer.",
+      "Run payroll from a single dashboard with configurable heads, allowances, deductions and attendance-linked calculations, plus a branded payslip designer.",
     problem:
       "Payroll errors erode trust, invite legal risk, and consume days of finance and HR bandwidth every month.",
     solution:
-      "Run payroll from a single dashboard with configurable heads, allowances, deductions, and attendance-linked calculations — with a branded payslip designer.",
+      "Run payroll from a single dashboard with configurable heads, allowances, deductions, and attendance-linked calculations, with a branded payslip designer.",
     benefits: [
       "Close payroll in hours instead of days",
       "Cut payroll disputes with self-service payslips",
@@ -203,11 +203,11 @@ export const modules = [
     tone: "teal",
     tagline: "Turn workforce data into board-ready decisions",
     summary:
-      "13 pre-built HR reports, customizable dashboards and audit-ready timesheets that surface answers in seconds, not weeks.",
+      "13 pre-built HR reports, customizable dashboards and audit-ready timesheets that surface answers in seconds.",
     problem:
-      "HR leaders spend weeks compiling spreadsheets — and still cannot answer basic questions about attendance, cost, or attrition on demand.",
+      "HR leaders spend weeks compiling spreadsheets, and still cannot answer basic questions about attendance, cost, or attrition on demand.",
     solution:
-      "Access 13 pre-built HR reports, customizable dashboards, and audit-ready timesheets that surface answers in seconds, not weeks.",
+      "Access 13 pre-built HR reports, customizable dashboards, and audit-ready timesheets that surface answers in seconds.",
     benefits: [
       "Answer executive questions with real-time dashboards",
       "Simplify audits with tamper-evident event history",
@@ -236,7 +236,7 @@ export const modules = [
     faqs: [
       ["What reports come out of the box?", "13 report types including Event Sheet, Timesheet, Attendance, Attendance Comparison, Exception, Punch Approval, Who Is Here, Daily Clock In/Out, Penalty, Daily Salary, Visitor Timesheet, Biometrics/Registration and Late Coming."],
       ["Can data be exported?", "Yes. Reports can be exported for use in spreadsheets, finance and audit tools."],
-      ["Can department heads see their own analytics?", "Yes. Role-based access ensures every leader sees exactly the data they need — and nothing more."]
+      ["Can department heads see their own analytics?", "Yes. Role-based access ensures every leader sees exactly the data they need, and nothing more."]
     ]
   },
   {
@@ -247,11 +247,11 @@ export const modules = [
     tone: "coral",
     tagline: "Empower employees. Free your HR team.",
     summary:
-      "A self-service portal where employees punch in, apply for leave, download payslips and raise regularization requests — from any device.",
+      "A self-service portal where employees punch in, apply for leave, download payslips and raise regularization requests, from any device.",
     problem:
-      "HR teams drown in repetitive queries — leave balances, payslip requests, attendance corrections — leaving no time for strategic work.",
+      "HR teams drown in repetitive queries, leave balances, payslip requests, attendance corrections, leaving no time for strategic work.",
     solution:
-      "Give every employee a self-service portal to punch in, apply for leave, download payslips, and raise regularization requests — from any device.",
+      "Give every employee a self-service portal to punch in, apply for leave, download payslips, and raise regularization requests, from any device.",
     benefits: [
       "Reduce HR ticket volume by up to 60%",
       "Improve employee experience with instant answers",
@@ -287,7 +287,7 @@ export const modules = [
     short: "Native mobile app & beacons",
     icon: "phone",
     tone: "",
-    tagline: "HR in your team's pocket — on their terms",
+    tagline: "HR in your team's pocket, on their terms",
     summary:
       "A native mobile app with beacon-based punch, remote-work requests, mobile approvals and full permission control from the web admin.",
     problem:
@@ -329,13 +329,13 @@ export const modules = [
     short: "Roles, MFA & audit trails",
     icon: "shield",
     tone: "teal",
-    tagline: "Enterprise-grade security, without the enterprise complexity",
+    tagline: "Roles, MFA and audit trails without extra setup",
     summary:
-      "Role-based access, feature-level permissions, MFA, tenant isolation and full audit trails — configured in minutes, not months.",
+      "Role-based access, feature-level permissions, MFA, tenant isolation and full audit trails, configured in minutes.",
     problem:
-      "HR data is among the most sensitive in any organization — and yet often lives in shared drives with no meaningful access controls.",
+      "HR data is among the most sensitive in any organization, and yet often lives in shared drives with no meaningful access controls.",
     solution:
-      "Role-based access, feature-level permissions, MFA, tenant isolation, and full audit trails — configured in minutes, not months.",
+      "Role-based access, feature-level permissions, MFA, tenant isolation, and full audit trails, configured in minutes.",
     benefits: [
       "Meet enterprise security requirements out of the box",
       "Isolate data per tenant, branch and department",
@@ -375,11 +375,11 @@ export const modules = [
     tone: "coral",
     tagline: "Rosters that plan themselves",
     summary:
-      "Assign shifts, publish monthly rosters and let attendance rules flow straight into payroll — for every shop, plant, ward or store.",
+      "Assign shifts, publish monthly rosters and let attendance rules flow straight into payroll, for every shop, plant, ward or store.",
     problem:
-      "Manual shift planning across teams, sites, and time zones is the single biggest source of last-minute HR chaos — and understaffing.",
+      "Manual shift planning across teams, sites, and time zones is the single biggest source of last-minute HR chaos, and understaffing.",
     solution:
-      "Assign shifts, publish monthly rosters, and let attendance rules flow automatically into payroll — for every shop, plant, hospital ward, or store.",
+      "Assign shifts, publish monthly rosters, and let attendance rules flow automatically into payroll, for every shop, plant, hospital ward, or store.",
     benefits: [
       "Publish rosters in minutes, not days",
       "Prevent understaffing with visual coverage views",
@@ -417,11 +417,11 @@ export const modules = [
     tone: "",
     tagline: "A modern front desk for a modern workplace",
     summary:
-      "Register, track and report on every visitor entering your premises, with digital logs your security and audit teams can actually use.",
+      "Register, track and report on every visitor entering your premises, with digital logs your security and audit teams can use.",
     problem:
-      "Paper visitor logs are unreadable, unsearchable, and useless the moment an auditor — or an incident — arrives.",
+      "Paper visitor logs are unreadable, unsearchable, and useless the moment an auditor, or an incident, arrives.",
     solution:
-      "Register, track, and report on every visitor entering your premises, with digital logs your security and audit teams can actually use.",
+      "Register, track, and report on every visitor entering your premises, with digital logs your security and audit teams can use.",
     benefits: [
       "Digitize the front desk in minutes",
       "Improve premises security and accountability",
@@ -501,7 +501,7 @@ export const glance = [
   {
     id: "security",
     title: "Security & Access",
-    sub: "Enterprise-grade protection",
+    sub: "Role-based access and audit trails",
     icon: "shield",
     items: [
       "Role-based permissions (View / Add / Edit / Delete)",
@@ -529,12 +529,12 @@ export const glance = [
 ];
 
 export const why = [
-  ["globe", "Built for every workforce", "Office, remote, hybrid, shift-based and field teams — one platform for all."],
-  ["sliders", "Configuration over customization", "A powerful rules engine handles most business logic without a single line of code."],
-  ["heart", "Employee-first experience", "Modern web and native mobile apps that employees actually adopt."],
-  ["shield", "Enterprise-grade security", "MFA, tenant isolation, feature-level access control and full audit trails."],
-  ["rocket", "Rapid implementation", "Go live in days — not months — with white-glove data migration."],
-  ["code", "Custom development, built in", "Have a unique workflow? We build to fit — and it scales with you."]
+  ["globe", "Built for every workforce", "Office, remote, hybrid, shift-based and field teams, one platform for all."],
+  ["sliders", "Configuration over customization", "A rules engine handles most business logic without a single line of code."],
+  ["heart", "Employee-first experience", "Modern web and native mobile apps that employees adopt."],
+  ["shield", "Security built in", "MFA, tenant isolation, feature-level access control and full audit trails."],
+  ["rocket", "Rapid implementation", "Go live in days, with white-glove data migration."],
+  ["code", "Custom development, built in", "Have a unique workflow? We build to fit, and it scales with you."]
 ];
 
 export const highlights = [
@@ -608,7 +608,7 @@ export const integrations = [
   { group: "Developer", items: [["</>", "REST APIs", "Fully documented API for custom integrations."]] },
   { group: "Accounting", items: [["Q", "QuickBooks", "Sync payroll journals to your books."], ["T", "Tally", "Push payroll data into Tally with a click."]] },
   { group: "ERP", items: [["S", "SAP ERP", "Bidirectional sync with your enterprise systems."], ["O", "Oracle ERP", "Employee and payroll sync into Oracle."]] },
-  { group: "Security", items: [["O", "Okta / SAML SSO", "Enterprise-grade single sign-on."]] }
+  { group: "Security", items: [["O", "Okta / SAML SSO", "Single sign-on over SAML."]] }
 ];
 
 export const plans = [
@@ -654,14 +654,14 @@ export const compare = [
 ];
 
 export const customAreas = [
-  ["workflow", "Custom Approval Workflows", "Multi-level, delegated, conditional or matrix approvals — mirror your org chart exactly."],
+  ["workflow", "Custom Approval Workflows", "Multi-level, delegated, conditional or matrix approvals, mirror your org chart exactly."],
   ["form", "Bespoke Forms", "Dynamic forms for anything from field surveys to grievance intake."],
   ["dollar", "Payroll Rules", "State-specific taxation, custom shift premiums, industry-specific pay heads."],
-  ["clock", "Attendance Policies", "Overnight shifts, split shifts, compensatory offs — configured to your reality."],
+  ["clock", "Attendance Policies", "Overnight shifts, split shifts, compensatory offs, configured to your reality."],
   ["repeat", "Employee Lifecycle Automation", "Trigger onboarding, transfers or offboarding based on your unique triggers."],
   ["plug", "Integrations", "Connect legacy ERPs, accounting systems, LMS, and internal tools securely."],
   ["dashboard", "Custom Dashboards", "Role-specific dashboards for CEOs, plant heads, HR ops, and finance."],
-  ["split", "Department Logic", "Different rules per department, plant, brand, or subsidiary — all in one system."],
+  ["split", "Department Logic", "Different rules per department, plant, brand, or subsidiary, all in one system."],
   ["cpu", "AI & Automation", "Automated regularization, anomaly detection, predictive attrition alerts."]
 ];
 
@@ -677,7 +677,7 @@ export const faqs = [
     id: "getting-started", title: "Getting Started", icon: "rocket",
     items: [
       ["What is SublimeHR?", "SublimeHR is a cloud-based HR and workforce management platform. It brings employee records, attendance, leave, shift scheduling, payroll, reports and employee self-service into one system, with separate Admin and Employee panels and a native mobile app."],
-      ["Who is SublimeHR built for?", "Growing businesses and enterprises across manufacturing, healthcare, IT, education, hospitality, retail, logistics, professional services and construction — anywhere you manage office, remote, hybrid, shift-based or field teams."],
+      ["Who is SublimeHR built for?", "Growing businesses and enterprises across manufacturing, healthcare, IT, education, hospitality, retail, logistics, professional services and construction, anywhere you manage office, remote, hybrid, shift-based or field teams."],
       ["How quickly can we go live?", "Most customers go live in days, not months. Our team handles setup and data migration, then trains your admins and employees."],
       ["Do you offer a free trial or demo?", "Yes. You can start a free trial on the Starter plan or book a personalized 30-minute demo with our team. No credit card is required."],
       ["Is training included?", "Yes. Every plan includes onboarding training. Enterprise plans include dedicated success managers and role-based training programs."]
@@ -720,7 +720,7 @@ export const faqs = [
       ["Can I customize dashboards?", "Yes. The admin dashboard is built from widgets you can arrange, and Enterprise customers can get role-specific custom dashboards."],
       ["Can data be exported?", "Yes. Report data can be exported for spreadsheets, finance and audit tools."],
       ["Is there an audit trail?", "Yes. Critical modules — including policy and status changes — keep a full audit trail."],
-      ["Can department heads see their own analytics?", "Yes. Role-based access ensures every leader sees exactly the data they need — and nothing more."]
+      ["Can department heads see their own analytics?", "Yes. Role-based access ensures every leader sees exactly the data they need, and nothing more."]
     ]
   },
   {
@@ -738,7 +738,7 @@ export const faqs = [
     items: [
       ["Can SublimeHR be customized for our workflows?", "Yes. Most needs are handled through configuration. For truly unique workflows, our team builds custom modules, approvals, payroll rules and integrations."],
       ["How long does customization take?", "It depends on scope. After discovery you receive a solution design with a timeline and fixed pricing, and you see sprint demos every two weeks."],
-      ["Do we retain ownership of custom work?", "Ownership terms are agreed in your custom development contract — discuss your requirements with our solutions team."],
+      ["Do we retain ownership of custom work?", "Ownership terms are agreed in your custom development contract, discuss your requirements with our solutions team."],
       ["Do you build integrations?", "Yes. We connect legacy ERPs, accounting systems, LMS and internal tools to any REST-based system."],
       ["How do we start a custom project?", "Use the Custom Development request form or book a consultation with our solutions team."]
     ]

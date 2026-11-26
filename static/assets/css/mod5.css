@@ -9,7 +9,7 @@
 .mba[data-step="after"] .mba__scene { background: linear-gradient(165deg, #FFF3C8 0%, #FFE9B8 35%, color-mix(in srgb, var(--world) 22%, #fff) 100%); }
 .mba__dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(20,33,61,.1) 1.5px, transparent 1.6px); background-size: 22px 22px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%); mask-image: linear-gradient(180deg, #000, transparent 85%); transition: opacity .8s; }
 .mba[data-step="after"] .mba__dots { opacity: .35; }
-.mba__cloud { position: absolute; z-index: 3; left: 34px; top: 76px; width: 140px; height: 70px; transition: opacity .7s, transform .8s var(--spring); animation: float 5s ease-in-out infinite; }
+.mba__cloud { position: absolute; z-index: 3; left: 34px; top: 76px; width: 140px; height: 70px; transition: opacity .7s, transform .8s var(--ease-pop); animation: float 5s ease-in-out infinite; }
 .mba__cloud i { position: absolute; left: 0; top: 14px; width: 140px; height: 38px; border-radius: 99px; background: #8D97B2; box-shadow: inset 0 -6px 0 rgba(20,33,61,.12); }
 .mba__cloud i::before, .mba__cloud i::after { content: ""; position: absolute; border-radius: 50%; background: #8D97B2; } .mba__cloud i::before { left: 22px; top: -20px; width: 52px; height: 52px; } .mba__cloud i::after { left: 64px; top: -28px; width: 62px; height: 62px; }
 .mba__cloud u { position: absolute; top: 52px; width: 3px; height: 12px; border-radius: 3px; background: #6FA8FF; animation: mrain .9s linear infinite; } .mba__cloud u:nth-of-type(1) { left: 26px; } .mba__cloud u:nth-of-type(2) { left: 56px; animation-delay: -.3s; } .mba__cloud u:nth-of-type(3) { left: 88px; animation-delay: -.6s; } .mba__cloud u:nth-of-type(4) { left: 114px; animation-delay: -.15s; }
@@ -31,7 +31,7 @@
 
 /* Subi arriving: a halo, a pop, a ring, and a search glow while it looks */
 .guide.mplay .subi__bot { filter: drop-shadow(0 0 16px color-mix(in srgb, var(--world) 70%, #fff)); }
-.guide.mhi .subi__bot { animation: mhi .9s var(--spring); } @keyframes mhi { 0% { transform: scale(.4) rotate(-25deg); } 60% { transform: scale(1.25) rotate(8deg); } 100% { transform: none; } }
+.guide.mhi .subi__bot { animation: mhi .9s var(--ease-pop); } @keyframes mhi { 0% { transform: scale(.4) rotate(-25deg); } 60% { transform: scale(1.25) rotate(8deg); } 100% { transform: none; } }
 .guide.mhi::before { content: ""; position: absolute; z-index: -1; left: 35px; top: 30px; width: 24px; height: 24px; margin: -12px; border-radius: 50%; box-shadow: 0 0 0 3px var(--world), 0 0 0 9px color-mix(in srgb, var(--world) 30%, transparent); animation: mring 1s ease-out 2; }
 .guide.msearch .subi__bot { animation: msr .5s ease-in-out infinite alternate; filter: drop-shadow(0 0 18px #FFD05A); } @keyframes msr { from { transform: translateX(-5px) rotate(-6deg); } to { transform: translateX(5px) rotate(6deg); } }
 .guide.msearch .s-scr b { background: #FFD05A; }

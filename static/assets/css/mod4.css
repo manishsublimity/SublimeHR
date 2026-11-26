@@ -25,7 +25,7 @@
 .mba__lady { left: 34px; bottom: 76px; }
 .mba__cards { position: absolute; z-index: 4; right: 22px; top: 22px; bottom: 74px; width: 49%; display: grid; grid-auto-rows: 1fr; gap: 12px; list-style: none; margin: 0; padding: 0; }
 .mba__cards li { position: relative; display: grid; }
-.mba__cards .bf, .mba__cards .af { grid-area: 1 / 1; display: flex; align-items: center; gap: 12px; padding: 0 16px; border-radius: 18px 18px 6px 18px; font: 600 14px/1.3 var(--f); transition: opacity .45s, transform .6s var(--spring); }
+.mba__cards .bf, .mba__cards .af { grid-area: 1 / 1; display: flex; align-items: center; gap: 12px; padding: 0 16px; border-radius: 18px 18px 6px 18px; font: 600 14px/1.3 var(--f); transition: opacity .45s, transform .6s var(--ease-pop); }
 .mba__cards .bf { background: #fff; color: var(--ink); box-shadow: 0 14px 20px -14px rgba(20,33,61,.5); }
 .mba__cards .af { background: var(--world); color: var(--on); opacity: 0; transform: translateY(14px) scale(.96); box-shadow: 0 16px 22px -12px color-mix(in srgb, var(--world) 80%, #000); }
 .mba__cards i { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font-style: normal; } .mba__cards .bf i { background: #FFE3EA; color: #D6336C; } .mba__cards .af i { background: var(--on); color: var(--world); } .mba__cards .ic { width: 15px; height: 15px; stroke-width: 3; }
@@ -50,7 +50,7 @@
 
 /* ---------- related modules: a visible link on every tile, tiles a little shorter ---------- */
 .mpage .md { min-height: 236px; }
-.mpage .md .md__go { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font: 700 14px/1 var(--f); font-style: normal; color: var(--world); } .mpage .md .md__go .ic { transition: transform .3s var(--spring); } .mpage .md:hover .md__go .ic { transform: translateX(4px); }
+.mpage .md .md__go { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font: 700 14px/1 var(--f); font-style: normal; color: var(--world); } .mpage .md .md__go .ic { transition: transform .3s var(--ease-pop); } .mpage .md:hover .md__go .ic { transform: translateX(4px); }
 .mpage .mods { padding-bottom: 50px; }
 
 /* ---------- closing band: pick a time ---------- */
@@ -68,12 +68,12 @@
 .mbk__card { display: grid; gap: 16px; padding: 28px; border-radius: 34px 34px 10px 34px; background: #fff; color: var(--ink); box-shadow: 0 36px 50px -30px rgba(0,0,0,.55); }
 .mbk__card > b { font: 600 20px/1.2 var(--f-d); letter-spacing: -.02em; }
 .mbk__days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.mbk__days button { display: grid; gap: 4px; padding: 10px 0; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); font: 600 12px/1 var(--f); color: var(--ink2); transition: transform .3s var(--spring), background .2s, color .2s; } .mbk__days button strong { font: 600 18px/1 var(--f-d); color: var(--ink); }
+.mbk__days button { display: grid; gap: 4px; padding: 10px 0; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); font: 600 12px/1 var(--f); color: var(--ink2); transition: transform .3s var(--ease-pop), background .2s, color .2s; } .mbk__days button strong { font: 600 18px/1 var(--f-d); color: var(--ink); }
 .mbk__days button:hover, .mbk__times button:hover { transform: translateY(-2px); }
 .mbk__days button[aria-pressed="true"], .mbk__times button[aria-pressed="true"] { background: var(--world); color: var(--on); box-shadow: none; } .mbk__days button[aria-pressed="true"] strong { color: var(--on); }
-.mbk__times { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; } .mbk__times button { padding: 12px 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); font: 600 14px/1 var(--f); color: var(--ink); transition: transform .3s var(--spring), background .2s, color .2s; }
-.mbk__go { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: var(--ink); color: #fff; font: 600 17px/1 var(--f); transition: transform .35s var(--spring), box-shadow .35s; } .mbk__go:hover { transform: translateY(-2px); box-shadow: 0 16px 24px -12px rgba(20,33,61,.6); }
+.mbk__times { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; } .mbk__times button { padding: 12px 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 22%, #fff); font: 600 14px/1 var(--f); color: var(--ink); transition: transform .3s var(--ease-pop), background .2s, color .2s; }
+.mbk__go { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: var(--ink); color: #fff; font: 600 17px/1 var(--f); transition: transform .35s var(--ease-pop), box-shadow .35s; } .mbk__go:hover { transform: translateY(-2px); box-shadow: 0 16px 24px -12px rgba(20,33,61,.6); }
 .mbk__card small { text-align: center; color: var(--ink2); font-size: 13px; }
 @media (max-width: 1100px) { .mbk__wrap { grid-template-columns: 1fr; } .mbk__who { display: none; } .mhero .hero__main { grid-template-columns: 1fr; } }
-.mc-2 { left: 4px; top: 474px; } .mc-3 { left: 470px; top: 572px; }
+.mc-2 { left: 4px; top: 474px; } .mc-3 { left: 326px; top: 574px; }
 .mdemo__ppl { transform: scale(1.02); margin-bottom: 30px; } .mdemo__say { top: 20px; max-width: 190px; }

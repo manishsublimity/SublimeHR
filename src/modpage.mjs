@@ -1,6 +1,6 @@
 // Module pages built from the home page itself: same shell, same head, same hero stage, same flip cards,
 // same module tiles, same "Ask Subi" chat, same closing crowd and footer. Only the content changes.
-import { site, modules, industries as INDS, plans, compare, integrations as INTS, customAreas, process as PROC, faqs as FAQG } from "./data.mjs";
+import { site, modules, industries as INDS, plans, compare, integrations as INTS, customAreas, process as PROC, faqs as FAQG, reports as REPS } from "./data.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
@@ -70,6 +70,7 @@ function head(m, path, description, title) {
 <link rel="stylesheet" href="/assets/css/mod8.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod9.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod10.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/system.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -80,7 +81,7 @@ const tagx = (name, role, i, x, y, s) => `<span class="tagx" style="--x:${x}px;-
 function hero(m) {
   const rows = m.features.slice(0, 4);
   const hc = m._hero || CONF[m.slug]?.hero;
-  const pos = m._pos || [[60, 116, .84], [250, 344, 1], [560, 330, 1]];
+  const pos = m._pos || [[60, 116, .84], [250, 344, 1], [714, 300, 1]];
   const cast = (hc ? hc.cast : [["Omar", "HR manager"], ["Priya", "HR partner"], ["Sara", "New joiner"]]).map(([n, r], i) => [n, r, ...pos[i]]);
   const who3 = hc ? hc.who : ["SN", "Sara Nasser", "New joiner · Senior Accountant"];
   const chips = hc ? hc.chips : [["users", "3 joined today"], ["file", "Offer letter sent"], ["check", "All records in sync"]];
@@ -146,16 +147,18 @@ function before(m) {
     <div class="mba__tabs" role="group" aria-label="Before and after"><button type="button" data-s="before" aria-pressed="true">Before</button><button type="button" data-s="after" aria-pressed="false">With SublimeHR</button></div></div>
   <div class="mba__stage">
     <div class="mba__card">
-      <div class="mba__pane is-b"><small>The old way</small><p>${esc(m.problem)}</p><ul>${pains.map((x) => `<li>${icon("close", "ic")}${x}</li>`).join("")}</ul></div>
-      <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul></div>
+      <div class="mba__pane is-b"><small>The old way</small><p>${esc(m.problem)}</p><ul>${pains.map((x) => `<li>${icon("close", "ic")}${x}</li>`).join("")}</ul>
+        <div class="mba__strip"><div class="mba__stat"><b>${fixes.length}</b><span>things that go wrong</span></div><div class="mba__stat"><b>${m.features.length}</b><span>jobs done by hand</span></div><button class="mba__cta" type="button" data-s="after">See the fix ${icon("arrow", "ic")}</button></div></div>
+      <div class="mba__pane is-a"><small>With SublimeHR</small><p>${esc(m.solution)}</p><ul>${m.benefits.slice(0, 3).map((x) => `<li>${icon("check", "ic")}${esc(x)}</li>`).join("")}</ul>
+        <div class="mba__strip"><div class="mba__stat"><b>0</b><span>left to chase</span></div><div class="mba__stat"><b>${m.features.length}</b><span>features on one record</span></div><a class="mba__cta" href="#try">Try the live demo ${icon("arrow", "ic")}</a></div></div>
     </div>
     <div class="mba__scene cast">
-      <span class="mba__dots" aria-hidden="true"></span><span class="mba__glow" aria-hidden="true"></span>
-      <span class="mba__papers" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <div class="mba__chaos" aria-hidden="true"><span class="mba__tiles"></span>${fixes.map((bad, i) => `<span class="ch ch${i % 7} k${i}"><i></i><b>${esc(bad)}</b></span>`).join("")}</div>
+      <div class="mba__clean" aria-hidden="true">
+      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em>100%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i><span class="recp">${esc(fixes[i] || x)}</span><span class="recs">${esc(m.features[i] || x)}</span></li>`).join("")}</ul></div>
+      </div>
       <span class="mba__say" data-bsay>${esc(L.say)}</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
-      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em data-recpct>0%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i>${x}</li>`).join("")}</ul></div>
       <ul class="mba__cards" aria-hidden="true">${fixes.map((bad, i) => `<li class="k${i}"><span class="bf"><i></i>${bad}</span></li>`).join("")}</ul>
       <span class="mba__prog" data-prog aria-hidden="true">Waiting for the file…</span>
       <span class="mba__floor"></span>
@@ -196,7 +199,7 @@ function mods(m) {
   const idx = modules.indexOf(m), rel = [1, 2, 3, 4, 5].map((k) => modules[(idx + k) % modules.length]);
   return `<section class="mods" aria-labelledby="h-mods" data-tip="Works better together.">
   <div class="mods__head"><h2 id="h-mods">Works better together.</h2><a class="link link--ink" href="/features/">See all features</a></div>
-  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><em class="md__go">Try the demo ${icon("arrow", "ic")}</em><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
+  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul><em class="md__go">Read more</em></a>`).join("")}</div>
 </section>`;
 }
 
@@ -204,7 +207,7 @@ function ask(m) {
   return `<section class="ask" id="ask" aria-labelledby="h-ask" data-ask data-tip="Ask me anything about ${esc(m.name)}.">
   <div class="ask__copy">
     <h2 id="h-ask">Ask Subi anything.</h2>
-    <p>Pick a question or type your own. Subi answers instantly, and a real person replies within one business day.</p>
+    <p>Pick a question or type your own. Subi answers instantly.</p>
     <div class="ask__qs" data-qs></div>
   </div>
   <div class="chat">
@@ -238,6 +241,7 @@ function meet(m) {
 </section>`;
 }
 
+const navActive = (p) => (/^\/(software|features)\//.test(p) ? "features" : /^\/industries\//.test(p) ? "industries" : /^\/(pricing|get-pricing)\//.test(p) ? "pricing" : /^\/integrations\//.test(p) ? "integrations" : /^\/(about|contact|faq|custom-development)\//.test(p) ? "company" : "");
 export function modulePage(m, faqItems, ldExtra = "", o = {}) {
   const path = o.path || `/software/${m.slug}/`;
   const description = o.description || `${m.summary} Try a live demo of SublimeHR ${m.name.toLowerCase()}.`.slice(0, 300);
@@ -249,7 +253,7 @@ export function modulePage(m, faqItems, ldExtra = "", o = {}) {
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav${o.noHero ? " solid" : " onhero"}" data-nav>
   <a class="nav__brand" href="/"><i class="nav__logo" style="--logo:url(${site.logo})" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
-  ${navMenu("features")}
+  ${navMenu(o.active || navActive(path))}
 </header>
 <main id="main">
 ${o.main ? o.main(m) : `${hero(m)}
@@ -361,6 +365,7 @@ function priceCalc() {
       <p class="pcalc__note">${icon("arrow", "ic")}Estimated monthly cost updates on every plan below</p>
     </div>
   </div>
+  <h2 class="vh">Plans</h2>
   <div class="pplans">${plans.map((pl, i) => `<article class="pplan${pl.featured ? " pplan--pop" : ""}" style="--i:${i}">
     ${pl.featured ? `<span class="pplan__rib">★ Most loved</span>` : ""}
     <h3><i>${icon(PICON[i], "ic")}</i>${esc(pl.name)}</h3>
@@ -464,7 +469,7 @@ const TOPICS = ["General question", "Sales", "Support", "Custom development", "I
 
 function contactSection() {
   return `<section class="ctc" id="try" aria-label="Contact us">
-  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("message", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("phone", "ic")}</i><h1>Let's <span class="cfh__sq">talk.</span></h1><p>Questions, support, partnerships or anything else — we reply within 1 business day.</p><div class="cfh__chips"><span><i>${icon("clock", "ic")}</i>Reply in 1 business day</span><span><i>${icon("message", "ic")}</i>Instant on WhatsApp</span><span><i>${icon("phone", "ic")}</i>Call us</span></div></div>
+  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("message", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("phone", "ic")}</i><h1>Let's <span class="cfh__sq">talk.</span></h1><p>Questions, support, partnerships or anything else, we reply within 1 business day.</p><div class="cfh__chips"><span><i>${icon("clock", "ic")}</i>Reply in 1 business day</span><span><i>${icon("message", "ic")}</i>Instant on WhatsApp</span><span><i>${icon("phone", "ic")}</i>Call us</span></div></div>
   <div class="cf__wrap">
     ${cfSide("L", "How can we help?")}
     <div class="cf-card">
@@ -531,12 +536,13 @@ function aboutStory() {
     <p class="abt__lead">SublimeHR helps businesses streamline attendance, leave, shift scheduling, employee records, payroll and day-to-day HR operations through a single, intuitive platform.</p>
     <p>Whether you're a growing startup, a mid-sized business or a large enterprise, our goal is to eliminate manual processes, reduce admin overhead, and give your team more time for what matters most: growing your business.</p></div>
   <div class="abt__stats" data-count-box>
-    <div class="abt__s abt__s--0"><strong data-count="70" data-suffix="+">70+</strong><span>Feature areas</span></div>
-    <div class="abt__s abt__s--1"><strong data-count="13">13</strong><span>Report types</span></div>
-    <div class="abt__s abt__s--2"><strong data-count="9">9</strong><span>Industries</span></div>
-    <div class="abt__s abt__s--3"><strong>EN·AR</strong><span>Languages</span></div>
+    <div class="abt__s abt__s--0"><strong data-count="70" data-suffix="+">70+</strong><span>Feature areas</span><span class="abt__fx abt__fx--rain" aria-hidden="true"></span></div>
+    <div class="abt__s abt__s--1"><strong data-count="13">13</strong><span>Report types</span><span class="abt__fx abt__fx--types" aria-hidden="true"><span class="abt__sheet" data-sheet data-p="0"><span class="abt__hd"><b data-rtitle>Timesheet</b><em data-rfmt>PDF</em></span><span class="abt__body"><span class="abt__bars"><i></i><i></i><i></i><i></i><i></i></span><svg class="abt__line" viewBox="0 0 100 44" preserveAspectRatio="none"><polyline points="0,30 20,20 40,26 60,10 80,16 100,4"/></svg><span class="abt__dn"></span><span class="abt__tb"><u></u><u></u><u></u><u></u></span></span></span><span class="abt__sheet" data-sheet data-p="1"><span class="abt__hd"><b data-rtitle>Attendance</b><em data-rfmt>XLS</em></span><span class="abt__body"><span class="abt__bars"><i></i><i></i><i></i><i></i><i></i></span><svg class="abt__line" viewBox="0 0 100 44" preserveAspectRatio="none"><polyline points="0,30 20,20 40,26 60,10 80,16 100,4"/></svg><span class="abt__dn"></span><span class="abt__tb"><u></u><u></u><u></u><u></u></span></span></span><span class="abt__sheet" data-sheet data-p="2"><span class="abt__hd"><b data-rtitle>Late Coming</b><em data-rfmt>CSV</em></span><span class="abt__body"><span class="abt__bars"><i></i><i></i><i></i><i></i><i></i></span><svg class="abt__line" viewBox="0 0 100 44" preserveAspectRatio="none"><polyline points="0,30 20,20 40,26 60,10 80,16 100,4"/></svg><span class="abt__dn"></span><span class="abt__tb"><u></u><u></u><u></u><u></u></span></span></span></span></div>
+    <div class="abt__s abt__s--2"><strong data-count="9">9</strong><span>Industries</span><span class="abt__fx abt__fx--ind" aria-hidden="true"><span class="abt__ic" style="--i:0;--c:#3558F5;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M15 46V31l9 5v-5l9 5V23h6v23z"/><path class="ky" d="M20 41h3v3h-3z M28 41h3v3h-3z"/></g></svg></span><span class="abt__ic" style="--i:1;--c:#FF8A70;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M29 17h6v12h12v6H35v12h-6V35H17v-6h12z"/></g></svg></span><span class="abt__ic" style="--i:2;--c:#7A5CF0;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kgl" d="M27 24l-10 8 10 8 M37 24l10 8-10 8"/><path class="kgy" d="M35 19l-6 26"/></g></svg></span><span class="abt__ic" style="--i:3;--c:#1FBF75;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M32 18L12 28l20 10 20-10z"/><path class="ky" d="M22 34v9c6 4 14 4 20 0v-9l-10 5z"/><path class="kgl" d="M52 28v12"/></g></svg></span><span class="abt__ic" style="--i:4;--c:#0EA5A4;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M21 47V17h19v30z"/><path class="ky" d="M40 28h8v19h-8z"/><path class="kt" d="M25 22h4v4h-4z M32 22h4v4h-4z M25 31h4v4h-4z M32 31h4v4h-4z"/><path class="kt" d="M27 40h6v7h-6z"/></g></svg></span><span class="abt__ic" style="--i:5;--c:#F25C9B;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M16 27h32l-2 20H18z"/><path class="kgl" d="M25 30v-4a7 7 0 0 1 14 0v4"/></g></svg></span><span class="abt__ic" style="--i:6;--c:#F59E0B;--a:#14213D"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M11 22h25v19H11z"/><path class="ky" d="M36 29h9l7 7v5H36z"/><path class="kw" d="M19 44a4 4 0 1 0 .01 0z M43 44a4 4 0 1 0 .01 0z"/></g></svg></span><span class="abt__ic" style="--i:7;--c:#4C6FFF;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M14 26h36v22H14z"/><path class="kgl" d="M25 26v-4h14v4"/><path class="ky" d="M14 35h36v3H14z"/></g></svg></span><span class="abt__ic" style="--i:8;--c:#FF7A3D;--a:#FFD05A"><svg viewBox="0 0 68 68" width="88" height="88"><rect class="ksh" x="9" y="10" width="52" height="52" rx="16"/><rect class="ktile" x="5" y="5" width="52" height="52" rx="16"/><g transform="translate(-1 -1)"><path class="kg" d="M15 39a17 17 0 0 1 34 0z"/><path class="ky" d="M12 39h40v6H12z"/><path class="ktl" d="M32 24v15"/></g></svg></span></span></div>
+    <div class="abt__s abt__s--3"><strong data-alang>EN</strong><span>Languages</span><span class="abt__fx abt__fx--lang" aria-hidden="true"><span class="abt__glyphs"><i>A</i><i>ع</i><i>अ</i><i>Ñ</i><i>Ç</i><i>Ü</i><i>Ğ</i><i>Aa</i><i>中</i><i>Ã</i></span></span></div>
   </div>
 </section>
+<script src="/assets/js/aboutfx.js?v=${V}" defer></script>
 <script>(function(){var b=document.querySelector('[data-count-box]');if(!b)return;var els=[].slice.call(b.querySelectorAll('[data-count]'));function run(){els.forEach(function(e){var to=+e.getAttribute('data-count'),sf=e.getAttribute('data-suffix')||'',t0=performance.now();(function s(n){var p=Math.min(1,(n-t0)/1400),v=Math.round(to*(1-Math.pow(1-p,3)));e.textContent=v+sf;if(p<1)requestAnimationFrame(s)})(t0)})}if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();run()}},{threshold:.4});io.observe(b)}})();</script>`;
 }
 
@@ -746,7 +752,7 @@ export function demoModulePage(ldExtra = "") {
 function quoteSection() {
   const sel = (id, name, label, opts, ph, req) => `<div class="cf-field"${req ? " data-validate" : ""}><label for="${id}">${label}${req ? " <b>*</b>" : ""}</label><select id="${id}" name="${name}"${req ? " required" : ""}><option value="">${ph}</option>${opts.map((v) => `<option>${esc(v)}</option>`).join("")}</select>${req ? `<span class="cf-err">Please choose your team size.</span>` : ""}</div>`;
   return `<section class="ctc" id="try" aria-label="Get pricing">
-  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("wallet", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("check", "ic")}</i><h1>Get a quote for <span class="cfh__sq">your team.</span></h1><p>Tell us your team size and the modules you need — we'll send a clear, all-inclusive quote.</p><div class="cfh__chips"><span><i>${icon("check", "ic")}</i>No commitment</span><span><i>${icon("lock", "ic")}</i>No spam</span><span><i>${icon("clock", "ic")}</i>Takes a minute</span></div></div>
+  <div class="cfh"><span class="cfh__b cfh__b--1" aria-hidden="true"></span><span class="cfh__b cfh__b--2" aria-hidden="true"></span><i class="cfh__d cfh__d--l" aria-hidden="true">${icon("wallet", "ic")}</i><i class="cfh__d cfh__d--r" aria-hidden="true">${icon("check", "ic")}</i><h1>Get a quote for <span class="cfh__sq">your team.</span></h1><p>Tell us your team size and the modules you need, we'll send a clear, all-inclusive quote.</p><div class="cfh__chips"><span><i>${icon("check", "ic")}</i>No commitment</span><span><i>${icon("lock", "ic")}</i>No spam</span><span><i>${icon("clock", "ic")}</i>Takes a minute</span></div></div>
   <div class="cf__wrap">
     ${cfSide("L", "Let's get you a quote!")}
     <div class="cf-card">
@@ -800,5 +806,49 @@ export function quoteModulePage(ldExtra = "") {
     description: "Request a SublimeHR quote for your team size and modules. Pay only for active employees, with free onboarding and migration.",
     menu: [["try", "wallet", "Get my quote"]],
     noHero: true, main: () => `${quoteSection()}`
+  });
+}
+
+
+/* ================= the features hub: the original content, in the new design ================= */
+function modGrid(title, lead) {
+  return `<section class="mods" id="try" aria-labelledby="h-mods" data-tip="Ten modules, one employee record.">
+  <div class="mods__head"><h2 id="h-mods">${esc(title)}</h2><p class="mods__lead">${esc(lead)}</p></div>
+  <div class="mods__grid">${modules.map((r, i) => `<a class="md md--${i % 5}" href="#${r.slug}"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul><em class="md__go">Read more</em></a>`).join("")}</div>
+</section>`;
+}
+function featRows() {
+  return `<section class="frows" aria-labelledby="h-fr" data-tip="Everything each module does.">
+  <div class="frows__head"><h2 id="h-fr">What each module does.</h2></div>
+  ${modules.map((m, i) => `<article class="frow frow--${i % 5}" id="${m.slug}">
+    <div class="frow__ic"><i>${icon(m.icon, "ic")}</i></div>
+    <div class="frow__main"><h3>${esc(m.name)}</h3><p class="frow__tag">${esc(m.tagline)}</p><p>${esc(m.summary)}</p>
+      <ul class="frow__ben">${m.benefits.map((b) => `<li>${icon("check", "ic")}${esc(b)}</li>`).join("")}</ul></div>
+    <div class="frow__feat"><b>Includes</b><ul>${m.features.slice(0, 5).map((f) => `<li>${esc(f)}</li>`).join("")}</ul><a class="frow__go" href="/software/${m.slug}/">Try the live demo ${icon("arrow", "ic")}</a></div>
+  </article>`).join("")}
+</section>`;
+}
+function featReports() {
+  return `<section class="frep" id="reports" aria-labelledby="h-rep" data-tip="Thirteen reports, ready on day one.">
+  <div class="frows__head"><h2 id="h-rep">13 report types, ready on day one.</h2></div>
+  <div class="frep__grid">${REPS.map(([r, p], i) => `<div class="frep__c"><i>${i + 1}</i><b>${esc(r)}</b><span>${esc(p)}</span></div>`).join("")}</div>
+</section>`;
+}
+export function featuresModulePage(ldExtra = "") {
+  const m = {
+    slug: "features", name: "Features", icon: "layers", tagline: "Ten modules. One record.",
+    summary: "Every module shares the same employee data, so nothing is entered twice. Each one has a live demo you can try.",
+    features: modules.map((x) => x.name), benefits: ["One employee record behind every module", "A live demo for each module", "Add modules as you grow"], useCases: [],
+    _hero: { who: ["10", "10 modules", "One employee record"], cast: [["Priya", "HR partner"], ["Karan", "Finance"], ["Aisha", "Developer"]], chips: [["users", "One record"], ["clock", "Live attendance"], ["wallet", "Payroll"]] }
+  };
+  return modulePage(m, [], ldExtra, {
+    path: "/features/", title: "HR Software Features — Attendance, Leave, Payroll & More | SublimeHR",
+    description: "All SublimeHR modules with live demos: employee management, attendance, leave, payroll, reports, self-service, mobile, security, shift scheduling and visitor management.",
+    menu: [["try", "layers", "Browse the modules"]],
+    main: (mm) => `${hero(mm)}
+${modGrid("Ten modules, one record.", "Pick a module to see what it does.")}
+${featRows()}
+${featReports()}
+${closeBand({ title: "Have a workflow we don't cover yet?", lead: "We build custom modules, approvals and integrations that fit, not force, your process.", say: "Let's build it!", card: "Talk to us", links: [["Explore custom development", "/custom-development/"], ["Talk to our team", "/contact/", true]], small: "We reply within one business day." })}`
   });
 }

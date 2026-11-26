@@ -208,7 +208,8 @@
   function setText(el, text) { el.classList.add("swap"); setTimeout(function () { el.textContent = text; el.classList.remove("swap"); }, 230); }
   function dress(p, d) {
     var i = +p.getAttribute("data-i"), a = d.acts[i] || ["rest", "none", "none"];
-    p.setAttribute("data-hat", d.hats[i] || "none"); p.setAttribute("data-outfit", a[2]);
+    var hat = d.hats[i] || "none"; if (hat === "tie") hat = "none"; if (p.classList.contains("s-hijab") && hat !== "headset" && hat !== "hard") hat = "none";
+    p.setAttribute("data-hat", hat); p.setAttribute("data-outfit", a[2]);
     if (p.classList.contains("ppl--bust") || p.classList.contains("ppl--wave") || p.classList.contains("ppl--walk") || p.classList.contains("ppl--movie")) return;
     p.setAttribute("data-pose", a[0]); p.setAttribute("data-item", a[1]);
   }
@@ -223,8 +224,9 @@
     if (fromUser) { Snd.whoosh(); guideSay("Welcome to the " + d.name.toLowerCase() + " floor.", 3200); }
     last = -1; setTimeout(act, 700);
   }
-  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); burstAt(b, 8); }); });
-  if (!reduce) setInterval(function () { if (!userPicked && heroVisible && !document.hidden) setIndustry((cur + 1) % inds.length, false); }, 9500);
+  var dockEl = $(".dock"); if (dockEl) dockEl.classList.add("hint");
+  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; if (dockEl) dockEl.classList.remove("hint"); var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); burstAt(b, 8); }); });
+  if (!reduce) setInterval(function () { if (!userPicked && heroVisible && !document.hidden) setIndustry((cur + 1) % inds.length, false); }, 5200);
   vis(hero, function (v) { heroVisible = v; }, .15);
 
   /* ================= stats count up ================= */
@@ -243,7 +245,7 @@
 
   /* ================= phone movie: a full app, eight screens ================= */
   var movie = $("[data-movie]"), mSteps = $$("[data-go]", movie), mScr = $$(".mscr", movie), mScreen = $(".mscreen", movie), tap = $("[data-tap]", movie), mSay = $("[data-say-movie]", movie), mWho = $(".ppl--movie", movie), mBar = $("[data-mbar]", movie), mTabs = $$("[data-mtab] span", movie);
-  var mi = 0, mT = [], mVis = false, mAuto = null, MDUR = 4300, N = 8, tabOf = [-1, -1, 0, 1, 2, 3, 0, 4];
+  var mi = 0, mT = [], mVis = false, mAuto = null, MDUR = 4000, N = 8, tabOf = [-1, -1, 0, 1, 2, 3, 0, 4];
   var mLines = ["Employee code first.", "Now the one-time code.", "Here's my whole day.", "Fingerprint and GPS, one press.", "Two days off. Easy.", "And there's my payslip.", "My week, with a swap ready.", "Everything lands in my inbox."];
   (function () {
     var cal = $("[data-mcal2]", movie), h = ["S", "M", "T", "W", "T", "F", "S"], s = h.map(function (x) { return '<span class="h">' + x + "</span>"; }).join("");
@@ -463,6 +465,7 @@
   /* ================= role views ================= */
   (function () { var fm = $("[data-fin-month]"), d = new Date(); d.setMonth(d.getMonth() - 1); if (fm) fm.textContent = d.toLocaleDateString("en", { month: "long" }); })();
   var rolesEl = $("[data-roles]"), rTabs = $$("[data-r]", rolesEl), rScr = $$("[data-rs]", rolesEl);
+  (function () { var rUser = false, rVis = false, rI = 0; rolesEl.addEventListener("pointerdown", function (e) { if (e.isTrusted) rUser = true; }); rolesEl.addEventListener("focusin", function () { rUser = true; }); vis(rolesEl, function (v) { rVis = v; }, .3); if (!reduce) setInterval(function () { if (rUser || !rVis || document.hidden) return; rI = (rI + 1) % rTabs.length; rTabs[rI].click(); }, 4500); })();
   rTabs.forEach(function (t) { t.addEventListener("click", function () { var i = +t.getAttribute("data-r"); rTabs.forEach(function (x) { x.setAttribute("aria-selected", x === t ? "true" : "false"); }); rScr.forEach(function (s, k) { s.hidden = k !== i; }); Snd.whoosh(); }); });
   var rc = $("[data-rclock]"); rc.addEventListener("click", function () { var on = rc.classList.toggle("on"); $("[data-rclock-t]").textContent = on ? "Clocked in 08:52" : "Clock in"; $("[data-rclock-s]").textContent = on ? "On time. Have a good day." : "Tap to punch, 09:00 shift"; if (on) { Snd.ding(); burstAt(rc, 14); } else Snd.tick(); });
   var apprN = $("[data-appr-n]"); $("[data-appr]").addEventListener("click", function (e) { var b = e.target.closest("[data-ap]"); if (!b) return; var li = b.closest("li"); if (li.classList.contains("done")) return; li.classList.add("done"); var no = b.getAttribute("data-ap") === "no"; if (no) li.classList.add("rej"); $$("button", li).forEach(function (x) { x.hidden = x !== b; }); b.textContent = no ? "Rejected" : "Approved"; apprN.textContent = Math.max(0, +apprN.textContent - 1); if (!no) { Snd.chime(); burstAt(li, 8); } else Snd.tick(); });

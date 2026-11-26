@@ -19,25 +19,25 @@
 
   /* ----- colours of the bulb ----- */
   function setColor(v, quiet) {
-    var p = v.split("|"); L.style.setProperty("--lg", p[0]); L.style.setProperty("--lb", p[1]); L.style.setProperty("--ls", p[2]); save("shr-lamp", v);
+    var p = v.split("|"); L.style.setProperty("--lg", p[0]); L.style.setProperty("--lb", p[1]); L.style.setProperty("--ls", p[2]); root.style.setProperty("--lg", p[0]); save("shr-lamp2", v);
     Array.prototype.forEach.call(L.querySelectorAll("[data-lc]"), function (b) { b.classList.toggle("on", b.getAttribute("data-lc") === v); });
     if (!quiet) { say("Ooh, nice colour!"); mood("giggle", 600); }
   }
-  var saved = load("shr-lamp"); if (saved) setColor(saved, true); else setColor("255,200,70|#FFFBE0|#FFC233", true);
+  var saved = load("shr-lamp2"); if (saved) setColor(saved, true); else setColor("255,200,70|#FFFBE0|#FFC233", true);
 
   /* ----- day and night, with the light spreading from the bulb ----- */
   function switchTheme() {
     if (st.busy) return; st.busy = true;
-    var toDark = !isDark(), r = bulb.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
-    L.classList.add("flicker"); say(toDark ? "Lights out!" : "Good morning!", 1500);
-    var fx = document.createElement("div"); fx.className = "lamp-fx " + (toDark ? "to-dark" : "to-day"); fx.style.setProperty("--x", x + "px"); fx.style.setProperty("--y", y + "px"); document.body.appendChild(fx);
-    var delay = reduce ? 0 : (toDark ? 380 : 120);
-    setTimeout(function () {
-      fx.classList.add("go");
-      setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); }, reduce ? 0 : 420);
-      setTimeout(function () { fx.classList.add("out"); L.classList.remove("flicker"); }, reduce ? 0 : 820);
-      setTimeout(function () { fx.remove(); st.busy = false; }, reduce ? 0 : 1250);
-    }, delay);
+    var toDark = !isDark(); L.classList.add("flicker"); say(toDark ? "Moon time!" : "Rise and shine!", 1500);
+    var br = bulb.getBoundingClientRect(), bx = br.left + br.width / 2, by = br.top + br.height / 2;
+    var fx = document.createElement("div"); fx.className = "lfx " + (toDark ? "to-dark" : "to-day"); fx.style.setProperty("--x", bx + "px"); fx.style.setProperty("--y", by + "px");
+    var h = '<div class="lfx__wash"></div>', vw = innerWidth, vh = innerHeight, k, rr = Math.random;
+    if (toDark) { h += '<b class="lfx__bloom nb"></b><b class="lfx__bloom nb b2"></b><b class="lfx__bloom nb b3"></b><i class="lfx__halo"></i><div class="lfx__moon"><b></b><u></u></div>'; for (k = 0; k < 34; k++) h += '<span class="lfx__st" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (rr() * 100).toFixed(1) + '%;animation-delay:' + (0.4 + rr() * 1.1).toFixed(2) + 's;width:' + (2 + rr() * 3).toFixed(1) + 'px;height:' + (2 + rr() * 3).toFixed(1) + 'px"></span>'; }
+    else { h += '<b class="lfx__bloom"></b><b class="lfx__bloom b2"></b><b class="lfx__bloom b3"></b>'; for (k = 0; k < 5; k++) { var f = 0.18 + k * 0.17; h += '<i class="lfx__fl" style="left:' + (bx - (bx - vw / 2) * f - 20) + 'px;top:' + (by + (vh / 2 - by) * f - 20) + 'px;--s:' + (0.5 + rr() * 1.4).toFixed(2) + ';animation-delay:' + (0.35 + k * 0.08).toFixed(2) + 's"></i>'; } for (k = 0; k < 16; k++) h += '<span class="lfx__mote" style="left:' + (rr() * 100).toFixed(1) + '%;top:' + (40 + rr() * 60).toFixed(1) + '%;animation-delay:' + (0.3 + rr() * 0.9).toFixed(2) + 's"></span>'; }
+    fx.innerHTML = h; document.body.appendChild(fx); void fx.offsetWidth; fx.classList.add("lfx-on");
+    setTimeout(function () { if (toDark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme"); save("shr-theme", toDark ? "dark" : "light"); sync(); if (toDark) fixDark(); }, reduce ? 0 : 950);
+    setTimeout(function () { fx.classList.add("lfx-out"); L.classList.remove("flicker"); }, reduce ? 0 : 1350);
+    setTimeout(function () { fx.remove(); st.busy = false; }, reduce ? 0 : 2200);
   }
 
   /* ----- a tiny spring for the lamp when it is let go ----- */
@@ -97,26 +97,47 @@
   bulb.addEventListener("click", bulbToggle);
 
   /* ----- the options on the cord ----- */
-  function openMenu(on) { menu.hidden = !on; cord.setAttribute("aria-expanded", String(on)); L.classList.toggle("menu", on); }
+  function openMenu(on) { menu.hidden = !on; cord.setAttribute("aria-expanded", String(on)); L.classList.toggle("lmenu", on); }
   cord.addEventListener("click", function (e) { e.stopPropagation(); openMenu(menu.hidden); if (!menu.hidden) say("Pick me a bulb!", 1400); });
   menu.addEventListener("click", function (e) {
     e.stopPropagation(); var c = e.target.closest("[data-lc]"), a = e.target.closest("[data-lact]");
-    if (c) setColor(c.getAttribute("data-lc")); else if (a) { if (a.getAttribute("data-lact") === "bulb") bulbToggle(); else { L.classList.remove("nudge"); void L.offsetWidth; L.classList.add("nudge"); say("Wheee!", 1200); mood("laugh", 900); } openMenu(false); }
+    if (c) setColor(c.getAttribute("data-lc")); else if (a) { if (a.getAttribute("data-lact") === "bulb") bulbToggle(); else { L.classList.remove("lnudge"); void L.offsetWidth; L.classList.add("lnudge"); say("Wheee!", 1200); mood("laugh", 900); } openMenu(false); }
   });
   document.addEventListener("pointerdown", function (e) { if (!menu.hidden && !L.contains(e.target)) openMenu(false); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) { openMenu(false); cord.focus(); } });
 
   /* ----- little life of its own ----- */
   if (!reduce) {
+    var acts = [
+      function () { L.classList.remove("lnudge"); void L.offsetWidth; L.classList.add("lnudge"); },
+      function () { L.classList.add("spin"); mood("oh", 900); say("Wheee!", 1200); setTimeout(function () { L.classList.remove("spin"); }, 1100); },
+      function () { L.classList.remove("jiggle"); void L.offsetWidth; L.classList.add("jiggle"); mood("giggle", 800); say("Hehe!", 1100); },
+      function () { mood("yawn", 1500); say("Yaaawn…", 1400); },
+      function () { mood("wink", 900); },
+      function () { mood("laugh", 900); sparkles(7); },
+      function () { say("Psst, pull my chain!", 2000); L.classList.remove("lnudge"); void L.offsetWidth; L.classList.add("lnudge"); }
+    ];
     (function idle() {
       setTimeout(function () {
-        if (!st.dragging && !st.busy && document.visibilityState === "visible") {
-          var r = Math.random();
-          if (r < .35) { L.classList.remove("nudge"); void L.offsetWidth; L.classList.add("nudge"); } else if (r < .6) { mood("yawn", 1500); say("Yaaawn…", 1400); } else if (r < .85) { mood("wink", 900); } else { say("Psst, pull my chain!", 2000); }
-        }
+        if (!st.dragging && !st.busy && document.visibilityState === "visible" && !L.classList.contains("lmenu")) acts[Math.floor(Math.random() * acts.length)]();
         idle();
-      }, 7000 + Math.random() * 6000);
+      }, 3500 + Math.random() * 3000);
     })();
   }
+  /* ----- dark mode: the page is inverted for night, so bright coloured cards are put back to their own colours ----- */
+  function hsl(c) { var m = c.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/), k = 255; if (!m) { m = c.match(/color\(srgb ([\d.]+) ([\d.]+) ([\d.]+)(?: \/ ([\d.]+))?/); k = 1; } if (!m) return null; var r = +m[1] / k, g = +m[2] / k, b = +m[3] / k, a = m[4] === undefined ? 1 : +m[4], mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn, sat = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1)); return { s: sat, l: l, a: a }; }
+  function fixDark() {
+    if (!document.body.classList.contains("lo")) return;
+    var els = document.querySelectorAll("main > section:not(.hero):not(.meet) *");
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i]; if (el.classList.contains("dk-undo")) continue;
+      if (el.parentElement && el.parentElement.closest(".dk-undo")) continue;
+      var cs = getComputedStyle(el), c = hsl(cs.backgroundColor); if (!c || c.a < .9 || c.s < .4 || c.l < .08 || c.l > .88) continue;
+      var r = el.getBoundingClientRect(); if (r.width < 110 || r.height < 50) continue;
+      el.classList.add("dk-undo");
+    }
+  }
+  if (isDark()) setTimeout(fixDark, 600);
+  window.addEventListener("shr-darkfix", fixDark);
   sync();
 })();

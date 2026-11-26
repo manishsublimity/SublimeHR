@@ -1,6 +1,6 @@
 /* The home page characters (people, faces, outfits), scoped under .cast so any page can use them.
    Generated from home2.css. Wrap a scene in <div class="cast"> and use the same markup as the home page. */
-.cast { --ink: #14213D; --spring: cubic-bezier(.34,1.56,.64,1); --ease: cubic-bezier(.2,.75,.25,1); font-family: "Figtree", system-ui, sans-serif; }
+.cast { --ink: #14213D; --ease-pop: cubic-bezier(.23,1,.32,1); --ease: cubic-bezier(.2,.75,.25,1); font-family: "Figtree", system-ui, sans-serif; }
 .cast i, .cast span { font-style: normal; }
 .cast .ppl { filter: none; }
 .cast .s-ant {position: absolute; left: 33px; top: -4px; width: 4px; height: 14px; background: #fff;}
@@ -16,7 +16,7 @@
 .cast .s-jet {position: absolute; left: 24px; top: 86px; width: 22px; height: 16px; border-radius: 50% 50% 60% 60%; background: radial-gradient(circle at 50% 20%, #FFF3B0, #FFB020 55%, rgba(255,120,40,0) 72%); animation: cast-flicker .18s linear infinite alternate;}
 .cast .ppl {position: relative; width: 104px; height: 190px; --lu: -6; --lf: 10; --ru: -6; --rf: 10;}
 .cast .ppl__fig {position: absolute; inset: 0; transform-origin: 50% 100%; animation: cast-breathe 3.4s ease-in-out var(--d, 0s) infinite;}
-.cast .ppl__head {position: absolute; z-index: 3; left: 17px; top: 0; width: 70px; height: 72px; transition: transform .4s var(--spring);}
+.cast .ppl__head {position: absolute; z-index: 3; left: 17px; top: 0; width: 70px; height: 72px; transition: transform .4s var(--ease-pop);}
 .cast .fc {position: absolute; z-index: 2; inset: 0; border-radius: 50% 50% 46% 46% / 52% 52% 48% 48%; background: var(--skin);}
 .cast .hr {position: absolute; z-index: 4;}
 .cast .eye {position: absolute; top: 29px; width: 15px; height: 17px; border-radius: 50%; background: #fff; overflow: hidden; animation: cast-blink 4.8s ease-in-out var(--d, 0s) infinite;}
@@ -39,10 +39,10 @@
 .cast .ppl__body {position: absolute; z-index: 2; left: calc((104px - var(--bw, 84px)) / 2); top: 68px; width: var(--bw, 84px); height: var(--bh, 96px); border-radius: 38px 38px 12px 12px; background: var(--shirt);}
 .cast .ppl__body::before {content: ""; position: absolute; z-index: -1; top: -8px; left: calc(50% - 8px); width: 16px; height: 16px; border-radius: 5px; background: var(--skin);}
 .cast .chest {position: absolute; left: 50%; top: 28px; width: 30px; height: 30px; margin-left: -15px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.92); color: var(--ink); font-size: 17px; z-index: 2;}
-.cast .arm {position: absolute; z-index: 4; top: 76px; width: 17px; height: 42px; border-radius: 9px; background: var(--sleeve, var(--shirt)); transform-origin: 50% 8px; transition: transform .55s var(--spring);}
+.cast .arm {position: absolute; z-index: 4; top: 76px; width: 17px; height: 42px; border-radius: 9px; background: var(--sleeve, var(--shirt)); transform-origin: 50% 8px; transition: transform .55s var(--ease-pop);}
 .cast .arm.l {left: calc((104px - var(--bw, 84px)) / 2 - 10px); transform: rotate(calc(var(--lu) * -1deg));}
 .cast .arm.r {right: calc((104px - var(--bw, 84px)) / 2 - 10px); transform: rotate(calc(var(--ru) * 1deg));}
-.cast .fa {position: absolute; left: 1px; top: 33px; width: 15px; height: 36px; border-radius: 8px; background: var(--fore, var(--skin)); transform-origin: 50% 7px; transition: transform .55s var(--spring);}
+.cast .fa {position: absolute; left: 1px; top: 33px; width: 15px; height: 36px; border-radius: 8px; background: var(--fore, var(--skin)); transform-origin: 50% 7px; transition: transform .55s var(--ease-pop);}
 .cast .arm.l .fa {transform: rotate(calc(var(--lf) * -1deg));}
 .cast .arm.r .fa {transform: rotate(calc(var(--rf) * 1deg));}
 .cast .fa::after {content: ""; position: absolute; left: 0; bottom: -7px; width: 15px; height: 15px; border-radius: 50%; background: var(--skin);}
@@ -162,3 +162,4 @@
 @keyframes cast-tapr { from { transform: rotate(calc(var(--rf) * 1deg)); } to { transform: rotate(calc(var(--rf) * 1deg - 7deg)); } }
 @keyframes cast-steam { 0% { transform: translateY(4px); opacity: 0; } 40% { opacity: .8; } 100% { transform: translateY(-8px); opacity: 0; } }
 @keyframes cast-flicker { from { transform: scaleY(.8); opacity: .8; } to { transform: scaleY(1.15); opacity: 1; } }
+.cast [data-hat="tie"] .ppl__body::after { display: none !important; }

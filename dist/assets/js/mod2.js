@@ -59,7 +59,7 @@
 
   /* ================= hero: the stage scales to the space, and the people act out the module ================= */
   var stage = $("[data-stage]");
-  function fit() { if (!hero || !stage) return; var w = Math.min(hero.clientWidth, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)))); }
+  function fit() { if (!hero || !stage) return; var w = Math.min(hero.clientWidth, 1600) - 112, f = Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)), cp = $(".hero__copy", hero), st = 1; stage.style.setProperty("--fit", String(f)); if (cp && $(".mwin", stage) && hero.clientWidth > 1100) st = 1; stage.style.setProperty("--st", st.toFixed(3)); }
   fit(); window.addEventListener("resize", fit);
   var slots = stage ? $$("[data-slot]", stage) : [], rows = stage ? $$("[data-row]", stage) : [], bar = stage ? $("[data-bar]", stage) : null, pct = stage ? $("[data-pct]", stage) : null, lines = [];
   try { lines = JSON.parse($("#mod-story").textContent); } catch (e) {}
@@ -189,17 +189,17 @@
   /* ================= before / after: when you reach it, Subi comes over, hears the problems and fixes them, all by itself ================= */
   (function () {
     var r = $("[data-mba]"); if (!r) return;
-    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), ladyBox = $(".mba__lady", r), lady = $(".ppl", ladyBox), cards = $$(".mba__cards li", r), prog = $("[data-prog]", r), recRows = $$(".mba__record li", r), recPct = $("[data-recpct]", r), pile = $(".mba__cards", r);
+    var tabs = $$("[data-s]", r), bsay = $("[data-bsay]", r), scene = $(".mba__scene", r), ladyBox = $(".mba__lady", r), lady = $(".ppl", ladyBox), cards = $$(".mba__cards li", r), chs = $$(".ch", r), prog = $("[data-prog]", r), recRows = $$(".mba__record li", r), recPct = $("[data-recpct]", r), pile = $(".mba__cards", r);
     var Ls = { say: r.dataset.l0, ask: r.dataset.l1, done: r.dataset.l2, doneG: r.dataset.l3 };
     var order = [0, 3, 1, 4, 2, 5, 6], token = 0, running = false, auto = true, dwell, lastFixed = -1;
     function pose(step) { lady.setAttribute("data-pose", { before: "rest", ask: "point", work: "hips", after: "wave" }[step] || "rest"); lady.classList.toggle("ppl--wave", step === "after"); }
     function set(step) {
-      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step); pose(step);
+      r.setAttribute("data-state", step === "after" ? "after" : "before"); r.setAttribute("data-step", step); pose(step); 
       tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(step === "after" ? b.dataset.s === "after" : b.dataset.s === "before")); });
       if (step === "after") Snd.chime();
     }
     function lsay(text, ms) { bsay.textContent = text; bsay.classList.remove("on"); void bsay.offsetWidth; bsay.classList.add("on"); talk(lady, ms || 2200); }
-    function syncCards(n) { if (n === lastFixed) return; cards.forEach(function (c, i) { c.classList.toggle("fixed", order.indexOf(i) < n); }); recRows.forEach(function (x, i) { x.classList.toggle("done", i < n); }); if (recPct) recPct.textContent = Math.round(n / cards.length * 100) + "%"; if (n > lastFixed && n > 0) Snd.tick(); lastFixed = n; prog.textContent = n === 0 ? "Waiting for the file…" : n >= cards.length ? "All " + cards.length + " fixed" : "Subi is on it · " + n + " of " + cards.length; prog.classList.toggle("done", n >= cards.length); }
+    function syncCards(n) { if (n === lastFixed) return; chs.forEach(function (c, i) { c.classList.toggle("gone", order.indexOf(i) < n); }); cards.forEach(function (c, i) { c.classList.toggle("fixed", order.indexOf(i) < n); }); recRows.forEach(function (x, i) { x.classList.toggle("done", i < n); }); if (recPct) recPct.textContent = Math.round(n / cards.length * 100) + "%"; if (n > lastFixed && n > 0) Snd.tick(); lastFixed = n; prog.textContent = n === 0 ? "Waiting for the file…" : n >= cards.length ? "All " + cards.length + " fixed" : "Subi is on it · " + n + " of " + cards.length; prog.classList.toggle("done", n >= cards.length); }
     function near(el, fx, fy, dx, dy) { var rc = el.getBoundingClientRect(); gFly = true; gPlace(Math.max(8, Math.min(window.innerWidth - 80, rc.left + rc.width * fx + (dx || 0))), Math.max(70, Math.min(window.innerHeight - 140, rc.top + rc.height * fy + (dy || 0)))); }
     function alive(t) { return t === token; }
     function release() { guide.classList.remove("mplay", "msearch", "mhi", "mfast"); }
