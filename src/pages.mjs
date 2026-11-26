@@ -1,4 +1,4 @@
-import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage, quoteModulePage } from "./modpage.mjs";
+import { industriesModulePage, pricingModulePage, integrationsModulePage, contactModulePage, aboutModulePage, customDevModulePage, faqModulePage, demoModulePage, quoteModulePage, featuresModulePage } from "./modpage.mjs";
 import { site, modules, reports, why, industries, integrations, plans, compare, customAreas, process, faqs } from "./data.mjs";
 import { page, phero, sHead, cta, btn, squiggle, icon, esc, softwareLd, faqLd, crumbLd, TONES } from "./layout.mjs";
 import { heroCast, crowd, baSwitch, capSpot, flipCards } from "./cast.mjs";
@@ -193,12 +193,16 @@ ${cta()}
    FEATURES
    ===================================================================== */
 export function features() {
+  const trail0 = [["Home", "/"], ["Features", "/features/"]];
+  return featuresModulePage(`<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": [crumbLd(trail0), { "@type": "ItemList", name: "SublimeHR modules", itemListElement: modules.map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name, url: `${site.url}/software/${m.slug}/` })) }] })}</script>`);
+}
+export function featuresOld() {
   const trail = [["Home", "/"], ["Features", "/features/"]];
   const fw = { ...moduleWidget, "employee-self-service": leaveW, "mobile-workforce": () => clockW() };
   const body = `
 ${phero({ eyebrow: "Product", title: `Ten modules. ${squiggle("One record.")}`, lead: "Every module shares the same employee data — so nothing is entered twice. Each one below has a live demo you can try.", trail, actions: btn("Book a demo", "/book-demo/") + btn("See pricing", "/pricing/", { alt: true }) })}
 <section class="section tight">
-  <div class="container"><div class="mods">${modules.map((m, i) => modCard(m, i).replace(`href="/software/${m.slug}/"`, `href="#${m.slug}"`)).join("")}</div></div>
+  <div class="container"><div class="mods__grid">${modules.map((m, i) => `<a class="md md--${i % 5}" href="#${m.slug}"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><p class="md__d">${m.summary}</p><em class="md__go">Read more</em><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div></div>
 </section>
 ${modules.map((m, i) => `<section class="section${i % 2 ? "" : " cream"}" id="${m.slug}">
   <div class="container split" style="align-items:start">

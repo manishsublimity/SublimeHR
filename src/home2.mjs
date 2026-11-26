@@ -753,7 +753,7 @@ ${daySection()}
 <section class="mods" aria-labelledby="h-mods" data-tip="Ten modules, one employee record.">
   <div class="mods__head"><h2 id="h-mods">Everything behind the people.</h2><a class="link link--ink" href="/features/">See all features</a></div>
   <div class="mods__grid">
-    ${modules.map((m, i) => `<a class="md md--${i % 5}" href="/software/${m.slug}/"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><p class="md__d">${m.summary}</p><em class="md__go">Explore ${m.name}</em><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}
+    ${modules.map((m, i) => `<a class="md md--${i % 5}" href="/software/${m.slug}/"><i class="md__ic">${icon(m.icon, "ic")}</i><b>${m.name}</b><span>${m.short}</span><p class="md__d">${m.summary}</p><em class="md__go">Read more</em><ul>${m.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}
   </div>
 </section>
 

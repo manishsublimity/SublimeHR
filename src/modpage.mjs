@@ -1,6 +1,6 @@
 // Module pages built from the home page itself: same shell, same head, same hero stage, same flip cards,
 // same module tiles, same "Ask Subi" chat, same closing crowd and footer. Only the content changes.
-import { site, modules, industries as INDS, plans, compare, integrations as INTS, customAreas, process as PROC, faqs as FAQG } from "./data.mjs";
+import { site, modules, industries as INDS, plans, compare, integrations as INTS, customAreas, process as PROC, faqs as FAQG, reports as REPS } from "./data.mjs";
 import { icon } from "./icons.mjs";
 import { navMenu, themeFab } from "./navparts.mjs";
 import { who, people } from "./cast.mjs";
@@ -196,7 +196,7 @@ function mods(m) {
   const idx = modules.indexOf(m), rel = [1, 2, 3, 4, 5].map((k) => modules[(idx + k) % modules.length]);
   return `<section class="mods" aria-labelledby="h-mods" data-tip="Works better together.">
   <div class="mods__head"><h2 id="h-mods">Works better together.</h2><a class="link link--ink" href="/features/">See all features</a></div>
-  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><em class="md__go">Try the demo ${icon("arrow", "ic")}</em><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
+  <div class="mods__grid">${rel.map((r, i) => `<a class="md md--${i % 5}" href="/software/${r.slug}/"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><em class="md__go">Read more</em><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
 </section>`;
 }
 
@@ -800,5 +800,49 @@ export function quoteModulePage(ldExtra = "") {
     description: "Request a SublimeHR quote for your team size and modules. Pay only for active employees, with free onboarding and migration.",
     menu: [["try", "wallet", "Get my quote"]],
     noHero: true, main: () => `${quoteSection()}`
+  });
+}
+
+
+/* ================= the features hub: the original content, in the new design ================= */
+function modGrid(title, lead) {
+  return `<section class="mods" id="try" aria-labelledby="h-mods" data-tip="Ten modules, one employee record.">
+  <div class="mods__head"><h2 id="h-mods">${esc(title)}</h2><p class="mods__lead">${esc(lead)}</p></div>
+  <div class="mods__grid">${modules.map((r, i) => `<a class="md md--${i % 5}" href="#${r.slug}"><i class="md__ic">${icon(r.icon, "ic")}</i><b>${r.name}</b><span>${r.short}</span><p class="md__d">${r.summary}</p><em class="md__go">Read more</em><ul>${r.features.slice(0, 3).map((f) => `<li>${f}</li>`).join("")}</ul></a>`).join("")}</div>
+</section>`;
+}
+function featRows() {
+  return `<section class="frows" aria-labelledby="h-fr" data-tip="Everything each module does.">
+  <div class="frows__head"><h2 id="h-fr">What each module does.</h2></div>
+  ${modules.map((m, i) => `<article class="frow frow--${i % 5}" id="${m.slug}">
+    <div class="frow__ic"><i>${icon(m.icon, "ic")}</i></div>
+    <div class="frow__main"><h3>${esc(m.name)}</h3><p class="frow__tag">${esc(m.tagline)}</p><p>${esc(m.summary)}</p>
+      <ul class="frow__ben">${m.benefits.map((b) => `<li>${icon("check", "ic")}${esc(b)}</li>`).join("")}</ul></div>
+    <div class="frow__feat"><b>Includes</b><ul>${m.features.slice(0, 5).map((f) => `<li>${esc(f)}</li>`).join("")}</ul><a class="frow__go" href="/software/${m.slug}/">Try the live demo ${icon("arrow", "ic")}</a></div>
+  </article>`).join("")}
+</section>`;
+}
+function featReports() {
+  return `<section class="frep" id="reports" aria-labelledby="h-rep" data-tip="Thirteen reports, ready on day one.">
+  <div class="frows__head"><h2 id="h-rep">13 report types, ready on day one.</h2></div>
+  <div class="frep__grid">${REPS.map(([r, p], i) => `<div class="frep__c"><i>${i + 1}</i><b>${esc(r)}</b><span>${esc(p)}</span></div>`).join("")}</div>
+</section>`;
+}
+export function featuresModulePage(ldExtra = "") {
+  const m = {
+    slug: "features", name: "Features", icon: "layers", tagline: "Ten modules. One record.",
+    summary: "Every module shares the same employee data, so nothing is entered twice. Each one has a live demo you can try.",
+    features: modules.map((x) => x.name), benefits: ["One employee record behind every module", "A live demo for each module", "Add modules as you grow"], useCases: [],
+    _hero: { who: ["10", "10 modules", "One employee record"], cast: [["Priya", "HR partner"], ["Karan", "Finance"], ["Aisha", "Developer"]], chips: [["users", "One record"], ["clock", "Live attendance"], ["wallet", "Payroll"]] }
+  };
+  return modulePage(m, [], ldExtra, {
+    path: "/features/", title: "HR Software Features — Attendance, Leave, Payroll & More | SublimeHR",
+    description: "All SublimeHR modules with live demos: employee management, attendance, leave, payroll, reports, self-service, mobile, security, shift scheduling and visitor management.",
+    menu: [["try", "layers", "Browse the modules"]],
+    main: (mm) => `${hero(mm)}
+${modGrid("Ten modules, one record.", "Pick a module to see what it does.")}
+${featRows()}
+${featReports()}
+${closeBand({ title: "Have a workflow we don't cover yet?", lead: "We build custom modules, approvals and integrations that fit, not force, your process.", say: "Let's build it!", card: "Talk to us", links: [["Explore custom development", "/custom-development/"], ["Talk to our team", "/contact/", true]], small: "We reply within one business day." })}`
   });
 }

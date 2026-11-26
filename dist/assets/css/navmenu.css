@@ -341,3 +341,18 @@ html[data-theme="dark"]::before { mix-blend-mode: normal; animation: none; backg
 .lfx__bloom.nb { background: radial-gradient(circle, rgba(3,8,24,.97) 0, rgba(5,12,34,.82) 14%, rgba(8,18,48,.5) 34%, rgba(8,18,48,.18) 56%, transparent 74%); }
 .lfx__moon { top: calc(var(--y) + 4px); }
 .lfx__halo { top: calc(var(--y) - 130px); }
+
+/* ===== one module-card concept for the whole site (home, related modules on every module page) ===== */
+body .mods__grid > a.md { position: relative; display: flex; flex-direction: column; gap: 0; min-height: 0 !important; height: 100%; padding: 24px 22px 22px; overflow: hidden; background: #fff; }
+body .mods__grid > a.md .md__ic { width: 50px; height: 50px; margin: 0 0 14px; font-size: 24px; border-radius: 17px; z-index: 2; }
+body .mods__grid > a.md > b { position: relative; z-index: 2; display: block; min-height: 2.5em; font: 600 17px/1.25 var(--f-d); letter-spacing: -.02em; color: var(--ink); }
+body .mods__grid > a.md > span { display: block; min-height: 2.9em; margin-top: 6px; font-size: 13.5px; line-height: 1.45; color: var(--ink2); opacity: 1 !important; }
+body .mods__grid > a.md .md__d { margin: 10px 0 0; min-height: 4.5em; font-size: 13px; line-height: 1.5; color: var(--ink2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+body .mods__grid > a.md .md__go { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: #fff; font: 700 13px/1 var(--f); font-style: normal; opacity: 1 !important; transition: transform .3s var(--spring); }
+body .mods__grid > a.md .md__d + .md__go { margin-top: 16px; }
+body .mods__grid > a.md:hover .md__go { transform: translateX(3px); }
+body .mods__grid > a.md ul { position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 142px 22px 22px; display: grid; align-content: start; gap: 10px; background: var(--world); color: var(--on); border: 0; font-size: 13px; line-height: 1.35; font-weight: 600; overflow: hidden; transform: translateY(101%); transition: transform .45s var(--ease); }
+body .mods__grid > a.md:hover ul, body .mods__grid > a.md:focus-visible ul { transform: none !important; }
+body .mods__grid > a.md ul li { display: flex; align-items: flex-start; gap: 9px; } body .mods__grid > a.md ul li::before { content: ""; flex: none; width: 6px; height: 6px; margin: 6px 0 0; border-radius: 50%; background: currentColor; }
+body .mods__grid > a.md:hover > b, body .mods__grid > a.md:focus-visible > b { color: var(--on); }
+body .mods__grid > a.md:hover .md__ic { background: var(--on); color: var(--world); }
