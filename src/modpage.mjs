@@ -157,7 +157,7 @@ function before(m) {
       <span class="mba__sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
       <span class="mba__say" data-bsay>${esc(L.say)}</span>
       <div class="mba__lady" aria-hidden="true">${who(byName["Priya"], 3)}</div>
-      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em data-recpct>0%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i>${x}</li>`).join("")}</ul></div>
+      <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em data-recpct>0%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i><span class="recp">${esc(fixes[i] || x)}</span><span class="recs">${esc(x)}</span></li>`).join("")}</ul></div>
       <ul class="mba__cards" aria-hidden="true">${fixes.map((bad, i) => `<li class="k${i}"><span class="bf"><i></i>${bad}</span></li>`).join("")}</ul>
       <span class="mba__prog" data-prog aria-hidden="true">Waiting for the file…</span>
       <span class="mba__floor"></span>

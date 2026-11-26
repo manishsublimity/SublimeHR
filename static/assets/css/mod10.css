@@ -876,3 +876,20 @@
 .mba__cards li.fixed { transform: rotate(var(--r, 0deg)) !important; }
 .mba__cards li:last-child { width: var(--w, 112px) !important; }
 .mba__cards .k1 { --x: 51%; --w: 122px; } .mba__cards .k3 { --x: 77.5%; --y: 64%; --w: 116px; } .mba__cards .k5 { --x: 53%; --y: 81%; --w: 116px; } .mba__cards .k6 { --x: 79%; --y: 83%; --w: 108px; }
+
+/* ===== before / after scene, redesigned: one big record whose rows ARE the problems. Subi flips them one by one into answers. ===== */
+.mba__cards { visibility: hidden !important; pointer-events: none; }
+.mba__record { width: 57% !important; right: 20px !important; top: 20px !important; padding: 16px 16px 16px !important; border-radius: 22px 22px 8px 22px; }
+.mba__rechead { margin-bottom: 12px; }
+.mba__record ul { gap: 8px !important; }
+.mba__record li { display: grid !important; grid-template-columns: 24px 1fr; align-items: center; gap: 12px !important; padding: 11px 14px 11px 11px !important; border-radius: 14px !important; font: 600 13.5px/1.25 var(--f) !important; color: var(--ink) !important; background: #FFEFF3 !important; box-shadow: inset 0 0 0 1.5px rgba(214,51,108,.28); overflow: hidden; transition: background .45s, box-shadow .45s, transform .5s var(--spring) !important; }
+.mba__record li i { width: 24px !important; height: 24px !important; background: #FFD3DE !important; color: #D6336C !important; grid-column: 1; position: relative; }
+.mba__record li i .ic { display: none; width: 12px; height: 12px; } .mba__record li i::before { content: "\00d7"; position: absolute; inset: 0; display: grid; place-items: center; font: 700 17px/1 var(--f); }
+.mba__record li .recp, .mba__record li .recs { grid-area: 1 / 2; transition: opacity .35s, transform .5s var(--spring); }
+.mba__record li .recs { opacity: 0; transform: translateY(10px); }
+.mba__record li.done { background: color-mix(in srgb, var(--world) 13%, #fff) !important; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--world) 35%, #fff) !important; transform: none !important; }
+.mba__record li.done i { background: var(--world) !important; color: var(--on) !important; transform: scale(1.08); } .mba__record li.done i::before { display: none; } .mba__record li.done i .ic { display: block; }
+.mba__record li.done .recp { opacity: 0; transform: translateY(-10px); } .mba__record li.done .recs { opacity: 1; transform: none; }
+.mba[data-step="work"] .mba__record li:not(.done) { animation: mbwob 1.4s ease-in-out infinite; } .mba[data-step="work"] .mba__record li:not(.done):nth-child(even) { animation-delay: -.7s; }
+@keyframes mbwob { 50% { transform: translateX(3px) rotate(.4deg); } }
+.mba__lady { left: 26px; }
