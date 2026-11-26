@@ -838,3 +838,25 @@
 @media (max-width: 700px) { .mba__strip { flex-wrap: wrap; } .mba__cta { margin-left: 0; } }
 .mba__pane p { font-size: 23px; line-height: 1.32; margin-top: 18px; } .mba__pane ul { gap: 14px; margin-top: 26px; } .mba__pane { padding-bottom: 34px; }
 .mba__card .mba__pane.is-a, .mba__card .mba__pane.is-b { padding-bottom: 34px !important; }
+
+/* before / after scene: the problems are neat sticky notes you can read; once Subi has worked, every note stays and turns into a ticked answer */
+.mba__cards { position: absolute; inset: auto 4% 28px 46%; width: auto; height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-content: end; z-index: 4; pointer-events: none; }
+.mba__cards li { position: relative !important; left: auto !important; top: auto !important; width: auto !important; max-width: none !important; transform: rotate(var(--r2, -1.5deg)) !important; transition: transform .6s var(--spring), opacity .5s, filter .5s !important; }
+.mba__cards li:nth-child(even) { --r2: 1.5deg; } .mba__cards li:nth-child(3n) { --r2: -.8deg; }
+.mba__cards li:last-child { grid-column: 1 / -1; width: 62% !important; justify-self: center; }
+.mba__cards .bf { padding: 9px 10px 9px 10px !important; gap: 8px !important; font-size: 11.5px !important; line-height: 1.25 !important; min-height: 34px; box-sizing: border-box; transition: background .45s, color .45s, box-shadow .45s; }
+.mba__cards .bf i { display: grid; place-items: center; transition: background .3s, box-shadow .3s; }
+.mba__cards li.fixed { transform: rotate(0deg) !important; opacity: 1 !important; filter: none !important; }
+.mba__cards li.fixed .bf { opacity: 1 !important; transform: none !important; background: var(--world); color: var(--on); box-shadow: 0 12px 16px -10px color-mix(in srgb, var(--world) 70%, #000); text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: rgba(255,255,255,.7); }
+.mba__cards li.fixed .bf i { background: #fff; box-shadow: none; } .mba__cards li.fixed .bf i::after { content: ""; width: 6px; height: 3px; margin-top: -2px; border-left: 2px solid var(--world); border-bottom: 2px solid var(--world); transform: rotate(-45deg); }
+.mba__cards li.fixed .bf::before { background: rgba(255,255,255,.55); }
+
+/* before / after card: a little more life */
+.mba__card::before { content: ""; position: absolute; right: -90px; top: -90px; width: 300px; height: 300px; border-radius: 50%; border: 46px solid rgba(255,255,255,.16); pointer-events: none; animation: mbring 9s ease-in-out infinite alternate; }
+.mba__card::after { content: ""; position: absolute; right: 70px; top: 120px; width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.55); box-shadow: -120px 200px 0 -2px rgba(255,255,255,.4), 40px 260px 0 -3px rgba(255,255,255,.35); pointer-events: none; animation: mbring 6s ease-in-out infinite alternate-reverse; }
+@keyframes mbring { to { transform: translate(-10px, 14px) scale(1.05); } }
+.mba__pane { z-index: 1; }
+.mba__pane li { width: fit-content; padding: 8px 18px 8px 8px; border-radius: 999px; background: rgba(255,255,255,.42); transition: transform .35s var(--spring), background .3s; }
+.is-a li { background: rgba(255,255,255,.14); } .mba__pane li:hover { transform: translateX(6px); background: rgba(255,255,255,.6); } .is-a li:hover { background: rgba(255,255,255,.24); }
+.mba__pane ul { gap: 10px; }
+.mba__stat { animation: mbpop .6s var(--spring) both; } .mba__stat + .mba__stat { animation-delay: .1s; } @keyframes mbpop { from { opacity: 0; transform: translateY(10px) scale(.94); } }
