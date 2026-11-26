@@ -335,3 +335,9 @@ html[data-theme="dark"]::before { mix-blend-mode: normal; animation: none; backg
 .lamp.spin .lamp__body, .lamp.jiggle .lamp__body { transform-origin: 28px 76px; }
 .lamp:hover, .lamp.pulling, .lamp.springing { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .lamp { animation: none; } }
+
+/* ===== round seven: night spreads over the whole screen like the day, moon a little higher ===== */
+.lfx.to-dark .lfx__wash { display: block; }
+.lfx__bloom.nb { background: radial-gradient(circle, rgba(3,8,24,.97) 0, rgba(5,12,34,.82) 14%, rgba(8,18,48,.5) 34%, rgba(8,18,48,.18) 56%, transparent 74%); }
+.lfx__moon { top: calc(var(--y) + 4px); }
+.lfx__halo { top: calc(var(--y) - 130px); }

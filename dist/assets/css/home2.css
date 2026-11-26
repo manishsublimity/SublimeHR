@@ -1876,10 +1876,6 @@ body[data-w="factory"] [data-outfit="vest"] .ofit { background: linear-gradient(
 /* round two: readable dock hint, a calm roster hover, compact module cards, hands over held things, outfits that differ */
 .dock.hint .dock__lbl small::after { color: #fff; padding: 2px 9px; border-radius: 999px; background: rgba(8,16,60,.34); font-size: 11.5px; }
 .roster button:hover { transform: translateY(-3px); box-shadow: 0 10px 14px -10px rgba(20,33,61,.5); position: relative; z-index: 2; }
-.md, .md { min-height: 0 !important; padding: 22px 22px 20px; }
-.md ul { position: static !important; transform: none !important; background: none; color: var(--ink2); padding: 10px 0 0; margin-top: auto; gap: 5px; font-size: 13px; font-weight: 500; border-top: 1px dashed color-mix(in srgb, var(--world) 22%, #fff); display: grid; align-content: start; top: auto; }
-.md ul li { display: flex; align-items: flex-start; gap: 8px; } .md ul li::before { flex: none; width: 6px; height: 6px; margin: 6px 0 0; background: var(--world); }
-.md:hover ul { transform: none; }
 [data-item]:not([data-item="none"]) .arm { z-index: 10; }
 [data-outfit="blazer"][data-i="1"] { --sleeve: #3A3F4B; --fore: #3A3F4B; } [data-outfit="blazer"][data-i="1"] .ppl__body { background: #3A3F4B; }
 [data-outfit="blazer"][data-i="2"] { --sleeve: #7A3345; --fore: #7A3345; } [data-outfit="blazer"][data-i="2"] .ppl__body { background: #7A3345; }
@@ -1888,3 +1884,13 @@ body[data-w="factory"] [data-outfit="vest"] .ofit { background: linear-gradient(
 [data-outfit="blazer"][data-i="5"] { --sleeve: #2F6B53; --fore: #2F6B53; } [data-outfit="blazer"][data-i="5"] .ppl__body { background: #2F6B53; }
 [data-outfit="blazer"][data-i="6"] { --sleeve: #5B3F7E; --fore: #5B3F7E; } [data-outfit="blazer"][data-i="6"] .ppl__body { background: #5B3F7E; }
 .crowd { position: relative; } .crowd::before { content: ""; position: absolute; left: 4%; right: 4%; bottom: 0; top: 14%; border-radius: 50% 50% 0 0 / 80% 80% 0 0; background: radial-gradient(ellipse at 50% 85%, rgba(255,255,255,.3), rgba(255,255,255,.08) 55%, transparent 72%); pointer-events: none; }
+
+/* module cards: a short description and an Explore button fill the card; the feature list slides up on hover like before */
+body.lo .mods__grid > .md { min-height: 318px; padding: 24px 22px 22px; }
+.md .md__d { margin: 2px 0 12px; font-size: 13px; line-height: 1.5; color: var(--ink2); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+body.lo .mods__grid > .md .md__go { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: #fff; font: 700 13px/1 var(--f); font-style: normal; transition: transform .3s var(--spring), background .3s; }
+body.lo .mods__grid > .md:hover .md__go { transform: translateX(3px); }
+body.lo .mods__grid > .md ul { position: absolute !important; left: 0; right: 0; top: 0; bottom: 0; transform: translateY(101%) !important; background: var(--world); color: var(--on); padding: 128px 22px 20px; margin: 0; border: 0; display: grid; align-content: center; gap: 9px; font-size: 14px; font-weight: 600; }
+body.lo .mods__grid > .md:hover ul, body.lo .mods__grid > .md:focus-visible ul { transform: none !important; }
+body.lo .mods__grid > .md ul li { display: flex; align-items: flex-start; gap: 10px; } body.lo .mods__grid > .md ul li::before { flex: none; width: 6px; height: 6px; margin: 6px 0 0; border-radius: 50%; background: currentColor; }
+body.lo .mods__grid > .md .md__ic, body.lo .mods__grid > .md b { position: relative; z-index: 2; } body.lo .mods__grid > .md:hover b { color: var(--on); }
