@@ -109,3 +109,12 @@ main { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { .mhero .mchip, .mhero .tagx, .mhero::after, .mwin__top em span, .feed__h em i, .cta__feed-h .live, .mods__grid > a.md { animation: none !important; } }
 /* the phone-demo character never carries a chest badge or the white shirt panel */
 .movie__who .chest, .movie__who .ppl__body::after { display: none !important; }
+/* module/about hero: the copy column uses the gap that used to sit empty before the stage; the stage (640px) always still fits */
+@media (min-width: 1101px) { .mhero .hero__main { grid-template-columns: minmax(0, clamp(440px, calc(100vw - 790px), 560px)) minmax(0, 1fr); } }
+/* about stats: four numbers tossed across the free half of each card */
+.abt__s:not(.abt__s--2) .abt__toss { width: 168px; right: 14px; }
+.abt__s:not(.abt__s--2) .abt__toss i { width: 36px; height: 36px; margin-left: -18px; font-size: 16px; }
+.abt__s:not(.abt__s--2) .abt__toss i:nth-child(1) { --x: -64px !important; --rise: -72px; }
+.abt__s:not(.abt__s--2) .abt__toss i:nth-child(2) { --x: -22px !important; --rise: -112px; }
+.abt__s:not(.abt__s--2) .abt__toss i:nth-child(3) { --x: 22px !important; --rise: -88px; }
+.abt__s:not(.abt__s--2) .abt__toss i:nth-child(4) { --x: 62px !important; --rise: -120px; }
