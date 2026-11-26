@@ -7,12 +7,12 @@
   /* ---- 70+ feature areas: rain, pile up as a pyramid, collapse ---- */
   var box = document.querySelector(".abt__fx--rain");
   if (box) {
-    var stack = [["Leave", "Shifts", "Payroll"], ["Records", "Reports"], ["Attendance"]];
+    var stack = [["Leave", "Shifts", "Payroll"], ["Records", "Reports"], ["Attendance"], ["+64 more"]];
     var extra = ["Visitors", "Mobile", "Security", "Self service", "Access", "Roles"];
     var items = [], drops = [], W = 150, H = 138, GAP = 4, RH = 24;
     function mk(t, cls) { var e = document.createElement("i"); e.textContent = t; e.className = cls; box.appendChild(e); return e; }
     stack.forEach(function (row, r) {
-      var els = row.map(function (t) { return mk(t, "abt__pill"); });
+      var els = row.map(function (t) { return mk(t, t.charAt(0) === "+" ? "abt__pill abt__pill--more" : "abt__pill"); });
       var tot = els.reduce(function (a, e) { return a + e.offsetWidth + GAP; }, -GAP), x = (W - tot) / 2;
       els.forEach(function (e) { items.push({ el: e, x: x, y: H - RH - r * (RH + GAP) }); x += e.offsetWidth + GAP; });
     });
@@ -49,19 +49,45 @@
     if (reduce) { settle(); } else { cycle(); }
   }
 
-  /* ---- languages: the same rotation the home page uses ---- */
-  var L = document.querySelector("[data-alang]"), Hh = document.querySelector("[data-ahello]");
-  if (L) {
-    var langs = [["EN", "ltr", 1, "Hello"], ["عربي", "rtl", .82, "مرحبا"], ["हिन्दी", "ltr", .8, "नमस्ते"], ["Español", "ltr", .56, "Hola"], ["Français", "ltr", .56, "Bonjour"], ["Deutsch", "ltr", .56, "Hallo"], ["Türkçe", "ltr", .56, "Merhaba"], ["Bahasa", "ltr", .6, "Halo"], ["中文", "ltr", .86, "你好"], ["Português", "ltr", .5, "Olá"]], li = 0;
-    var base = parseFloat(getComputedStyle(L).fontSize) || 60; L.style.height = base + "px"; L.style.lineHeight = base + "px"; L.style.whiteSpace = "nowrap"; L.style.transition = "opacity .28s, transform .28s";
+  /* ---- report types: one report sheet at a time, its chart redraws for each of the 13 reports ---- */
+  var sheet = document.querySelector("[data-sheet]");
+  if (sheet) {
+    var RT = ["Event Sheet", "Timesheet", "Attendance", "Comparison", "Exception", "Punch Approval", "Who Is Here", "Daily Clock In/Out", "Penalty", "Daily Salary", "Visitor Timesheet", "Biometrics", "Late Coming"];
+    var FM = ["PDF", "XLS", "CSV"], bars = [].slice.call(sheet.querySelectorAll(".abt__bars i")), tt = sheet.querySelector("[data-rtitle]"), fm = sheet.querySelector("[data-rfmt]"), ri = 0;
+    function heights(k) { return bars.map(function (_, j) { return 22 + ((k * 37 + j * 53 + (k * j) % 7 * 11) % 70); }); }
+    function showReport(k) {
+      tt.textContent = RT[k]; fm.textContent = FM[k % 3];
+      var h = heights(k); bars.forEach(function (b, j) { b.style.height = h[j] + "%"; });
+    }
+    bars.forEach(function (b) { b.style.height = "0%"; });
+    showReport(0);
     if (!reduce) {
       setInterval(function () {
-        li = (li + 1) % langs.length;
-        L.style.opacity = 0; L.style.transform = "translateY(-10px)"; if (Hh) { Hh.style.opacity = 0; Hh.style.transform = "scale(.7)"; }
+        ri = (ri + 1) % RT.length;
+        sheet.classList.add("flip");
+        bars.forEach(function (b) { b.style.height = "0%"; });
+        setTimeout(function () { showReport(ri); sheet.classList.remove("flip"); }, 380);
+      }, 2100);
+    }
+  }
+
+  /* ---- languages: one wheel, the active language in its own script, neighbours in English ---- */
+  var L = document.querySelector("[data-alang]"), wheel = document.querySelectorAll(".abt__wheel i");
+  if (L) {
+    var langs = [["EN", "ltr", 1, "English"], ["عربي", "rtl", .82, "Arabic"], ["हिन्दी", "ltr", .8, "Hindi"], ["Español", "ltr", .56, "Spanish"], ["Français", "ltr", .56, "French"], ["Deutsch", "ltr", .56, "German"], ["Türkçe", "ltr", .56, "Turkish"], ["Bahasa", "ltr", .6, "Indonesian"], ["中文", "ltr", .86, "Chinese"], ["Português", "ltr", .5, "Portuguese"]], li = 0, N = langs.length;
+    var base = parseFloat(getComputedStyle(L).fontSize) || 60; L.style.height = base + "px"; L.style.lineHeight = base + "px"; L.style.whiteSpace = "nowrap"; L.style.transition = "opacity .28s, transform .28s";
+    function paintWheel() { if (wheel.length === 3) { wheel[0].textContent = langs[(li + N - 1) % N][3]; wheel[1].textContent = langs[li][3]; wheel[2].textContent = langs[(li + 1) % N][3]; } }
+    paintWheel();
+    if (!reduce) {
+      setInterval(function () {
+        li = (li + 1) % N;
+        L.style.opacity = 0; L.style.transform = "translateY(-10px)";
+        [].forEach.call(wheel, function (w) { w.style.transition = "opacity .28s, transform .28s"; w.style.opacity = 0; w.style.transform = "translateY(-8px)"; });
         setTimeout(function () {
           L.textContent = langs[li][0]; L.setAttribute("dir", langs[li][1]); L.style.fontSize = Math.round(base * langs[li][2]) + "px";
           L.style.transform = "translateY(10px)"; void L.offsetWidth; L.style.opacity = 1; L.style.transform = "none";
-          if (Hh) { Hh.textContent = langs[li][3]; Hh.setAttribute("dir", langs[li][1]); Hh.style.opacity = 1; Hh.style.transform = "scale(1)"; }
+          paintWheel();
+          [].forEach.call(wheel, function (w) { w.style.transform = "translateY(8px)"; void w.offsetWidth; w.style.opacity = ""; w.style.transform = "none"; });
         }, 290);
       }, 1900);
     }
