@@ -152,7 +152,7 @@ function before(m) {
         <div class="mba__strip"><div class="mba__stat"><b>0</b><span>left to chase</span></div><div class="mba__stat"><b>${m.features.length}</b><span>features on one record</span></div><a class="mba__cta" href="#try">Try the live demo ${icon("arrow", "ic")}</a></div></div>
     </div>
     <div class="mba__scene cast">
-      <div class="mba__chaos" aria-hidden="true">${fixes.map((bad, i) => `<span class="ch ch${i % 7} k${i}"><i></i><b>${esc(bad)}</b></span>`).join("")}</div>
+      <div class="mba__chaos" aria-hidden="true"><span class="mba__tiles"></span>${fixes.map((bad, i) => `<span class="ch ch${i % 7} k${i}"><i></i><b>${esc(bad)}</b></span>`).join("")}</div>
       <div class="mba__clean" aria-hidden="true">
       <div class="mba__record" aria-hidden="true"><div class="mba__rechead"><i>${esc(L.av)}</i><span><b>${esc(L.name)}</b><small>${esc(L.sub)}</small></span><em>100%</em></div><ul>${rec.map((x, i) => `<li><i>${icon("check", "ic")}</i><span class="recp">${esc(fixes[i] || x)}</span><span class="recs">${esc(m.features[i] || x)}</span></li>`).join("")}</ul></div>
       </div>

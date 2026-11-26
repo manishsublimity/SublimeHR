@@ -964,3 +964,23 @@
 .mba__clean .mba__record li { gap: 0 10px !important; padding: 6px 12px 6px 10px !important; min-height: 44px; }
 .mba__clean .recp { font-size: 10px; } .mba__clean .recs { font-size: 12.5px; }
 .ch.k5 { --x: 54%; --y: 79%; }
+
+
+/* ===== scene polish: she stands on a tiled floor with a shadow, the thought bubble sits close to her head, nothing overlaps ===== */
+.mba__tiles { position: absolute; left: -12%; right: -12%; bottom: -30px; height: 250px; transform: perspective(430px) rotateX(60deg); transform-origin: 50% 100%; background:
+  linear-gradient(color-mix(in srgb, var(--world) 26%, transparent) 1.5px, transparent 1.5px) 0 0 / 100% 44px,
+  linear-gradient(90deg, color-mix(in srgb, var(--world) 26%, transparent) 1.5px, transparent 1.5px) 0 0 / 60px 100%;
+  -webkit-mask-image: linear-gradient(transparent, #000 45%); mask-image: linear-gradient(transparent, #000 45%); pointer-events: none; }
+.mba__chaos::after { content: "\25cf  A messy day" !important; left: 18px !important; top: 16px !important; bottom: auto !important; padding: 7px 13px; border-radius: 999px; background: #fff; color: #D6336C !important; box-shadow: 0 10px 16px -10px rgba(214,51,108,.6); font: 700 11.5px/1 var(--f); letter-spacing: .03em !important; text-transform: none !important; }
+.mba__lady { bottom: 34px !important; isolation: isolate; }
+.mba__lady::after { content: ""; position: absolute; left: 4%; right: 4%; bottom: -7px; height: 16px; border-radius: 50%; background: radial-gradient(ellipse at 50% 50%, rgba(20,33,61,.38), rgba(20,33,61,0) 70%); filter: blur(2px); z-index: -1; }
+.mba__scene .mba__say { left: 30px !important; top: 150px !important; width: 150px !important; max-width: 150px !important; border-radius: 18px 18px 18px 18px; }
+.mba__scene .mba__say::after { content: ""; position: absolute; left: 44px; bottom: -13px; width: 11px; height: 11px; border-radius: 50%; background: #fff; box-shadow: 9px 10px 0 -3px #fff, 0 6px 8px -4px rgba(20,33,61,.4); }
+.mba__clean .mba__record { top: 20px !important; left: 208px !important; padding-bottom: 54px !important; }
+.mba__clean .mba__record li { min-height: 42px; padding: 5px 12px 5px 10px !important; }
+.mba[data-state="after"] .mba__prog { right: 34px !important; bottom: 34px !important; }
+.mba__prog { bottom: 16px !important; }
+.mba__tiles { background: linear-gradient(color-mix(in srgb, var(--world) 42%, transparent) 2px, transparent 2px) 0 0 / 100% 44px, linear-gradient(90deg, color-mix(in srgb, var(--world) 42%, transparent) 2px, transparent 2px) 0 0 / 60px 100%; }
+.mba__tiles::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--world) 18%, transparent), transparent 65%); }
+.mba[data-state="after"] .mba__prog { bottom: 56px !important; }
+.ch.k0 { --x: 34%; --y: 19%; }
