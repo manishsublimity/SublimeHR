@@ -728,3 +728,21 @@
 @media (max-width: 600px) { .mba__card .mba__pane { padding: 28px 22px 26px !important; } }
 /* before/after card on a phone: the counters and the "See the fix" strip go, the Before / With SublimeHR switch above the card does the job */
 @media (max-width: 600px) { .mba__card .mba__strip { display: none !important; } }
+
+/* ================= round 11 ================= */
+/* the sound switch moves into the menu; no back-to-top button on phone and tablet */
+.nav__snd { display: none; }
+@media (max-width: 1080px) {
+  .fab, .topbtn { display: none !important; }
+  body .nav.open .nav__snd { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 16px 2px; border: 0; border-bottom: 1px solid rgba(255,255,255,.2); background: none; color: #fff; font: 600 17px/1.2 var(--f, sans-serif); text-align: left; cursor: pointer; }
+  .nav__snd-sw { position: relative; flex: none; width: 46px; height: 26px; border-radius: 999px; background: rgba(255,255,255,.3); transition: background .25s; }
+  .nav__snd-sw i { position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .25s cubic-bezier(.2,.9,.3,1); }
+  .nav__snd[aria-pressed="true"] .nav__snd-sw { background: #FFD05A; }
+  .nav__snd[aria-pressed="true"] .nav__snd-sw i { transform: translateX(20px); }
+  /* the open menu: the logo mark and the name are plain white on the blue */
+  body .nav.open .nav__logo, body .nav.open.solid .nav__logo, body .nav.open.solid.onhero .nav__logo { background: #fff !important; -webkit-mask: var(--logo) center / contain no-repeat !important; mask: var(--logo) center / contain no-repeat !important; }
+  body .nav.open .nav__brand, body .nav.open .nav__brand span, body .nav.open .nav__brand b { color: #fff !important; background: none !important; -webkit-text-fill-color: #fff !important; text-shadow: none !important; filter: none !important; }
+  /* the menu button sits a little further right */
+  body .nav .nav__burger { margin-right: -24px; }
+}
+@media (max-width: 1080px) { body .nav.open .nav__brand b { opacity: 1 !important; } }

@@ -19,4 +19,16 @@
     });
   });
   [].forEach.call(nav.querySelectorAll(".nav__links > a, .nav__mega a"), function (a) { a.addEventListener("click", function () { set(false); }); });
+  /* sound switch lives in the menu on phone and tablet: it drives the floating sound button, which is hidden there */
+  var fab = document.querySelector(".fab[data-sound]"), links = nav.querySelector(".nav__links");
+  if (fab && links) {
+    var sb = document.createElement("button");
+    sb.type = "button"; sb.className = "nav__snd";
+    sb.innerHTML = '<span class="nav__snd-t">Sound</span><span class="nav__snd-sw" aria-hidden="true"><i></i></span>';
+    var sync = function () { var on = fab.getAttribute("aria-pressed") === "true"; sb.setAttribute("aria-pressed", String(on)); sb.querySelector(".nav__snd-t").textContent = on ? "Sound on" : "Sound off"; };
+    sb.addEventListener("click", function () { fab.click(); setTimeout(sync, 30); });
+    var cta = links.querySelector(".nav__cta-m"); links.insertBefore(sb, cta || null);
+    sync();
+    if (window.MutationObserver) new MutationObserver(sync).observe(fab, { attributes: true, attributeFilter: ["aria-pressed"] });
+  }
 })();
