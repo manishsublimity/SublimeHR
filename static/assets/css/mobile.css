@@ -750,7 +750,7 @@
 /* ================= bottom bar: white bar, a notch and a round badge on the active tab, the badge carries that tab's icon ================= */
 @property --ax { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @media (max-width: 760px) {
-  .tabbar { --ax: 0px; height: 62px; left: 12px; right: 12px; padding: 0 4px; border-radius: 0; background: none !important; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none !important; filter: drop-shadow(0 10px 14px rgba(20,33,61,.18)); transition: --ax .45s cubic-bezier(.3,1.15,.4,1); }
+  .tabbar { --ax: 0px; height: 62px; left: 12px; right: 12px; padding: 0 14px; border-radius: 0; background: none !important; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none !important; filter: drop-shadow(0 10px 14px rgba(20,33,61,.18)); transition: --ax .45s cubic-bezier(.3,1.15,.4,1); }
   .tabbar::before { content: ""; position: absolute; inset: 0; border-radius: 24px; background: #fff; z-index: 0; }
   .tabbar[data-act]::before { -webkit-mask: radial-gradient(circle at var(--ax) -2px, transparent 38px, #000 39px); mask: radial-gradient(circle at var(--ax) -2px, transparent 38px, #000 39px); }
   html[data-theme="dark"] .tabbar::before { background: #101B33; }
@@ -766,3 +766,6 @@
   .tabbar[data-act] .tabbar__dot { display: grid; }
   body { padding-bottom: 78px !important; }
 }
+
+@media (max-width: 760px) { .tabbar.still, .tabbar.still::before { transition: none !important; } .tabbar.still .tabbar__dot { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { .tabbar { transition: none !important; } }

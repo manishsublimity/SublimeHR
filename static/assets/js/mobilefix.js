@@ -68,12 +68,22 @@
   bar.appendChild(dot);
   document.body.appendChild(bar);
   /* the notch and the round badge sit on whichever tab is active, and carry its icon */
-  function seat() {
+  var KEY = "sublime-tab", tabs = [].slice.call(bar.querySelectorAll("a"));
+  function cx(a) { return (a.offsetLeft + a.offsetWidth / 2) + "px"; }
+  function seat(slide) {
     var on = bar.querySelector("a.on");
-    if (!on) { bar.removeAttribute("data-act"); return; }
+    if (!on) { bar.removeAttribute("data-act"); try { sessionStorage.removeItem(KEY); } catch (e) {} return; }
+    var idx = tabs.indexOf(on), prev = -1;
+    if (slide) { try { prev = parseInt(sessionStorage.getItem(KEY), 10); } catch (e) {} }
+    try { sessionStorage.setItem(KEY, String(idx)); } catch (e) {}
     bar.setAttribute("data-act", "1");
     dot.innerHTML = on.querySelector("svg").outerHTML;
-    bar.style.setProperty("--ax", (on.offsetLeft + on.offsetWidth / 2) + "px");
+    if (slide && prev >= 0 && prev !== idx && tabs[prev]) {
+      /* arriving from another tab: start where the badge was on the last page, then glide to this tab */
+      bar.classList.add("still"); bar.style.setProperty("--ax", cx(tabs[prev]));
+      void bar.offsetWidth; bar.classList.remove("still");
+      requestAnimationFrame(function () { requestAnimationFrame(function () { bar.style.setProperty("--ax", cx(on)); }); });
+    } else { bar.classList.add("still"); bar.style.setProperty("--ax", cx(on)); void bar.offsetWidth; bar.classList.remove("still"); }
   }
-  seat(); window.addEventListener("resize", seat); window.addEventListener("load", seat);
+  seat(true); window.addEventListener("resize", function () { seat(false); });
 })();
