@@ -5,7 +5,7 @@
   if (qs && chat) {
     var home = qs.parentNode, foot = chat.querySelector(".chat__foot");
     var place = function () {
-      if (mq.matches) { chat.insertBefore(qs, foot || null); qs.classList.add("in-chat"); }
+      if (mq.matches) { (foot && foot.parentNode ? foot.parentNode : chat).insertBefore(qs, foot || null); qs.classList.add("in-chat"); }
       else { home.appendChild(qs); qs.classList.remove("in-chat"); }
     };
     place();
