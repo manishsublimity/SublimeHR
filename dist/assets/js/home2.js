@@ -231,7 +231,15 @@
     slots.forEach(function (s) { $(".ppl", s).classList.add("hop"); });
     renderNeeds(); $("[data-dash-ind]").textContent = d.name; fillPane(pn); say(coreSay, "Touch a need and I'll tell you more.", 3200);
     if (fromUser) { Snd.whoosh(); guideSay("Welcome to the " + d.name.toLowerCase() + " floor.", 3200); }
+    tone();
     last = -1; setTimeout(act, 700);
+  }
+  /* the active chip takes this industry's "on" colour as its background; its name is dark on a light chip and white on a dark one */
+  var toneProbe = document.createElement("i"); toneProbe.style.cssText = "position:absolute;width:0;height:0;visibility:hidden;color:var(--on)";
+  function tone() {
+    var host = dockEl || document.body; host.appendChild(toneProbe);
+    var m = getComputedStyle(toneProbe).color.match(/[\d.]+/g) || [255, 255, 255], lum = (.299 * m[0] + .587 * m[1] + .114 * m[2]) / 255;
+    if (dockEl) dockEl.setAttribute("data-tone", lum < .55 ? "dk" : "lt");
   }
   var dockEl = $(".dock"); if (dockEl) dockEl.classList.add("hint");
   chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; if (dockEl) dockEl.classList.remove("hint"); var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); }); });

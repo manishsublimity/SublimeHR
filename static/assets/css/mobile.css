@@ -812,3 +812,9 @@
 
 /* the menu-only demo button and sound row never show in the desktop header */
 @media (min-width: 1081px) { body .nav .nav__cta-m, body .nav .nav__snd { display: none !important; } }
+
+/* industry picker: the name on the active chip is always dark, so it reads on any industry colour */
+@media (min-width: 601px) {
+  .dock .chip[aria-pressed="true"], .dock .chip[aria-pressed="true"] span { color: #14213D; opacity: 1; }
+  .dock[data-tone="dk"] .chip[aria-pressed="true"], .dock[data-tone="dk"] .chip[aria-pressed="true"] span { color: #fff; }
+}
