@@ -507,3 +507,42 @@
 
 @media (min-width: 441px) and (max-width: 600px) { .mba__scene { zoom: .84; } }
 @media (min-width: 601px) and (max-width: 760px) { .mba__scene { zoom: .92; } }
+/* ===== round 4 ===== */
+/* roster legend: one flowing row, the note on its own line */
+@media (max-width: 960px) {
+  .lc--roster .legend { display: flex !important; flex-wrap: wrap; gap: 8px 22px !important; grid-template-columns: none !important; align-items: center; }
+  .lc--roster .legend .lg1 { flex: 0 0 auto; }
+  .lc--roster .legend .lg1--n { flex: 1 0 100%; display: flex; align-items: center; gap: 8px; white-space: normal; }
+  .lc--roster .legend .lg1--n .cvk { flex: none; position: static; }
+}
+/* numbers: no stray hairlines inside the four */
+.score__card .sc1::before, .score__card .sc1::after { display: none !important; }
+/* modules: one card per row on a phone, so the names stay whole */
+@media (max-width: 520px) { .mods__grid { grid-template-columns: minmax(0, 1fr) !important; } .mods .md b { font-size: 16px; overflow-wrap: normal; hyphens: manual; } }
+/* rhythm: both lists start at the same height */
+@media (min-width: 560px) and (max-width: 960px) {
+  .rhythm__copy > .pains, .rhythm__copy > .rec { margin-top: 0 !important; align-self: start; align-content: start !important; }
+  .rhythm__copy > .rhythm__sub { margin-bottom: 8px; margin-top: 0; }
+}
+/* hero: the tally is flush left, the industry column has no frame */
+@media (min-width: 601px) and (max-width: 960px) {
+  .hero__copy .tally { margin-left: 0 !important; justify-self: start !important; justify-content: flex-start !important; width: auto; }
+  .hero__wrap > .dock, .hero__wrap > .dock::before, .hero__wrap > .dock::after { border: 0 !important; outline: 0 !important; box-shadow: none !important; background: none !important; }
+  .hero__wrap > .dock::before, .hero__wrap > .dock::after { display: none !important; }
+}
+/* phone demo steps: a swipeable tab row */
+@media (max-width: 640px) {
+  .movie__steps { display: flex !important; flex-wrap: nowrap; overflow-x: auto; gap: 8px; padding-bottom: 6px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .movie__steps::-webkit-scrollbar { display: none; }
+  .movie__steps button { flex: none; scroll-snap-align: start; padding: 8px 14px 8px 8px; background: #fff; box-shadow: 0 0 0 1px rgba(20,33,61,.1); }
+  .movie__steps button small { display: none !important; }
+  .movie__steps button[aria-selected="true"] { background: var(--world); color: var(--on); box-shadow: none; }
+  .movie__steps button[aria-selected="true"] i { background: #fff; color: var(--world); }
+  .movie__steps button b { white-space: nowrap; font-size: 13.5px; }
+}
+/* request leave: the three modes never sit on the subtitle */
+@media (max-width: 720px) {
+  .lc--leave .modes { position: static !important; margin: 10px 0 4px !important; }
+  .lc--leave > header { padding-right: 0 !important; }
+}
+@media (min-width: 721px) and (max-width: 860px) { .lc--leave > header { padding-right: 270px !important; } }

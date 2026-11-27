@@ -21,8 +21,8 @@
       if (!mq.matches) { walker.style.removeProperty("--wxx"); walker.style.removeProperty("--wyy"); return; }
       var cur = stops.filter(function (x) { return x.classList.contains("on"); }).pop() || stops[0];
       var c = cur.querySelector(".stp__c") || cur, tr = (walker.offsetParent || track).getBoundingClientRect(), r = c.getBoundingClientRect();
-      walker.style.setProperty("--wxx", (r.left - tr.left + r.width / 2) + "px");
-      walker.style.setProperty("--wyy", (r.top - tr.top + 8) + "px");
+      walker.style.setProperty("--wxx", (r.right - tr.left - 48) + "px");
+      walker.style.setProperty("--wyy", (r.top - tr.top + 5) + "px");
     };
     if (window.MutationObserver) { var mo = new MutationObserver(put); stops.forEach(function (x) { mo.observe(x, { attributes: true, attributeFilter: ["class"] }); }); }
     put(); setTimeout(put, 700); window.addEventListener("resize", put);
