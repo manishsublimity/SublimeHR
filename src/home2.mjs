@@ -427,7 +427,7 @@ export function homeFooter() {
 </footer>`;
 }
 
-export function home2(path = "/home-v2/") {
+export function home2(path = "/") {
   return `<!doctype html>
 <html lang="en">
 <head>
