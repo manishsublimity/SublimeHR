@@ -12,7 +12,8 @@ const priya = people.find((p) => p.n === "Priya"), omar = people.find((p) => p.n
 /* The header links (with the Product and Company drop-downs), the theme switch and the two buttons. */
 export function navMenu(active = "") {
   const cur = (k) => (active === k ? ' aria-current="page"' : "");
-  return `<nav class="nav__links" aria-label="Main">
+  return `<button class="nav__burger" type="button" data-burger aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i><i></i></button>
+  <nav class="nav__links" id="nav-links" aria-label="Main">
     <div class="nav__item"><a href="/features/"${cur("features")}>Product ${icon("chevron", "chev")}</a>
       <div class="nav__mega">${feat("Product", "Everything behind the people.", "Ten modules that share one employee record, so nothing is typed twice.", "See all features", "/features/", who(priya, 0))}
         <div class="nm__list">${modules.map((m) => row(`/software/${m.slug}/`, m.icon, m.name, m.short.replace(/&/g, "&amp;"))).join("")}</div></div></div>
@@ -20,8 +21,9 @@ export function navMenu(active = "") {
     <div class="nav__item"><a href="/about/"${cur("company")}>Company ${icon("chevron", "chev")}</a>
       <div class="nav__mega sm">${feat("Company", "Say hello.", "Ask about demos, support or partnerships.", "Contact us", "/contact/", who(omar, 1))}
         <div class="nm__list">${row("/about/", "building", "About us", "Mission &amp; vision")}${row("/custom-development/", "code", "Custom development", "Built around your workflow")}${row("/faq/", "message", "FAQ", "Ask our HR assistant")}${row("/contact/", "call", "Contact", "We reply within 1 business day")}</div></div></div>
+    <a class="btn btn--on nav__cta-m" href="/book-demo/">Book a demo</a>
   </nav>
-  <a class="btn btn--on" href="/book-demo/">Book a demo</a>`;
+  <a class="btn btn--on nav__cta" href="/book-demo/">Book a demo</a>`;
 }
 
 /* Day / night switch: the little pull-cord lamp that hangs from the top of the page. Pull it and the lights go to night. */

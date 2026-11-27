@@ -71,6 +71,7 @@ function head(m, path, description, title) {
 <link rel="stylesheet" href="/assets/css/mod9.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/mod10.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/system.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mobile.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>`;
 }
@@ -284,6 +285,7 @@ ${ldExtra}
 <script src="/assets/js/mod11.js?v=${V}" defer></script>
 <script src="/assets/js/mod3.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>
+<script src="/assets/js/navburger.js?v=${V}" defer></script>
 </body>
 </html>
 `;

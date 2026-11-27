@@ -444,6 +444,7 @@ export function home2(path = "/home-v2/") {
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/system.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mobile.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/cast.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
@@ -823,6 +824,7 @@ ${themeFab()}
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>
+<script src="/assets/js/navburger.js?v=${V}" defer></script>
 </body>
 </html>`;
 }
