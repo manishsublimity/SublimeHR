@@ -694,3 +694,13 @@
   .aoff__t .aoff__v, .aoff__t:not(.aoff__t--0):not(.aoff__t--4):not(.aoff__t--8) .aoff__v { transform: scale(.72) !important; right: 64px; }
 }
 @media (min-width: 461px) and (max-width: 1180px) { .aoff__t--3, .aoff__t--7 { grid-column: span 2; } }
+
+/* about number cards: shorter, and on the smallest phones without the little animations */
+@media (max-width: 600px) {
+  .abt__s { min-height: 176px; padding: 16px 20px 18px; }
+  .abt__s span.abt__fx { transform: scale(.58); }
+}
+@media (max-width: 380px) {
+  .abt__s { min-height: 124px; }
+  .abt__s span.abt__fx { display: none !important; }
+}
