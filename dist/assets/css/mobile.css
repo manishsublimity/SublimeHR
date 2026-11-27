@@ -726,3 +726,5 @@
   .mba__card .mba__pane li { font-size: 14px; padding: 6px 14px 6px 6px; }
 }
 @media (max-width: 600px) { .mba__card .mba__pane { padding: 28px 22px 26px !important; } }
+/* before/after card on a phone: the counters and the "See the fix" strip go, the Before / With SublimeHR switch above the card does the job */
+@media (max-width: 600px) { .mba__card .mba__strip { display: none !important; } }
