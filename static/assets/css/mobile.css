@@ -795,3 +795,6 @@
 .say[data-side="r"] { left: calc(50% - 22px); right: auto; transform: scale(.5); transform-origin: 0 100%; border-bottom-left-radius: 6px; }
 .say[data-side="r"].on { transform: none; }
 .say[data-side="r"]::after { left: 16px; }
+
+/* confetti flies behind the industry picker, so its pieces never show up as little boxes on the chips */
+.fx { z-index: 29; }
