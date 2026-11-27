@@ -765,3 +765,8 @@
   .tabbar a.mid.on::after { display: none; }
   body { padding-bottom: 78px !important; }
 }
+/* bottom bar: the active tab is always yellow */
+@media (max-width: 760px) {
+  .tabbar a.on:not(.mid) { color: #F5B000; }
+  .tabbar a.on:not(.mid)::after { background: #F5B000; }
+}
