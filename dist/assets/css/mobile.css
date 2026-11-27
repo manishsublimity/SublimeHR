@@ -815,8 +815,9 @@
 
 /* industry picker: the name on the active chip is always dark, so it reads on any industry colour */
 @media (min-width: 601px) {
-  .dock .chip[aria-pressed="true"], .dock .chip[aria-pressed="true"] span { color: #14213D; opacity: 1; }
-  .dock[data-tone="dk"] .chip[aria-pressed="true"], .dock[data-tone="dk"] .chip[aria-pressed="true"] span { color: #fff; }
+  .dock .chip[aria-pressed="true"] { background: #fff !important; color: #14213D !important; }
+  .dock .chip[aria-pressed="true"] span { color: #14213D !important; }
+  .dock .chip[aria-pressed="true"] .ic { color: #14213D; }
 }
 
 /* industry picker: the new chip turns solid at once and its name follows as it opens; the old one folds up in the same time, so no half-empty pill is left on screen */
