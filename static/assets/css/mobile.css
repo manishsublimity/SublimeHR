@@ -604,3 +604,18 @@
 @media (prefers-reduced-motion: reduce) { .hero__wrap > .dock .chips { animation: none; } }
 /* the zoom already scales the stage's own height, so it keeps its full design height and the people are no longer hidden under the ticker */
 @media (max-width: 600px) { .hero .stage { height: 565px; margin-bottom: 8px; } }
+
+/* ================= round 6 ================= */
+@media (max-width: 960px) { body .score__card .sc1::before, body .score__card .sc1::after { content: none !important; display: none !important; } }
+/* hero on a phone: the industry handle sits beside the copy, and the stage pulls up under the tally */
+@media (min-width: 431px) and (max-width: 600px) { .hero__wrap > .dock .chips { top: -128px; } }
+@media (max-width: 600px) { .hero .stage { margin-top: calc(-64px / var(--fit, .5)); } }
+/* roles: two tabs in a row */
+@media (max-width: 600px) {
+  .roles__tabs { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; overflow: visible !important; gap: 8px; }
+  .roles__tabs button { width: auto !important; min-width: 0; }
+}
+/* "See all features" stays on one line */
+@media (max-width: 960px) { .mods__head .link { white-space: nowrap; flex: none; } .mods__head h2 { min-width: 0; } }
+/* why cards: one per row on a phone */
+@media (max-width: 520px) { .why__grid { grid-template-columns: minmax(0, 1fr) !important; } }
