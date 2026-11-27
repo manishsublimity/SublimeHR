@@ -226,7 +226,9 @@
     chipBtns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === d.key ? "true" : "false"); });
     leads.forEach(function (l) { if (l) setText(l, d.lead); });
     allPpl.forEach(function (p) { dress(p, d); });
-    slots.forEach(function (s, k) { $('[data-tagx="' + k + '"] [data-role]').textContent = d.roles[k]; $("[data-prop]", s).innerHTML = icons[d.props[k]] || ""; var p = $(".ppl", s); p.classList.remove("hop"); void p.offsetWidth; p.classList.add("hop"); });
+    slots.forEach(function (s, k) { $('[data-tagx="' + k + '"] [data-role]').textContent = d.roles[k]; $("[data-prop]", s).innerHTML = icons[d.props[k]] || ""; $(".ppl", s).classList.remove("hop"); });
+    void stage.offsetWidth; /* one layout for all seven people, then they all hop */
+    slots.forEach(function (s) { $(".ppl", s).classList.add("hop"); });
     renderNeeds(); $("[data-dash-ind]").textContent = d.name; fillPane(pn); say(coreSay, "Touch a need and I'll tell you more.", 3200);
     if (fromUser) { Snd.whoosh(); guideSay("Welcome to the " + d.name.toLowerCase() + " floor.", 3200); }
     last = -1; setTimeout(act, 700);

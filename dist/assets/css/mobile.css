@@ -803,3 +803,9 @@
 @media (min-width: 1081px) {
   .nav .nav__links a[aria-current="page"]::before, .nav .nav__links a[aria-current="page"]::after { top: calc(var(--navpt) * -1 + 9px); }
 }
+
+/* industry picker: the name of the new industry fades in only once its chip has opened, and the old one fades out first, so no clipped sliver of text shows as a little box */
+.dock .chip span { transition: max-width .4s var(--ease) .05s, opacity .12s, margin .35s; }
+.dock .chip[aria-pressed="true"] span { transition: max-width .4s var(--ease), opacity .22s .2s, margin .35s; }
+.dock { contain: layout style; }
+.dock .chip { will-change: transform; }
