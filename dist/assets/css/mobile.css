@@ -798,3 +798,8 @@
 
 /* confetti flies behind the industry picker, so its pieces never show up as little boxes on the chips */
 .fx { z-index: 29; }
+
+/* header: the little mascot over the current menu item sits closer to the word */
+@media (min-width: 1081px) {
+  .nav .nav__links a[aria-current="page"]::before, .nav .nav__links a[aria-current="page"]::after { top: calc(var(--navpt) * -1 + 9px); }
+}
