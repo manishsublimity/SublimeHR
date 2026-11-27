@@ -769,3 +769,17 @@
 
 @media (max-width: 760px) { .tabbar.still, .tabbar.still::before { transition: none !important; } .tabbar.still .tabbar__dot { transition: none !important; } }
 @media (prefers-reduced-motion: reduce) { .tabbar { transition: none !important; } }
+
+/* ================= smooth page changes: the pages cross-fade instead of blinking, the header and the bottom bar stay put ================= */
+@view-transition { navigation: auto; }
+.nav { view-transition-name: site-nav; }
+.tabbar { view-transition-name: site-tabbar; }
+.subi { view-transition-name: site-subi; }
+::view-transition-group(site-nav), ::view-transition-group(site-tabbar), ::view-transition-group(site-subi) { animation-duration: .01s; }
+::view-transition-old(site-nav), ::view-transition-old(site-tabbar), ::view-transition-old(site-subi) { animation: none; opacity: 0; }
+::view-transition-new(site-nav), ::view-transition-new(site-tabbar), ::view-transition-new(site-subi) { animation: none; }
+::view-transition-old(root) { animation: pgout .16s cubic-bezier(.4,0,1,1) both; }
+::view-transition-new(root) { animation: pgin .28s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes pgout { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes pgin { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
