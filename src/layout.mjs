@@ -83,6 +83,7 @@ function head({ title, description, path, ld = [], noindex = false }) {
 <link rel="stylesheet" href="/assets/css/navhome.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/system.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mobile.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/cast.css?v=${V}">
 <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
 <script>try{if(sessionStorage.getItem("shr-intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-skip")}catch(e){}</script>
@@ -129,6 +130,8 @@ ${themeFab()}
 <button class="top-btn" type="button" aria-label="Back to top">${icon("arrow-up")}</button>
 <script src="/assets/js/main.js?v=${V}" defer></script>
 <script src="/assets/js/navhome.js?v=${V}" defer></script>
+<script src="/assets/js/navburger.js?v=${V}" defer></script>
+<script src="/assets/js/mobilefix.js?v=${V}" defer></script>
 <script src="/assets/js/live.js?v=${V}" defer></script>`;
 }
 

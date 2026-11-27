@@ -77,7 +77,7 @@
   function ring(el) { var r = el.getBoundingClientRect(), d = document.createElement("i"); d.className = "tapring"; d.style.left = r.left + r.width / 2 + "px"; d.style.top = r.top + r.height / 2 + "px"; fx.appendChild(d); setTimeout(function () { d.remove(); }, 900); }
 
   /* ================= stage fit, wall clock, nav, back to top ================= */
-  function fit() { var w = Math.min(hero.clientWidth, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.55, Math.min(1.28, (w - 440 - 36) / 760)))); }
+  function fit() { var hw = hero.clientWidth; if (hw <= 960) { stage.style.setProperty("--fit", String(Math.max(.3, Math.min(.84, (hw - 56 - (hw > 600 ? 112 : 0)) / 760)))); return; } var w = Math.min(hw, 1600) - 112; stage.style.setProperty("--fit", String(Math.max(.55, Math.min(1.28, (w - 440 - 36) / 760)))); }
   fit(); window.addEventListener("resize", fit);
   var wc = $(".wallclock", stage), hh = $(".hh", wc), mh = $(".mh", wc), sh = $(".sh", wc);
   function tick() {
@@ -114,7 +114,14 @@
   }, 1700);
 
   /* ================= speech ================= */
-  function say(el, text, ms, voice) { el.textContent = text; el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove("on"); }, ms || 2600); if (voice) Snd.blip(voice); }
+  /* a bubble above a person never lands on the head: it leaves from the side with the most room (left, right) or from the middle when there is room both ways */
+  function sideOf(el) {
+    var slot = el.closest && el.closest(".slot"), st = slot && slot.offsetParent;
+    if (!slot || !st || !el.hasAttribute("data-say")) return;
+    var W = st.offsetWidth, cx = slot.offsetLeft + slot.offsetWidth / 2, half = el.offsetWidth / 2 + 6;
+    el.setAttribute("data-side", cx >= half && W - cx >= half ? "c" : cx > W - cx ? "l" : "r");
+  }
+  function say(el, text, ms, voice) { el.textContent = text; sideOf(el); el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove("on"); }, ms || 2600); if (voice) Snd.blip(voice); }
   function talk(p, ms) { p.classList.add("talk"); clearTimeout(p._tt); p._tt = setTimeout(function () { p.classList.remove("talk"); }, ms || 1500); }
   function bump(key, n) { tally[key] += n; var b = $('[data-t="' + key + '"]'); if (!b) return; b.textContent = tally[key]; var s = b.parentNode; s.classList.remove("bump"); void s.offsetWidth; s.classList.add("bump"); }
 
@@ -219,13 +226,23 @@
     chipBtns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === d.key ? "true" : "false"); });
     leads.forEach(function (l) { if (l) setText(l, d.lead); });
     allPpl.forEach(function (p) { dress(p, d); });
-    slots.forEach(function (s, k) { $('[data-tagx="' + k + '"] [data-role]').textContent = d.roles[k]; $("[data-prop]", s).innerHTML = icons[d.props[k]] || ""; var p = $(".ppl", s); p.classList.remove("hop"); void p.offsetWidth; p.classList.add("hop"); });
+    slots.forEach(function (s, k) { $('[data-tagx="' + k + '"] [data-role]').textContent = d.roles[k]; $("[data-prop]", s).innerHTML = icons[d.props[k]] || ""; $(".ppl", s).classList.remove("hop"); });
+    void stage.offsetWidth; /* one layout for all seven people, then they all hop */
+    slots.forEach(function (s) { $(".ppl", s).classList.add("hop"); });
     renderNeeds(); $("[data-dash-ind]").textContent = d.name; fillPane(pn); say(coreSay, "Touch a need and I'll tell you more.", 3200);
     if (fromUser) { Snd.whoosh(); guideSay("Welcome to the " + d.name.toLowerCase() + " floor.", 3200); }
+    tone();
     last = -1; setTimeout(act, 700);
   }
+  /* the active chip takes this industry's "on" colour as its background; its name is dark on a light chip and white on a dark one */
+  var toneProbe = document.createElement("i"); toneProbe.style.cssText = "position:absolute;width:0;height:0;visibility:hidden;color:var(--on)";
+  function tone() {
+    var host = dockEl || document.body; host.appendChild(toneProbe);
+    var m = getComputedStyle(toneProbe).color.match(/[\d.]+/g) || [255, 255, 255], lum = (.299 * m[0] + .587 * m[1] + .114 * m[2]) / 255;
+    if (dockEl) dockEl.setAttribute("data-tone", lum < .55 ? "dk" : "lt");
+  }
   var dockEl = $(".dock"); if (dockEl) dockEl.classList.add("hint");
-  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; if (dockEl) dockEl.classList.remove("hint"); var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); burstAt(b, 8); }); });
+  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; if (dockEl) dockEl.classList.remove("hint"); var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); }); });
   if (!reduce) setInterval(function () { if (!userPicked && heroVisible && !document.hidden) setIndustry((cur + 1) % inds.length, false); }, 5200);
   vis(hero, function (v) { heroVisible = v; }, .15);
 

@@ -4,7 +4,7 @@ Static marketing site. Sources in `src/*.mjs` and `static/assets/`, built into `
 
 ## Git
 - All code goes on the `production` branch. The owner merges production into main. Push only when asked.
-- Keep `backup-v1/` and the `v1-backup` tag until the owner says delete.
+- The old design backup (`backup-v1/`) was deleted on the owner's word; it lives only in git history (tag `v1-backup` removed).
 - End commit messages with `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`.
 - `dist/` is committed too, so always run `node build.mjs` before committing.
 

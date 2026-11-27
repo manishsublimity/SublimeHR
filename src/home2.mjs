@@ -427,7 +427,7 @@ export function homeFooter() {
 </footer>`;
 }
 
-export function home2(path = "/home-v2/") {
+export function home2(path = "/") {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -444,6 +444,7 @@ export function home2(path = "/home-v2/") {
 <link rel="stylesheet" href="/assets/css/home2.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/navmenu.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/system.css?v=${V}">
+<link rel="stylesheet" href="/assets/css/mobile.css?v=${V}">
 <link rel="stylesheet" href="/assets/css/cast.css?v=${V}">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
@@ -666,7 +667,7 @@ ${daySection()}
     </article>
     <article class="lc lc--roster" data-demo="roster">
       <header><i>${icon("repeat", "ic")}</i><div><h3>Shift roster</h3><p>Click a shift to rotate it. Coverage is checked live, so no day goes understaffed.</p></div></header>
-      <p class="legend"><span class="M">M</span>Morning<span class="E">E</span>Evening<span class="N">N</span>Night<span class="O">O</span>Day off<span class="cvk">2</span>people on the morning shift, and each day needs at least 2</p>
+      <p class="legend"><span class="lg1"><span class="M">M</span>Morning</span><span class="lg1"><span class="E">E</span>Evening</span><span class="lg1"><span class="N">N</span>Night</span><span class="lg1"><span class="O">O</span>Day off</span><span class="lg1 lg1--n"><span class="cvk">2</span>people on the morning shift, and each day needs at least 2</span></p>
       <div class="roster" data-roster></div>
       <p class="cover" data-cover aria-live="polite"></p>
     </article>
@@ -823,6 +824,8 @@ ${themeFab()}
 <button class="topbtn" type="button" data-top aria-label="Back to top">${icon("arrow-up", "ic")}</button>
 <script src="/assets/js/home2.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>
+<script src="/assets/js/navburger.js?v=${V}" defer></script>
+<script src="/assets/js/mobilefix.js?v=${V}" defer></script>
 </body>
 </html>`;
 }

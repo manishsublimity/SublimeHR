@@ -54,12 +54,19 @@
   if (top) top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
 
   /* ================= speech helpers ================= */
-  function say(el, text, ms, voice) { el.textContent = text; el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove("on"); }, ms || 3000); if (voice) Snd.blip(voice); }
+  /* a bubble above a person never lands on the head: it leaves from the side with the most room (left, right) or from the middle when there is room both ways */
+  function sideOf(el) {
+    var slot = el.closest && el.closest(".slot"), st = slot && slot.offsetParent;
+    if (!slot || !st || !el.hasAttribute("data-say")) return;
+    var W = st.offsetWidth, cx = slot.offsetLeft + slot.offsetWidth / 2, half = el.offsetWidth / 2 + 6;
+    el.setAttribute("data-side", cx >= half && W - cx >= half ? "c" : cx > W - cx ? "l" : "r");
+  }
+  function say(el, text, ms, voice) { el.textContent = text; sideOf(el); el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove("on"); }, ms || 3000); if (voice) Snd.blip(voice); }
   function talk(p, ms) { if (!p) return; p.classList.add("talk"); clearTimeout(p._tt); p._tt = setTimeout(function () { p.classList.remove("talk"); }, ms || 2600); }
 
   /* ================= hero: the stage scales to the space, and the people act out the module ================= */
   var stage = $("[data-stage]");
-  function fit() { if (!hero || !stage) return; var w = Math.min(hero.clientWidth, 1600) - 112, f = Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)), cp = $(".hero__copy", hero), st = 1; stage.style.setProperty("--fit", String(f)); if (cp && $(".mwin", stage) && hero.clientWidth > 1100) st = 1; stage.style.setProperty("--st", st.toFixed(3)); }
+  function fit() { if (!hero || !stage) return; if (hero.clientWidth <= 960) { stage.style.setProperty("--fit", String(Math.max(.3, Math.min(1, (hero.clientWidth - 56) / 760)))); stage.style.setProperty("--st", "1"); return; } var w = Math.min(hero.clientWidth, 1600) - 112, f = Math.max(.5, Math.min(.84, (w - 440 - 36) / 760)), cp = $(".hero__copy", hero), st = 1; stage.style.setProperty("--fit", String(f)); if (cp && $(".mwin", stage) && hero.clientWidth > 1100) st = 1; stage.style.setProperty("--st", st.toFixed(3)); }
   fit(); window.addEventListener("resize", fit);
   var slots = stage ? $$("[data-slot]", stage) : [], rows = stage ? $$("[data-row]", stage) : [], bar = stage ? $("[data-bar]", stage) : null, pct = stage ? $("[data-pct]", stage) : null, lines = [];
   try { lines = JSON.parse($("#mod-story").textContent); } catch (e) {}

@@ -11,10 +11,11 @@
 <link rel="icon" type="image/png" href="/assets/img/sublimehr-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/home2.css?v=mwxkndx7">
-<link rel="stylesheet" href="/assets/css/navmenu.css?v=mwxkndx7">
-<link rel="stylesheet" href="/assets/css/system.css?v=mwxkndx7">
-<link rel="stylesheet" href="/assets/css/cast.css?v=mwxkndx7">
+<link rel="stylesheet" href="/assets/css/home2.css?v=mwyuzqgf">
+<link rel="stylesheet" href="/assets/css/navmenu.css?v=mwyuzqgf">
+<link rel="stylesheet" href="/assets/css/system.css?v=mwyuzqgf">
+<link rel="stylesheet" href="/assets/css/mobile.css?v=mwyuzqgf">
+<link rel="stylesheet" href="/assets/css/cast.css?v=mwyuzqgf">
 <script>try{if(localStorage.getItem("shr-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 </head>
 <body class="lo" data-w="it" data-clk="15" data-ft="3">
@@ -23,7 +24,8 @@
 
 <header class="nav" data-nav>
   <a class="nav__brand" href="/"><i class="nav__logo" style="--logo:url(/assets/img/sublimehr-logo.png)" aria-hidden="true"></i><span>Sublime<b>HR</b></span></a>
-  <nav class="nav__links" aria-label="Main">
+  <button class="nav__burger" type="button" data-burger aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i><i></i></button>
+  <nav class="nav__links" id="nav-links" aria-label="Main">
     <div class="nav__item"><a href="/features/">Product <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></a>
       <div class="nav__mega"><div class="nm__feat"><small>Product</small><b>Everything behind the people.</b><p>Ten modules that share one employee record, so nothing is typed twice.</p><a class="nm__cta" href="/features/">See all features <svg class="icon i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><div class="cast nm__who" aria-hidden="true"><div class="ppl s-hijab " data-hat="none" data-pose="rest" data-item="none" data-outfit="none" style="--skin:#D49A6E;--hair:#1A1210;--shirt:#7FB4FF;--hijab:#F7F3FF;--pants:#35405E;--bw:82px;--bh:94px;--lean:-1.5deg;--d:0.0s" data-i="0">
   <div class="ppl__fig">
@@ -45,8 +47,9 @@
   </div>
 </div></div></div>
         <div class="nm__list"><a class="nm__row" href="/about/"><span class="ni"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></span><span><strong>About us</strong><small>Mission &amp; vision</small></span><svg class="nm__go i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="nm__row" href="/custom-development/"><span class="ni"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><span><strong>Custom development</strong><small>Built around your workflow</small></span><svg class="nm__go i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="nm__row" href="/faq/"><span class="ni"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg></span><span><strong>FAQ</strong><small>Ask our HR assistant</small></span><svg class="nm__go i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="nm__row" href="/contact/"><span class="ni"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><strong>Contact</strong><small>We reply within 1 business day</small></span><svg class="nm__go i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+    <a class="btn btn--on nav__cta-m" href="/book-demo/">Book a demo</a>
   </nav>
-  <a class="btn btn--on" href="/book-demo/">Book a demo</a>
+  <a class="btn btn--on nav__cta" href="/book-demo/">Book a demo</a>
 </header>
 
 <main>
@@ -419,7 +422,7 @@
     </article>
     <article class="lc lc--roster" data-demo="roster">
       <header><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg></i><div><h3>Shift roster</h3><p>Click a shift to rotate it. Coverage is checked live, so no day goes understaffed.</p></div></header>
-      <p class="legend"><span class="M">M</span>Morning<span class="E">E</span>Evening<span class="N">N</span>Night<span class="O">O</span>Day off<span class="cvk">2</span>people on the morning shift, and each day needs at least 2</p>
+      <p class="legend"><span class="lg1"><span class="M">M</span>Morning</span><span class="lg1"><span class="E">E</span>Evening</span><span class="lg1"><span class="N">N</span>Night</span><span class="lg1"><span class="O">O</span>Day off</span><span class="lg1 lg1--n"><span class="cvk">2</span>people on the morning shift, and each day needs at least 2</span></p>
       <div class="roster" data-roster></div>
       <p class="cover" data-cover aria-live="polite"></p>
     </article>
@@ -682,9 +685,11 @@
     <button type="button" data-lact="swing" class="lamp__act">Give it a swing</button>
   </div>
 </div>
-<script src="/assets/js/lamp.js?v=mwxkndxo" defer></script>
+<script src="/assets/js/lamp.js?v=mwyuzqgw" defer></script>
 <button class="topbtn" type="button" data-top aria-label="Back to top"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
-<script src="/assets/js/home2.js?v=mwxkndx7" defer></script>
-<script src="/assets/js/navmenu.js?v=mwxkndx7" defer></script>
+<script src="/assets/js/home2.js?v=mwyuzqgf" defer></script>
+<script src="/assets/js/navmenu.js?v=mwyuzqgf" defer></script>
+<script src="/assets/js/navburger.js?v=mwyuzqgf" defer></script>
+<script src="/assets/js/mobilefix.js?v=mwyuzqgf" defer></script>
 </body>
 </html>
