@@ -234,7 +234,7 @@
     last = -1; setTimeout(act, 700);
   }
   var dockEl = $(".dock"); if (dockEl) dockEl.classList.add("hint");
-  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; if (dockEl) dockEl.classList.remove("hint"); var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); burstAt(b, 8); }); });
+  chipBtns.forEach(function (b) { b.addEventListener("click", function () { userPicked = true; if (dockEl) dockEl.classList.remove("hint"); var k = b.getAttribute("data-k"); for (var i = 0; i < inds.length; i++) if (inds[i].key === k) setIndustry(i, true); }); });
   if (!reduce) setInterval(function () { if (!userPicked && heroVisible && !document.hidden) setIndustry((cur + 1) % inds.length, false); }, 5200);
   vis(hero, function (v) { heroVisible = v; }, .15);
 
