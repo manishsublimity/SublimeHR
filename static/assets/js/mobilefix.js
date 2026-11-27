@@ -12,6 +12,23 @@
     if (mq.addEventListener) mq.addEventListener("change", place); else if (mq.addListener) mq.addListener(place);
   }
 
+
+  /* day timeline on tablet and phone: Aisha stands on the card of the current stop and hops to the next one */
+  var day = document.querySelector("[data-day]"), walker = day && day.querySelector("[data-walker]"), track = day && day.querySelector("[data-track]");
+  if (walker && track) {
+    var stops = [].slice.call(day.querySelectorAll(".stp"));
+    var put = function () {
+      if (!mq.matches) { walker.style.removeProperty("--wxx"); walker.style.removeProperty("--wyy"); return; }
+      var cur = stops.filter(function (x) { return x.classList.contains("on"); }).pop() || stops[0];
+      var c = cur.querySelector(".stp__c") || cur, tr = (walker.offsetParent || track).getBoundingClientRect(), r = c.getBoundingClientRect();
+      walker.style.setProperty("--wxx", (r.left - tr.left + r.width / 2) + "px");
+      walker.style.setProperty("--wyy", (r.top - tr.top + 8) + "px");
+    };
+    if (window.MutationObserver) { var mo = new MutationObserver(put); stops.forEach(function (x) { mo.observe(x, { attributes: true, attributeFilter: ["class"] }); }); }
+    put(); setTimeout(put, 700); window.addEventListener("resize", put);
+    if (mq.addEventListener) mq.addEventListener("change", put);
+  }
+
   var phone = window.matchMedia("(max-width: 760px)");
   var items = [
     ["/", "Home", '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/>'],

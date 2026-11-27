@@ -667,7 +667,7 @@ ${daySection()}
     </article>
     <article class="lc lc--roster" data-demo="roster">
       <header><i>${icon("repeat", "ic")}</i><div><h3>Shift roster</h3><p>Click a shift to rotate it. Coverage is checked live, so no day goes understaffed.</p></div></header>
-      <p class="legend"><span class="M">M</span>Morning<span class="E">E</span>Evening<span class="N">N</span>Night<span class="O">O</span>Day off<span class="cvk">2</span>people on the morning shift, and each day needs at least 2</p>
+      <p class="legend"><span class="lg1"><span class="M">M</span>Morning</span><span class="lg1"><span class="E">E</span>Evening</span><span class="lg1"><span class="N">N</span>Night</span><span class="lg1"><span class="O">O</span>Day off</span><span class="lg1 lg1--n"><span class="cvk">2</span>people on the morning shift, and each day needs at least 2</span></p>
       <div class="roster" data-roster></div>
       <p class="cover" data-cover aria-live="polite"></p>
     </article>
