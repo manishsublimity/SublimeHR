@@ -704,3 +704,25 @@
   .abt__s { min-height: 124px; }
   .abt__s span.abt__fx { display: none !important; }
 }
+
+/* ================= round 10 ================= */
+/* before/after card: it grows to the longer of the two texts, nothing is cut */
+@media (max-width: 1000px) {
+  .mba__card { display: grid !important; height: auto !important; min-height: 0 !important; }
+  .mba__card > .mba__pane { position: relative !important; inset: auto !important; grid-area: 1 / 1; height: auto !important; min-height: 0; }
+}
+/* about offer tiles on one column: no empty band between the top row and the title */
+@media (max-width: 460px) { .aoff__bento { grid-auto-rows: 142px; } }
+/* footer end: no gap above the big word, none under the copyright */
+@media (max-width: 960px) {
+  body .footer__word { padding-top: 0 !important; margin-top: -6px !important; }
+  body .footer__bar { margin-top: 6px !important; padding-bottom: 6px !important; }
+  body .foot2__bar { padding-bottom: 6px !important; }
+  body { padding-bottom: 72px !important; }
+}
+@media (max-width: 600px) {
+  .mba__card .mba__pane p { font-size: 17px; line-height: 1.32; margin-top: 12px; }
+  .mba__card .mba__pane ul { gap: 8px; margin-top: 16px; }
+  .mba__card .mba__pane li { font-size: 14px; padding: 6px 14px 6px 6px; }
+}
+@media (max-width: 600px) { .mba__card .mba__pane { padding: 28px 22px 26px !important; } }
