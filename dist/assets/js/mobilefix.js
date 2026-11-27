@@ -44,6 +44,10 @@
     if (window.MutationObserver) { var mc = new MutationObserver(ring); chips.forEach(function (c) { mc.observe(c, { attributes: true, attributeFilter: ["aria-pressed"] }); }); }
   }
 
+  /* the end of the footer is on screen: the floating buttons fade away so they never cover the legal links */
+  var endBar = document.querySelector(".footer__bar, .foot2__bar");
+  if (endBar && "IntersectionObserver" in window) { new IntersectionObserver(function (en) { document.documentElement.classList.toggle("at-end", en[0].isIntersecting); }, { threshold: 0.2 }).observe(endBar); }
+
   var phone = window.matchMedia("(max-width: 760px)");
   var items = [
     ["/", "Home", '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/>'],

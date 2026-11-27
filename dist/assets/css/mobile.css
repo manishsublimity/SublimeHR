@@ -609,7 +609,7 @@
 @media (max-width: 960px) { body .score__card .sc1::before, body .score__card .sc1::after { content: none !important; display: none !important; } }
 /* hero on a phone: the industry handle sits beside the copy, and the stage pulls up under the tally */
 @media (min-width: 431px) and (max-width: 600px) { .hero__wrap > .dock .chips { top: -128px; } }
-@media (max-width: 600px) { .hero .stage { margin-top: calc(-64px / var(--fit, .5)); } }
+@media (max-width: 600px) { .hero:not(.mhero) .stage { margin-top: calc(-64px / var(--fit, .5)); } }
 /* roles: two tabs in a row */
 @media (max-width: 600px) {
   .roles__tabs { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; overflow: visible !important; gap: 8px; }
@@ -654,11 +654,11 @@
 
 /* footer bottom on a phone: legal links first, copyright under them, both centred, clear of the floating buttons */
 @media (max-width: 600px) {
-  body .footer__bar, body .foot2__bar { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; padding-bottom: 120px !important; }
+  body .footer__bar, body .foot2__bar { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; padding-bottom: 24px !important; }
   body .footer__bar nav, body .foot2__bar nav { order: 1; justify-content: center !important; }
   body .footer__bar > span, body .foot2__bar > span { order: 2; }
 }
-@media (min-width: 601px) and (max-width: 960px) { body .footer__bar, body .foot2__bar { padding-bottom: 110px !important; } }
+@media (min-width: 601px) and (max-width: 960px) { body .footer__bar, body .foot2__bar { padding-bottom: 24px !important; } }
 
 /* ================= round 8: one side gutter everywhere, no colour bar beside lead text ================= */
 @media (max-width: 960px) {
@@ -672,3 +672,25 @@
   main > section.frows, main > section.frep { padding-left: 32px; padding-right: 32px; }
   .hero > .hero__wrap { padding-left: 32px !important; padding-right: 32px !important; }
 }
+
+/* ================= round 9 ================= */
+/* floating buttons step aside while the end of the footer is on screen, so nothing sits on the legal links */
+@media (max-width: 960px) { .fab, .topbtn { transition: opacity .3s, transform .3s; } .at-end .fab, .at-end .topbtn { opacity: 0 !important; pointer-events: none; transform: translateY(8px); } }
+/* about: the four number cards keep the animation in the top right, the text at the bottom */
+@media (max-width: 600px) {
+  .abt__s { min-height: 214px; align-content: end; padding: 18px 20px 20px; }
+  .abt__s span.abt__fx { top: 10px; right: 6px; bottom: auto; height: 130px; transform: scale(.62); transform-origin: top right; }
+}
+/* about: offer tiles, the picture never sits on the icon, the arrow or the title */
+@media (max-width: 600px) {
+  .aoff__bento { grid-auto-rows: 192px; }
+  .aoff__t:not(.aoff__t--0):not(.aoff__t--4):not(.aoff__t--8) .aoff__v { top: 22px; right: 60px; bottom: auto; transform: scale(.52); transform-origin: top right; }
+  .aoff__t--0 .aoff__v, .aoff__t--4 .aoff__v, .aoff__t--8 .aoff__v { top: 22px; right: 64px; bottom: auto; place-items: start end; transform: scale(.62); transform-origin: top right; }
+  .aoff__t:hover .aoff__v { transform: scale(.52); }
+}
+@media (max-width: 460px) {
+  .aoff__bento { grid-template-columns: minmax(0, 1fr); }
+  .aoff__t--0, .aoff__t--4, .aoff__t--8 { grid-column: auto; }
+  .aoff__t .aoff__v, .aoff__t:not(.aoff__t--0):not(.aoff__t--4):not(.aoff__t--8) .aoff__v { transform: scale(.72) !important; right: 64px; }
+}
+@media (min-width: 461px) and (max-width: 1180px) { .aoff__t--3, .aoff__t--7 { grid-column: span 2; } }
