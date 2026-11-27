@@ -838,3 +838,8 @@ body .footer ul a:hover, body .foot2 ul a:hover, body[data-ft] .footer ul a:hove
 }
 body.v2 .foot2 ul { gap: 0 !important; }
 body.v2 .foot2 ul a { min-height: 32px !important; padding-top: 4px !important; padding-bottom: 4px !important; }
+
+/* Privacy, Terms and Sitemap are plain links at every width, no pill */
+body .footer__bar nav a, body .foot2__bar nav a, body.v2 .foot2 .foot2__bar nav a { background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; height: auto !important; min-height: 0 !important; border-radius: 0 !important; }
+body .footer__bar nav, body .foot2__bar nav { gap: 22px; }
+body .footer__bar nav a:hover, body .foot2__bar nav a:hover { background: none !important; text-decoration: underline; text-underline-offset: 4px; }
