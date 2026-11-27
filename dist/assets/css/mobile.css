@@ -619,3 +619,29 @@
 @media (max-width: 960px) { .mods__head .link { white-space: nowrap; flex: none; } .mods__head h2 { min-width: 0; } }
 /* why cards: one per row on a phone */
 @media (max-width: 520px) { .why__grid { grid-template-columns: minmax(0, 1fr) !important; } }
+
+/* ================= round 7 ================= */
+/* hero industries on a phone: no box, no bar, just the three simple icons */
+@media (max-width: 600px) {
+  .hero__wrap > .dock, .hero__wrap > .dock::before, .hero__wrap > .dock::after { background: none !important; border: 0 !important; box-shadow: none !important; outline: 0 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .hero__wrap > .dock::before, .hero__wrap > .dock::after { display: none !important; }
+  .hero__wrap > .dock .chips { background: none; box-shadow: none; padding: 0 0 0 4px; border-radius: 0; right: -6px; }
+  .hero__wrap > .dock .chip { color: #fff; }
+  .hero__wrap > .dock .chip .ic { background: rgba(255,255,255,.2); color: #fff; }
+  .hero__wrap > .dock .chip[data-ring="cur"] .ic { background: #fff; color: var(--world); box-shadow: 0 8px 16px -8px rgba(0,0,0,.4); }
+  .hero__wrap > .dock .chip[data-ring="prev"], .hero__wrap > .dock .chip[data-ring="next"] { opacity: .75; }
+}
+/* roles: air between the label and the right edge */
+@media (max-width: 960px) { .roles__tabs button { padding-right: 16px !important; } }
+/* numbers: the language name is never cut */
+@media (max-width: 960px) {
+  body .score__card .sc1--lang b { height: auto !important; line-height: 1.35 !important; padding: 4px 0 !important; overflow: visible !important; display: block !important; }
+}
+/* footer: tighter link rows, the legal links plain on the right, the phone on one line */
+@media (max-width: 960px) {
+  body .footer__grid ul a { padding-top: 3px; padding-bottom: 3px; }
+  body .footer__bar nav a { background: none !important; border: 0 !important; padding: 0 !important; height: auto !important; min-height: 0 !important; box-shadow: none !important; }
+  body .footer__bar nav { gap: 16px; justify-content: flex-end; }
+  body .footer__contact a b { white-space: nowrap; font-size: 15px; }
+}
+@media (max-width: 480px) { body .footer__bar { flex-direction: column !important; align-items: flex-start !important; } body .footer__bar nav { justify-content: flex-start; } }
