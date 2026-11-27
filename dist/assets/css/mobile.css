@@ -546,3 +546,61 @@
   .lc--leave > header { padding-right: 0 !important; }
 }
 @media (min-width: 721px) and (max-width: 860px) { .lc--leave > header { padding-right: 270px !important; } }
+
+/* ================= round 5 ================= */
+/* section rhythm on tablet and phone: about 40% less air between sections */
+@media (max-width: 960px) {
+  main > section.prod, main > section.rhythm, main > section.movie, main > section.day, main > section.lab, main > section.peek, main > section.roles, main > section.why, main > section.ask, main > section.msc, main > section.mcap { padding-top: 42px; padding-bottom: 42px; }
+  main > section.mods { padding-top: 42px; padding-bottom: 32px; }
+  main > section.mdemo { padding-top: 42px; padding-bottom: 36px; }
+  main > section.mba { padding-top: 42px; padding-bottom: 20px; }
+  main > section.score { padding-bottom: 42px; }
+  main > section.meet { padding-top: 42px; padding-bottom: 34px; }
+  main > section.istk, main > section.abt, main > section.aoff { padding-top: 36px; padding-bottom: 24px; }
+  main > section.awhy { padding-top: 36px; padding-bottom: 30px; }
+  main > section.iglance { padding-top: 42px; padding-bottom: 26px; }
+  main > section.frows, main > section.frep { padding-top: 12px; padding-bottom: 26px; }
+  main > section.mbk { padding-top: 54px; }
+}
+/* module cards: the whole description shows, the title stays whole */
+@media (max-width: 960px) {
+  body .mods__grid > a.md .md__d { display: block; -webkit-line-clamp: unset; overflow: visible; min-height: 0; }
+}
+@media (max-width: 700px) {
+  .mods .md b { font-size: 14.5px; letter-spacing: -.01em; overflow-wrap: normal; word-break: normal; hyphens: manual; }
+}
+/* roles: head and shoulders of every person, never cut at the top, the same for the active tab */
+@media (max-width: 960px) {
+  .roles__tabs button .rb, .roles__tabs button[aria-selected="true"] .rb { width: 54px; height: 62px; border-radius: 0; background: none; overflow: hidden; }
+  .roles__tabs button .rb .ppl, .roles__tabs button[aria-selected="true"] .rb .ppl { top: 9px !important; left: 50% !important; margin-left: -52px !important; transform: scale(.5) !important; transform-origin: 50% 0; }
+  .roles__tabs button { height: 70px; }
+}
+/* small things: dashboard tile text, the try-it lead, the roster note */
+@media (max-width: 960px) {
+  .tile small, .tile i { line-height: 1.4; }
+  .tile i { display: block; }
+  .lab__head p { border-left: 0 !important; padding-left: 0 !important; }
+  .lc--roster .legend .lg1--n { justify-content: flex-start; text-align: left; }
+}
+@media (max-width: 600px) {
+  .btn--lg, .hero__cta .btn { height: 44px; min-height: 0; padding: 0 20px; font-size: 14.5px; }
+}
+/* hero on a small phone: the industries tuck into a small handle on the right edge, showing the one before, the active one and the next one */
+@media (max-width: 600px) {
+  .hero__wrap > .dock { order: 2; height: 0; margin: 0 !important; padding: 0 !important; z-index: 7; }
+  .hero__wrap > .dock .dock__lbl { display: none; }
+  .hero__wrap > .dock .chips { position: absolute; right: -17px; top: 14px; display: flex; flex-direction: column; align-items: center; gap: 0; width: 62px; padding: 8px 0 10px 4px; overflow: visible; background: rgba(255,255,255,.96); border-radius: 22px 0 0 22px; box-shadow: -8px 12px 26px -12px rgba(20,33,61,.5); animation: dockslide .6s cubic-bezier(.2,.9,.3,1) both; }
+  .hero__wrap > .dock .chip { display: none !important; width: 100%; flex-direction: column; align-items: center; gap: 2px; padding: 3px 0; background: none !important; border: 0 !important; box-shadow: none !important; color: var(--ink); font-size: 10px; line-height: 1.15; text-align: center; transition: transform .35s cubic-bezier(.2,.9,.3,1), opacity .3s; }
+  .hero__wrap > .dock .chip[data-ring] { display: flex !important; }
+  .hero__wrap > .dock .chip[data-ring="prev"] { order: 1; opacity: .5; transform: translateY(-5px) scale(.84); }
+  .hero__wrap > .dock .chip[data-ring="cur"] { order: 2; }
+  .hero__wrap > .dock .chip[data-ring="next"] { order: 3; opacity: .5; transform: translateY(5px) scale(.84); }
+  .hero__wrap > .dock .chip .ic { width: 32px; height: 32px; padding: 8px; border-radius: 12px; background: color-mix(in srgb, var(--world) 14%, #fff); color: var(--world); transform: none; }
+  .hero__wrap > .dock .chip[data-ring="cur"] .ic { width: 44px; height: 44px; padding: 11px; border-radius: 15px; background: var(--world); color: #fff; }
+  .hero__wrap > .dock .chip span { display: none !important; }
+  .hero__wrap > .dock .chip[data-ring="cur"] span { display: block !important; max-width: none !important; opacity: 1 !important; margin: 0 !important; width: auto !important; font-size: 10px; font-weight: 700; }
+}
+@keyframes dockslide { from { transform: translateX(70px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hero__wrap > .dock .chips { animation: none; } }
+/* the zoom already scales the stage's own height, so it keeps its full design height and the people are no longer hidden under the ticker */
+@media (max-width: 600px) { .hero .stage { height: 565px; margin-bottom: 8px; } }

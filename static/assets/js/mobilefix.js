@@ -22,11 +22,26 @@
       var cur = stops.filter(function (x) { return x.classList.contains("on"); }).pop() || stops[0];
       var c = cur.querySelector(".stp__c") || cur, tr = (walker.offsetParent || track).getBoundingClientRect(), r = c.getBoundingClientRect();
       walker.style.setProperty("--wxx", (r.right - tr.left - 48) + "px");
-      walker.style.setProperty("--wyy", (r.top - tr.top + 5) + "px");
+      walker.style.setProperty("--wyy", (r.top - tr.top + 20) + "px");
     };
     if (window.MutationObserver) { var mo = new MutationObserver(put); stops.forEach(function (x) { mo.observe(x, { attributes: true, attributeFilter: ["class"] }); }); }
     put(); setTimeout(put, 700); window.addEventListener("resize", put);
     if (mq.addEventListener) mq.addEventListener("change", put);
+  }
+
+  /* hero industries: mark the one before, the active one and the next one, so a small phone can show just these three */
+  var chips = [].slice.call(document.querySelectorAll("[data-chips] .chip"));
+  if (chips.length > 2) {
+    var ring = function () {
+      var n = chips.length, i = 0;
+      chips.forEach(function (c, k) { if (c.getAttribute("aria-pressed") === "true") i = k; });
+      chips.forEach(function (c, k) {
+        var r = k === i ? "cur" : k === (i + n - 1) % n ? "prev" : k === (i + 1) % n ? "next" : "";
+        if (r) c.setAttribute("data-ring", r); else c.removeAttribute("data-ring");
+      });
+    };
+    ring();
+    if (window.MutationObserver) { var mc = new MutationObserver(ring); chips.forEach(function (c) { mc.observe(c, { attributes: true, attributeFilter: ["aria-pressed"] }); }); }
   }
 
   var phone = window.matchMedia("(max-width: 760px)");
