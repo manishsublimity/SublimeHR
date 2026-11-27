@@ -783,3 +783,15 @@
 @keyframes pgout { to { opacity: 0; transform: translateY(-6px); } }
 @keyframes pgin { from { opacity: 0; transform: translateY(10px); } }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+/* ================= speech bubbles above people: never on the head ================= */
+.say[data-side] { bottom: calc(100% + 46px); }
+.say[data-side="c"] { left: 50%; right: auto; transform: translateX(-50%) scale(.5); transform-origin: 50% 100%; }
+.say[data-side="c"].on { transform: translateX(-50%) scale(1); }
+.say[data-side="c"]::after { left: calc(50% - 5px); }
+.say[data-side="l"] { left: auto; right: calc(50% - 22px); transform: scale(.5); transform-origin: 100% 100%; border-bottom-right-radius: 6px; }
+.say[data-side="l"].on { transform: none; }
+.say[data-side="l"]::after { left: auto; right: 16px; box-shadow: 9px 10px 0 -3px #fff, 0 6px 8px -4px rgba(20,33,61,.4); }
+.say[data-side="r"] { left: calc(50% - 22px); right: auto; transform: scale(.5); transform-origin: 0 100%; border-bottom-left-radius: 6px; }
+.say[data-side="r"].on { transform: none; }
+.say[data-side="r"]::after { left: 16px; }
