@@ -131,6 +131,7 @@ ${themeFab()}
 <script src="/assets/js/main.js?v=${V}" defer></script>
 <script src="/assets/js/navhome.js?v=${V}" defer></script>
 <script src="/assets/js/navburger.js?v=${V}" defer></script>
+<script src="/assets/js/mobilefix.js?v=${V}" defer></script>
 <script src="/assets/js/live.js?v=${V}" defer></script>`;
 }
 

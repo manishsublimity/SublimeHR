@@ -99,3 +99,162 @@
   .mhero .stage > .tagx:last-child { left: calc(640px + 52px); }
 }
 @media (max-width: 560px) { .hero__copy h1 { padding-right: 36px; } }
+/* ===== home hero on tablet and phone: copy, then the industry picker, then the office (smaller, nothing on top of the picker) ===== */
+@media (max-width: 960px) {
+  .hero > .hero__wrap { display: flex; flex-direction: column; gap: 16px; }
+  .hero__wrap > .hero__main { display: contents; }
+  .hero__wrap .hero__copy { order: 1; max-width: 640px; }
+  .hero__wrap > .dock { order: 2; margin: 4px 0 0; padding: 14px 14px 12px; }
+  .hero__wrap .stage { order: 3; margin-top: -6px; }
+  .stage .wallclock, .stage .deco .sticky { display: none; }
+  .hero__copy .tally { margin-top: 22px; }
+}
+@media (max-width: 960px) {
+  .hero__wrap > .dock { position: relative !important; top: auto !important; bottom: auto !important; left: auto !important; right: auto !important; transform: none !important; width: auto !important; max-width: 100%; }
+}
+@media (max-width: 1080px) {
+  /* header: the demo button is compact and has air on both sides */
+  body .nav .nav__cta { height: 38px; min-height: 0; padding: 0 16px; font-size: 14px; margin: 0 4px 0 auto; }
+  body .nav .nav__burger { margin-left: 0; }
+}
+/* ===== home: every industry has its own rhythm: heading, the character with its needs, then the lists one by one ===== */
+@media (max-width: 960px) {
+  .rhythm { display: flex !important; flex-direction: column; gap: 18px; }
+  .rhythm__copy { display: contents !important; }
+  .rhythm__copy > h2 { order: 1; }
+  .rhythm > .orbit { order: 2; align-self: center; }
+  .rhythm__copy > :not(h2) { order: 3; }
+  .rec { display: grid !important; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .rec a { width: 100%; max-width: 100%; }
+}
+/* ===== home: twenty seconds on a phone: compact one-by-one steps, phone on the right, no backdrop disc ===== */
+@media (max-width: 960px) {
+  .movie__grid { grid-template-columns: minmax(0, 1fr) minmax(0, auto) !important; gap: 20px !important; align-items: start; }
+  .movie__steps { grid-template-columns: minmax(0, 1fr) !important; gap: 4px; }
+  .movie__steps button { padding: 7px 10px 7px 8px; gap: 10px; border-radius: 14px; }
+  .movie__steps button[aria-selected="true"] { transform: none; }
+  .movie__steps i { width: 34px; height: 34px; border-radius: 11px; font-size: 17px; }
+  .movie__steps b { font-size: 14px; } .movie__steps small { font-size: 12px; display: block; line-height: 1.25; }
+  .movie__stage { padding: 0; background: none !important; border-radius: 0; justify-self: end; }
+  .movie__stage::before { display: none; }
+}
+@media (max-width: 640px) {
+  .movie__grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .movie__stage { justify-self: center; }
+}
+/* ===== home: one day from clock-in to payslip: a centred line, cards alternate left and right, Aisha walks down the middle ===== */
+@media (max-width: 960px) {
+  .day__head { text-align: center; }
+  .day__head p { margin-left: auto; margin-right: auto; }
+  .day .day__track { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 34px; row-gap: 10px; padding: 0; margin-top: 24px; }
+  .day .day__line { left: 50%; right: auto; transform: translateX(-50%); width: 6px; top: 0; bottom: 0; }
+  .day .day__line i { display: block; position: absolute; left: 0; right: 0; top: 0; bottom: auto; width: 100%; height: var(--pw, 0%); }
+  .day .stp.up { grid-column: 1; } .day .stp.dn { grid-column: 2; }
+  .day__track > :nth-child(2) { grid-row: 1; }
+  .day__track > :nth-child(3) { grid-row: 2; }
+  .day__track > :nth-child(4) { grid-row: 3; }
+  .day__track > :nth-child(5) { grid-row: 4; }
+  .day__track > :nth-child(6) { grid-row: 5; }
+  .day__track > :nth-child(7) { grid-row: 6; }
+  .day__track > :nth-child(8) { grid-row: 7; }
+  .day__track > :nth-child(9) { grid-row: 8; }
+  .day .stp__d { top: 22px; }
+  .day .stp.up .stp__d { left: auto; right: -41px; } .day .stp.dn .stp__d { left: -41px; }
+  .day .stp__c small { font-size: 11px; } .day .stp__c b { font-size: 14.5px; line-height: 1.2; } .day .stp__c span { font-size: 12.5px; line-height: 1.35; }
+  .day .stp__c { padding: 12px 12px 13px; }
+  .day .walker { display: block !important; left: 50% !important; top: var(--wx, 3%) !important; transform: translate(-50%, -80%) scale(.4); }
+}
+/* ===== home: try it before you book ===== */
+@media (max-width: 960px) {
+  .lab__grid { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+  .lab__grid > .lc--clock, .lab__grid > .lc--leave, .lab__grid > .lc--pay, .lab__grid > .lc--perm { grid-column: span 3 !important; }
+  .lab__grid > .lc--here, .lab__grid > .lc--roster { grid-column: span 6 !important; }
+  .lc--clock .clk { grid-template-columns: minmax(0, 1fr) !important; gap: 14px; }
+  .lc--clock .clk__l { justify-self: center; }
+  .lc--clock .hist li:nth-child(n+4) { display: none; }
+  .lc--clock .hist ul { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .lc--leave .ltype, .lc--leave .lbal { display: none; }
+  .lc--leave .lflow { margin-top: 10px; padding: 8px 12px; border-radius: 12px; background: var(--world); color: var(--on); font-size: 12.5px; font-weight: 600; text-align: center; }
+  .lc--leave .lflow:empty { display: none; }
+  .lc--roster header { flex-wrap: wrap; row-gap: 8px; }
+  .lc--roster .legend { position: static !important; width: 100%; margin: 4px 0 8px; flex-wrap: wrap; gap: 6px 10px; }
+}
+@media (max-width: 640px) {
+  .lab__grid > .lc { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 960px) {
+  .lab__grid { align-items: start; }
+  .lc--leave .lcal { flex: none !important; grid-auto-rows: 36px !important; align-content: start !important; }
+}
+/* ===== home: modules two by two, the little-things grid, numbers, footer ===== */
+@media (max-width: 960px) {
+  .mods__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .mods .md { min-width: 0; }
+  .why__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; grid-auto-rows: auto !important; }
+  .why__grid > .wy { grid-column: auto !important; grid-row: auto !important; min-height: 0; min-width: 0; }
+  .why__grid > .wy--0, .why__grid > .wy--5 { grid-column: 1 / -1 !important; }
+  .wy h3 { overflow-wrap: break-word; hyphens: auto; font-size: clamp(16px, 2.6vw, 20px); }
+  .wy p { overflow-wrap: break-word; }
+  .score__card { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 22px 18px; }
+  .score__card .sc1 { min-width: 0; border-left: 0 !important; padding: 0 6px; }
+  .score__card .sc1 b { font-size: clamp(34px, 7vw, 48px); height: auto; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+  body .footer__grid, body .foot2__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 28px 18px !important; }
+  body .footer__grid > .footer__about, body .foot2__grid > .foot2__about, body .foot2__grid > .foot2__contact { grid-column: 1 / -1; }
+  .footer__contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+  .footer__contact a { min-width: 0; }
+  .footer__contact b { overflow-wrap: anywhere; }
+}
+@media (max-width: 340px) { .mods__grid { grid-template-columns: minmax(0, 1fr) !important; } }
+@media (max-width: 560px) { .mods .md { padding: 14px 13px; min-height: 0; } .mods .md b { font-size: 14.5px; } .mods .md span, .mods .md__d { font-size: 12px; line-height: 1.35; } .mods .md .btn, .mods .md__go { padding: 0 12px; height: 32px; font-size: 12.5px; } }
+/* ===== home: meet your workforce: copy first, the crowd standing in one row below ===== */
+@media (max-width: 960px) {
+  .meet__wrap { grid-template-columns: minmax(0, 1fr) !important; gap: 24px !important; padding: 0 var(--gut) !important; }
+  .meet .crowd { justify-content: center; margin: 0 auto; height: 200px; zoom: .7; max-width: 100%; }
+  .meet .crowd__p { margin: 0 -10px; }
+}
+@media (max-width: 560px) { .meet .crowd { zoom: .52; } }
+@media (max-width: 960px) { .meet .crowd { width: 100%; position: relative; } }
+/* ===== suggested questions live inside the chat on tablet and phone ===== */
+@media (max-width: 960px) {
+  .chat .ask__qs.in-chat { display: flex; flex-wrap: nowrap; gap: 8px; margin: 0; padding: 10px 14px 12px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid rgba(20,33,61,.08); -webkit-overflow-scrolling: touch; }
+  .chat .ask__qs.in-chat::-webkit-scrollbar { display: none; }
+  .chat .ask__qs.in-chat button { flex: none; white-space: nowrap; padding: 8px 14px; border-radius: 999px; font-size: 13px; border-width: 1.5px; }
+  .chat .ask__qs.in-chat button:hover { transform: none; }
+}
+/* ===== phone: app-style bottom tab bar, smaller floating buttons above it ===== */
+.tabbar { display: none; }
+@media (max-width: 760px) {
+  body { padding-bottom: 86px; }
+  .tabbar { position: fixed; z-index: 65; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); height: 62px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px; border-radius: 24px; background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); box-shadow: 0 14px 30px -12px rgba(20,33,61,.45), 0 0 0 1px rgba(20,33,61,.06); }
+  .tabbar a { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border-radius: 18px; color: #5C6881; font: 600 10.5px/1 var(--f, sans-serif); text-decoration: none; transition: transform .2s cubic-bezier(.3,1.5,.5,1), color .2s, background .25s; -webkit-tap-highlight-color: transparent; }
+  .tabbar a svg { width: 23px; height: 23px; transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+  .tabbar a:active { transform: scale(.9); }
+  .tabbar a.on { color: var(--world, #3558F5); background: color-mix(in srgb, var(--world, #3558F5) 12%, #fff); }
+  .tabbar a.on svg { transform: translateY(-1px) scale(1.1); }
+  .tabbar a.on::after { content: ""; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+  html.nav-open .tabbar { display: none; }
+  html[data-theme="dark"] .tabbar { background: rgba(16,27,51,.88); color: #EAF1FA; }
+  /* floating buttons sit above the bar: sound on the left, back to top beside it, the assistant on the right */
+  .fab { left: 12px; right: auto; bottom: 88px; height: 44px; padding: 0 12px; background: rgba(255,255,255,.92); color: var(--ink, #14213D); box-shadow: 0 10px 22px -10px rgba(20,33,61,.5), 0 0 0 1px rgba(20,33,61,.06); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .fab[aria-pressed="true"] { background: var(--world); color: var(--on); }
+  .fab svg { width: 20px; height: 20px; }
+  .topbtn { left: 64px !important; right: auto !important; bottom: 88px !important; width: 44px; height: 44px; }
+}
+@media (max-width: 960px) {
+  .hero > .hero__wrap { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; padding-left: clamp(16px, 4vw, 40px); padding-right: clamp(16px, 4vw, 40px); }
+  .hero__wrap > * { min-width: 0; max-width: 100%; }
+  .hero__wrap .stage { max-width: none; }
+}
+@media (max-width: 760px) {
+  .guide { position: fixed !important; left: auto !important; top: auto !important; right: 4px !important; bottom: 86px !important; transform: none !important; zoom: .66; }
+  .guide__say { display: none !important; }
+}
+@media (max-width: 760px) { .nudge { display: none !important; } }
+@media (max-width: 560px) { .mods .md b { overflow-wrap: anywhere; hyphens: auto; font-size: 13.5px; line-height: 1.2; } .mods .md { overflow: hidden; } }
+@media (max-width: 960px) {
+  .day .day__track { height: auto; }
+  .day .stp { position: relative; left: auto; top: auto; width: auto; height: auto; }
+  .day .stp__c, .day .stp.up .stp__c, .day .stp.dn .stp__c { position: relative; left: 0; top: auto; bottom: auto; width: auto; margin-left: 0; opacity: 1; transform: none; }
+  .day .stp__c::after, .day .stp.up .stp__c::after, .day .stp.dn .stp__c::after { display: none; }
+}
+@media (max-width: 960px) and (max-height: 480px) { .tabbar { display: none !important; } body { padding-bottom: 0 !important; } .fab { bottom: 14px !important; } .topbtn { bottom: 14px !important; } }

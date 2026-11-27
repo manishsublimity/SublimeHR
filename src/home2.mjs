@@ -825,6 +825,7 @@ ${themeFab()}
 <script src="/assets/js/home2.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>
 <script src="/assets/js/navburger.js?v=${V}" defer></script>
+<script src="/assets/js/mobilefix.js?v=${V}" defer></script>
 </body>
 </html>`;
 }

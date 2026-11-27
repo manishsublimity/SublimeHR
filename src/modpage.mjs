@@ -286,6 +286,7 @@ ${ldExtra}
 <script src="/assets/js/mod3.js?v=${V}" defer></script>
 <script src="/assets/js/navmenu.js?v=${V}" defer></script>
 <script src="/assets/js/navburger.js?v=${V}" defer></script>
+<script src="/assets/js/mobilefix.js?v=${V}" defer></script>
 </body>
 </html>
 `;
